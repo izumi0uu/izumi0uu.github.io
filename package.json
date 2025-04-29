@@ -9,6 +9,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.7.4"
+    "@astrojs/mdx": "^4.2.5",
+    "@astrojs/partytown": "^2.1.4",
+    "@astrojs/react": "^4.2.5",
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^5.7.4",
+    "astro-icon": "^1.1.5"
   }
 }
