@@ -14,6 +14,7 @@
     "@astrojs/react": "^4.2.5",
     "@astrojs/tailwind": "^6.0.2",
     "astro": "^5.7.4",
-    "astro-icon": "^1.1.5"
+    "astro-icon": "^1.1.5",
+    "zod": "^3.24.3"
   }
 }
