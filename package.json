@@ -15,6 +15,14 @@
     "@astrojs/tailwind": "^6.0.2",
     "astro": "^5.7.4",
     "astro-icon": "^1.1.5",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "reading-time": "^1.5.0",
+    "remark-toc": "^9.0.0",
+    "typescript": "^5.8.3",
     "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "mdast-util-from-markdown": "^2.0.2"
   }
 }
