@@ -1,3 +1,7 @@
+/**
+ * @file remark-autolink-headings.mjs
+ * @description Automatically add anchor links to headings.
+ */
 // plugins/remark-autolink-headings.mjs
 // 用途：自动为标题添加锚点链接
 import remarkAutolinkHeadings from "remark-autolink-headings";

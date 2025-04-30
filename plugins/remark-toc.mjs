@@ -1,3 +1,7 @@
+/**
+ * @file remark-toc.mjs
+ * @description Generate a Table of Contents based on headings.
+ */
 // plugins/remark-toc.mjs
 // 用途：自动生成目录 (Table of Contents)
 // 会在 Markdown 中寻找特定标题（默认为 'Table of Contents'）并在其后插入目录

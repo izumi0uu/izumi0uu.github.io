@@ -1,6 +1,6 @@
 /**
  * @file remark-capitalize-headings.mjs
- * @description Remark capitalize headings plugin,
+ * @description Capitalize the first letter of headings.
  */
 
 import remarkCapitalizeHeadings from "remark-capitalize-headings";

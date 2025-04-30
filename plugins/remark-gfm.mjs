@@ -1,3 +1,7 @@
+/**
+ * @file remark-gfm.mjs
+ * @description Add support for GitHub Flavored Markdown (tables, strikethrough, task lists, etc.).
+ */
 // plugins/remark-gfm.mjs
 // 用途：支持 GitHub Flavored Markdown (表格、删除线、任务列表等)
 import remarkGfm from "remark-gfm";

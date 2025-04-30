@@ -1,3 +1,7 @@
+/**
+ * @file remark-footnotes.mjs
+ * @description Add support for footnotes.
+ */
 // plugins/remark-footnotes.mjs
 // 用途：支持脚注
 import remarkFootnotes from "remark-footnotes";

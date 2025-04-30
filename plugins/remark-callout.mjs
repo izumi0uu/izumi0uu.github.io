@@ -1,3 +1,7 @@
+/**
+ * @file remark-callout.mjs
+ * @description Add custom callout block styles (Note: Requires specific CSS).
+ */
 // plugins/remark-callout.mjs
 // 用途：自定义提示框样式
 // 注意：这个插件可能需要特定的 CSS 样式配合

@@ -1,3 +1,7 @@
+/**
+ * @file remark-lint.mjs
+ * @description Markdown code style linter (Requires a preset like remark-preset-lint-recommended).
+ */
 // plugins/remark-lint.mjs
 // 用途：Markdown 代码风格检查
 // 注意：remark-lint 通常与具体的 lint 规则插件 (如 remark-preset-lint-recommended) 结合使用

@@ -1,6 +1,6 @@
 /**
  * @file remark-embedder.mjs
- * @description Remark embedder plugin, automatically convert URL to embed content, such as YouTube videos, CodePen, Twitter, etc., to enhance the interactivity of the article.
+ * @description Automatically embed external content (YouTube, Twitter, etc.).
  */
 
 import remarkEmbedder from "remark-embedder";

@@ -1,6 +1,6 @@
 /**
  * @file remark-dropcap.mjs
- * @description Remark dropcap plugin, for the sake of content dropcap.
+ * @description Add dropcap style to the first letter.
  */
 
 import remarkDropcap from "remark-dropcap";

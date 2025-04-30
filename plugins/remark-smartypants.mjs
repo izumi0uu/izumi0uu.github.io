@@ -1,3 +1,7 @@
+/**
+ * @file remark-smartypants.mjs
+ * @description Convert plain punctuation (quotes, dashes) to smart typographer's punctuation.
+ */
 // plugins/remark-smartypants.mjs
 // 用途：智能标点替换 (例如将普通引号转为弯引号，-- 转为破折号等)
 import remarkSmartypants from "remark-smartypants";

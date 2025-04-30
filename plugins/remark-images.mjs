@@ -1,6 +1,6 @@
 /**
  * @file remark-images.mjs
- * @description Remark images plugin, for the sake of recognizing images from markdown.
+ * @description Process Markdown images (e.g., making them responsive or adding attributes).
  */
 import remarkImages from "remark-images";
 
