@@ -1,25 +1,19 @@
 /**
  * @file remark-lint.mjs
- * @description Markdown code style linter (Requires a preset like remark-preset-lint-recommended).
+ * @description Markdown 代码风格检查器，确保 Markdown 内容遵循统一的格式规范。
  */
-// plugins/remark-lint.mjs
-// 用途：Markdown 代码风格检查
-// 注意：remark-lint 通常与具体的 lint 规则插件 (如 remark-preset-lint-recommended) 结合使用
+
 import remarkLint from "remark-lint";
 import remarkPresetLintRecommended from "remark-preset-lint-recommended";
 
-/** @type {any} */ // 类型取决于使用的 preset 或配置
+/**
+ * 配置选项
+ * @type {object}
+ * @note 此处未使用实际的配置选项，而是通过组合 remarkLint 与 remarkPresetLintRecommended 提供规则集
+ */
 const options = {
-  // 在这里添加你的配置选项或引入 preset
-  // 例如，使用推荐规则集：
-  // ...require('remark-preset-lint-recommended').settings,
+  // 如需自定义规则，可以在此处添加配置
 };
 
-// 尝试将 lint 插件和 preset 一起导出为元组
+// 将 lint 插件和推荐规则集一起导出
 export default [remarkLint, remarkPresetLintRecommended];
-
-// // Previous attempt 1:
-// export default remarkPresetLintRecommended;
-
-// // Previous attempt 2:
-// export default [remarkPresetLintRecommended];

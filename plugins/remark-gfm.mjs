@@ -1,18 +1,18 @@
 /**
  * @file remark-gfm.mjs
- * @description Add support for GitHub Flavored Markdown (tables, strikethrough, task lists, etc.).
+ * @description 添加对 GitHub 风格 Markdown 的支持（表格、删除线、任务列表等）。
  */
-// plugins/remark-gfm.mjs
-// 用途：支持 GitHub Flavored Markdown (表格、删除线、任务列表等)
-import remarkGfm from "remark-gfm";
 
-/** @type {import('remark-gfm').Options} */
+import remarkGfmPlugin from "remark-gfm";
+
+/**
+ * 配置选项
+ * @type {import('remark-gfm').Options}
+ */
 const options = {
-  // 在这里添加你的配置选项
-  // 例如：singleTilde: false (用于删除线)
+  // 示例配置选项
+  // singleTilde: false, // 控制单波浪线是否表示删除线
 };
 
-// remark-gfm 通常不需要选项，可以直接导出
-// export default remarkGfm;
-// 但为了统一，也支持数组形式
-export default [remarkGfm, options];
+// 导出插件和配置
+export default [remarkGfmPlugin, options];

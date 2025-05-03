@@ -1,17 +1,17 @@
 /**
  * @file remark-prism.mjs
- * @description Add syntax highlighting to code blocks using Prism.js.
+ * @description 使用 Prism.js 为代码块添加语法高亮。
  */
-import remarkPrism from "remark-prism";
 
-export const remarkPrism = [
-  remarkPrism,
-  {
-    plugins: ["line-numbers"],
-  },
-];
+import remarkPrismPlugin from "remark-prism";
 
-// 默认导出插件，可以添加 options 对象进行配置
-// const options = {};
-export default remarkPrism;
-// export default [remarkPrism, options];
+/**
+ * 配置选项
+ * @type {import('remark-prism').Options}
+ */
+const options = {
+  plugins: ["line-numbers"], // 启用行号功能
+};
+
+// 导出插件和配置
+export default [remarkPrismPlugin, options];

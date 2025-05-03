@@ -1,15 +1,20 @@
 /**
  * @file remark-smartypants.mjs
- * @description Convert plain punctuation (quotes, dashes) to smart typographer's punctuation.
+ * @description 将普通标点符号（引号、破折号等）转换为排版上更美观的智能标点。
  */
-// plugins/remark-smartypants.mjs
-// 用途：智能标点替换 (例如将普通引号转为弯引号，-- 转为破折号等)
-import remarkSmartypants from "remark-smartypants";
 
-/** @type {import('remark-smartypants').Options} */
+import remarkSmartypantsPlugin from "remark-smartypants";
+
+/**
+ * 配置选项
+ * @type {import('remark-smartypants').Options}
+ */
 const options = {
-  // 在这里添加你的配置选项
-  // 例如：dashes: 'oldschool' | 'inverted' | true
+  // 可配置项示例：
+  // dashes: 'oldschool', // 破折号样式
+  // quotes: true,        // 智能引号
+  // ellipses: true,      // 智能省略号
 };
 
-export default [remarkSmartypants, options];
+// 导出插件和配置
+export default [remarkSmartypantsPlugin, options];
