@@ -3,10 +3,10 @@
  * @description Add dropcap style to the first letter.
  */
 
-import remarkDropcap from "remark-dropcap";
+import remarkDropcapPlugin from "remark-dropcap";
 
-export default remarkDropcap = [
-  remarkDropcap,
+export default [
+  remarkDropcapPlugin,
   {
     levels: [1, 2, 3],
   },

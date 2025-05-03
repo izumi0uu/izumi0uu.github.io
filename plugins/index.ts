@@ -22,7 +22,7 @@ import remarkImages from "./remark-images.mjs";
 import remarkGfm from "./remark-gfm.mjs";
 
 // Embed external content (like tweets, YouTube videos)
-import remarkEmbedder from "./remark-embedder.mjs";
+// import remarkEmbedder from "./remark-embedder.mjs"; // Removed
 
 // Add drop caps to the beginning of paragraphs
 import remarkDropcap from "./remark-dropcap.mjs";
@@ -47,7 +47,6 @@ export {
   remarkSmartypants,
   remarkImages,
   remarkGfm,
-  remarkEmbedder,
   remarkDropcap,
   remarkCapitalizeHeadings,
   remarkCallout,

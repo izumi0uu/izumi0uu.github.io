@@ -10,41 +10,50 @@ import partytown from "@astrojs/partytown";
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import icon from "astro-icon";
+
+// Import core embedder and transformer
+import remarkEmbedder from "@remark-embedder/core";
+// @ts-ignore - Assume types are missing for this package
+import oembedTransformer from "@remark-embedder/transformer-oembed";
+
+// Import other plugins directly or from index
+import rehypeExternalLinks from "./plugins/rehype-external-links.mjs"; // Assuming these are correct now
+import rehypeAutolinkHeadings from "./plugins/rehype-autolink-headings.mjs";
+// Attempt to use preset directly for linting
+
 import {
-  rehypeExternalLinks, // This is actually [plugin, options]
-  rehypeAutolinkHeadings, // This is actually [plugin, options]
-  remarkLint,
+  remarkLint, // Use the wrapper again
   unifiedPrettier,
   remarkPrism,
   remarkToc,
   remarkSmartypants,
   remarkImages,
   remarkGfm,
-  remarkEmbedder,
   remarkDropcap,
   remarkCapitalizeHeadings,
   remarkCallout,
-} from "./plugins/index.ts";
+} from "./plugins/index"; // Adjusted path if necessary
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [mdx(), tailwind(), react(), icon(), partytown()],
   markdown: {
     rehypePlugins: [
-      // @ts-ignore - Spreading the plugin-options array
+      // @ts-ignore
       [...rehypeExternalLinks],
-      // @ts-ignore - Spreading the plugin-options array
+      // @ts-ignore
       [...rehypeAutolinkHeadings],
     ],
     remarkPlugins: [
-      remarkLint,
+      remarkLint, // Use the wrapper from index.ts again
       unifiedPrettier,
       remarkPrism,
       remarkToc,
       remarkSmartypants,
-      remarkImages,
+      remarkImages, // Assuming this exports [plugin, options] or just plugin correctly now
       remarkGfm,
-      remarkEmbedder,
+      // @ts-ignore - Accessing .default due to potential CJS/ESM interop issues
+      [remarkEmbedder.default, { transformers: [oembedTransformer.default] }],
       remarkDropcap,
       remarkCapitalizeHeadings,
       remarkCallout,

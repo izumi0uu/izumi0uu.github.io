@@ -15,6 +15,11 @@ const options = {
   // ...require('remark-preset-lint-recommended').settings,
 };
 
-// 通常 remark-lint 会作为 preset 的一部分，或者直接导出
-// 如果单独使用，可能需要查阅文档确认导出方式
-export default [remarkPresetLintRecommended];
+// 尝试将 lint 插件和 preset 一起导出为元组
+export default [remarkLint, remarkPresetLintRecommended];
+
+// // Previous attempt 1:
+// export default remarkPresetLintRecommended;
+
+// // Previous attempt 2:
+// export default [remarkPresetLintRecommended];
