@@ -1,7 +1,7 @@
 /**
  * @file astro.config.ts
  * @description Astro 框架配置文件，包含所有插件和集成的设置。
- * @author Sakia Blog Team
+ * @author izumi0uu
  */
 
 // @ts-check
