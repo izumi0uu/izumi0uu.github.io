@@ -5,7 +5,7 @@
 
 import rehypeExternalLinksPlugin from "rehype-external-links";
 
-export default rehypeExternalLinks = [
+export default [
   rehypeExternalLinksPlugin,
   { target: "_blank", rel: ["noopener", "noreferrer"] },
 ];

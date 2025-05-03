@@ -11,8 +11,8 @@ import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import icon from "astro-icon";
 import {
-  rehypeExternalLinks,
-  rehypeAutolinkHeadings,
+  rehypeExternalLinks, // This is actually [plugin, options]
+  rehypeAutolinkHeadings, // This is actually [plugin, options]
   remarkLint,
   unifiedPrettier,
   remarkPrism,
@@ -24,13 +24,18 @@ import {
   remarkDropcap,
   remarkCapitalizeHeadings,
   remarkCallout,
-} from "./plugins/index.js";
+} from "./plugins/index.ts";
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [mdx(), tailwind(), react(), icon(), partytown()],
   markdown: {
-    rehypePlugins: [rehypeExternalLinks, rehypeAutolinkHeadings],
+    rehypePlugins: [
+      // @ts-ignore - Spreading the plugin-options array
+      [...rehypeExternalLinks],
+      // @ts-ignore - Spreading the plugin-options array
+      [...rehypeAutolinkHeadings],
+    ],
     remarkPlugins: [
       remarkLint,
       unifiedPrettier,

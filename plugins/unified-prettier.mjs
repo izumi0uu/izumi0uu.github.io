@@ -1,6 +1,6 @@
 import { remark } from "remark";
-import unifiedPrettier from "unified-prettier";
+import unifiedPrettierPlugin from "unified-prettier";
 
-export default unifiedPrettier = (tree) => {
-  return remark().use(unifiedPrettier).processSync(tree);
+export default (tree) => {
+  return remark().use(unifiedPrettierPlugin).processSync(tree);
 };

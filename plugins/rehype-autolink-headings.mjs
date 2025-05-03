@@ -4,10 +4,10 @@
  */
 // plugins/rehype-autolink-headings.mjs
 // 用途：自动为标题添加锚点链接
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeAutolinkHeadingsPlugin from "rehype-autolink-headings";
 
 const options = {
   behavior: "append", // 或 'wrap', 'before', 'after'
 };
 
-export default [rehypeAutolinkHeadings, options];
+export default [rehypeAutolinkHeadingsPlugin, options];
