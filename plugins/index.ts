@@ -47,7 +47,6 @@ export {
   remarkSmartypants,
   remarkImages,
   remarkGfm,
-  remarkFootnotes,
   remarkEmbedder,
   remarkDropcap,
   remarkCapitalizeHeadings,

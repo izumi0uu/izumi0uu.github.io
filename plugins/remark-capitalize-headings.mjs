@@ -5,7 +5,7 @@
 
 import remarkCapitalizeHeadings from "remark-capitalize-headings";
 
-export const remarkCapitalizeHeadings = [
+export default remarkCapitalizeHeadings = [
   remarkCapitalizeHeadings,
   {
     levels: [1, 2, 3],

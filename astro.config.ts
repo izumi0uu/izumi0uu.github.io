@@ -24,7 +24,7 @@ import {
   remarkDropcap,
   remarkCapitalizeHeadings,
   remarkCallout,
-} from "./plugins/index.mjs";
+} from "./plugins/index.js";
 
 // https://astro.build/config
 export default defineConfig({

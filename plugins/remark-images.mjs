@@ -4,7 +4,7 @@
  */
 import remarkImages from "remark-images";
 
-export const remarkImages = [
+export default remarkImages = [
   remarkImages,
   {
     size: "full",

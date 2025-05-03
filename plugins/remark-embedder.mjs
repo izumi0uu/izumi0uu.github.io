@@ -5,7 +5,7 @@
 
 import remarkEmbedder from "@remark-embedder/core";
 
-export const remarkEmbedder = [
+export default remarkEmbedder = [
   remarkEmbedder,
   {
     validate: false,

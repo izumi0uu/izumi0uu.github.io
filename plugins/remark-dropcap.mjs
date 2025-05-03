@@ -5,7 +5,7 @@
 
 import remarkDropcap from "remark-dropcap";
 
-export const remarkDropcap = [
+export default remarkDropcap = [
   remarkDropcap,
   {
     levels: [1, 2, 3],
