@@ -21,9 +21,6 @@ import remarkImages from "./remark-images.mjs";
 // Enable GitHub Flavored Markdown features (tables, strikethrough, etc.)
 import remarkGfm from "./remark-gfm.mjs";
 
-// Add support for footnotes
-import remarkFootnotes from "./remark-footnotes.mjs";
-
 // Embed external content (like tweets, YouTube videos)
 import remarkEmbedder from "./remark-embedder.mjs";
 
@@ -37,7 +34,7 @@ import remarkCapitalizeHeadings from "./remark-capitalize-headings.mjs";
 import remarkCallout from "./remark-callout.mjs";
 
 // Add links to headings automatically
-import remarkAutolinkHeadings from "./remark-autolink-headings.mjs";
+import rehypeAutolinkHeadings from "./rehype-autolink-headings.mjs";
 
 // Add target="_blank" and rel="noopener noreferrer" to external links
 import rehypeExternalLinks from "./rehype-external-links.mjs";
@@ -55,6 +52,6 @@ export {
   remarkDropcap,
   remarkCapitalizeHeadings,
   remarkCallout,
-  remarkAutolinkHeadings,
+  rehypeAutolinkHeadings,
   rehypeExternalLinks,
 };
