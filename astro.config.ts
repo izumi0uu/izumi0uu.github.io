@@ -25,7 +25,7 @@ import rehypeAutolinkHeadings from "./plugins/rehype-autolink-headings.mjs";
 import {
   remarkLint, // Markdown 代码风格检查
   unifiedPrettier, // Prettier 格式化
-  remarkPrism, // 代码高亮
+  // remarkPrism, // 代码高亮
   remarkToc, // 自动目录
   remarkSmartypants, // 智能标点
   remarkImages, // 图片处理
@@ -34,6 +34,11 @@ import {
   remarkCapitalizeHeadings, // 标题首字母大写
   remarkCallout, // 自定义提示框
 } from "./plugins/index";
+
+import { expressiveCodeIntegration } from "./src/libs/integrations/expressive-code";
+import { sitemapIntegration } from "./src/libs/integrations/sitemap";
+
+import { PROCESS_ENV, astroEnvSchema } from "./src/config/process-env";
 
 /**
  * Astro 配置
@@ -44,8 +49,21 @@ export default defineConfig({
    * @property {string} site - 网站的最终部署 URL。
    * Astro 会用这个 URL 来生成站点地图、规范链接 (canonical URLs) 和其他绝对链接。
    */
-  site: "",
-  integrations: [mdx(), tailwind(), react(), icon(), partytown()],
+  site: PROCESS_ENV.SITE_URL,
+  trailingSlash: "ignore",
+  env: astroEnvSchema,
+  compressHTML: true,
+  server: { port: 4321 },
+  devToolbar: { enabled: true },
+  integrations: [
+    mdx(),
+    tailwind(),
+    react(),
+    icon(),
+    partytown(),
+    expressiveCodeIntegration(),
+    sitemapIntegration(),
+  ],
   markdown: {
     rehypePlugins: [
       // @ts-ignore - 这些插件已经导出为 [plugin, options] 形式
@@ -59,7 +77,7 @@ export default defineConfig({
       // @ts-ignore
       unifiedPrettier,
       // @ts-ignore
-      remarkPrism,
+      // remarkPrism,
       // @ts-ignore
       remarkToc,
       // @ts-ignore
