@@ -18,7 +18,7 @@ const domainSubdomainRegex =
 
 /** runs after astro:env check in astro.config.ts */
 export const processEnvSchema = z.object({
-  NODE_ENV: z.enum(nodeEnvSchema),
+  NODE_ENV: z.enum(nodeEnvValues),
   PREVIEW_MODE: z
     .enum(booleanValues)
     .transform((val) => val === "true")
