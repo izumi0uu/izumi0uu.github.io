@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const nodeEnvSchema = ["development", "production", "test"] as const;
+export const nodeEnvValues = ["development", "production", "test"] as const;
 
 export const booleanValues = ["true", "false", ""] as const;
 
@@ -79,5 +79,6 @@ export const configClientSchema = processEnvSchema
       AUTHOR_INSTAGRAM: z.string().url(),
       AUTHOR_YOUTUBE: z.string().url(),
       AUTHOR_BILIBILI: z.string().url(),
+      REPO_URL: z.string().url(),
     })
   );
