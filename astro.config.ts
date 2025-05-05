@@ -40,6 +40,11 @@ import {
  * @see https://astro.build/config
  */
 export default defineConfig({
+  /**
+   * @property {string} site - 网站的最终部署 URL。
+   * Astro 会用这个 URL 来生成站点地图、规范链接 (canonical URLs) 和其他绝对链接。
+   */
+  site: "",
   integrations: [mdx(), tailwind(), react(), icon(), partytown()],
   markdown: {
     rehypePlugins: [
