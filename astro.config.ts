@@ -57,10 +57,10 @@ export default defineConfig({
   devToolbar: { enabled: true },
   integrations: [
     mdx(),
-    tailwind(),
+    tailwind({ applyBaseStyles: false }),
     react(),
-    icon(),
-    partytown(),
+    icon({ iconDir: "./src/assets/icons" }),
+    partytown({ config: { forward: ["dataLayer.push"] } }),
     expressiveCodeIntegration(),
     sitemapIntegration(),
   ],
@@ -95,5 +95,13 @@ export default defineConfig({
       // @ts-ignore
       remarkCallout,
     ],
+  },
+  vite: {
+    build: {
+      sourcemap: false,
+    },
+    server: {
+      allowedHosts: ["localhost", "izumi0uu.com"],
+    },
   },
 });
