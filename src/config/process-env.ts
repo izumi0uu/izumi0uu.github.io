@@ -36,7 +36,7 @@ dotenv.config({ path: envFileName });
 const processEnvData: ProcessEnvType = {
   NODE_ENV: process.env.NODE_ENV as (typeof nodeEnvValues)[number],
   PREVIEW_MODE: process.env.PREVIEW_MODE === "true",
-  SITE_URL: process.env.SITE_URL || "",
+  SITE_URL: process.env.SITE_URL || " ",
   PLAUSIBLE_SCRIPT_URL: process.env.PLAUSIBLE_SCRIPT_URL,
   PLAUSIBLE_DOMAIN: process.env.PLAUSIBLE_DOMAIN,
 };
