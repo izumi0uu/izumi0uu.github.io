@@ -40,6 +40,8 @@ import { sitemapIntegration } from "./src/libs/integrations/sitemap";
 
 import { PROCESS_ENV, astroEnvSchema } from "./src/config/process-env";
 
+import tailwindcss from "@tailwindcss/vite";
+
 /**
  * Astro 配置
  * @see https://astro.build/config
@@ -100,8 +102,11 @@ export default defineConfig({
     build: {
       sourcemap: false,
     },
+
     server: {
       allowedHosts: ["localhost", "izumi0uu.com"],
     },
+
+    plugins: [tailwindcss()],
   },
 });
