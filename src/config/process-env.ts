@@ -35,12 +35,13 @@ dotenv.config({ path: envFileName });
 
 const processEnvData: ProcessEnvType = {
   NODE_ENV: process.env.NODE_ENV as (typeof nodeEnvValues)[number],
-  PREVIEW_MODE: process.env.PREVIEW_MODE === "true",
-  SITE_URL: process.env.SITE_URL || " ",
+  // @ts-ignore
+  PREVIEW_MODE: process.env.PREVIEW_MODE,
+  // @ts-ignore
+  SITE_URL: process.env.SITE_URL,
   PLAUSIBLE_SCRIPT_URL: process.env.PLAUSIBLE_SCRIPT_URL,
   PLAUSIBLE_DOMAIN: process.env.PLAUSIBLE_DOMAIN,
 };
-
 prettyPrintObject(processEnvData, "received PROCESS_ENV");
 
 export const PROCESS_ENV = validateData(processEnvData, processEnvSchema);

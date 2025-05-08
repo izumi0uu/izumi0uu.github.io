@@ -56,13 +56,13 @@ export default defineConfig({
   server: { port: 4321 },
   devToolbar: { enabled: true },
   integrations: [
-    mdx(),
     tailwind({ applyBaseStyles: false }),
     react(),
     icon({ iconDir: "./src/assets/icons" }),
     partytown({ config: { forward: ["dataLayer.push"] } }),
     expressiveCodeIntegration(),
     sitemapIntegration(),
+    mdx(),
   ],
   markdown: {
     rehypePlugins: [
