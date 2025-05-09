@@ -8,9 +8,9 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
-import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import icon from "astro-icon";
+import tailwindcss from "@tailwindcss/vite";
 
 // Import core embedder and transformer
 import remarkEmbedder from "@remark-embedder/core";
@@ -40,8 +40,6 @@ import { sitemapIntegration } from "./src/libs/integrations/sitemap";
 
 import { PROCESS_ENV, astroEnvSchema } from "./src/config/process-env";
 
-import tailwindcss from "@tailwindcss/vite";
-
 /**
  * Astro 配置
  * @see https://astro.build/config
@@ -58,7 +56,6 @@ export default defineConfig({
   server: { port: 4321 },
   devToolbar: { enabled: true },
   integrations: [
-    tailwind({ applyBaseStyles: false }),
     react(),
     icon({ iconDir: "./src/assets/icons" }),
     partytown({ config: { forward: ["dataLayer.push"] } }),
