@@ -1,5 +1,5 @@
 import defaultTheme from "tailwindcss/defaultTheme";
-import plugin, { type PluginUtils } from "tailwindcss/plugin";
+import plugin from "tailwindcss/plugin";
 
 import type { Config } from "tailwindcss";
 
@@ -13,7 +13,7 @@ const config: Config = {
    */
   plugins: [
     require("@tailwindcss/typography"),
-    plugin(({ addVariant }: PluginUtils) => {
+    plugin(({ addVariant }) => {
       addVariant("not-first", "&:not(:first-child)");
       addVariant("not-last", "&:not(:last-child)");
     }),
@@ -45,14 +45,22 @@ const config: Config = {
         mono: ['"JetBrains Mono"', ...defaultTheme.fontFamily.mono],
       },
       colors: {
-        // 酒红色系主题的原始颜色值
+        // === 酒红主题原始颜色 ===
+
+        // --- 亮色模式主要颜色 ---
         "wine-primary-light": "rgb(144 75 63)",
         "wine-on-primary-light": "rgb(255 255 255)",
         "wine-primary-container-light": "rgb(255 218 212)",
         "wine-on-primary-container-light": "rgb(58 9 4)",
         "wine-secondary-light": "rgb(119 86 81)",
+        "wine-on-secondary-light": "rgb(255 255 255)",
+        "wine-secondary-container-light": "rgb(245 221 217)",
+        "wine-on-secondary-container-light": "rgb(40 18 15)",
+        "wine-tertiary-light": "rgb(159 119 25)",
+        "wine-on-tertiary-light": "rgb(255 255 255)",
+        "wine-tertiary-container-light": "rgb(251 224 166)",
 
-        // ... 为所有酒红亮色模式 - 定义 Tailwind 颜色名
+        // --- 亮色模式表面和背景 ---
         "wine-background-light": "rgb(255 248 246)",
         "wine-on-background-light": "rgb(35 25 24)",
         "wine-surface-light": "rgb(255 248 246)",
@@ -61,20 +69,20 @@ const config: Config = {
         "wine-on-surface-variant-light": "rgb(83 67 64)",
         "wine-outline-light": "rgb(133 115 112)",
 
+        // --- 亮色模式功能与容器色 (补充缺失的颜色) ---
+        "wine-primary-fixed-light": "rgb(255 180 167)",
+        "wine-surface-container-low-light": "rgb(252 238 234)",
+        "wine-surface-container-light": "rgb(246 230 226)",
+
+        // --- 暗色模式主要颜色 ---
         "wine-primary-dark": "rgb(255 180 167)",
         "wine-on-primary-dark": "rgb(86 30 21)",
-        "wine-secondary-container-light": "rgb(245 221 217)", // 示例值，需要根据实际设计调整
-        "wine-on-secondary-container-light": "rgb(40 18 15)", // 示例值
-        "wine-tertiary-light": "rgb(159 119 25)", // 示例值
-        "wine-on-tertiary-light": "rgb(255 255 255)", // 示例值
-        "wine-tertiary-container-light": "rgb(251 224 166)",
-
-        // ... 为所有酒红暗色模式 - 定义 Tailwind 颜色名
         "wine-background-dark": "rgb(26 17 16)",
         "wine-on-background-dark": "rgb(241 223 219)",
         "wine-surface-dark": "rgb(26 17 16)",
         "wine-on-surface-dark": "rgb(241 223 219)",
 
+        // === 主题变量映射 (可被CSS变量动态更改) ===
         primary: "var(--th-primary)",
         secondary: "var(--th-secondary)",
         accent: "var(--th-accent)",

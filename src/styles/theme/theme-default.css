@@ -1,136 +1,146 @@
 @layer base {
-  /* 默认 - 亮色模式 */
+  /* === 默认主题 - 亮色模式 === */
   :root {
-    /* --- 主要颜色 (Primary) --- */
-    --th-primary: var(--var-color-sky-500);
-    --th-on-primary: var(
-      --var-color-white
-    ); /* 在 sky-500 上用白色文字对比度足够 */
-    --th-primary-container: var(--var-color-sky-100);
-    --th-on-primary-container: var(--var-color-sky-700);
+    /* --- 主要互动元素 --- */
+    --th-primary: var(--var-color-sky-500); /* 主色调，按钮、链接等 */
+    --th-on-primary: var(--var-color-white); /* 主色上的文本/图标 */
+    --th-primary-container: var(--var-color-sky-100); /* 次要容器背景 */
+    --th-on-primary-container: var(--var-color-sky-700); /* 容器内的文本 */
 
-    /* --- 次要颜色 (Secondary) - 使用中性色或柔和强调色 --- */
-    --th-secondary: var(--var-color-slate-500);
-    --th-on-secondary: var(--var-color-white);
-    --th-secondary-container: var(--var-color-slate-200);
-    --th-on-secondary-container: var(--var-color-slate-700);
+    /* --- 次要互动元素 --- */
+    --th-secondary: var(--var-color-slate-500); /* 次要色调，次级按钮等 */
+    --th-on-secondary: var(--var-color-white); /* 次色上的文本/图标 */
+    --th-secondary-container: var(--var-color-slate-200); /* 次要容器，卡片等 */
+    --th-on-secondary-container: var(
+      --var-color-slate-700
+    ); /* 次要容器内文本 */
 
-    /* --- 强调色 (Accent - 可选，参考 nemanjam 项目) --- */
-    --th-accent: var(--var-color-orange-400);
-    --th-on-accent: var(--var-color-slate-900); /* 橙色上用深色文字 */
+    /* --- 强调元素 --- */
+    --th-accent: var(--var-color-orange-400); /* 强调色，重点标记等 */
+    --th-on-accent: var(--var-color-slate-900); /* 强调色上的文本 */
 
-    /* --- 错误颜色 (Error) --- */
-    --th-error: var(--var-color-red-500);
-    --th-on-error: var(--var-color-white);
-    --th-error-container: var(--var-color-red-100);
-    --th-on-error-container: var(--var-color-red-700);
+    /* --- 错误状态元素 --- */
+    --th-error: var(--var-color-red-500); /* 错误提示色 */
+    --th-on-error: var(--var-color-white); /* 错误上的文本 */
+    --th-error-container: var(--var-color-red-100); /* 错误容器背景 */
+    --th-on-error-container: var(--var-color-red-700); /* 错误容器内文本 */
 
-    /* --- 背景和表面颜色 (避免纯白/纯黑作主要) --- */
-    --th-background: var(--var-color-slate-50); /* 浅灰背景 */
-    --th-on-background: var(--var-color-slate-700); /* 背景上的深灰文字 */
-    --th-surface: var(
-      --var-color-white
-    ); /* 表面可以是纯白，用于卡片等，与背景形成对比 */
-    --th-on-surface: var(--var-color-slate-800); /* 表面上的深灰文字 */
-    --th-surface-variant: var(--var-color-slate-100); /* 区分度稍弱的表面 */
-    --th-on-surface-variant: var(--var-color-slate-600);
-    --th-surface-dim: var(--var-color-slate-200); /* 示例 */
-    --th-surface-bright: var(--var-color-white); /* 示例 */
-    --th-surface-tint: var(--th-primary);
+    /* --- 背景和表面 --- */
+    --th-background: var(--var-color-slate-50); /* 全局背景色 */
+    --th-on-background: var(--var-color-slate-700); /* 背景上的文本 */
+    --th-surface: var(--var-color-white); /* 表面/卡片色 */
+    --th-on-surface: var(--var-color-slate-800); /* 表面上的文本 */
+    --th-surface-variant: var(--var-color-slate-100); /* 变体表面 */
+    --th-on-surface-variant: var(--var-color-slate-600); /* 变体表面上的文本 */
+    --th-surface-dim: var(--var-color-slate-200); /* 弱化表面 */
+    --th-surface-bright: var(--var-color-white); /* 明亮表面 */
+    --th-surface-tint: var(--th-primary); /* 表面着色覆盖 */
 
-    /* --- 表面容器颜色 --- */
-    --th-surface-container-lowest: var(--var-color-white);
-    --th-surface-container-low: var(--var-color-slate-50);
-    --th-surface-container: var(--var-color-slate-100);
-    --th-surface-container-high: var(--var-color-slate-200);
-    --th-surface-container-highest: var(--var-color-slate-300);
+    /* --- 表面容器系统 --- */
+    --th-surface-container-lowest: var(--var-color-white); /* 最低层容器 */
+    --th-surface-container-low: var(--var-color-slate-50); /* 低层容器 */
+    --th-surface-container: var(--var-color-slate-100); /* 标准容器 */
+    --th-surface-container-high: var(--var-color-slate-200); /* 高层容器 */
+    --th-surface-container-highest: var(--var-color-slate-300); /* 最高层容器 */
 
-    /* --- 轮廓和装饰颜色 --- */
-    --th-outline: var(--var-color-slate-400);
-    --th-outline-variant: var(--var-color-slate-300);
+    /* --- 轮廓和界面元素 --- */
+    --th-outline: var(--var-color-slate-400); /* 边框和分隔线 */
+    --th-outline-variant: var(--var-color-slate-300); /* 次要边框 */
 
-    /* --- 项目中的语义颜色映射 --- */
-    --th-headings: var(--var-color-slate-900);
-    --th-content: var(--var-color-slate-700); /* 正文内容颜色 */
-    --th-captions: var(--var-color-slate-500);
-    --th-links: var(--th-primary);
-    --th-links-hover: var(--var-color-sky-600);
-    --th-links-visited: var(--var-color-sky-700); /* 或者一个紫色调 */
+    /* --- 页面元素语义映射 --- */
+    --th-headings: var(--var-color-slate-900); /* 标题文本 */
+    --th-content: var(--var-color-slate-700); /* 正文内容 */
+    --th-captions: var(--var-color-slate-500); /* 说明文字 */
+    --th-links: var(--th-primary); /* 链接颜色 */
+    --th-links-hover: var(--var-color-sky-600); /* 链接悬停 */
+    --th-links-visited: var(--var-color-sky-700); /* 已访问链接 */
 
-    /* --- 项目的层级背景/表面 --- */
-    --th-base-100: var(--var-color-white); /* 最底层表面，可以是纯白 */
-    --th-base-200: var(--var-color-slate-100); /* 次层表面 */
-    --th-base-300: var(--var-color-slate-200); /* 更深层表面 */
+    /* --- 分层背景系统 --- */
+    --th-base-100: var(--var-color-white); /* 基础表面 */
+    --th-base-200: var(--var-color-slate-100); /* 低对比表面 */
+    --th-base-300: var(--var-color-slate-200); /* 高对比表面 */
     --th-base-code: var(--var-color-slate-100); /* 代码块背景 */
 
-    /* --- 非颜色设计令牌 --- */
-    --th-rounded-box: var(--th-base-rounded-md);
-    --th-rounded-button: var(--th-base-rounded-lg);
-    --th-rounded-tag: var(--th-base-rounded-full);
+    /* --- 圆角设计系统 --- */
+    --th-rounded-box: var(--th-base-rounded-md); /* 容器圆角 */
+    --th-rounded-button: var(--th-base-rounded-lg); /* 按钮圆角 */
+    --th-rounded-tag: var(--th-base-rounded-full); /* 标签圆角 */
   }
 
-  /* 默认 - 暗色模式 */
+  /* === 默认主题 - 暗色模式 === */
   :root.dark {
-    /* --- 主要颜色 (Primary) --- */
-    --th-primary: var(--var-color-sky-400);
-    --th-on-primary: var(
-      --var-color-sky-900
-    ); /* 在sky-400上深色文字对比度可能更好 */
-    --th-primary-container: var(--var-color-sky-800);
-    --th-on-primary-container: var(--var-color-sky-100);
+    /* --- 主要互动元素 --- */
+    --th-primary: var(--var-color-sky-400); /* 暗色模式主色 */
+    --th-on-primary: var(--var-color-sky-900); /* 暗色模式主色上的文本 */
+    --th-primary-container: var(--var-color-sky-800); /* 暗色模式容器 */
+    --th-on-primary-container: var(
+      --var-color-sky-100
+    ); /* 暗色模式容器内文本 */
 
-    /* --- 次要颜色 (Secondary) --- */
-    --th-secondary: var(--var-color-slate-600);
-    --th-on-secondary: var(--var-color-slate-100);
-    --th-secondary-container: var(--var-color-slate-700);
-    --th-on-secondary-container: var(--var-color-slate-200);
+    /* --- 次要互动元素 --- */
+    --th-secondary: var(--var-color-slate-600); /* 暗色模式次色 */
+    --th-on-secondary: var(--var-color-slate-100); /* 暗色模式次色上的文本 */
+    --th-secondary-container: var(--var-color-slate-700); /* 暗色模式次要容器 */
+    --th-on-secondary-container: var(
+      --var-color-slate-200
+    ); /* 暗色模式次要容器内文本 */
 
-    /* --- 强调色 (Accent) --- */
-    --th-accent: var(--var-color-orange-500);
-    --th-on-accent: var(--var-color-slate-950);
+    /* --- 强调元素 --- */
+    --th-accent: var(--var-color-orange-500); /* 暗色模式强调色 */
+    --th-on-accent: var(--var-color-slate-950); /* 暗色模式强调色上的文本 */
 
-    /* --- 错误颜色 (Error) --- */
-    --th-error: var(--var-color-red-400);
-    --th-on-error: var(--var-color-slate-950);
-    --th-error-container: var(--var-color-red-800);
-    --th-on-error-container: var(--var-color-red-100);
+    /* --- 错误状态元素 --- */
+    --th-error: var(--var-color-red-400); /* 暗色模式错误色 */
+    --th-on-error: var(--var-color-slate-950); /* 暗色模式错误色上的文本 */
+    --th-error-container: var(--var-color-red-800); /* 暗色模式错误容器 */
+    --th-on-error-container: var(
+      --var-color-red-100
+    ); /* 暗色模式错误容器内文本 */
 
-    /* --- 背景和表面颜色 (避免纯白/纯黑作主要) --- */
-    --th-background: var(--var-color-slate-900); /* 深灰背景 */
-    --th-on-background: var(--var-color-slate-200); /* 背景上的浅灰文字 */
-    --th-surface: var(--var-color-slate-800); /* 表面，比背景略浅 */
-    --th-on-surface: var(--var-color-slate-300); /* 表面上的浅灰文字 */
-    --th-surface-variant: var(--var-color-slate-700);
-    --th-on-surface-variant: var(--var-color-slate-400);
-    --th-surface-dim: var(--var-color-slate-950);
-    --th-surface-bright: var(--var-color-slate-700);
-    --th-surface-tint: var(--th-primary);
+    /* --- 背景和表面 --- */
+    --th-background: var(--var-color-slate-900); /* 暗色模式背景 */
+    --th-on-background: var(--var-color-slate-200); /* 暗色模式背景上的文本 */
+    --th-surface: var(--var-color-slate-800); /* 暗色模式表面 */
+    --th-on-surface: var(--var-color-slate-300); /* 暗色模式表面上的文本 */
+    --th-surface-variant: var(--var-color-slate-700); /* 暗色模式变体表面 */
+    --th-on-surface-variant: var(
+      --var-color-slate-400
+    ); /* 暗色模式变体表面上的文本 */
+    --th-surface-dim: var(--var-color-slate-950); /* 暗色模式弱化表面 */
+    --th-surface-bright: var(--var-color-slate-700); /* 暗色模式明亮表面 */
+    --th-surface-tint: var(--th-primary); /* 暗色模式表面着色 */
 
-    /* --- 表面容器颜色 --- */
-    --th-surface-container-lowest: var(--var-color-slate-950);
-    --th-surface-container-low: var(--var-color-slate-900);
-    --th-surface-container: var(--var-color-slate-800);
-    --th-surface-container-high: var(--var-color-slate-700);
-    --th-surface-container-highest: var(--var-color-slate-600);
+    /* --- 表面容器系统 --- */
+    --th-surface-container-lowest: var(
+      --var-color-slate-950
+    ); /* 暗色模式最低层容器 */
+    --th-surface-container-low: var(
+      --var-color-slate-900
+    ); /* 暗色模式低层容器 */
+    --th-surface-container: var(--var-color-slate-800); /* 暗色模式标准容器 */
+    --th-surface-container-high: var(
+      --var-color-slate-700
+    ); /* 暗色模式高层容器 */
+    --th-surface-container-highest: var(
+      --var-color-slate-600
+    ); /* 暗色模式最高层容器 */
 
-    /* --- 轮廓和装饰颜色 --- */
-    --th-outline: var(--var-color-slate-600);
-    --th-outline-variant: var(--var-color-slate-700);
+    /* --- 轮廓和界面元素 --- */
+    --th-outline: var(--var-color-slate-600); /* 暗色模式边框 */
+    --th-outline-variant: var(--var-color-slate-700); /* 暗色模式次要边框 */
 
-    /* --- nemanjam 项目中的语义颜色映射 --- */
-    --th-headings: var(--var-color-slate-50); /* 非常浅的灰色或白色 */
-    --th-content: var(--var-color-slate-300);
-    --th-captions: var(--var-color-slate-400);
-    --th-links: var(--th-primary);
-    --th-links-hover: var(--var-color-sky-300);
-    --th-links-visited: var(
-      --var-color-sky-500
-    ); /* 或者一个紫色调的暗模式版本 */
+    /* --- 页面元素语义映射 --- */
+    --th-headings: var(--var-color-slate-50); /* 暗色模式标题 */
+    --th-content: var(--var-color-slate-300); /* 暗色模式正文 */
+    --th-captions: var(--var-color-slate-400); /* 暗色模式说明文字 */
+    --th-links: var(--th-primary); /* 暗色模式链接 */
+    --th-links-hover: var(--var-color-sky-300); /* 暗色模式链接悬停 */
+    --th-links-visited: var(--var-color-sky-500); /* 暗色模式已访问链接 */
 
-    /* --- nemanjam 项目的层级背景/表面 --- */
-    --th-base-100: var(--var-color-slate-800); /* 最底层表面 */
-    --th-base-200: var(--var-color-slate-700); /* 次层表面 */
-    --th-base-300: var(--var-color-slate-600); /* 更深层表面 */
-    --th-base-code: var(--var-color-slate-700); /* 代码块背景 */
+    /* --- 分层背景系统 --- */
+    --th-base-100: var(--var-color-slate-800); /* 暗色模式基础表面 */
+    --th-base-200: var(--var-color-slate-700); /* 暗色模式低对比表面 */
+    --th-base-300: var(--var-color-slate-600); /* 暗色模式高对比表面 */
+    --th-base-code: var(--var-color-slate-700); /* 暗色模式代码块背景 */
   }
 }

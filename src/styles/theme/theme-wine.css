@@ -1,71 +1,97 @@
 /* src/styles/theme/theme-wine.css */
 @layer base {
-  /* 酒红 - 亮色模式 */
+  /* === 酒红主题 - 亮色模式 === */
   :root[data-theme="wine"] {
-    /* --- 主要颜色 (Primary) --- */
-    --th-primary: var(--var-color-wine-primary-light);
-    --th-on-primary: var(--var-color-wine-on-primary-light);
-    --th-primary-container: var(--var-color-wine-primary-container-light);
+    /* --- 主要互动元素 --- */
+    --th-primary: var(--var-color-wine-primary-light); /* 主色，按钮、链接等 */
+    --th-on-primary: var(
+      --var-color-wine-on-primary-light
+    ); /* 主色上的文本/图标 */
+    --th-primary-container: var(
+      --var-color-wine-primary-container-light
+    ); /* 次要容器 */
     --th-on-primary-container: var(--var-color-wine-on-primary-container-light);
-    --th-primary-fixed: var(--var-color-wine-primary-fixed-light);
+    --th-primary-fixed: var(
+      --var-color-wine-primary-fixed-light
+    ); /* 固定强调色 */
 
-    /* --- 次要颜色 (Secondary) --- */
-    --th-secondary: var(--var-color-wine-secondary-light);
-    --th-on-secondary: var(--var-color-wine-on-secondary-light);
+    /* --- 次要互动元素 --- */
+    --th-secondary: var(
+      --var-color-wine-secondary-light
+    ); /* 次色，次要按钮等 */
+    --th-on-secondary: var(
+      --var-color-wine-on-secondary-light
+    ); /* 次色上的文本/图标 */
 
-    /* --- 第三颜色 (Tertiary) --- */
-    --th-tertiary: var(--var-color-wine-tertiary-light);
-    --th-on-tertiary: var(--var-color-wine-on-tertiary-light);
+    /* --- 第三级互动元素 --- */
+    --th-tertiary: var(--var-color-wine-tertiary-light); /* 第三色，特殊元素 */
+    --th-on-tertiary: var(
+      --var-color-wine-on-tertiary-light
+    ); /* 第三色上的文本/图标 */
 
-    /* --- 错误颜色 (Error) --- */
-    --th-error: var(--var-color-wine-error-light);
-    --th-on-error: var(--var-color-wine-on-error-light);
+    /* --- 错误状态元素 --- */
+    --th-error: var(--var-color-wine-error-light); /* 错误提示色 */
+    --th-on-error: var(
+      --var-color-wine-on-error-light
+    ); /* 错误色上的文本/图标 */
 
-    /* --- 背景和表面颜色 (Background & Surface) --- */
-    --th-background: var(--var-color-wine-background-light);
-    --th-on-background: var(--var-color-wine-on-background-light);
-    --th-surface: var(--var-color-wine-surface-light);
-    --th-on-surface: var(--var-color-wine-on-surface-light);
-    --th-surface-variant: var(--var-color-wine-surface-variant-light);
+    /* --- 背景和表面 --- */
+    --th-background: var(--var-color-wine-background-light); /* 全局背景色 */
+    --th-on-background: var(
+      --var-color-wine-on-background-light
+    ); /* 背景上的文本 */
+    --th-surface: var(--var-color-wine-surface-light); /* 表面/卡片色 */
+    --th-on-surface: var(--var-color-wine-on-surface-light); /* 表面上的文本 */
+    --th-surface-variant: var(
+      --var-color-wine-surface-variant-light
+    ); /* 变体表面 */
     --th-on-surface-variant: var(--var-color-wine-on-surface-variant-light);
 
-    /* --- 轮廓和装饰颜色 (Outline & Utility) --- */
-    --th-outline: var(--var-color-wine-outline-light);
+    /* --- 轮廓和界面元素 --- */
+    --th-outline: var(--var-color-wine-outline-light); /* 边框和分隔线 */
 
-    /* --- 链接、标题、代码块等特定元素颜色 (可以基于酒红主题调整) --- */
-    --th-headings: var(
-      --var-color-wine-on-background-light
-    ); /* 或者一个更深的协调色 */
-    --th-content: var(--var-color-wine-on-surface-light);
-    --th-captions: var(--var-color-wine-on-surface-variant-light);
-    --th-links: var(--th-primary);
-    --th-links-hover: var(--var-color-wine-primary-dark);
-    --th-base-code: var(--var-color-wine-primary-container-light);
+    /* --- 页面元素语义映射 --- */
+    --th-headings: var(--var-color-wine-on-background-light); /* 标题文本 */
+    --th-content: var(--var-color-wine-on-surface-light); /* 正文内容 */
+    --th-captions: var(
+      --var-color-wine-on-surface-variant-light
+    ); /* 说明文字 */
+    --th-links: var(--th-primary); /* 链接颜色 */
+    --th-links-hover: var(--var-color-wine-primary-dark); /* 链接悬停 */
+    --th-base-code: var(
+      --var-color-wine-primary-container-light
+    ); /* 代码块背景 */
 
-    /* 项目的层级背景/表面，根据酒红主题调整 */
-    --th-base-100: var(--var-color-wine-surface-light);
+    /* --- 分层背景系统 --- */
+    --th-base-100: var(--var-color-wine-surface-light); /* 基础表面 */
     --th-base-200: var(
       --var-color-wine-surface-container-low-light
-    ); /* 假设有此变量 */
+    ); /* 低对比表面 */
     --th-base-300: var(
       --var-color-wine-surface-container-light
-    ); /* 假设有此变量 */
+    ); /* 高对比表面 */
   }
 
-  /* 酒红 - 暗色模式 */
+  /* === 酒红主题 - 暗色模式 === */
   :root.dark[data-theme="wine"] {
-    /* --- 主要颜色 (Primary) --- */
-    --th-primary: var(--var-color-wine-primary-dark);
-    --th-on-primary: var(--var-color-wine-on-primary-dark);
+    /* --- 主要互动元素 --- */
+    --th-primary: var(--var-color-wine-primary-dark); /* 暗色模式主色 */
+    --th-on-primary: var(
+      --var-color-wine-on-primary-dark
+    ); /* 暗色模式主色上的文本 */
 
-    /* --- 背景和表面颜色 --- */
-    --th-background: var(--var-color-wine-background-dark);
-    --th-on-background: var(--var-color-wine-on-background-dark);
-    --th-surface: var(--var-color-wine-surface-dark);
-    --th-on-surface: var(--var-color-wine-on-surface-dark);
+    /* --- 背景和表面 --- */
+    --th-background: var(--var-color-wine-background-dark); /* 暗色模式背景 */
+    --th-on-background: var(
+      --var-color-wine-on-background-dark
+    ); /* 暗色模式背景上的文本 */
+    --th-surface: var(--var-color-wine-surface-dark); /* 暗色模式表面 */
+    --th-on-surface: var(
+      --var-color-wine-on-surface-dark
+    ); /* 暗色模式表面上的文本 */
 
-    /* --- 链接、标题、代码块等 --- */
-    --th-headings: var(--var-color-wine-on-background-dark);
-    --th-content: var(--var-color-wine-on-surface-dark);
+    /* --- 页面元素语义映射 --- */
+    --th-headings: var(--var-color-wine-on-background-dark); /* 暗色模式标题 */
+    --th-content: var(--var-color-wine-on-surface-dark); /* 暗色模式正文 */
   }
 }

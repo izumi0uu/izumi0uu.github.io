@@ -1,32 +1,37 @@
 @layer base {
   :root {
-    /* --- 核心中性色 (我们选择 Tailwind 的 "slate" 系列，因为它足够中性且现代) --- */
-    --var-color-slate-50: theme("colors.slate.50");
-    --var-color-slate-100: theme("colors.slate.100");
+    /* ===== 核心色系组 ===== */
+
+    /* --- 中性色系 (Slate) --- 
+     * 用于文本、背景、边框等非强调元素
+     * 选择 slate 是因为其色调适中，既不偏蓝也不偏暖
+     */
+    --var-color-slate-50: theme("colors.slate.50"); /* 最浅色，几乎为白 */
+    --var-color-slate-100: theme("colors.slate.100"); /* 非常浅的背景色 */
     --var-color-slate-200: theme("colors.slate.200");
     --var-color-slate-300: theme("colors.slate.300");
     --var-color-slate-400: theme("colors.slate.400");
-    --var-color-slate-500: theme("colors.slate.500");
+    --var-color-slate-500: theme("colors.slate.500"); /* 中性色，适合次要文本 */
     --var-color-slate-600: theme("colors.slate.600");
-    --var-color-slate-700: theme("colors.slate.700");
+    --var-color-slate-700: theme("colors.slate.700"); /* 较深，适合主要文本 */
     --var-color-slate-800: theme("colors.slate.800");
-    --var-color-slate-900: theme("colors.slate.900");
-    --var-color-slate-950: theme("colors.slate.950");
+    --var-color-slate-900: theme("colors.slate.900"); /* 深色文本 */
+    --var-color-slate-950: theme("colors.slate.950"); /* 最深色，几乎为黑 */
 
-    /* --- 默认主题的主色系 (选择一个与酒红色协调但不同的色系，例如蓝色或青色) --- */
-    --var-color-sky-50: theme("colors.sky.50"); /* 用于浅色背景容器 */
+    /* --- 默认主题主色系 (Sky) --- 
+     * 用于按钮、链接、强调元素等
+     */
+    --var-color-sky-50: theme("colors.sky.50"); /* 浅色背景/容器 */
     --var-color-sky-100: theme("colors.sky.100");
     --var-color-sky-300: theme("colors.sky.300"); /* 暗模式主色 */
     --var-color-sky-400: theme("colors.sky.400");
     --var-color-sky-500: theme("colors.sky.500"); /* 亮模式主色 */
     --var-color-sky-600: theme("colors.sky.600");
-    --var-color-sky-700: theme("colors.sky.700"); /* 用于 hover 或暗模式容器 */
+    --var-color-sky-700: theme("colors.sky.700"); /* hover或暗模式容器 */
     --var-color-sky-800: theme("colors.sky.800");
-    --var-color-sky-900: theme(
-      "colors.sky.900"
-    ); /* 用于亮模式主色上的文字 (如果主色浅) */
+    --var-color-sky-900: theme("colors.sky.900"); /* 主色上的深色文本 */
 
-    /* --- 默认主题的辅色/强调色 --- */
+    /* --- 默认主题辅色/强调色 --- */
     --var-color-orange-400: theme("colors.orange.400");
     --var-color-orange-500: theme("colors.orange.500");
     --var-color-orange-600: theme("colors.orange.600");
@@ -34,29 +39,37 @@
     --var-color-teal-500: theme("colors.teal.500");
     --var-color-teal-600: theme("colors.teal.600");
 
-    /* --- 功能色 (错误、成功、警告) --- */
-    --var-color-red-100: theme("colors.red.100");
+    /* --- 功能色系 --- 
+     * 用于表达状态和反馈：错误、成功、警告等
+     */
+    /* 错误红色 */
+    --var-color-red-100: theme("colors.red.100"); /* 浅色错误背景 */
     --var-color-red-400: theme("colors.red.400");
-    --var-color-red-500: theme("colors.red.500");
+    --var-color-red-500: theme("colors.red.500"); /* 主要错误色 */
     --var-color-red-600: theme("colors.red.600");
     --var-color-red-700: theme("colors.red.700");
     --var-color-red-800: theme("colors.red.800");
 
+    /* 成功绿色 */
     --var-color-green-100: theme("colors.green.100");
     --var-color-green-400: theme("colors.green.400");
     --var-color-green-500: theme("colors.green.500");
     --var-color-green-600: theme("colors.green.600");
     --var-color-green-700: theme("colors.green.700");
 
+    /* 警告黄色 */
     --var-color-yellow-100: theme("colors.yellow.100");
     --var-color-yellow-400: theme("colors.yellow.400");
     --var-color-yellow-500: theme("colors.yellow.500");
     --var-color-yellow-600: theme("colors.yellow.600");
 
+    /* 基础黑白 */
     --var-color-white: theme("colors.white");
     --var-color-black: theme("colors.black");
 
-    /* --- "酒红色系"主题中的一些关键基础色 (通过 theme() 提取) --- */
+    /* ===== 酒红主题色系 ===== */
+
+    /* --- 亮色模式变量 --- */
     --var-color-wine-primary-light: theme("colors.wine-primary-light");
     --var-color-wine-on-primary-light: theme("colors.wine-on-primary-light");
     --var-color-wine-primary-container-light: theme(
@@ -104,15 +117,8 @@
       "colors.wine-on-surface-variant-light"
     );
     --var-color-wine-outline-light: theme("colors.wine-outline-light");
-    /* ... (为所有酒红主题亮色模式下的 --md-sys-color-* 定义 --var-color-wine-*) */
 
-    --var-color-wine-primary-dark: theme("colors.wine-primary-dark");
-    --var-color-wine-on-primary-dark: theme("colors.wine-on-primary-dark");
-    --var-color-wine-primary-container-dark: theme(
-      "colors.wine-primary-container-dark"
-    );
-    /* ... (为所有酒红主题暗色模式下的 --md-sys-color-* 定义 --var-color-wine-*) */
-
+    /* 补充缺失的酒红主题亮色模式变量 */
     --var-color-wine-primary-fixed-light: theme(
       "colors.wine-primary-fixed-light"
     );
@@ -122,5 +128,18 @@
     --var-color-wine-surface-container-light: theme(
       "colors.wine-surface-container-light"
     );
+
+    /* --- 暗色模式变量 --- */
+    --var-color-wine-primary-dark: theme("colors.wine-primary-dark");
+    --var-color-wine-on-primary-dark: theme("colors.wine-on-primary-dark");
+    --var-color-wine-primary-container-dark: theme(
+      "colors.wine-primary-container-dark"
+    );
+    --var-color-wine-background-dark: theme("colors.wine-background-dark");
+    --var-color-wine-on-background-dark: theme(
+      "colors.wine-on-background-dark"
+    );
+    --var-color-wine-surface-dark: theme("colors.wine-surface-dark");
+    --var-color-wine-on-surface-dark: theme("colors.wine-on-surface-dark");
   }
 }
