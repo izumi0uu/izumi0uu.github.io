@@ -69,18 +69,48 @@ const config: Config = {
         "wine-on-surface-variant-light": "rgb(83 67 64)",
         "wine-outline-light": "rgb(133 115 112)",
 
-        // --- 亮色模式功能与容器色 (补充缺失的颜色) ---
+        // --- 亮色模式功能与容器色 ---
         "wine-primary-fixed-light": "rgb(255 180 167)",
+        "wine-error-light": "rgb(186 26 26)",
+        "wine-on-error-light": "rgb(255 255 255)",
+        "wine-error-container-light": "rgb(255 218 214)",
+        "wine-on-error-container-light": "rgb(65 0 2)",
         "wine-surface-container-low-light": "rgb(252 238 234)",
         "wine-surface-container-light": "rgb(246 230 226)",
 
         // --- 暗色模式主要颜色 ---
         "wine-primary-dark": "rgb(255 180 167)",
         "wine-on-primary-dark": "rgb(86 30 21)",
+        "wine-primary-container-dark": "rgb(114 51 40)",
+        "wine-on-primary-container-dark": "rgb(255 218 212)",
+
+        // --- 暗色模式次要颜色 ---
+        "wine-secondary-dark": "rgb(227 188 182)",
+        "wine-on-secondary-dark": "rgb(68 42 37)",
+        "wine-secondary-container-dark": "rgb(93 63 58)",
+        "wine-on-secondary-container-dark": "rgb(255 218 212)",
+
+        // --- 暗色模式第三颜色 ---
+        "wine-tertiary-dark": "rgb(229 190 93)",
+        "wine-on-tertiary-dark": "rgb(67 48 0)",
+        "wine-tertiary-container-dark": "rgb(92 70 0)",
+        "wine-on-tertiary-container-dark": "rgb(251 224 166)",
+
+        // --- 暗色模式错误颜色 ---
+        "wine-error-dark": "rgb(255 180 171)",
+        "wine-on-error-dark": "rgb(105 0 5)",
+        "wine-error-container-dark": "rgb(147 0 10)",
+        "wine-on-error-container-dark": "rgb(255 180 171)",
+
+        // --- 暗色模式背景和表面 ---
         "wine-background-dark": "rgb(26 17 16)",
         "wine-on-background-dark": "rgb(241 223 219)",
         "wine-surface-dark": "rgb(26 17 16)",
         "wine-on-surface-dark": "rgb(241 223 219)",
+        "wine-surface-variant-dark": "rgb(83 67 64)",
+        "wine-on-surface-variant-dark": "rgb(214 194 189)",
+        "wine-outline-dark": "rgb(158 139 135)",
+        "wine-outline-variant-dark": "rgb(83 67 64)",
 
         // === 主题变量映射 (可被CSS变量动态更改) ===
         primary: "var(--th-primary)",

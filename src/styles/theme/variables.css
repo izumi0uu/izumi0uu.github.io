@@ -135,11 +135,48 @@
     --var-color-wine-primary-container-dark: theme(
       "colors.wine-primary-container-dark"
     );
+    --var-color-wine-on-primary-container-dark: theme(
+      "colors.wine-on-primary-container-dark"
+    );
+    --var-color-wine-secondary-dark: theme("colors.wine-secondary-dark");
+    --var-color-wine-on-secondary-dark: theme("colors.wine-on-secondary-dark");
+    --var-color-wine-secondary-container-dark: theme(
+      "colors.wine-secondary-container-dark"
+    );
+    --var-color-wine-on-secondary-container-dark: theme(
+      "colors.wine-on-secondary-container-dark"
+    );
+    --var-color-wine-tertiary-dark: theme("colors.wine-tertiary-dark");
+    --var-color-wine-on-tertiary-dark: theme("colors.wine-on-tertiary-dark");
+    --var-color-wine-tertiary-container-dark: theme(
+      "colors.wine-tertiary-container-dark"
+    );
+    --var-color-wine-on-tertiary-container-dark: theme(
+      "colors.wine-on-tertiary-container-dark"
+    );
+    --var-color-wine-error-dark: theme("colors.wine-error-dark");
+    --var-color-wine-on-error-dark: theme("colors.wine-on-error-dark");
+    --var-color-wine-error-container-dark: theme(
+      "colors.wine-error-container-dark"
+    );
+    --var-color-wine-on-error-container-dark: theme(
+      "colors.wine-on-error-container-dark"
+    );
     --var-color-wine-background-dark: theme("colors.wine-background-dark");
     --var-color-wine-on-background-dark: theme(
       "colors.wine-on-background-dark"
     );
     --var-color-wine-surface-dark: theme("colors.wine-surface-dark");
     --var-color-wine-on-surface-dark: theme("colors.wine-on-surface-dark");
+    --var-color-wine-surface-variant-dark: theme(
+      "colors.wine-surface-variant-dark"
+    );
+    --var-color-wine-on-surface-variant-dark: theme(
+      "colors.wine-on-surface-variant-dark"
+    );
+    --var-color-wine-outline-dark: theme("colors.wine-outline-dark");
+    --var-color-wine-outline-variant-dark: theme(
+      "colors.wine-outline-variant-dark"
+    );
   }
 }
