@@ -78,6 +78,9 @@
     --var-color-wine-on-primary-container-light: theme(
       "colors.wine-on-primary-container-light"
     );
+    --var-color-wine-primary-fixed-light: theme(
+      "colors.wine-primary-fixed-light"
+    );
     --var-color-wine-secondary-light: theme("colors.wine-secondary-light");
     --var-color-wine-on-secondary-light: theme(
       "colors.wine-on-secondary-light"
@@ -116,18 +119,13 @@
     --var-color-wine-on-surface-variant-light: theme(
       "colors.wine-on-surface-variant-light"
     );
-    --var-color-wine-outline-light: theme("colors.wine-outline-light");
-
-    /* 补充缺失的酒红主题亮色模式变量 */
-    --var-color-wine-primary-fixed-light: theme(
-      "colors.wine-primary-fixed-light"
-    );
     --var-color-wine-surface-container-low-light: theme(
       "colors.wine-surface-container-low-light"
     );
     --var-color-wine-surface-container-light: theme(
       "colors.wine-surface-container-light"
     );
+    --var-color-wine-outline-light: theme("colors.wine-outline-light");
 
     /* --- 暗色模式变量 --- */
     --var-color-wine-primary-dark: theme("colors.wine-primary-dark");

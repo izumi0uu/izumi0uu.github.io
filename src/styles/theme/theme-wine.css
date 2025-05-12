@@ -34,6 +34,12 @@
     --th-on-error: var(
       --var-color-wine-on-error-light
     ); /* 错误色上的文本/图标 */
+    --th-error-container: var(
+      --var-color-wine-error-container-light
+    ); /* 错误容器背景 */
+    --th-on-error-container: var(
+      --var-color-wine-on-error-container-light
+    ); /* 错误容器内文本 */
 
     /* --- 背景和表面 --- */
     --th-background: var(--var-color-wine-background-light); /* 全局背景色 */
@@ -79,6 +85,48 @@
     --th-on-primary: var(
       --var-color-wine-on-primary-dark
     ); /* 暗色模式主色上的文本 */
+    --th-primary-container: var(
+      --var-color-wine-primary-container-dark
+    ); /* 暗色模式容器 */
+    --th-on-primary-container: var(
+      --var-color-wine-on-primary-container-dark
+    ); /* 暗色模式容器内文本 */
+
+    /* --- 次要互动元素 --- */
+    --th-secondary: var(--var-color-wine-secondary-dark); /* 暗色模式次色 */
+    --th-on-secondary: var(
+      --var-color-wine-on-secondary-dark
+    ); /* 暗色模式次色上的文本 */
+    --th-secondary-container: var(
+      --var-color-wine-secondary-container-dark
+    ); /* 暗色模式次要容器 */
+    --th-on-secondary-container: var(
+      --var-color-wine-on-secondary-container-dark
+    ); /* 暗色模式次要容器内文本 */
+
+    /* --- 第三级互动元素 --- */
+    --th-tertiary: var(--var-color-wine-tertiary-dark); /* 暗色模式第三色 */
+    --th-on-tertiary: var(
+      --var-color-wine-on-tertiary-dark
+    ); /* 暗色模式第三色上的文本 */
+    --th-tertiary-container: var(
+      --var-color-wine-tertiary-container-dark
+    ); /* 暗色模式第三色容器 */
+    --th-on-tertiary-container: var(
+      --var-color-wine-on-tertiary-container-dark
+    ); /* 暗色模式第三色容器内文本 */
+
+    /* --- 错误状态元素 --- */
+    --th-error: var(--var-color-wine-error-dark); /* 暗色模式错误色 */
+    --th-on-error: var(
+      --var-color-wine-on-error-dark
+    ); /* 暗色模式错误色上的文本 */
+    --th-error-container: var(
+      --var-color-wine-error-container-dark
+    ); /* 暗色模式错误容器 */
+    --th-on-error-container: var(
+      --var-color-wine-on-error-container-dark
+    ); /* 暗色模式错误容器内文本 */
 
     /* --- 背景和表面 --- */
     --th-background: var(--var-color-wine-background-dark); /* 暗色模式背景 */
@@ -89,9 +137,38 @@
     --th-on-surface: var(
       --var-color-wine-on-surface-dark
     ); /* 暗色模式表面上的文本 */
+    --th-surface-variant: var(
+      --var-color-wine-surface-variant-dark
+    ); /* 暗色模式变体表面 */
+    --th-on-surface-variant: var(
+      --var-color-wine-on-surface-variant-dark
+    ); /* 暗色模式变体表面上的文本 */
+
+    /* --- 轮廓和界面元素 --- */
+    --th-outline: var(--var-color-wine-outline-dark); /* 暗色模式边框 */
+    --th-outline-variant: var(
+      --var-color-wine-outline-variant-dark
+    ); /* 暗色模式次要边框 */
 
     /* --- 页面元素语义映射 --- */
     --th-headings: var(--var-color-wine-on-background-dark); /* 暗色模式标题 */
     --th-content: var(--var-color-wine-on-surface-dark); /* 暗色模式正文 */
+    --th-captions: var(
+      --var-color-wine-on-surface-variant-dark
+    ); /* 暗色模式说明文字 */
+    --th-links: var(--th-primary); /* 暗色模式链接 */
+    --th-links-hover: var(
+      --var-color-wine-primary-light
+    ); /* 暗色模式链接悬停 */
+    --th-base-code: var(
+      --var-color-wine-primary-container-dark
+    ); /* 暗色模式代码块背景 */
+
+    /* --- 分层背景系统 --- */
+    --th-base-100: var(--var-color-wine-surface-dark); /* 暗色模式基础表面 */
+    --th-base-200: var(
+      --var-color-wine-surface-variant-dark
+    ); /* 暗色模式低对比表面 */
+    --th-base-300: var(--var-color-wine-outline-dark); /* 暗色模式高对比表面 */
   }
 }
