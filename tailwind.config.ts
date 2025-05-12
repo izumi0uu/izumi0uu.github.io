@@ -7,7 +7,7 @@ import type { PluginUtils } from "tailwindcss/plugin";
 const config: Config = {
   content: ["src/**/*.{astro,md,mdx,tsx,ts}", "astro.config.mjs"],
 
-  darkMode: ["selector"],
+  darkMode: ["selector", ".default-dark"],
   /**
    * @property {Array<object|string>} plugins - 要使用的 Tailwind 插件。
    * 插件可以添加新的功能类、组件样式或变体 (variants)。
@@ -22,8 +22,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Noto Sans SC", "sans-serif"],
-        serif: ["Noto Serif SC", "serif"],
+        sans: ["Inter", '"Noto Sans SC"', ...defaultTheme.fontFamily.sans],
+        mono: ['"JetBrains Mono"', ...defaultTheme.fontFamily.mono],
       },
     },
   },
