@@ -1,8 +1,7 @@
 import defaultTheme from "tailwindcss/defaultTheme";
-import plugin from "tailwindcss/plugin";
+import plugin, { type PluginUtils } from "tailwindcss/plugin";
 
 import type { Config } from "tailwindcss";
-import type { PluginUtils } from "tailwindcss/plugin";
 
 const config: Config = {
   content: ["src/**/*.{astro,md,mdx,tsx,ts}", "astro.config.mjs"],
@@ -45,7 +44,58 @@ const config: Config = {
         sans: ["Inter", '"Noto Sans SC"', ...defaultTheme.fontFamily.sans],
         mono: ['"JetBrains Mono"', ...defaultTheme.fontFamily.mono],
       },
-      colors: {},
+      colors: {
+        // 酒红色系主题的原始颜色值
+        "wine-primary-light": "rgb(144 75 63)",
+        "wine-on-primary-light": "rgb(255 255 255)",
+        "wine-primary-container-light": "rgb(255 218 212)",
+        "wine-on-primary-container-light": "rgb(58 9 4)",
+        "wine-secondary-light": "rgb(119 86 81)",
+
+        // ... 为所有酒红亮色模式 - 定义 Tailwind 颜色名
+        "wine-background-light": "rgb(255 248 246)",
+        "wine-on-background-light": "rgb(35 25 24)",
+        "wine-surface-light": "rgb(255 248 246)",
+        "wine-on-surface-light": "rgb(35 25 24)",
+        "wine-surface-variant-light": "rgb(245 221 217)",
+        "wine-on-surface-variant-light": "rgb(83 67 64)",
+        "wine-outline-light": "rgb(133 115 112)",
+
+        "wine-primary-dark": "rgb(255 180 167)",
+        "wine-on-primary-dark": "rgb(86 30 21)",
+        "wine-secondary-container-light": "rgb(245 221 217)", // 示例值，需要根据实际设计调整
+        "wine-on-secondary-container-light": "rgb(40 18 15)", // 示例值
+        "wine-tertiary-light": "rgb(159 119 25)", // 示例值
+        "wine-on-tertiary-light": "rgb(255 255 255)", // 示例值
+        "wine-tertiary-container-light": "rgb(251 224 166)",
+
+        // ... 为所有酒红暗色模式 - 定义 Tailwind 颜色名
+        "wine-background-dark": "rgb(26 17 16)",
+        "wine-on-background-dark": "rgb(241 223 219)",
+        "wine-surface-dark": "rgb(26 17 16)",
+        "wine-on-surface-dark": "rgb(241 223 219)",
+
+        primary: "var(--th-primary)",
+        secondary: "var(--th-secondary)",
+        accent: "var(--th-accent)",
+        background: "var(--th-background)",
+        surface: "var(--th-surface)",
+        "surface-variant": "var(--th-surface-variant)",
+        "on-primary": "var(--th-on-primary)",
+        "on-secondary": "var(--th-on-secondary)",
+        "on-background": "var(--th-on-background)",
+        "on-surface": "var(--th-on-surface)",
+        "on-surface-variant": "var(--th-on-surface-variant)",
+        content: "var(--th-content)",
+        headings: "var(--th-headings)",
+        captions: "var(--th-captions)",
+        links: "var(--th-links)",
+        "links-hover": "var(--th-links-hover)",
+        "base-100": "var(--th-base-100)",
+        "base-200": "var(--th-base-200)",
+        "base-300": "var(--th-base-300)",
+        "base-code": "var(--th-base-code)",
+      },
     },
   },
 };

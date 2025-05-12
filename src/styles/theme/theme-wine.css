@@ -2,77 +2,70 @@
 @layer base {
   /* 酒红 - 亮色模式 */
   :root[data-theme="wine"] {
-    /* --- 主要颜色 (Primary) - 酒红主题覆盖 --- */
-    --th-primary: rgb(
-      136 0 36
-    ); /* 示例: 酒红色主色 (亮) - 请替换为你设计的颜色 */
-    --th-on-primary: rgb(
-      255 255 255
-    ); /* 示例: 在酒红色主色上的文字颜色 (亮) - 请替换 */
-    --th-primary-container: rgb(
-      255 218 215
-    ); /* 示例: 酒红色主色容器背景 (亮) - 请替换 */
-    --th-on-primary-container: rgb(
-      65 0 10
-    ); /* 示例: 在酒红色主色容器上的文字颜色 (亮) - 请替换 */
-    /* --th-primary-fixed: ... (如果酒红主题下也需要不同的 fixed 颜色) */
-    /* --th-on-primary-fixed: ... */
+    /* --- 主要颜色 (Primary) --- */
+    --th-primary: var(--var-color-wine-primary-light);
+    --th-on-primary: var(--var-color-wine-on-primary-light);
+    --th-primary-container: var(--var-color-wine-primary-container-light);
+    --th-on-primary-container: var(--var-color-wine-on-primary-container-light);
+    --th-primary-fixed: var(--var-color-wine-primary-fixed-light);
 
-    /* --- 次要颜色 (Secondary) - 酒红主题覆盖 (可选) --- */
-    /* 如果酒红主题的辅色与默认主题不同，在这里覆盖 */
-    /* --th-secondary: rgb(110 80 80); */ /* 示例: 酒红主题的辅色 (亮) - 请替换 */
-    /* --th-on-secondary: rgb(255 255 255); */ /* 示例 - 请替换 */
+    /* --- 次要颜色 (Secondary) --- */
+    --th-secondary: var(--var-color-wine-secondary-light);
+    --th-on-secondary: var(--var-color-wine-on-secondary-light);
 
-    /* --- 第三颜色 (Tertiary) - 酒红主题覆盖 (可选) --- */
-    /* 如果酒红主题的第三颜色与默认主题不同，在这里覆盖 */
-    /* --th-tertiary: rgb(100 90 40); */ /* 示例: 酒红主题的第三颜色 (亮) - 请替换 */
-    /* --th-on-tertiary: rgb(255 255 255); */ /* 示例 - 请替换 */
+    /* --- 第三颜色 (Tertiary) --- */
+    --th-tertiary: var(--var-color-wine-tertiary-light);
+    --th-on-tertiary: var(--var-color-wine-on-tertiary-light);
 
-    /* --- 背景和表面颜色 (Background & Surface) - 酒红主题覆盖 (可选) --- */
-    /* 通常主题变化主要体现在主色、辅色上，背景和表面可能保持与默认主题一致 */
-    /* 如果需要改变，例如，让酒红主题的亮色背景带一点酒红色调: */
-    /* --th-background: rgb(255 245 245); */ /* 示例: 略带粉色的背景 - 请替换 */
-    /* --th-surface: rgb(255 245 245); */ /* 示例 - 请替换 */
-    /* --th-on-background: var(--th-on-surface); */ /* 假设文字颜色不变 */
+    /* --- 错误颜色 (Error) --- */
+    --th-error: var(--var-color-wine-error-light);
+    --th-on-error: var(--var-color-wine-on-error-light);
 
-    /* --- 其他你希望在酒红亮色模式下特别调整的颜色 --- */
-    /* 例如，链接颜色可能也需要基于新的 --th-primary 调整 */
-    /* --th-links: var(--th-primary); */
+    /* --- 背景和表面颜色 (Background & Surface) --- */
+    --th-background: var(--var-color-wine-background-light);
+    --th-on-background: var(--var-color-wine-on-background-light);
+    --th-surface: var(--var-color-wine-surface-light);
+    --th-on-surface: var(--var-color-wine-on-surface-light);
+    --th-surface-variant: var(--var-color-wine-surface-variant-light);
+    --th-on-surface-variant: var(--var-color-wine-on-surface-variant-light);
+
+    /* --- 轮廓和装饰颜色 (Outline & Utility) --- */
+    --th-outline: var(--var-color-wine-outline-light);
+
+    /* --- 链接、标题、代码块等特定元素颜色 (可以基于酒红主题调整) --- */
+    --th-headings: var(
+      --var-color-wine-on-background-light
+    ); /* 或者一个更深的协调色 */
+    --th-content: var(--var-color-wine-on-surface-light);
+    --th-captions: var(--var-color-wine-on-surface-variant-light);
+    --th-links: var(--th-primary);
+    --th-links-hover: var(--var-color-wine-primary-dark);
+    --th-base-code: var(--var-color-wine-primary-container-light);
+
+    /* 项目的层级背景/表面，根据酒红主题调整 */
+    --th-base-100: var(--var-color-wine-surface-light);
+    --th-base-200: var(
+      --var-color-wine-surface-container-low-light
+    ); /* 假设有此变量 */
+    --th-base-300: var(
+      --var-color-wine-surface-container-light
+    ); /* 假设有此变量 */
   }
 
   /* 酒红 - 暗色模式 */
   :root.dark[data-theme="wine"] {
-    /* --- 主要颜色 (Primary) - 酒红主题覆盖 --- */
-    --th-primary: rgb(
-      255 180 170
-    ); /* 示例: 酒红色主色 (暗) - 请替换为你设计的颜色 */
-    --th-on-primary: rgb(
-      75 0 15
-    ); /* 示例: 在酒红色主色上的文字颜色 (暗) - 请替换 */
-    --th-primary-container: rgb(
-      105 0 25
-    ); /* 示例: 酒红色主色容器背景 (暗) - 请替换 */
-    --th-on-primary-container: rgb(
-      255 218 215
-    ); /* 示例: 在酒红色主色容器上的文字颜色 (暗) - 请替换 */
-    /* --th-primary-fixed: ... (如果酒红主题下也需要不同的 fixed 颜色) */
-    /* --th-on-primary-fixed: ... */
+    /* --- 主要颜色 (Primary) --- */
+    --th-primary: var(--var-color-wine-primary-dark);
+    --th-on-primary: var(--var-color-wine-on-primary-dark);
 
-    /* --- 次要颜色 (Secondary) - 酒红主题覆盖 (可选) --- */
-    /* --th-secondary: rgb(220 180 180); */ /* 示例: 酒红主题的辅色 (暗) - 请替换 */
-    /* --th-on-secondary: rgb(60 35 35); */ /* 示例 - 请替换 */
+    /* --- 背景和表面颜色 --- */
+    --th-background: var(--var-color-wine-background-dark);
+    --th-on-background: var(--var-color-wine-on-background-dark);
+    --th-surface: var(--var-color-wine-surface-dark);
+    --th-on-surface: var(--var-color-wine-on-surface-dark);
 
-    /* --- 第三颜色 (Tertiary) - 酒红主题覆盖 (可选) --- */
-    /* --th-tertiary: rgb(210 190 130); */ /* 示例: 酒红主题的第三颜色 (暗) - 请替换 */
-    /* --th-on-tertiary: rgb(55 40 0); */ /* 示例 - 请替换 */
-
-    /* --- 背景和表面颜色 (Background & Surface) - 酒红主题覆盖 (可选) --- */
-    /* 例如，让酒红主题的暗色背景更深或带有酒红色调: */
-    /* --th-background: rgb(20 10 10); */ /* 示例: 更深的酒红调背景 - 请替换 */
-    /* --th-surface: rgb(20 10 10); */ /* 示例 - 请替换 */
-    /* --th-on-background: rgb(240 220 220); */ /* 示例文字颜色 - 请替换 */
-
-    /* --- 其他你希望在酒红暗色模式下特别调整的颜色 --- */
-    /* --th-links: var(--th-primary); */
+    /* --- 链接、标题、代码块等 --- */
+    --th-headings: var(--var-color-wine-on-background-dark);
+    --th-content: var(--var-color-wine-on-surface-dark);
   }
 }
