@@ -9,8 +9,8 @@ export const modeValues = ["light", "dark"] as const;
 export const themeValues = [
   "default-light",
   "default-dark",
-  "claret-light",
-  "claret-dark",
+  "wine-light",
+  "wine-dark",
 ] as const;
 
 const domainSubdomainRegex =
