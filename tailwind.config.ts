@@ -114,25 +114,61 @@ const config: Config = {
 
         // === 主题变量映射 (可被CSS变量动态更改) ===
         primary: "var(--th-primary)",
-        secondary: "var(--th-secondary)",
-        accent: "var(--th-accent)",
-        background: "var(--th-background)",
-        surface: "var(--th-surface)",
-        "surface-variant": "var(--th-surface-variant)",
         "on-primary": "var(--th-on-primary)",
+        "primary-container": "var(--th-primary-container)",
+        "on-primary-container": "var(--th-on-primary-container)",
+
+        secondary: "var(--th-secondary)",
         "on-secondary": "var(--th-on-secondary)",
+        "secondary-container": "var(--th-secondary-container)",
+        "on-secondary-container": "var(--th-on-secondary-container)",
+
+        tertiary: "var(--th-tertiary)",
+        "on-tertiary": "var(--th-on-tertiary)",
+        "tertiary-container": "var(--th-tertiary-container)",
+        "on-tertiary-container": "var(--th-on-tertiary-container)",
+
+        error: "var(--th-error)",
+        "on-error": "var(--th-on-error)",
+        "error-container": "var(--th-error-container)",
+        "on-error-container": "var(--th-on-error-container)",
+
+        accent: "var(--th-accent)",
+        "on-accent": "var(--th-on-accent)",
+
+        background: "var(--th-background)",
         "on-background": "var(--th-on-background)",
+        surface: "var(--th-surface)",
         "on-surface": "var(--th-on-surface)",
+        "surface-variant": "var(--th-surface-variant)",
         "on-surface-variant": "var(--th-on-surface-variant)",
+        "surface-dim": "var(--th-surface-dim)",
+        "surface-bright": "var(--th-surface-bright)",
+        "surface-tint": "var(--th-surface-tint)",
+
+        outline: "var(--th-outline)",
+        "outline-variant": "var(--th-outline-variant)",
+
+        // 语义化颜色映射
         content: "var(--th-content)",
         headings: "var(--th-headings)",
         captions: "var(--th-captions)",
         links: "var(--th-links)",
         "links-hover": "var(--th-links-hover)",
+        "links-visited": "var(--th-links-visited)",
+
+        // 分层背景系统
         "base-100": "var(--th-base-100)",
         "base-200": "var(--th-base-200)",
         "base-300": "var(--th-base-300)",
         "base-code": "var(--th-base-code)",
+
+        // 容器系统
+        "surface-container-lowest": "var(--th-surface-container-lowest)",
+        "surface-container-low": "var(--th-surface-container-low)",
+        "surface-container": "var(--th-surface-container)",
+        "surface-container-high": "var(--th-surface-container-high)",
+        "surface-container-highest": "var(--th-surface-container-highest)",
       },
     },
   },
