@@ -22,12 +22,24 @@
     --th-on-secondary: var(
       --var-color-wine-on-secondary-light
     ); /* 次色上的文本/图标 */
+    --th-secondary-container: var(
+      --var-color-wine-secondary-container-light
+    ); /* 次要容器 */
+    --th-on-secondary-container: var(
+      --var-color-wine-on-secondary-container-light
+    );
 
     /* --- 第三级互动元素 --- */
     --th-tertiary: var(--var-color-wine-tertiary-light); /* 第三色，特殊元素 */
     --th-on-tertiary: var(
       --var-color-wine-on-tertiary-light
     ); /* 第三色上的文本/图标 */
+    --th-tertiary-container: var(
+      --var-color-wine-tertiary-container-light
+    ); /* 第三色容器 */
+    --th-on-tertiary-container: var(
+      --var-color-wine-on-tertiary-container-light
+    );
 
     /* --- 错误状态元素 --- */
     --th-error: var(--var-color-wine-error-light); /* 错误提示色 */
@@ -53,8 +65,27 @@
     ); /* 变体表面 */
     --th-on-surface-variant: var(--var-color-wine-on-surface-variant-light);
 
+    /* --- 容器系统 --- */
+    --th-surface-container-highest: var(
+      --var-color-wine-surface-container-highest-light
+    );
+    --th-surface-container-high: var(
+      --var-color-wine-surface-container-high-light
+    );
+    --th-surface-container-low: var(
+      --var-color-wine-surface-container-low-light
+    );
+    --th-surface-container-lowest: var(
+      --var-color-wine-surface-container-lowest-light
+    );
+    --th-surface-container: var(--var-color-wine-surface-container-light);
+    --th-surface-dim: var(--var-color-wine-surface-dim-light);
+    --th-surface-bright: var(--var-color-wine-surface-bright-light);
+    --th-surface-tint: var(--var-color-wine-surface-tint-light);
+
     /* --- 轮廓和界面元素 --- */
     --th-outline: var(--var-color-wine-outline-light); /* 边框和分隔线 */
+    --th-outline-variant: var(--var-color-wine-outline-variant-light);
 
     /* --- 页面元素语义映射 --- */
     --th-headings: var(--var-color-wine-on-background-light); /* 标题文本 */
@@ -64,9 +95,9 @@
     ); /* 说明文字 */
     --th-links: var(--th-primary); /* 链接颜色 */
     --th-links-hover: var(--var-color-wine-primary-dark); /* 链接悬停 */
-    --th-base-code: var(
-      --var-color-wine-primary-container-light
-    ); /* 代码块背景 */
+    --th-links-visited: var(
+      --var-color-wine-primary-container-dark
+    ); /* 已访问链接 */
 
     /* --- 分层背景系统 --- */
     --th-base-100: var(--var-color-wine-surface-light); /* 基础表面 */
@@ -76,6 +107,9 @@
     --th-base-300: var(
       --var-color-wine-surface-container-light
     ); /* 高对比表面 */
+    --th-base-code: var(
+      --var-color-wine-primary-container-light
+    ); /* 代码块背景 */
   }
 
   /* === 酒红主题 - 暗色模式 === */
@@ -88,9 +122,7 @@
     --th-primary-container: var(
       --var-color-wine-primary-container-dark
     ); /* 暗色模式容器 */
-    --th-on-primary-container: var(
-      --var-color-wine-on-primary-container-dark
-    ); /* 暗色模式容器内文本 */
+    --th-on-primary-container: var(--var-color-wine-on-primary-container-dark);
 
     /* --- 次要互动元素 --- */
     --th-secondary: var(--var-color-wine-secondary-dark); /* 暗色模式次色 */
@@ -102,7 +134,7 @@
     ); /* 暗色模式次要容器 */
     --th-on-secondary-container: var(
       --var-color-wine-on-secondary-container-dark
-    ); /* 暗色模式次要容器内文本 */
+    );
 
     /* --- 第三级互动元素 --- */
     --th-tertiary: var(--var-color-wine-tertiary-dark); /* 暗色模式第三色 */
@@ -114,7 +146,7 @@
     ); /* 暗色模式第三色容器 */
     --th-on-tertiary-container: var(
       --var-color-wine-on-tertiary-container-dark
-    ); /* 暗色模式第三色容器内文本 */
+    );
 
     /* --- 错误状态元素 --- */
     --th-error: var(--var-color-wine-error-dark); /* 暗色模式错误色 */
@@ -124,9 +156,7 @@
     --th-error-container: var(
       --var-color-wine-error-container-dark
     ); /* 暗色模式错误容器 */
-    --th-on-error-container: var(
-      --var-color-wine-on-error-container-dark
-    ); /* 暗色模式错误容器内文本 */
+    --th-on-error-container: var(--var-color-wine-on-error-container-dark);
 
     /* --- 背景和表面 --- */
     --th-background: var(--var-color-wine-background-dark); /* 暗色模式背景 */
@@ -140,9 +170,25 @@
     --th-surface-variant: var(
       --var-color-wine-surface-variant-dark
     ); /* 暗色模式变体表面 */
-    --th-on-surface-variant: var(
-      --var-color-wine-on-surface-variant-dark
-    ); /* 暗色模式变体表面上的文本 */
+    --th-on-surface-variant: var(--var-color-wine-on-surface-variant-dark);
+
+    /* --- 容器系统 --- */
+    --th-surface-container-highest: var(
+      --var-color-wine-surface-container-highest-dark
+    );
+    --th-surface-container-high: var(
+      --var-color-wine-surface-container-high-dark
+    );
+    --th-surface-container-low: var(
+      --var-color-wine-surface-container-low-dark
+    );
+    --th-surface-container-lowest: var(
+      --var-color-wine-surface-container-lowest-dark
+    );
+    --th-surface-container: var(--var-color-wine-surface-container-dark);
+    --th-surface-dim: var(--var-color-wine-surface-dim-dark);
+    --th-surface-bright: var(--var-color-wine-surface-bright-dark);
+    --th-surface-tint: var(--var-color-wine-surface-tint-dark);
 
     /* --- 轮廓和界面元素 --- */
     --th-outline: var(--var-color-wine-outline-dark); /* 暗色模式边框 */
@@ -160,9 +206,9 @@
     --th-links-hover: var(
       --var-color-wine-primary-light
     ); /* 暗色模式链接悬停 */
-    --th-base-code: var(
-      --var-color-wine-primary-container-dark
-    ); /* 暗色模式代码块背景 */
+    --th-links-visited: var(
+      --var-color-wine-primary-container-light
+    ); /* 暗色模式已访问链接 */
 
     /* --- 分层背景系统 --- */
     --th-base-100: var(--var-color-wine-surface-dark); /* 暗色模式基础表面 */
@@ -170,5 +216,8 @@
       --var-color-wine-surface-variant-dark
     ); /* 暗色模式低对比表面 */
     --th-base-300: var(--var-color-wine-outline-dark); /* 暗色模式高对比表面 */
+    --th-base-code: var(
+      --var-color-wine-primary-container-dark
+    ); /* 暗色模式代码块背景 */
   }
 }

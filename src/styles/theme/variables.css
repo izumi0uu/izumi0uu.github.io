@@ -119,13 +119,31 @@
     --var-color-wine-on-surface-variant-light: theme(
       "colors.wine-on-surface-variant-light"
     );
+    --var-color-wine-outline-light: theme("colors.wine-outline-light");
+
+    /* --- 亮色模式容器系统 --- */
+    --var-color-wine-surface-container-highest-light: theme(
+      "colors.wine-surface-container-highest-light"
+    );
+    --var-color-wine-surface-container-high-light: theme(
+      "colors.wine-surface-container-high-light"
+    );
     --var-color-wine-surface-container-low-light: theme(
       "colors.wine-surface-container-low-light"
+    );
+    --var-color-wine-surface-container-lowest-light: theme(
+      "colors.wine-surface-container-lowest-light"
     );
     --var-color-wine-surface-container-light: theme(
       "colors.wine-surface-container-light"
     );
-    --var-color-wine-outline-light: theme("colors.wine-outline-light");
+    --var-color-wine-surface-dim-light: theme("colors.wine-surface-dim-light");
+    --var-color-wine-surface-bright-light: theme(
+      "colors.wine-surface-bright-light"
+    );
+    --var-color-wine-surface-tint-light: theme(
+      "colors.wine-surface-tint-light"
+    );
 
     /* --- 暗色模式变量 --- */
     --var-color-wine-primary-dark: theme("colors.wine-primary-dark");
@@ -176,5 +194,37 @@
     --var-color-wine-outline-variant-dark: theme(
       "colors.wine-outline-variant-dark"
     );
+
+    /* --- 暗色模式容器系统 --- */
+    --var-color-wine-surface-container-highest-dark: theme(
+      "colors.wine-surface-container-highest-dark"
+    );
+    --var-color-wine-surface-container-high-dark: theme(
+      "colors.wine-surface-container-high-dark"
+    );
+    --var-color-wine-surface-container-low-dark: theme(
+      "colors.wine-surface-container-low-dark"
+    );
+    --var-color-wine-surface-container-lowest-dark: theme(
+      "colors.wine-surface-container-lowest-dark"
+    );
+    --var-color-wine-surface-container-dark: theme(
+      "colors.wine-surface-container-dark"
+    );
+    --var-color-wine-surface-dim-dark: theme("colors.wine-surface-dim-dark");
+    --var-color-wine-surface-bright-dark: theme(
+      "colors.wine-surface-bright-dark"
+    );
+    --var-color-wine-surface-tint-dark: theme("colors.wine-surface-tint-dark");
+
+    /* --- 交互状态颜色 --- */
+    --var-color-interactive-hover: var(--var-color-sky-600);
+    --var-color-interactive-active: var(--var-color-sky-700);
+    --var-color-interactive-disabled: var(--var-color-slate-300);
+
+    /* --- 表单状态颜色 --- */
+    --var-color-input-focus: var(--var-color-sky-500);
+    --var-color-input-error: var(--var-color-red-500);
+    --var-color-input-success: var(--var-color-green-500);
   }
 }

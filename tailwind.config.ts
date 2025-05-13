@@ -3,6 +3,22 @@ import plugin from "tailwindcss/plugin";
 
 import type { Config } from "tailwindcss";
 
+/**
+ * Tailwind CSS 配置文件
+ *
+ * 颜色系统设计原则：
+ * 1. 主色：用于主要交互元素，如按钮、链接等
+ * 2. 次色：用于次要交互元素，如次要按钮、标签等
+ * 3. 第三色：用于特殊强调，如特殊标记、徽章等
+ * 4. 表面色：用于背景和容器，提供层次感
+ * 5. 错误色：用于错误状态和警告提示
+ *
+ * 命名规范：
+ * - light/dark: 表示明暗模式
+ * - on-*: 表示在该背景上的前景色
+ * - container-*: 表示容器类型的背景色
+ */
+
 const config: Config = {
   content: ["src/**/*.{astro,md,mdx,tsx,ts}", "astro.config.mjs"],
 
@@ -52,6 +68,7 @@ const config: Config = {
         "wine-on-primary-light": "rgb(255 255 255)",
         "wine-primary-container-light": "rgb(255 218 212)",
         "wine-on-primary-container-light": "rgb(58 9 4)",
+        "wine-primary-fixed-light": "rgb(255 180 167)",
         "wine-secondary-light": "rgb(119 86 81)",
         "wine-on-secondary-light": "rgb(255 255 255)",
         "wine-secondary-container-light": "rgb(245 221 217)",
@@ -69,14 +86,15 @@ const config: Config = {
         "wine-on-surface-variant-light": "rgb(83 67 64)",
         "wine-outline-light": "rgb(133 115 112)",
 
-        // --- 亮色模式功能与容器色 ---
-        "wine-primary-fixed-light": "rgb(255 180 167)",
-        "wine-error-light": "rgb(186 26 26)",
-        "wine-on-error-light": "rgb(255 255 255)",
-        "wine-error-container-light": "rgb(255 218 214)",
-        "wine-on-error-container-light": "rgb(65 0 2)",
+        // --- 亮色模式容器系统 ---
+        "wine-surface-container-highest-light": "rgb(220 200 195)",
+        "wine-surface-container-high-light": "rgb(235 215 210)",
         "wine-surface-container-low-light": "rgb(252 238 234)",
+        "wine-surface-container-lowest-light": "rgb(255 250 248)",
         "wine-surface-container-light": "rgb(246 230 226)",
+        "wine-surface-dim-light": "rgb(245 235 230)",
+        "wine-surface-bright-light": "rgb(255 255 255)",
+        "wine-surface-tint-light": "rgb(144 75 63)",
 
         // --- 暗色模式主要颜色 ---
         "wine-primary-dark": "rgb(255 180 167)",
@@ -112,7 +130,17 @@ const config: Config = {
         "wine-outline-dark": "rgb(158 139 135)",
         "wine-outline-variant-dark": "rgb(83 67 64)",
 
-        // === 主题变量映射 (可被CSS变量动态更改) ===
+        // --- 暗色模式容器系统 ---
+        "wine-surface-container-highest-dark": "rgb(70 50 45)",
+        "wine-surface-container-high-dark": "rgb(55 35 30)",
+        "wine-surface-container-low-dark": "rgb(30 20 18)",
+        "wine-surface-container-lowest-dark": "rgb(20 10 8)",
+        "wine-surface-container-dark": "rgb(35 25 23)",
+        "wine-surface-dim-dark": "rgb(15 8 6)",
+        "wine-surface-bright-dark": "rgb(45 25 20)",
+        "wine-surface-tint-dark": "rgb(255 180 167)",
+
+        // === 主题变量映射 ===
         primary: "var(--th-primary)",
         "on-primary": "var(--th-on-primary)",
         "primary-container": "var(--th-primary-container)",
