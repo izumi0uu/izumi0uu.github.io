@@ -1,0 +1,52 @@
+---
+import { AstroFont } from "astro-font";
+import { join } from "node:path";
+---
+
+<AstroFont
+  config={[
+    {
+      name: "Inter",
+      src: [
+        {
+          weight: '400',
+          style: 'normal',
+          path: join(process.cwd(), 'public', 'fonts', 'inter', 'Inter-Regular.woff2')
+        },
+        {
+          weight: '500',
+          style: 'normal',
+          path: join(process.cwd(), 'public', 'fonts', 'inter', 'Inter-Medium.woff2')
+        },
+        {
+          weight: '700',
+          style: 'normal',
+          path: join(process.cwd(), 'public', 'fonts', 'inter', 'Inter-Bold.woff2')
+        }
+      ],
+      preload: true,
+      display: "swap",
+      selector: "html",
+      fallback: "sans-serif",
+    },
+    {
+      name: "JetBrains Mono",
+      src: [
+        {
+          weight: '400',
+          style: 'normal',
+          path: join(process.cwd(), 'public', 'fonts', 'jetbrains-mono', 'JetBrainsMono-Regular.woff2')
+        },
+        {
+          weight: '700',
+          style: 'normal',
+          path: join(process.cwd(), 'public', 'fonts', 'jetbrains-mono', 'JetBrainsMono-Bold.woff2')
+        }
+      ],
+      preload: true,
+      display: "swap",
+      selector: "code, pre, kbd",
+      fallback: "monospace",
+    },
+  ]}
+/> 

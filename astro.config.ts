@@ -11,6 +11,7 @@ import partytown from "@astrojs/partytown";
 import react from "@astrojs/react";
 import icon from "astro-icon";
 import tailwindcss from "@tailwindcss/vite";
+import { astroFont } from "astro-font/integration";
 
 // Import core embedder and transformer
 import remarkEmbedder from "@remark-embedder/core";
@@ -62,6 +63,7 @@ export default defineConfig({
     expressiveCodeIntegration(),
     sitemapIntegration(),
     mdx(),
+    astroFont(),
   ],
   markdown: {
     rehypePlugins: [
