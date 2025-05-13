@@ -1,5 +1,5 @@
 import defaultTheme from "tailwindcss/defaultTheme";
-import plugin from "tailwindcss/plugin";
+import plugin, { type PluginUtils } from "tailwindcss/plugin";
 
 import type { Config } from "tailwindcss";
 
@@ -198,6 +198,31 @@ const config: Config = {
         "surface-container-high": "var(--th-surface-container-high)",
         "surface-container-highest": "var(--th-surface-container-highest)",
       },
+    },
+    typography: ({ theme }: PluginUtils) => ({
+        // 默认的 `prose` 样式配置
+        DEFAULT: {
+          css: {
+            // 移除代码块前后默认添加的引号
+            'code::before': { content: '""' },
+            'code::after': { content: '""' },
+            // 可以在这里添加更多自定义的 `prose` 样式
+            // 例如：
+            // h1: { color: theme('colors.headings') },
+            // a: { color: theme('colors.links.DEFAULT'), '&:hover': { color: theme('colors.links.hover') } },
+          },
+        },
+        // 自定义一个名为 `prose-a-img` 的排版变体 (虽然注释说是 nonsense，但展示了如何创建变体)
+        // 使用方式：<div class="prose prose-a-img">...</div>
+        'a-img': {
+          css: {
+            // 给 `prose-a-img` 容器内的链接图片在悬停时添加蓝色轮廓
+            'a:hover img': {
+              outline: `4px solid ${theme('colors.wine-primary-light')}`,
+            },
+          },
+        },
+      }),
     },
   },
 };
