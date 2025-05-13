@@ -60,11 +60,6 @@
     --th-base-200: var(--var-color-slate-100); /* 低对比表面 */
     --th-base-300: var(--var-color-slate-200); /* 高对比表面 */
     --th-base-code: var(--var-color-slate-100); /* 代码块背景 */
-
-    /* --- 圆角设计系统 --- */
-    --th-rounded-box: var(--th-base-rounded-md); /* 容器圆角 */
-    --th-rounded-button: var(--th-base-rounded-lg); /* 按钮圆角 */
-    --th-rounded-tag: var(--th-base-rounded-full); /* 标签圆角 */
   }
 
   /* === 默认主题 - 暗色模式 === */
