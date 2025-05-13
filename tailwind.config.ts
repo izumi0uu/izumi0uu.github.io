@@ -141,29 +141,35 @@ const config: Config = {
         "wine-surface-tint-dark": "rgb(255 180 167)",
 
         // === 主题变量映射 ===
+        // 主色
         primary: "var(--th-primary)",
         "on-primary": "var(--th-on-primary)",
         "primary-container": "var(--th-primary-container)",
         "on-primary-container": "var(--th-on-primary-container)",
 
+        // 次要颜色
         secondary: "var(--th-secondary)",
         "on-secondary": "var(--th-on-secondary)",
         "secondary-container": "var(--th-secondary-container)",
         "on-secondary-container": "var(--th-on-secondary-container)",
 
+        // 第三色
         tertiary: "var(--th-tertiary)",
         "on-tertiary": "var(--th-on-tertiary)",
         "tertiary-container": "var(--th-tertiary-container)",
         "on-tertiary-container": "var(--th-on-tertiary-container)",
 
+        // 错误色
         error: "var(--th-error)",
         "on-error": "var(--th-on-error)",
         "error-container": "var(--th-error-container)",
         "on-error-container": "var(--th-on-error-container)",
 
+        // 强调色
         accent: "var(--th-accent)",
         "on-accent": "var(--th-on-accent)",
 
+        // 背景和表面
         background: "var(--th-background)",
         "on-background": "var(--th-on-background)",
         surface: "var(--th-surface)",
@@ -174,6 +180,7 @@ const config: Config = {
         "surface-bright": "var(--th-surface-bright)",
         "surface-tint": "var(--th-surface-tint)",
 
+        // 轮廓
         outline: "var(--th-outline)",
         "outline-variant": "var(--th-outline-variant)",
 
@@ -212,11 +219,10 @@ const config: Config = {
             // a: { color: theme('colors.links.DEFAULT'), '&:hover': { color: theme('colors.links.hover') } },
           },
         },
-        // 自定义一个名为 `prose-a-img` 的排版变体 (虽然注释说是 nonsense，但展示了如何创建变体)
+        // 自定义一个名为 `prose-a-img` 的排版变体
         // 使用方式：<div class="prose prose-a-img">...</div>
         'a-img': {
           css: {
-            // 给 `prose-a-img` 容器内的链接图片在悬停时添加蓝色轮廓
             'a:hover img': {
               outline: `4px solid ${theme('colors.wine-primary-light')}`,
             },
