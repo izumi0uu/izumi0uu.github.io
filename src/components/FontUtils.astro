@@ -1,0 +1,36 @@
+---
+/**
+ * 字体工具组件
+ * 提供字体相关的工具类和样式
+ */
+---
+
+<style is:global>
+  /* 纯英文元素应用优化的英文字体堆栈 */
+  .font-en {
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  /* 纯中文元素应用优化的中文字体堆栈 */
+  .font-zh {
+    font-family: "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  /* 混合字体堆栈(默认) */
+  .font-mixed {
+    font-family: "Inter", "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  /* 代码字体 */
+  .font-code {
+    font-family: "JetBrains Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+</style>
+
+<!--
+使用方法:
+<p class="font-en">This is English text with optimized English font stack</p>
+<p class="font-zh">这是使用优化的中文字体堆栈的中文文本</p>
+<p class="font-mixed">这是混合中英文 Mixed Chinese and English text</p>
+<code class="font-code">const code = "代码使用等宽字体";</code>
+--> 

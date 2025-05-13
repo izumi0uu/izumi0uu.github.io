@@ -2,6 +2,7 @@
 import BaseHead from '@/components/BaseHead.astro';
 import FontLoader from '@/components/FontLoader.astro';
 import GoogleFontsLoader from '@/components/GoogleFontsLoader.astro';
+import FontUtils from '@/components/FontUtils.astro';
 
 ---
 
@@ -19,8 +20,11 @@ import GoogleFontsLoader from '@/components/GoogleFontsLoader.astro';
 		
 		<!-- 加载中文字体 (Noto Sans SC) -->
 		<GoogleFontsLoader />
+		
+		<!-- 加载字体工具类 -->
+		<FontUtils />
 	</head>
-	<body>
+	<body class="font-mixed">
 		<slot />
 	</body>
 </html>

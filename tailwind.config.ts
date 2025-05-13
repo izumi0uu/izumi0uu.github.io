@@ -57,8 +57,14 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
+        // 默认字体堆栈 (中英文混合)
         sans: ["Inter", '"Noto Sans SC"', ...defaultTheme.fontFamily.sans],
+        // 代码字体
         mono: ['"JetBrains Mono"', ...defaultTheme.fontFamily.mono],
+        // 纯英文字体
+        'en': ["Inter", ...defaultTheme.fontFamily.sans],
+        // 纯中文字体
+        'zh': ['"Noto Sans SC"', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         // === 酒红主题原始颜色 ===
