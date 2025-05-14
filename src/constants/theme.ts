@@ -26,12 +26,6 @@ export const THEMES = [
   },
 ] as const;
 
-// for debugging
-export const DEFAULT_THEMES = {
-  light: THEMES[0],
-  dark: THEMES[1],
-} as const;
-
 export const THEME_CONFIG = {
   MODE_CLASS: "dark",
   DATA_ATTRIBUTE: "data-theme",
@@ -44,3 +38,15 @@ export type Mode = (typeof MODE)[keyof typeof MODE];
 export type Theme = (typeof THEMES)[number];
 
 export type ThemeConfig = typeof THEME_CONFIG;
+
+// for debugging
+export const DEFAULT_THEMES = {
+  light: THEMES[0],
+  dark: THEMES[1],
+} as const;
+
+// for debugging
+export const WINE_THEMES = {
+  light: THEMES[2],
+  dark: THEMES[3],
+} as const;
