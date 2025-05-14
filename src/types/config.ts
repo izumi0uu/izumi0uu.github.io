@@ -1,3 +1,7 @@
+/**
+ * @description This file contains the types for the config.used for initial config
+ */
+
 import type { z } from "zod";
 import type {
   configClientSchema,
