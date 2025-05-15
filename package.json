@@ -1,12 +1,13 @@
 {
-  "name": "sakia-blog",
+  "name": "izumi0uu-blog",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "paraglide-js compile --project ./project.inlang --outdir ./src\\paraglide && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "machine-translate": "inlang machine translate --project project.inlang"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.5",
@@ -52,6 +53,8 @@
   },
   "devDependencies": {
     "@fec/remark-a11y-emoji": "^4.0.2",
+    "@inlang/cli": "^3.0.0",
+    "@inlang/paraglide-js": "2.0.12",
     "mdast-util-from-markdown": "^2.0.2"
   }
 }

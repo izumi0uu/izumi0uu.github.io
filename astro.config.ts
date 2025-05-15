@@ -23,6 +23,8 @@ import rehypeExternalLinks from "./plugins/rehype-external-links.mjs";
 import rehypeAutolinkHeadings from "./plugins/rehype-autolink-headings.mjs";
 // Attempt to use preset directly for linting
 
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
+
 import {
   remarkLint, // Markdown 代码风格检查
   unifiedPrettier, // Prettier 格式化
@@ -106,6 +108,13 @@ export default defineConfig({
       allowedHosts: ["localhost", "izumi0uu.com"],
     },
 
-    plugins: [tailwindcss()],
+    plugins: [
+      tailwindcss(),
+      paraglideVitePlugin({
+        project: "./project.inlang",
+        outdir: "./src/paraglide",
+      }),
+    ],
   },
+  output: "static",
 });
