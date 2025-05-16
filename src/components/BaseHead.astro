@@ -1,8 +1,37 @@
 ---
-import { Metadata } from "@/types/common";
+
+import type { Metadata } from "@/types/common";
+
+// load fonts and font utils
+import FontLoader from "@/components/fonts/FontLoader.astro";
+import GoogleFontsLoader from "@/components/fonts/GoogleFontsLoader.astro";
+import FontUtils from "@/components/fonts/FontUtils.astro";
+
+// load styles
+import '@/styles/main.css';
+
+import { ClientRouter } from "astro:transitions";
 
 export interface BaseHeadProps {
   metadata: Metadata;
 }
 ---
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="theme-color" content="" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="generator" content={Astro.generator} />
+  <title>Astro Basics</title>
+  
+  <link rel="canonical" href={canonicalUrl} />
+  <!-- 加载本地字体 (Inter + JetBrains Mono) -->
+  <FontLoader />
+  
+  <!-- 加载中文字体 (Noto Sans SC) -->
+  <GoogleFontsLoader />
+  
+  <!-- 加载字体工具类 -->
+  <FontUtils />
+</head>
