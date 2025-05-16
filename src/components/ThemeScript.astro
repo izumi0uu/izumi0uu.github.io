@@ -1,7 +1,6 @@
 ---
 import { SELECTORS } from "@/constants/dom";
 import * as themeConstants from "@/constants/theme";
-import type { Mode, Theme, ThemeConfig } from "@/constants/theme";
 import { CONFIG_CLIENT } from "@/config/client";
 import { getDefaultThemes } from "@/utils/ui/theme";
 
@@ -11,9 +10,64 @@ const defaultThemes = getDefaultThemes();
 
 ---
 {/* Inlined to avoid flash of white content. */}
+{/* By default, Astro will process, optimize, and bundle any <script> and <style> tags that it sees on the page. You can opt-out of this behavior with the is:inline directive. */}
 <script
   is:inline
   define:vars={{ themeConstants, defaultThemes, DEFAULT_MODE, THEME_META_TAG_SELECTOR }}
 >
-    
+  const { MODES, THEMES, THEME_CONFIG } = themeConstants;
+  const { DATA_ATTRIBUTE, CHANGE_EVENT, LOCAL_STORAGE_KEY } = THEME_CONFIG;
+
+  // used for event : is user prefer dark mode?
+  const darkModePreference = window.matchMedia('(prefers-color-scheme: dark)');
+
+  // e.g. 'dark' -> 'default-dark(default mode, default theme)'
+  const getDefaultTheme = (themeMode) => defaultThemes[themeMode];
+
+  // e.g. 'default-light' -> 'default'
+  const getThemeNamePrefix = (themeName) => themeName.split('-')?.[0];
+
+  // get user theme, then traversal all prefix themes, and find the best match
+  const getThemeFromMode = (themeMode) => {
+    const currentTheme = getTheme();
+
+    const newTheme = THEMES.find((theme) => {
+      const currentThemePrefix = getThemeNamePrefix(currentTheme.name);
+      const themePrefix = getThemeNamePrefix(theme.name);
+
+      const isModeMatch = theme.mode === themeMode;
+      const isThemeNameMatch =
+        themePrefix && currentThemePrefix && themePrefix === currentThemePrefix;
+
+      const isFound = isModeMatch && isThemeNameMatch;
+
+      return isFound;
+    });
+
+    const defaultTheme = getDefaultTheme(themeMode);
+    const resultTheme = newTheme ?? defaultTheme;
+
+    return resultTheme;
+  }
+
+  /** 'dark' | 'light' | null */
+  const getBrowserMode = () => {
+    // note: even "darkModePreference.matches" is false, it doesn't automatically mean that the user prefers "light mode". The user may be in the "no-preference state", or their browser may not support this feature (although modern browsers all support it).
+    const lightModePreference = window.matchMedia('(prefers-color-scheme: light)');
+
+    let browserMode;
+
+    switch (true) {
+      case darkModePreference.matches:
+        browserMode = MODES.dark;
+        break;
+      case lightModePreference.matches:
+        browserMode = MODES.light;
+        break;
+      default:
+        browserMode = null;
+        break;
+    }
+    return browserMode;
+  }
 </script>
