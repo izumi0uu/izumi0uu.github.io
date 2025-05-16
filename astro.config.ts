@@ -99,6 +99,13 @@ export default defineConfig({
       remarkCallout,
     ],
   },
+  i18n: {
+    defaultLocale: "en",
+    locales: ["zh", "en"],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   vite: {
     build: {
       sourcemap: false,
