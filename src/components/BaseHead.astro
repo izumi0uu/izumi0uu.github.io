@@ -30,10 +30,14 @@ const {SITE_URL_CANONICAL, SITE_TITLE, SITE_DESCRIPTION, AUTHOR_NAME, PLAUSIBLE_
   <meta name="viewport" content="width=device-width" />
   <meta name="theme-color" content="" />
   <meta name="generator" content={Astro.generator} />
-  <meta name="description" content={SITE_DESCRIPTION} />
-  <title>{SITE_TITLE}</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  
+  <link rel="manifest" href="/manifest.json" />
+
+  {/* Primary Meta Tags */}
+  <title>{SITE_TITLE}</title>
+  <meta name="title" content={SITE_TITLE} />
+  <meta name="description" content={SITE_DESCRIPTION} />
+  <meta name="author" content={AUTHOR_NAME} />
   <link rel="canonical" href={SITE_URL_CANONICAL} />
   <!-- 加载本地字体 (Inter + JetBrains Mono) -->
   <FontLoader />

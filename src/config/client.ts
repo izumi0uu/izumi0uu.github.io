@@ -32,7 +32,7 @@ const configClientData: ConfigClientType = {
   PAGE_SIZE_PROJECT_CARD: 10,
   MORE_POSTS_COUNT: 3,
   DEFAULT_MODE: "light",
-  DEFAULT_THEME: "default-light",
+  DEFAULT_THEME: "wine-light",
   AUTHOR_NAME: "izumi0uu",
   AUTHOR_EMAIL: "izumi0uu@gmail.com",
   AUTHOR_GITHUB: "https://github.com/izumi0uu",

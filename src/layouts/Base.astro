@@ -1,29 +1,12 @@
 ---
 import BaseHead from '@/components/BaseHead.astro';
-import FontLoader from '@/components/FontLoader.astro';
-import GoogleFontsLoader from '@/components/GoogleFontsLoader.astro';
-import FontUtils from '@/components/FontUtils.astro';
+
 
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-		
-		<!-- 加载本地字体 (Inter + JetBrains Mono) -->
-		<FontLoader />
-		
-		<!-- 加载中文字体 (Noto Sans SC) -->
-		<GoogleFontsLoader />
-		
-		<!-- 加载字体工具类 -->
-		<FontUtils />
-	</head>
+	<BaseHead />
 	<body class="font-mixed">
 		<slot />
 	</body>

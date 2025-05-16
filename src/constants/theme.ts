@@ -2,26 +2,26 @@
  * @description
  */
 
-export const MODE = {
+export const MODES = {
   light: "light",
   dark: "dark",
 } as const;
 
 export const THEMES = [
   {
-    mode: MODE.light,
+    mode: MODES.light,
     name: "default-light",
   },
   {
-    mode: MODE.dark,
+    mode: MODES.dark,
     name: "default-dark",
   },
   {
-    mode: MODE.light,
+    mode: MODES.light,
     name: "wine-light",
   },
   {
-    mode: MODE.dark,
+    mode: MODES.dark,
     name: "wine-dark",
   },
 ] as const;
@@ -33,7 +33,7 @@ export const THEME_CONFIG = {
   LOCAL_STORAGE_KEY: "theme",
 } as const;
 
-export type Mode = (typeof MODE)[keyof typeof MODE];
+export type Mode = (typeof MODES)[keyof typeof MODES];
 
 export type Theme = (typeof THEMES)[number];
 
