@@ -8,5 +8,37 @@
   ],
   "plugin.inlang.messageFormat": {
     "pathPattern": "./messages/{locale}.json"
+  },
+  "plugin.inlang.paraglideJs": {
+    "pathnames": {
+      "/": {
+        "en": "/",
+        "zh": "/"
+      },
+      "/about": {
+        "en": "/about-me",
+        "zh": "/about-me"
+      },
+      "/blogs": {
+        "en": "/blogs",
+        "zh": "/blogs"
+      },
+      "/blogs/[slug]": {
+        "en": "/blogs/[slug]",
+        "zh": "/blogs/[slug]"
+      },
+      "/techStack": {
+        "en": "/tech-stack",
+        "zh": "/tech-stack"
+      },
+      "/projects": {
+        "en": "/projects",
+        "zh": "/projects"
+      },
+      "/projects/[slug]": {
+        "en": "/projects/[slug]",
+        "zh": "/projects/[slug]"
+      }
+    }
   }
 }
