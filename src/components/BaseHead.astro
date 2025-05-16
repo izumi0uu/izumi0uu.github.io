@@ -10,22 +10,31 @@ import FontUtils from "@/components/fonts/FontUtils.astro";
 // load styles
 import '@/styles/main.css';
 
+import { CONFIG_CLIENT } from "@/config/client";
+
 import { ClientRouter } from "astro:transitions";
+
+import ThemeScript from '@/components/ThemeScript.astro';
+
 
 export interface BaseHeadProps {
   metadata: Metadata;
 }
+
+const {SITE_URL_CANONICAL, SITE_TITLE, SITE_DESCRIPTION, AUTHOR_NAME, PLAUSIBLE_DOMAIN, PLAUSIBLE_SCRIPT_URL} = CONFIG_CLIENT;
+
 ---
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width" />
   <meta name="theme-color" content="" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="generator" content={Astro.generator} />
-  <title>Astro Basics</title>
+  <meta name="description" content={SITE_DESCRIPTION} />
+  <title>{SITE_TITLE}</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   
-  <link rel="canonical" href={canonicalUrl} />
+  <link rel="canonical" href={SITE_URL_CANONICAL} />
   <!-- 加载本地字体 (Inter + JetBrains Mono) -->
   <FontLoader />
   
