@@ -18,16 +18,16 @@ const defaultThemes = getDefaultThemes();
   const { MODES, THEMES, THEME_CONFIG } = themeConstants;
   const { DATA_ATTRIBUTE, CHANGE_EVENT, LOCAL_STORAGE_KEY } = THEME_CONFIG;
 
-  // used for event : is user prefer dark mode?
+  /** used for event listener: is user prefer dark mode? */
   const darkModePreference = window.matchMedia('(prefers-color-scheme: dark)');
 
-  // e.g. 'dark' -> 'default-dark(default mode, default theme)'
+  /** e.g. 'dark' -> 'default-dark(default mode, default theme) */
   const getDefaultTheme = (themeMode) => defaultThemes[themeMode];
 
-  // e.g. 'default-light' -> 'default'
+  /** e.g. 'default-light' -> 'default' */
   const getThemeNamePrefix = (themeName) => themeName.split('-')?.[0];
 
-  // get user theme, then traversal all prefix themes, and find the best match
+  /** get user theme, then traversal all prefix themes, and find the best match */
   const getThemeFromMode = (themeMode) => {
     const currentTheme = getTheme();
 
@@ -71,6 +71,7 @@ const defaultThemes = getDefaultThemes();
     return browserMode;
   }
 
+  /** to get stored theme, if invalid, clear it */
   const getStoredTheme = () => {
    const storedThemeString = typeof localStorage !== 'undefined' && localStorage.getItem(LOCAL_STORAGE_KEY);
 
@@ -95,7 +96,7 @@ const defaultThemes = getDefaultThemes();
     
   }
 
-  /** priority: stored mode > browser mode and theme > default app mode, config */
+  /** to init theme, priority: stored mode > browser mode and theme > default app mode, config */
   const getTheme = () => {
     // either from storage
     const storedTheme = getStoredTheme();
@@ -113,5 +114,50 @@ const defaultThemes = getDefaultThemes();
     return defaultAppTheme;
   }
 
-    
+  /** to set theme, validate theme, then update root class and data-theme */
+  const setTheme = (newTheme) => {
+    const validatedTheme = THEMES.find(
+      (theme) => theme.name === newTheme.name && theme.mode === newTheme.mode
+    );
+
+    if(!validatedTheme) {
+      return console.warn(`Invalid theme value '${JSON.stringify(newTheme)}' received. Expected ${JSON.stringify(THEMES)}.`);
+    }
+
+    const root = document.documentElement;
+
+    const isDarkMode = root.classList.contains(MODES.dark);
+    const existingTheme = {
+      // get current theme name from 'data-theme' attribute
+      name: root.getAttribute(DATA_ATTRIBUTE),
+      mode: isDarkMode ? MODES.dark : MODES.light,
+    }
+
+    const isExistingTheme =
+      newTheme.name === existingTheme.name && newTheme.mode === existingTheme.mode;
+
+    // root already set to newTheme, exit early
+    if(isExistingTheme) return;
+
+    // update root class and data-theme
+    root.setAttribute(DATA_ATTRIBUTE, newTheme.name);
+    if(newTheme.mode !== MODES.dark) {
+      // add dark mode class
+      root.classList.add(MODES.dark);
+    } else {
+      // light
+      if (isDarkMode) root.classList.remove(MODES.dark);
+    }
+
+    // save to storage
+    if(typeof localStorage !== 'undefined') {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTheme));
+    }
+
+    // must have dealy for bg color to apply
+    setTimeout(() => updateMetaTag(), 1000);
+  }
+  
+  
+
 </script>
