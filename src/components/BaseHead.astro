@@ -1,7 +1,5 @@
 ---
 
-import type { Metadata } from "@/types/common";
-
 // load fonts and font utils
 import FontLoader from "@/components/fonts/FontLoader.astro";
 import GoogleFontsLoader from "@/components/fonts/GoogleFontsLoader.astro";
@@ -10,18 +8,31 @@ import FontUtils from "@/components/fonts/FontUtils.astro";
 // load styles
 import '@/styles/main.css';
 
+// load config
 import { CONFIG_CLIENT } from "@/config/client";
 
+// load transitions
 import { ClientRouter } from "astro:transitions";
 
+// load theme-script component
 import ThemeScript from '@/components/ThemeScript.astro';
 
+// load utils
+import { handleTitle } from "@utils/metadata";
+import { filterUndefined } from "@utils/objects";
+
+// load types
+import type { Metadata } from "@/types/common";
+
+// set default metadata in this component
+const { metadata } = Astro.props as BaseHeadProps;
+
+const {SITE_URL_CANONICAL, SITE_TITLE, SITE_DESCRIPTION, AUTHOR_NAME, PLAUSIBLE_DOMAIN, PLAUSIBLE_SCRIPT_URL} = CONFIG_CLIENT;
 
 export interface BaseHeadProps {
   metadata: Metadata;
 }
 
-const {SITE_URL_CANONICAL, SITE_TITLE, SITE_DESCRIPTION, AUTHOR_NAME, PLAUSIBLE_DOMAIN, PLAUSIBLE_SCRIPT_URL} = CONFIG_CLIENT;
 
 ---
 
@@ -39,12 +50,44 @@ const {SITE_URL_CANONICAL, SITE_TITLE, SITE_DESCRIPTION, AUTHOR_NAME, PLAUSIBLE_
   <meta name="description" content={SITE_DESCRIPTION} />
   <meta name="author" content={AUTHOR_NAME} />
   <link rel="canonical" href={SITE_URL_CANONICAL} />
-  <!-- Load local fonts (Inter + JetBrains Mono) -->
+
+  {/* Open Graph / Facebook */}
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={url} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImageUrl} />
+
+
+  {/* Analytics */}
+  {
+    PLAUSIBLE_SCRIPT_URL && (
+      <>
+        <link rel="preconnect" href={PLAUSIBLE_SCRIPT_URL} />
+        {/* PLAUSIBLE_DOMAIN must be the same for all mirrors */}
+        <script
+          defer
+          type="text/partytown"
+          src={PLAUSIBLE_SCRIPT_URL}
+          data-domain={PLAUSIBLE_DOMAIN}
+        />
+      </>
+    )
+  }
+
+  {/* Theme */}
+  {/* MUST be inside <head /> to avoid white flash, IMPORTANT */}
+  <ThemeScript />
+
+  {/* turn on the feature of view transitions in Astro */}
+  <ClientRouter fallback="none" />
+
+  {/* Load local fonts (Inter + JetBrains Mono) */}
   <FontLoader />
   
-  <!-- Load Chinese fonts (Noto Sans SC) -->
+  {/* Load Chinese fonts (Noto Sans SC) */}
   <GoogleFontsLoader />
   
-  <!-- Load font utility classes -->
+  {/* Load font utility classes */}
   <FontUtils />
 </head>
