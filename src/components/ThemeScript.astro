@@ -138,7 +138,7 @@ const defaultThemes = getDefaultThemes();
     return defaultAppTheme;
   }
 
-  /** to set theme, validate theme, then update root class and data-theme */
+  /** to set theme, validate theme, then update root class(dark or '') and data-theme */
   const setTheme = (newTheme) => {
     const validatedTheme = THEMES.find(
       (theme) => theme.name === newTheme.name && theme.mode === newTheme.mode
@@ -184,8 +184,9 @@ const defaultThemes = getDefaultThemes();
     setTimeout(() => updateMetaTag(), 1000);
   }
 
-  /** to update meta tag */
+  /** to make sure meta tag content is updated with the correct bg color and for the purpose of serveing for browser to detect theme */
   const updateMetaTag = () => {
+    // choose <body> as color source is a common convention, because it usually represents the "canvas" color of the page.
     const bodyElement = document.body;
     if(!bodyElement) return;
 
@@ -201,7 +202,8 @@ const defaultThemes = getDefaultThemes();
   // initial setup
   setTheme(getTheme());
 
-  // View Transitions hook to restore theme
+  // View Transitions hook to restore theme, the astro:after-swap event fires after the new page content has been swapped in
+  // allows Astro sites to maintain the benefits of multi-page applications (like better SEO and initial load performance) while also providing smooth transitions between pages that are typically associated with SPAs.
   document.addEventListener('astro:after-swap', () => setTheme(getTheme()));
 
   // listen for theme-change custom event, fired in src/components/ThemeToggle.astro
