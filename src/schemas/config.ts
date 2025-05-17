@@ -1,12 +1,12 @@
 import { z } from "zod";
 
-export const nodeEnvValues = ["development", "production", "test"] as const;
+const nodeEnvValues = ["development", "production", "test"] as const;
 
-export const booleanValues = ["true", "false", ""] as const;
+const booleanValues = ["true", "false", ""] as const;
 
-export const modeValues = ["light", "dark"] as const;
+const modeValues = ["light", "dark"] as const;
 
-export const themeValues = [
+const themeValues = [
   "default-light",
   "default-dark",
   "wine-light",
@@ -17,7 +17,7 @@ const domainSubdomainRegex =
   /^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.(?!-)[A-Za-z0-9-]{1,63}(?<!-))*\.[A-Za-z]{2,}$/;
 
 /** runs after astro:env check in astro.config.ts */
-export const processEnvSchema = z.object({
+const processEnvSchema = z.object({
   NODE_ENV: z.enum(nodeEnvValues),
   PREVIEW_MODE: z
     .enum(booleanValues)
@@ -46,7 +46,7 @@ export const processEnvSchema = z.object({
     ),
 });
 
-export const configServerSchema = processEnvSchema
+const configServerSchema = processEnvSchema
   .omit({
     SITE_URL: true,
     PREVIEW_MODE: true,
@@ -55,7 +55,7 @@ export const configServerSchema = processEnvSchema
   })
   .extend({ PREVIEW_MODE: z.boolean() }); // here its boolean, not 'true' | 'false'
 
-export const configClientSchema = processEnvSchema
+const configClientSchema = processEnvSchema
   .pick({ SITE_URL: true, PLAUSIBLE_SCRIPT_URL: true, PLAUSIBLE_DOMAIN: true })
   .merge(
     z.object({
@@ -82,3 +82,13 @@ export const configClientSchema = processEnvSchema
       REPO_URL: z.string().url(),
     })
   );
+
+export {
+  nodeEnvValues,
+  booleanValues,
+  modeValues,
+  themeValues,
+  processEnvSchema,
+  configServerSchema,
+  configClientSchema,
+};

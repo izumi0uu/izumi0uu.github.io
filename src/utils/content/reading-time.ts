@@ -8,7 +8,7 @@ import { toString } from "mdast-util-to-string";
  * @returns The reading time in minutes
  */
 
-export const getReadingTime = (text: string): string | undefined => {
+const getReadingTime = (text: string): string | undefined => {
   if (!text || text.length === 0) return undefined;
 
   try {
@@ -21,3 +21,5 @@ export const getReadingTime = (text: string): string | undefined => {
     return undefined;
   }
 };
+
+export { getReadingTime };

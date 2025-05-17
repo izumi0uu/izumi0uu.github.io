@@ -2,12 +2,12 @@
  * @description
  */
 
-export const MODES = {
+const MODES = {
   light: "light",
   dark: "dark",
 } as const;
 
-export const THEMES = [
+const THEMES = [
   {
     mode: MODES.light,
     name: "default-light",
@@ -26,27 +26,30 @@ export const THEMES = [
   },
 ] as const;
 
-export const THEME_CONFIG = {
+const THEME_CONFIG = {
   MODE_CLASS: "dark",
   DATA_ATTRIBUTE: "data-theme",
   CHANGE_EVENT: "theme-change",
   LOCAL_STORAGE_KEY: "theme",
 } as const;
 
-export type Mode = (typeof MODES)[keyof typeof MODES];
+type Mode = (typeof MODES)[keyof typeof MODES];
 
-export type Theme = (typeof THEMES)[number];
+type Theme = (typeof THEMES)[number];
 
-export type ThemeConfig = typeof THEME_CONFIG;
+type ThemeConfig = typeof THEME_CONFIG;
 
 // for debugging
-export const DEFAULT_THEMES = {
+const DEFAULT_THEMES = {
   light: THEMES[0],
   dark: THEMES[1],
 } as const;
 
 // for debugging
-export const WINE_THEMES = {
+const WINE_THEMES = {
   light: THEMES[2],
   dark: THEMES[3],
 } as const;
+
+export { MODES, THEMES, THEME_CONFIG, DEFAULT_THEMES, WINE_THEMES };
+export type { Mode, Theme, ThemeConfig };

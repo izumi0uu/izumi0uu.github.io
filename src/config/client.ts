@@ -47,4 +47,6 @@ const configClientData: ConfigClientType = {
   AUTHOR_BILIBILI: "",
 };
 
-export const CONFIG_CLIENT = validateData(configClientData, configClientSchema);
+const CONFIG_CLIENT = validateData(configClientData, configClientSchema);
+
+export { CONFIG_CLIENT };

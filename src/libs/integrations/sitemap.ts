@@ -10,7 +10,7 @@ const { SITE_URL } = PROCESS_ENV;
 // (because sitemap needs to know the root URL to generate absolute links for all pages)
 
 /** generated at build-time only */
-export const sitemapIntegration = () =>
+const sitemapIntegration = () =>
   sitemap({
     serialize: (item) => {
       if (item.url.endsWith(SITE_URL)) {
@@ -23,3 +23,5 @@ export const sitemapIntegration = () =>
       return item;
     },
   });
+
+export { sitemapIntegration };

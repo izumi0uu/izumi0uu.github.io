@@ -1,4 +1,4 @@
-export const ROUTES = {
+const ROUTES = {
   HOME: "/",
   BLOG: "/blog/",
   PROJECTS: "/projects/",
@@ -18,3 +18,5 @@ export const ROUTES = {
     FEED_RSS: "/api/feed.xml",
   },
 } as const;
+
+export { ROUTES };

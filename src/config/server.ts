@@ -15,7 +15,7 @@ const NODE_ENV = NODE_ENV_STRING as ConfigServerType["NODE_ENV"];
 //对于静态站点生成 (SSG)，所有环境变量仅在构建时使用。
 const configServerData: ConfigServerType = { NODE_ENV, PREVIEW_MODE };
 
-export const CONFIG_SERVER = validateData(configServerData, configServerSchema);
+const CONFIG_SERVER = validateData(configServerData, configServerSchema);
 
 /**
  * @constant MERGED_CONFIG
@@ -23,4 +23,6 @@ export const CONFIG_SERVER = validateData(configServerData, configServerSchema);
  * 提供一个统一的访问点来获取所有经过校验的配置信息。
  * 注意：这样做是为了方便，但在实际使用中仍需注意区分哪些配置只应在服务端访问。
  */
-export const MERGED_CONFIG = { ...CONFIG_SERVER, ...CONFIG_CLIENT };
+const MERGED_CONFIG = { ...CONFIG_SERVER, ...CONFIG_CLIENT };
+
+export { CONFIG_SERVER, MERGED_CONFIG };

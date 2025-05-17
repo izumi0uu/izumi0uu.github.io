@@ -1,7 +1,7 @@
 import expressiveCode from "astro-expressive-code";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 
-export const expressiveCodeIntegration = () =>
+const expressiveCodeIntegration = () =>
   expressiveCode({
     themes: ["light-plus", "dark-plus"],
     useDarkModeMediaQuery: true,
@@ -31,3 +31,5 @@ export const expressiveCodeIntegration = () =>
     },
     plugins: [pluginCollapsibleSections()],
   });
+
+export { expressiveCodeIntegration };

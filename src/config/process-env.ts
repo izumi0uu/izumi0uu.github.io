@@ -44,13 +44,13 @@ const processEnvData: ProcessEnvType = {
 };
 prettyPrintObject(processEnvData, "received PROCESS_ENV");
 
-export const PROCESS_ENV = validateData(processEnvData, processEnvSchema);
+const PROCESS_ENV = validateData(processEnvData, processEnvSchema);
 
 /*------------define astro schema experimental.env.schema ------------*/
 // describe the behavior of the environment variables schema, tell Astro how to handle these variables
 // only be used in astro init
 
-export const astroEnvSchema = {
+const astroEnvSchema = {
   schema: {
     NODE_ENV: envField.string({
       context: "server",
@@ -79,3 +79,5 @@ export const astroEnvSchema = {
     }),
   },
 };
+
+export { PROCESS_ENV, astroEnvSchema };

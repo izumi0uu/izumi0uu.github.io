@@ -1,4 +1,4 @@
-export const SELECTORS = {
+const SELECTORS = {
   GISCUS_WIDGET_ID: "giscus-comments",
   GISCUS_WIDGET_SELECTOR: "#giscus-comments",
   GISCUS_IFRAME_SELECTOR: 'iframe[title="Comments"]',
@@ -8,3 +8,5 @@ export const SELECTORS = {
   SCROLL_TO_TOP_SELECTOR: "#main-header",
   THEME_META_TAG_SELECTOR: 'meta[name="theme-color"]',
 } as const;
+
+export { SELECTORS };

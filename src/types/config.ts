@@ -9,11 +9,20 @@ import type {
   processEnvSchema,
 } from "../schemas/config";
 
-export type ConfigServerSchemaType = typeof configServerSchema;
-export type ConfigServerType = z.infer<ConfigServerSchemaType>;
+type ConfigServerSchemaType = typeof configServerSchema;
+type ConfigServerType = z.infer<ConfigServerSchemaType>;
 
-export type ConfigClientSchemaType = typeof configClientSchema;
-export type ConfigClientType = z.infer<ConfigClientSchemaType>;
+type ConfigClientSchemaType = typeof configClientSchema;
+type ConfigClientType = z.infer<ConfigClientSchemaType>;
 
-export type ProcessEnvSchemaType = typeof processEnvSchema;
-export type ProcessEnvType = z.infer<ProcessEnvSchemaType>;
+type ProcessEnvSchemaType = typeof processEnvSchema;
+type ProcessEnvType = z.infer<ProcessEnvSchemaType>;
+
+export type {
+  ConfigServerSchemaType,
+  ConfigServerType,
+  ConfigClientSchemaType,
+  ConfigClientType,
+  ProcessEnvSchemaType,
+  ProcessEnvType,
+};
