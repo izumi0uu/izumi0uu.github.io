@@ -70,4 +70,48 @@ const defaultThemes = getDefaultThemes();
     }
     return browserMode;
   }
+
+  const getStoredTheme = () => {
+   const storedThemeString = typeof localStorage !== 'undefined' && localStorage.getItem(LOCAL_STORAGE_KEY);
+
+   if(!storedThemeString) return null;
+
+   let storedTheme;
+   try {
+    storedTheme = JSON.parse(storedThemeString);
+   } catch (_error) {
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    return null;
+   }
+
+   // invalid theme
+   if(!(storedTheme && storedTheme.name && storedTheme.mode)) {
+    // clear stored invalid theme
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    return null;
+   }
+
+   return storedTheme;
+    
+  }
+
+  /** priority: stored mode > browser mode and theme > default app mode, config */
+  const getTheme = () => {
+    // either from storage
+    const storedTheme = getStoredTheme();
+    if(storedTheme) return storedTheme;
+
+    // or fallback to default theme for browser mode
+    const browserMode = getBrowserMode();
+    if(browserMode) {
+      const defaultBrowserTheme = getDefaultTheme(browserMode);
+      return defaultBrowserTheme;
+    }
+
+    // fallback to app default
+    const defaultAppTheme = getDefaultTheme(DEFAULT_MODE);
+    return defaultAppTheme;
+  }
+
+    
 </script>
