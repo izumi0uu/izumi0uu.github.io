@@ -9,6 +9,7 @@ const { THEME_META_TAG_SELECTOR } = SELECTORS;
 const defaultThemes = getDefaultThemes();
 
 ---
+{/* only responsible for proposing suggestions based on environment changes and broadcasting notifications. Each component can decide how to respond to this notification, achieving more flexible and centralized control. */}
 {/* Inlined to avoid flash of white content. */}
 {/* By default, Astro will process, optimize, and bundle any <script> and <style> tags that it sees on the page. You can opt-out of this behavior with the is:inline directive. */}
 <script
@@ -218,6 +219,7 @@ const defaultThemes = getDefaultThemes();
 
     // trigger event instead of setTheme(newTheme), for Links page
     const payload = { detail: { theme: newTheme } };
+    // CustomEvent is a built-in JavaScript class that allows you to create custom events. new CustomEvent(eventName, {detail, ...options})
     const themeChangeEvent = new CustomEvent(CHANGE_EVENT, payload);
 
     document.dispatchEvent(themeChangeEvent);
