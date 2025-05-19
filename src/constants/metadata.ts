@@ -1,6 +1,13 @@
+import { CONFIG_CLIENT } from "@/config/client";
+
+import type { Metadata } from "@/types/common";
+import type { ValueUnion } from "@/types/utils";
+
+const { SITE_TITLE, SITE_DESCRIPTION, SITE_URL } = CONFIG_CLIENT;
+
 const DEFAULT_METADATA = {
-  title: "Izumi0uu Blog",
-  description: "Izumi0uu Blog",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
   image: "/og-image.png",
 };
 
