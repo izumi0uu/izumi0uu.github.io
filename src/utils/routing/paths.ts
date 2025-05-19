@@ -1,5 +1,3 @@
-import { ROUTES } from "@/constants/routes";
-
 import { type FilterParams, type FilterType } from "@/types/post";
 
 import { VALID_FILTER_KEYS, FILTER_CONFIG } from "@/types/post";
