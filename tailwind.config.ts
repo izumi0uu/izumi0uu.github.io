@@ -62,9 +62,9 @@ const config: Config = {
         // 代码字体
         mono: ['"JetBrains Mono"', ...defaultTheme.fontFamily.mono],
         // 纯英文字体
-        'en': ["Inter", ...defaultTheme.fontFamily.sans],
+        en: ["Inter", ...defaultTheme.fontFamily.sans],
         // 纯中文字体
-        'zh': ['"Noto Sans SC"', ...defaultTheme.fontFamily.sans],
+        zh: ['"Noto Sans SC"', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         // === 酒红主题原始颜色 ===
@@ -213,29 +213,28 @@ const config: Config = {
       },
     },
     typography: ({ theme }: PluginUtils) => ({
-        // 默认的 `prose` 样式配置
-        DEFAULT: {
-          css: {
-            // 移除代码块前后默认添加的引号
-            'code::before': { content: '""' },
-            'code::after': { content: '""' },
-            // 可以在这里添加更多自定义的 `prose` 样式
-            // 例如：
-            // h1: { color: theme('colors.headings') },
-            // a: { color: theme('colors.links.DEFAULT'), '&:hover': { color: theme('colors.links.hover') } },
+      // 默认的 `prose` 样式配置
+      DEFAULT: {
+        css: {
+          // 移除代码块前后默认添加的引号
+          "code::before": { content: '""' },
+          "code::after": { content: '""' },
+          // 可以在这里添加更多自定义的 `prose` 样式
+          // 例如：
+          // h1: { color: theme('colors.headings') },
+          // a: { color: theme('colors.links.DEFAULT'), '&:hover': { color: theme('colors.links.hover') } },
+        },
+      },
+      // 自定义一个名为 `prose-a-img` 的排版变体
+      // 使用方式：<div class="prose prose-a-img">...</div>
+      "a-img": {
+        css: {
+          "a:hover img": {
+            outline: `4px solid ${theme("colors.wine-primary-light")}`,
           },
         },
-        // 自定义一个名为 `prose-a-img` 的排版变体
-        // 使用方式：<div class="prose prose-a-img">...</div>
-        'a-img': {
-          css: {
-            'a:hover img': {
-              outline: `4px solid ${theme('colors.wine-primary-light')}`,
-            },
-          },
-        },
-      }),
-    },
+      },
+    }),
   },
 };
 
