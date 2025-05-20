@@ -44,6 +44,8 @@ type ResponsiveImageConfig = Required<
 > & {
   quality?: "low" | "mid" | "high" | "max" | number;
   loading?: LocalImageProps["loading"];
+  // for debugging
+  debugClass?: string;
 };
 
 /**

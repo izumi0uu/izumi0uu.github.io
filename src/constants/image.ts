@@ -168,7 +168,7 @@ export const IMAGE_SIZES = {
       ],
       sizes: `(max-width: ${TW_SCREENS.XS}px) ${TW_SCREENS.XS}px, (max-width: ${TW_SCREENS.MD}px) ${TW_SCREENS.MD}px, (max-width: ${TW_SCREENS.LG}px) ${TW_SCREENS.LG}px, ${TW_SCREENS.XL}px`,
       // for debugging
-      // class: `border-8 border-blue-500 [@media(max-width:475px)]:!border-yellow-300 [@media(max-width:768px)]:border-orange-500 [@media(max-width:1280px)]:border-red-500`,
+      debugClass: `border-8 border-blue-500 [@media(max-width:475px)]:!border-yellow-300 [@media(max-width:768px)]:border-orange-500 [@media(max-width:1280px)]:border-red-500`,
       quality: 70,
       loading: "lazy",
     },
