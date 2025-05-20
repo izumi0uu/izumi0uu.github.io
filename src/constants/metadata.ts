@@ -1,9 +1,8 @@
 import { CONFIG_CLIENT } from "@/config/client";
-import * as m from "@/paraglide/messages"; // 导入 Paraglide 生成的消息
+import * as m from "@/paraglide/messages";
 
 import type { Metadata } from "@/types/common";
-// ValueUnion 和其他相关类型可能需要根据新的结构调整，暂时注释
-// import type { ValueUnion } from "@/types/utils";
+import type { ValueUnion } from "@/types/utils";
 
 // can't import getOpenGraphImagePath from image-path.ts here, avoid circular dependency
 
@@ -39,6 +38,8 @@ const PAGE_METADATA = {
     getTitle: () => m.page_lists_title(),
     getDescription: () => m.page_lists_description(),
   },
+  // list pages
+  // must have 'list' prefix to omit type arg
   "lists/blog": {
     getTitle: () => m.page_lists_blog_title(),
     getDescription: () => m.page_lists_blog_description(),
@@ -49,6 +50,7 @@ const PAGE_METADATA = {
   "lists/blog/tags/tag": {
     getTitle: () => m.page_lists_blog_tags_tag_title(),
   },
+  // 'src/pages/blog/tags/[tag]/[...page].astro' // dynamic tag param
   "lists/blog/explore": {
     getTitle: () => m.page_lists_blog_explore_title(),
   },
@@ -58,6 +60,7 @@ const PAGE_METADATA = {
   "lists/blog/categories/category": {
     getTitle: () => m.page_lists_blog_categories_category_title(),
   },
+  // src/pages/blog/categories/[category]/[...page].astro
   "lists/projects": {
     getTitle: () => m.page_lists_projects_title(),
     getDescription: () => m.page_lists_projects_description(),
@@ -76,4 +79,17 @@ const PAGE_METADATA = {
   },
 } as const;
 
-export { DEFAULT_METADATA, PAGE_METADATA, titleSeparator };
+type PageMetadataKey = keyof typeof PAGE_METADATA;
+
+const OG_IMAGE_PREFIXES = {
+  OG_BLOG: "blog",
+  OG_PROJECTS: "projects",
+  OG_PAGES: "pages",
+  OG_LISTS: "lists",
+  OG_EXPERIENCE: "experience",
+} as const;
+
+type OgImagePrefixType = ValueUnion<typeof OG_IMAGE_PREFIXES>;
+
+export { DEFAULT_METADATA, PAGE_METADATA, titleSeparator, OG_IMAGE_PREFIXES };
+export type { PageMetadataKey, OgImagePrefixType };
