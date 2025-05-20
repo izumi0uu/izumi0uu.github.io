@@ -3,8 +3,10 @@ import type { CollectionEntry } from "astro:content";
 
 type PostCollection = CollectionEntry<"post">;
 
-// other frontmatter props are in post.data...
-// readingTimes is in post.readingTimes
+/**
+ * @description other frontmatter props are in post.data...
+ * readingTimes is in post.readingTimes
+ */
 type Post = PostCollection & {
   readingTime: number;
   slug: PostCollection["id"];

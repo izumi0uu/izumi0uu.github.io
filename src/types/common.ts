@@ -1,7 +1,3 @@
-/**
- * @description
- */
-
 // import type { COLLECTIONS } from "@/constants/collections"; // Commented out due to missing export
 import type { Page } from "astro";
 import type { Image } from "astro:assets";
