@@ -19,27 +19,28 @@ const defaultThemes = getDefaultThemes();
   const { MODES, THEMES, THEME_CONFIG } = themeConstants;
   const { DATA_ATTRIBUTE, CHANGE_EVENT, LOCAL_STORAGE_KEY } = THEME_CONFIG;
 
-  /** used for event listener: is user prefer dark mode? */
+  /**
+   * @description used for event listener: is user prefer dark mode?
+   */
   const darkModePreference = window.matchMedia('(prefers-color-scheme: dark)');
 
   /**
-   * e.g. 'dark' -> 'default-dark(default mode, default theme)
+   * @description e.g. 'dark' -> 'default-dark(default mode, default theme)'
    * @param {string} themeMode - The target theme mode ('light' or 'dark').
    * @returns {object} The default theme object for the given mode.
    */
   const getDefaultTheme = (themeMode) => defaultThemes[themeMode];
 
   /**
-   * e.g. 'default-light' -> 'default'
+   * @description e.g. 'default-light' -> 'default'
    * @param {string} themeName - The full name of the theme.
    * @returns {string | undefined} The prefix of the theme name, or undefined if not found.
    */
   const getThemeNamePrefix = (themeName) => themeName.split('-')?.[0];
 
   /**
-   * get user theme, then traversal all prefix themes, and find the best match
+   * @description get user theme, then traversal all prefix themes, and find the best match
    * @param {string} themeMode - The target theme mode ('light' or 'dark').
-   * {name, mode}
    * @returns {object} The best matching theme object for the new mode, or the default theme for that mode.
    */
   const getThemeFromMode = (themeMode) => {
@@ -65,7 +66,7 @@ const defaultThemes = getDefaultThemes();
   }
 
   /**
-   * 'dark' | 'light' | null
+   * @description 'dark' | 'light' | null
    * @returns {string | null} The browser's preferred color scheme ('dark', 'light'), or null if no preference or not supported.
    */
   const getBrowserMode = () => {
@@ -89,7 +90,7 @@ const defaultThemes = getDefaultThemes();
   }
 
   /**
-   * to get stored theme, if invalid, clear it
+   * @description to get stored theme, if invalid, clear it
    * {name, mode}
    * @returns {object | null} The stored theme object, or null if not found or invalid.
    */
@@ -118,7 +119,7 @@ const defaultThemes = getDefaultThemes();
   }
 
   /**
-   * to init theme, priority: stored mode > browser mode and theme > default app mode, config
+   * @description to init theme, priority: stored mode > browser mode and theme > default app mode, config
    * {name, mode}
    * @returns {object} The determined theme object to be applied.
    */
@@ -139,7 +140,10 @@ const defaultThemes = getDefaultThemes();
     return defaultAppTheme;
   }
 
-  /** to set theme, validate theme, then update root class(dark or '') and data-theme */
+  /**
+   * @description to set theme, validate theme, then update root class(dark or '') and data-theme
+   * @param {object} newTheme - The theme object to be applied.
+   */
   const setTheme = (newTheme) => {
     const validatedTheme = THEMES.find(
       (theme) => theme.name === newTheme.name && theme.mode === newTheme.mode
@@ -185,7 +189,9 @@ const defaultThemes = getDefaultThemes();
     setTimeout(() => updateMetaTag(), 1000);
   }
 
-  /** to make sure meta tag content is updated with the correct bg color and for the purpose of serveing for browser to detect theme */
+  /**
+   * @description to make sure meta tag content is updated with the correct bg color and for the purpose of serveing for browser to detect theme
+   */
   const updateMetaTag = () => {
     // choose <body> as color source is a common convention, because it usually represents the "canvas" color of the page.
     const bodyElement = document.body;
