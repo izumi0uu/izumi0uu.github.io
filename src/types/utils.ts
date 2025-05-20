@@ -1,4 +1,6 @@
 /**
- *  Extracts the union type of values from a contant object.
+ * Extracts the union type of values from a constant object.
  */
-export type ValueUnion<T extends Record<PropertyKey, unknown>> = T[keyof T];
+type ValueUnion<T extends Record<PropertyKey, unknown>> = T[keyof T];
+
+export type { ValueUnion };

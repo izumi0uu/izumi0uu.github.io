@@ -1,6 +1,6 @@
 ---
 import BaseHead from '@/components/BaseHead.astro';
-
+import StagewiseDevToolbar from '@/components/react/dev/StagewiseDevToolbar.tsx';
 
 ---
 
@@ -9,6 +9,7 @@ import BaseHead from '@/components/BaseHead.astro';
 	<BaseHead />
 	<body class="font-mixed">
 		<slot />
+		{import.meta.env.DEV && <StagewiseDevToolbar client:only="react" />}
 	</body>
 </html>
 
@@ -19,4 +20,5 @@ import BaseHead from '@/components/BaseHead.astro';
 		width: 100%;
 		height: 100%;
 	}
+	
 </style>
