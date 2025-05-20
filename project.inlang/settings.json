@@ -1,44 +1,15 @@
 {
   "$schema": "https://inlang.com/schema/project-settings",
   "baseLocale": "en",
-  "locales": ["en", "zh"],
+  "locales": [
+    "en",
+    "de"
+  ],
   "modules": [
     "https://cdn.jsdelivr.net/npm/@inlang/plugin-message-format@4/dist/index.js",
     "https://cdn.jsdelivr.net/npm/@inlang/plugin-m-function-matcher@2/dist/index.js"
   ],
   "plugin.inlang.messageFormat": {
     "pathPattern": "./messages/{locale}.json"
-  },
-  "plugin.inlang.paraglideJs": {
-    "pathnames": {
-      "/": {
-        "en": "/",
-        "zh": "/"
-      },
-      "/about": {
-        "en": "/about-me",
-        "zh": "/about-me"
-      },
-      "/blogs": {
-        "en": "/blogs",
-        "zh": "/blogs"
-      },
-      "/blogs/[slug]": {
-        "en": "/blogs/[slug]",
-        "zh": "/blogs/[slug]"
-      },
-      "/techStack": {
-        "en": "/tech-stack",
-        "zh": "/tech-stack"
-      },
-      "/projects": {
-        "en": "/projects",
-        "zh": "/projects"
-      },
-      "/projects/[slug]": {
-        "en": "/projects/[slug]",
-        "zh": "/projects/[slug]"
-      }
-    }
   }
 }
