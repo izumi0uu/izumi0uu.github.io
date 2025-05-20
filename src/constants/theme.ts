@@ -33,12 +33,6 @@ const THEME_CONFIG = {
   LOCAL_STORAGE_KEY: "theme",
 } as const;
 
-type Mode = (typeof MODES)[keyof typeof MODES];
-
-type Theme = (typeof THEMES)[number];
-
-type ThemeConfig = typeof THEME_CONFIG;
-
 // for debugging
 const DEFAULT_THEMES = {
   light: THEMES[0],
@@ -52,4 +46,3 @@ const WINE_THEMES = {
 } as const;
 
 export { MODES, THEMES, THEME_CONFIG, DEFAULT_THEMES, WINE_THEMES };
-export type { Mode, Theme, ThemeConfig };

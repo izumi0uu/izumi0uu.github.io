@@ -18,8 +18,8 @@ import { ClientRouter } from "astro:transitions";
 import ThemeScript from '@/components/ThemeScript.astro';
 
 // load utils
-import { handleTitle } from "@utils/metadata";
-import { filterUndefined } from "@utils/objects";
+import { handleTitle } from "@utils/content/metadata";
+import { filterUndefined } from "@utils/system/objects";
 
 // load types
 import type { Metadata } from "@/types/common";
@@ -32,7 +32,6 @@ const {SITE_URL_CANONICAL, SITE_TITLE, SITE_DESCRIPTION, AUTHOR_NAME, PLAUSIBLE_
 export interface BaseHeadProps {
   metadata: Metadata;
 }
-
 
 ---
 
