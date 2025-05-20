@@ -19,7 +19,7 @@ interface PostsByTime {
 
 // type FilterType = "tags" | "categories";
 
-/** matches route param */
+/** @description matches route param */
 const FILTER_CONFIG = {
   tags: {
     // e.g. /blog/explore/tags
@@ -31,13 +31,13 @@ const FILTER_CONFIG = {
 } as const;
 
 /**
- * Represents the valid types of filters, derived from FILTER_CONFIG.
+ * @description Represents the valid types of filters, derived from FILTER_CONFIG.
  * This ensures that FilterType is always in sync with the defined configurations.
  */
 type FilterType = keyof typeof FILTER_CONFIG;
 
 /**
- * An array of valid filter type keys, derived from FILTER_CONFIG.
+ * @description An array of valid filter type keys, derived from FILTER_CONFIG.
  * Useful for runtime validation.
  */
 const VALID_FILTER_KEYS = Object.keys(FILTER_CONFIG) as FilterType[];

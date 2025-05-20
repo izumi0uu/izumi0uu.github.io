@@ -16,7 +16,7 @@ const themeValues = [
 const domainSubdomainRegex =
   /^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.(?!-)[A-Za-z0-9-]{1,63}(?<!-))*\.[A-Za-z]{2,}$/;
 
-/** runs after astro:env check in astro.config.ts */
+/** @description runs after astro:env check in astro.config.ts */
 const processEnvSchema = z.object({
   NODE_ENV: z.enum(nodeEnvValues),
   PREVIEW_MODE: z

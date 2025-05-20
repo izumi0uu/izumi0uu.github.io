@@ -3,7 +3,7 @@ import { fromMarkdown } from "mdast-util-from-markdown";
 import { toString } from "mdast-util-to-string";
 
 /**
- * Calculate the reading time of a given text -- came from https://jahir.dev/blog/astro-reading-time
+ * @description Calculate the reading time of a given text -- came from https://jahir.dev/blog/astro-reading-time
  * @param text - The text to calculate the reading time of
  * @returns The reading time in minutes
  */
