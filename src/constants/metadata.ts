@@ -47,23 +47,27 @@ const PAGE_METADATA = {
   "lists/blog/tags": {
     getTitle: () => m.page_lists_blog_tags_title(),
   },
+  // 'src/pages/blog/tags/[tag]/[...page].astro' // dynamic tag param
   "lists/blog/tags/tag": {
     getTitle: () => m.page_lists_blog_tags_tag_title(),
   },
-  // 'src/pages/blog/tags/[tag]/[...page].astro' // dynamic tag param
   "lists/blog/explore": {
     getTitle: () => m.page_lists_blog_explore_title(),
   },
   "lists/blog/categories": {
     getTitle: () => m.page_lists_blog_categories_title(),
   },
+  // src/pages/blog/categories/[category]/[...page].astro
   "lists/blog/categories/category": {
     getTitle: () => m.page_lists_blog_categories_category_title(),
   },
-  // src/pages/blog/categories/[category]/[...page].astro
   "lists/projects": {
     getTitle: () => m.page_lists_projects_title(),
     getDescription: () => m.page_lists_projects_description(),
+  },
+  // src/pages/projects/[project]/[...page].astro
+  "lists/projects/project": {
+    getTitle: () => m.page_lists_projects_project_title(),
   },
   "lists/experience": {
     getTitle: () => m.page_lists_experience_title(),
