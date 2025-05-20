@@ -42,7 +42,7 @@ const PAGE_METADATA = {
    * @description list pages
    * must have 'list' prefix to omit type arg,
    * for the sake of simplifying type parameter handling
-   * and helping to distinguish different types of pages in the Open Graph image generation system
+   * and helping to distinguish different types of pages in the Open Graph image generation system（API）
    */
   "lists/blog": {
     getTitle: () => m.page_lists_blog_title(),
