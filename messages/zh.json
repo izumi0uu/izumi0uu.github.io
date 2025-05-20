@@ -1,4 +1,23 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "example_message": "Guten Tag {username}"
+  "greeting_message": "你好, 我是 Izumi0uu",
+  "page_home_title": "Home",
+  "page_home_description": "欢迎来到我的空间!",
+  "page_about_title": "About",
+  "page_about_description": "了解更多关于我的故事。",
+  "page_lists_title": "Lists",
+  "page_lists_description": "各种各样的内容。",
+  "page_lists_blog_title": "Blog",
+  "page_lists_blog_description": "在这里我分享我的技术探索和关于前端的思考像React, Next.js, Astro; 关于Telegram Bot的开发;关于Web3技术的思考;我的Web3黑客松经历和其他内容。",
+  "page_lists_blog_tags_title": "Tags",
+  "page_lists_blog_tags_tag_title": "Tag",
+  "page_lists_blog_explore_title": "Explore",
+  "page_lists_blog_categories_title": "Categories",
+  "page_lists_blog_categories_category_title": "Category",
+  "page_lists_projects_title": "Projects",
+  "page_lists_projects_description": "我过去几年构建的项目。",
+  "page_lists_experience_title": "Experience",
+  "page_lists_experience_experience_title": "Experience",
+  "page_lists_links_title": "Links",
+  "page_lists_links_link_title": "Link"
 }

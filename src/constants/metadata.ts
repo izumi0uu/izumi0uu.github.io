@@ -27,6 +27,7 @@ const DEFAULT_METADATA: Required<Metadata> = {
  */
 const PAGE_METADATA = {
   "": {
+    getGreeting: () => m.greeting_message(),
     getTitle: () => m.page_home_title(),
     getDescription: () => m.page_home_description(),
   },
@@ -38,6 +39,41 @@ const PAGE_METADATA = {
     getTitle: () => m.page_lists_title(),
     getDescription: () => m.page_lists_description(),
   },
-} as const; // 使用 as const 确保 getTitle, getDescription 等键的类型是精确的函数签名
+  "lists/blog": {
+    getTitle: () => m.page_lists_blog_title(),
+    getDescription: () => m.page_lists_blog_description(),
+  },
+  "lists/blog/tags": {
+    getTitle: () => m.page_lists_blog_tags_title(),
+  },
+  "lists/blog/tags/tag": {
+    getTitle: () => m.page_lists_blog_tags_tag_title(),
+  },
+  "lists/blog/explore": {
+    getTitle: () => m.page_lists_blog_explore_title(),
+  },
+  "lists/blog/categories": {
+    getTitle: () => m.page_lists_blog_categories_title(),
+  },
+  "lists/blog/categories/category": {
+    getTitle: () => m.page_lists_blog_categories_category_title(),
+  },
+  "lists/projects": {
+    getTitle: () => m.page_lists_projects_title(),
+    getDescription: () => m.page_lists_projects_description(),
+  },
+  "lists/experience": {
+    getTitle: () => m.page_lists_experience_title(),
+  },
+  "lists/experience/experience": {
+    getTitle: () => m.page_lists_experience_experience_title(),
+  },
+  "lists/links": {
+    getTitle: () => m.page_lists_links_title(),
+  },
+  "lists/links/link": {
+    getTitle: () => m.page_lists_links_link_title(),
+  },
+} as const;
 
 export { DEFAULT_METADATA, PAGE_METADATA, titleSeparator };

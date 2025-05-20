@@ -1,4 +1,22 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "example_message": "Hello world {username}"
+  "greeting_message": "Hello world, I'm Izumi0uu",
+  "page_home_title": "Home",
+  "page_home_description": "Welcome to my space!",
+  "page_about_title": "About",
+  "page_about_description": "Learn more about me and this website.",
+  "page_lists_title": "Lists",
+  "page_lists_description": "Various lists of content.",
+  "page_lists_blog_title": "Blog",
+  "page_lists_blog_description": "Here I share my coding experiments and thoughts on Frontend stack like React, Next.js, Astro; Telegram Bot development; Web3 stack and knowledge; my personal experience about web3 hackathons and more. Feel free to read, explore, and comment.",
+  "page_lists_blog_tags_title": "Tags",
+  "page_lists_blog_tags_tag_title": "Tag",
+  "page_lists_blog_explore_title": "Explore",
+  "page_lists_blog_categories_title": "Categories",
+  "page_lists_blog_categories_category_title": "Category",
+  "page_lists_projects_title": "Projects",
+  "page_lists_projects_description": "Projects I have built over the past years.",
+  "page_lists_experience_title": "Experience",
+  "page_lists_experience_experience_title": "Experience",
+  "page_lists_links_title": "Links"
 }
