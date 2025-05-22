@@ -2,7 +2,6 @@ import { CONFIG_CLIENT } from "@/config/client";
 import * as m from "@/paraglide/messages";
 
 import type { Metadata } from "@/types/common";
-import type { ValueUnion } from "@/types/utils";
 
 // can't import getOpenGraphImagePath from image-path.ts here, avoid circular dependency
 
@@ -14,6 +13,7 @@ const defaultOgImage = `${SITE_URL}/images/default/default-open-graph-image.jpg`
 const titleSeparator = "-";
 
 const DEFAULT_METADATA: Required<Metadata> = {
+  greeting: "",
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   image: defaultOgImage,
@@ -87,8 +87,6 @@ const PAGE_METADATA = {
   },
 } as const;
 
-type PageMetadataKey = keyof typeof PAGE_METADATA;
-
 const OG_IMAGE_PREFIXES = {
   OG_BLOG: "blog",
   OG_PROJECTS: "projects",
@@ -97,7 +95,4 @@ const OG_IMAGE_PREFIXES = {
   OG_EXPERIENCE: "experience",
 } as const;
 
-type OgImagePrefixType = ValueUnion<typeof OG_IMAGE_PREFIXES>;
-
 export { DEFAULT_METADATA, PAGE_METADATA, titleSeparator, OG_IMAGE_PREFIXES };
-export type { PageMetadataKey, OgImagePrefixType };

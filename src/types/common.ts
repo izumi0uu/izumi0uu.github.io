@@ -8,6 +8,7 @@ import type { ComponentProps } from "astro/types";
 // type AnyCollection = CollectionEntry<CollectionType>; // Depends on CollectionType
 
 interface Metadata {
+  greeting?: string;
   title: string;
   description?: string;
   /** Must be url. */

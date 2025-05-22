@@ -1,6 +1,6 @@
 import type { LocalImageProps } from "astro:assets";
 import type { THEME_CONFIG, THEMES, MODES } from "@/constants/theme";
-import type { PAGE_METADATA } from "@/constants/metadata";
+import type { OG_IMAGE_PREFIXES, PAGE_METADATA } from "@/constants/metadata";
 import type { ValueUnion } from "@/types/utils";
 // import type { NAVIGATION_ITEMS } from "@/constants/navigation"; // Temporarily comment out due to linter error
 import type { TW_WIDTHS } from "@/constants/image";
@@ -55,7 +55,7 @@ type ImageSizes = {
   FIXED: Record<string, FixedImageConfig>;
   RESPONSIVE: Record<string, ResponsiveImageConfig>;
 };
-
+,
 /**
  * @description type for change theme custom event
  */
@@ -65,6 +65,11 @@ type ChangeThemeCustomEvent = CustomEvent<{ theme: Theme }>;
  * @description type for breakpoint
  */
 type Breakpoint = keyof typeof TW_WIDTHS;
+
+/**
+ * @description type for open graph image prefix
+ */
+type OgImagePrefixType = ValueUnion<typeof OG_IMAGE_PREFIXES>;
 
 export type {
   Mode,
@@ -76,4 +81,5 @@ export type {
   Breakpoint,
   // NavigationItem, // Temporarily comment out
   // CategoryType, // Temporarily comment out
+  OgImagePrefixType,
 };
