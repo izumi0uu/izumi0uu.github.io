@@ -49,4 +49,18 @@ const getPageMetadata = (path: PageMetadataKey): Metadata => {
   return metadata;
 };
 
-export { getPageMetadata };
+const handleTitle = (metadata: Metadata) => {
+  const { title: passedTitle } = metadata;
+  const { title: defaultTitle } = DEFAULT_METADATA;
+
+  const newMetadata = {
+    ...metadata,
+    title: passedTitle
+      ? `${passedTitle}${titleSeparator}${AUTHOR_NAME}`
+      : defaultTitle,
+  };
+
+  return newMetadata;
+};
+
+export { getPageMetadata, handleTitle };
