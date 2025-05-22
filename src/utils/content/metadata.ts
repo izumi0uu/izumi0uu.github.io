@@ -14,6 +14,10 @@ import type { PageMetadataKey } from "@/types/constants";
 
 const { AUTHOR_NAME } = CONFIG_CLIENT;
 
+/**
+ * @description get page metadata
+ * @returns {Metadata} page metadata
+ */
 const getPageMetadata = (path: PageMetadataKey): Metadata => {
   const pageSpecificMetadata = PAGE_METADATA[path];
   const image = getOpenGraphImagePath(path);
@@ -49,7 +53,11 @@ const getPageMetadata = (path: PageMetadataKey): Metadata => {
   return metadata;
 };
 
-const handleTitle = (metadata: Metadata) => {
+/**
+ * @description handle title
+ * @returns {Metadata} metadata
+ */
+const handleMetadataTitle = (metadata: Metadata) => {
   const { title: passedTitle } = metadata;
   const { title: defaultTitle } = DEFAULT_METADATA;
 
@@ -63,4 +71,4 @@ const handleTitle = (metadata: Metadata) => {
   return newMetadata;
 };
 
-export { getPageMetadata, handleTitle };
+export { getPageMetadata, handleMetadataTitle };
