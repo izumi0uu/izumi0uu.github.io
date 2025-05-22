@@ -24,6 +24,7 @@ const configClientData: ConfigClientType = {
   PLAUSIBLE_DOMAIN,
   PLAUSIBLE_SCRIPT_URL,
   SITE_URL,
+  // for SEO
   SITE_URL_CANONICAL: "https://izumi0uu.com",
   SITE_TITLE: "izumi0uu",
   SITE_DESCRIPTION: "Izumi0uu Blog",

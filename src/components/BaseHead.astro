@@ -8,6 +8,9 @@ import FontUtils from "@/components/fonts/FontUtils.astro";
 // load styles
 import '@/styles/main.css';
 
+// load default metadata
+import { DEFAULT_METADATA } from "@/constants/metadata";
+
 // load config
 import { CONFIG_CLIENT } from "@/config/client";
 
@@ -19,13 +22,10 @@ import ThemeScript from '@/components/ThemeScript.astro';
 
 // load utils
 import { handleMetadataTitle } from "@/utils/content/metadata";
-import { filterUndefined } from "@utils/system/objects";
+import { filterUndefined } from "@/utils/data/objects";
 
 // load types
 import type { Metadata } from "@/types/common";
-
-// set default metadata in this component
-const { metadata } = Astro.props as BaseHeadProps;
 
 const {SITE_URL_CANONICAL, SITE_TITLE, SITE_DESCRIPTION, AUTHOR_NAME, PLAUSIBLE_DOMAIN, PLAUSIBLE_SCRIPT_URL} = CONFIG_CLIENT;
 
@@ -33,12 +33,45 @@ export interface BaseHeadProps {
   metadata: Metadata;
 }
 
+/**
+ * @description receive every single metadata from every single specific page
+ *  <html lang="en">
+ *    // pass metadata to BaseHead
+ *    <BaseHead metadata={metadata} /> 
+ *    <body>
+ *      // page content
+ *      <slot /> 
+ *    </body>
+ *  </html>
+ */
+const { metadata } = Astro.props as BaseHeadProps;
+
+// site: SITE_URL var + '/', SITE_URL changed by environment
+// url: current page url, per page
+const { url } = Astro; // objects
+const { host, pathname, search } = url; // host - izumi0uu.com
+
+// replace host - all deployments point to single canonical deployment url
+const canonicalUrl = new URL(`${pathname}${search}`, SITE_URL_CANONICAL);
+
+const handledMetadata = handleMetadataTitle(metadata);
+
+const filteredMetadata = filterUndefined(handledMetadata)
+const mergedMetadata: Required<Metadata> = { ...DEFAULT_METADATA, ...filteredMetadata };
+
+const { title, description, image } = mergedMetadata;
+
+// convert to absolute url
+const ogImageUrl = new URL(image, url);
+
 ---
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width" />
+  <meta charset="utf-utf-8" /> 
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
   <meta name="theme-color" content="" />
+
   <meta name="generator" content={Astro.generator} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="manifest" href="/manifest.json" />
