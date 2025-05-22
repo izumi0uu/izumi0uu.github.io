@@ -1,5 +1,5 @@
 /**
- * @description used for ParaglideJS i18n resulted from types/common.ts
+ * @description currently used for ParaglideJS i18n resulted from types/common.ts
  * @returns {T} The result of the function call or the fallback value.
  */
 const getValueFromFunctionOrFallback = <T>(
