@@ -27,6 +27,9 @@ import { filterUndefined } from "@/utils/data/objects";
 // load types
 import type { Metadata } from "@/types/common";
 
+// load routes
+import { ROUTES } from "@/constants/routes";
+
 const {SITE_URL_CANONICAL, SITE_TITLE, SITE_DESCRIPTION, AUTHOR_NAME, PLAUSIBLE_DOMAIN, PLAUSIBLE_SCRIPT_URL} = CONFIG_CLIENT;
 
 export interface BaseHeadProps {
@@ -35,7 +38,7 @@ export interface BaseHeadProps {
 
 /**
  * @description receive every single metadata from every single specific page
- *  <html lang="en">
+ * e.g. <html lang="en">
  *    // pass metadata to BaseHead
  *    <BaseHead metadata={metadata} /> 
  *    <body>
@@ -46,9 +49,11 @@ export interface BaseHeadProps {
  */
 const { metadata } = Astro.props as BaseHeadProps;
 
-// site: SITE_URL var + '/', SITE_URL changed by environment
-// url: current page url, per page
-const { url } = Astro; // objects
+/**
+ * @description site: SITE_URL var + '/', SITE_URL changed by environment
+ *  url: current page url, per page
+ */
+const { url } = Astro; 
 const { host, pathname, search } = url; // host - izumi0uu.com
 
 // replace host - all deployments point to single canonical deployment url
@@ -67,21 +72,41 @@ const ogImageUrl = new URL(image, url);
 ---
 
 <head>
+  {/* Global Metadata */}
   <meta charset="utf-utf-8" /> 
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
   <meta name="theme-color" content="" />
 
+  {/* Generator for indicating the software or tool that generated the HTML page */}
   <meta name="generator" content={Astro.generator} />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="manifest" href="/manifest.json" />
+
+  {/* Links */}
+  {/* Root-Relative URL (pathname starts with /): */}
+  <link rel="canonical" href={canonicalUrl} />
+
+  {/* Favicon & App Icons  */}
+  {/* Modern browsers prefer SVG an can scale it nicely */}
+  <link rel="icon" type="image/svg+xml" href="/images/favicons/favicon.svg" />
+  {/* Apple Touch Icon for iOS home screen */}
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+  {/* General purpose PNG icon, e.g., for Android or some browsers */}
+  <link rel="icon" type="image/png" sizes="96x96" href="/images/favicons/favicon-96x96.png" />
+  {/* Web App Manifest (ensure site.webmanifest is in the public root) */}
+  <link rel="manifest" href="/site.webmanifest" />
 
   {/* Primary Meta Tags */}
-  <title>{SITE_TITLE}</title>
-  <meta name="title" content={SITE_TITLE} />
-  <meta name="description" content={SITE_DESCRIPTION} />
+  <title>{title}</title>
+  <meta name="title" content={title} />
+  <meta name="description" content={description} />
   <meta name="author" content={AUTHOR_NAME} />
-  <link rel="canonical" href={SITE_URL_CANONICAL} />
+
+  {/* Feeds - RSS and JSON Feed links */}
+  <link rel="alternate" type="application/rss+xml" title={`${title} RSS feed`} href={`${ROUTES.API.FEED_RSS}`} />
+  <link rel="alternate" type="application/json" title={`${title} JSON feed`} href={`${ROUTES.API.FEED_JSON}`} />
+
+  {/* Sitemap */}
+  <link rel="sitemap" type="application/xml" title="Sitemap" href={`${ROUTES.STATIC.SITEMAP}`} />
 
   {/* Open Graph / Facebook */}
   <meta property="og:type" content="website" />
@@ -90,7 +115,13 @@ const ogImageUrl = new URL(image, url);
   <meta property="og:description" content={description} />
   <meta property="og:image" content={ogImageUrl} />
 
-
+  {/* Twitter */}
+  <meta property="twitter:card" content="summary" />
+  <meta property="twitter:url" content={url} />
+  <meta property="twitter:title" content={title} />
+  <meta property="twitter:description" content={description} />
+  <meta property="twitter:image" content={ogImageUrl} />
+  
   {/* Analytics */}
   {
     PLAUSIBLE_SCRIPT_URL && (

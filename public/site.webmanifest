@@ -1,0 +1,46 @@
+{
+  "name": "izumi0uu-blog",
+  "short_name": "izumi0uu-blog",
+  "icons": [
+    {
+      "src": "/images/favicons/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/images/favicons/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#904B3F",
+  "background_color": "#231918",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "description": "izumi0uu's blog",
+  "categories": [
+    "blog",
+    "personal",
+    "portfolio",
+    "projects",
+    "about",
+    "contact"
+  ],
+  "keywords": [
+    "izumi0uu",
+    "blog",
+    "personal",
+    "portfolio",
+    "projects",
+    "about",
+    "contact",
+    "programming",
+    "coding",
+    "web3",
+    "telegram bot"
+  ],
+  "orientation": "portrait"
+}
