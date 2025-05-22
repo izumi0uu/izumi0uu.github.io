@@ -2,23 +2,19 @@
 import BaseHead from '@/components/BaseHead.astro';
 import StagewiseDevToolbar from '@/components/react/dev/StagewiseDevToolbar.tsx';
 
+import type { BaseHeadProps } from '@/components/BaseHead.astro';
+
+export interface BaseProps extends BaseHeadProps {}
+
+const { metadata } = Astro.props as BaseProps;
+
 ---
 
 <!doctype html>
 <html lang="en">
-	<BaseHead />
+	<BaseHead {metadata} />
 	<body class="font-mixed">
 		<slot />
 		{import.meta.env.DEV && <StagewiseDevToolbar client:only="react" />}
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-	
-</style>
