@@ -27,11 +27,17 @@ const getOpenGraphImagePath = (path: string): string => {
 
 /** @description return page prefix and validate it
  * e.g. /blog/posts/1 -> blog
+ * e.g. "" (homepage) -> pages
  */
 const getPagePrefix = (path: string): OgImagePrefixType => {
   const trimmedPath = removeLeadingAndTrailingSlashes(path);
-  let prefix = trimmedPath.split("/")[0];
 
+  // Handle homepage case
+  if (trimmedPath === "" || trimmedPath === "/") {
+    return "pages" as OgImagePrefixType;
+  }
+
+  let prefix = trimmedPath.split("/")[0];
   prefix = removeLeadingAndTrailingSlashes(prefix);
 
   // must not be in global scope

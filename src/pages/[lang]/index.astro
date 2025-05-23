@@ -1,6 +1,7 @@
 ---
 import Base from "@/layouts/Base.astro";
 import ThemeShowcase from "@/components/demo/ThemeShowcase.astro";
+import { getPageMetadata } from "@/utils/content/metadata";
 
 // 导出 getStaticPaths 函数用于生成静态路由
 export async function getStaticPaths() {
@@ -14,9 +15,12 @@ export async function getStaticPaths() {
 
 // 从路由参数中获取当前语言
 const { lang } = Astro.params;
+
+// 获取页面metadata（使用空字符串作为首页的key）
+const metadata = getPageMetadata("");
 ---
 
-<Base>
+<Base {metadata}>
   <main class="container mx-auto px-4 py-8">
     <section class="mb-12">
       <h1 class="text-4xl font-bold text-on-surface mb-4">
