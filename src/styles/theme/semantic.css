@@ -1,0 +1,415 @@
+/**
+ * @file semantic.css
+ * @description 语义化令牌层和主题逻辑层
+ * 
+ * 职责：
+ * - 定义语义化CSS变量 (--color-primary, --color-surface 等)
+ * - 将foundation.css中的原子颜色映射到语义角色
+ * - 处理主题切换 (默认、酒红) 和模式切换 (亮色、暗色)
+ * - 为组件和工具类提供一致的设计语言
+ */
+
+/* ===== 默认主题 (亮色模式) ===== */
+:root {
+  /* 色彩模式声明 */
+  color-scheme: light;
+
+  /* --- 主要颜色 (Primary) --- */
+  --color-primary: var(--color-brand-sky-500);
+  --color-on-primary: var(--color-neutral-0);
+  --color-primary-container: var(--color-brand-sky-100);
+  --color-on-primary-container: var(--color-brand-sky-700);
+
+  /* --- 次要颜色 (Secondary) --- */
+  --color-secondary: var(--color-neutral-500);
+  --color-on-secondary: var(--color-neutral-0);
+  --color-secondary-container: var(--color-neutral-200);
+  --color-on-secondary-container: var(--color-neutral-700);
+
+  /* --- 第三颜色 (Tertiary) --- */
+  --color-tertiary: var(--color-brand-sky-600);
+  --color-on-tertiary: var(--color-neutral-0);
+  --color-tertiary-container: var(--color-brand-sky-50);
+  --color-on-tertiary-container: var(--color-brand-sky-800);
+
+  /* --- 功能色系 --- */
+  --color-error: var(--color-functional-error-500);
+  --color-on-error: var(--color-neutral-0);
+  --color-error-container: var(--color-functional-error-100);
+  --color-on-error-container: var(--color-functional-error-700);
+
+  --color-success: var(--color-functional-success-500);
+  --color-on-success: var(--color-neutral-0);
+  --color-success-container: var(--color-functional-success-100);
+  --color-on-success-container: var(--color-functional-success-700);
+
+  --color-warning: var(--color-functional-warning-500);
+  --color-on-warning: var(--color-neutral-900);
+  --color-warning-container: var(--color-functional-warning-100);
+  --color-on-warning-container: var(--color-functional-warning-700);
+
+  --color-info: var(--color-functional-info-500);
+  --color-on-info: var(--color-neutral-0);
+  --color-info-container: var(--color-functional-info-100);
+  --color-on-info-container: var(--color-functional-info-700);
+
+  /* --- 表面色系 (Surface) --- */
+  --color-background: var(--color-neutral-0);
+  --color-on-background: var(--color-neutral-900);
+
+  --color-surface: var(--color-neutral-50);
+  --color-on-surface: var(--color-neutral-900);
+  --color-surface-variant: var(--color-neutral-100);
+  --color-on-surface-variant: var(--color-neutral-600);
+
+  /* --- 容器系统 --- */
+  --color-surface-container-lowest: var(--color-neutral-0);
+  --color-surface-container-low: var(--color-neutral-50);
+  --color-surface-container: var(--color-neutral-100);
+  --color-surface-container-high: var(--color-neutral-200);
+  --color-surface-container-highest: var(--color-neutral-300);
+
+  --color-surface-dim: var(--color-neutral-100);
+  --color-surface-bright: var(--color-neutral-0);
+  --color-surface-tint: var(--color-primary);
+
+  /* --- 轮廓色系 (Outline) --- */
+  --color-outline: var(--color-neutral-300);
+  --color-outline-variant: var(--color-neutral-200);
+
+  /* --- 语义化别名 (Semantic Aliases) --- */
+  --color-content: var(--color-on-surface);
+  --color-content-secondary: var(--color-on-surface-variant);
+  --color-headings: var(--color-on-background);
+  --color-captions: var(--color-on-surface-variant);
+
+  --color-link: var(--color-primary);
+  --color-link-hover: var(--color-brand-sky-600);
+  --color-link-visited: var(--color-brand-sky-700);
+
+  /* --- 分层背景系统 --- */
+  --color-base: var(--color-background);
+  --color-base-secondary: var(--color-surface);
+  --color-base-tertiary: var(--color-surface-variant);
+  --color-base-code: var(--color-surface-container);
+}
+
+/* ===== 默认主题 (暗色模式) ===== */
+:root[data-theme="dark"],
+:root.dark {
+  /* 色彩模式声明 */
+  color-scheme: dark;
+
+  /* --- 主要颜色调整 --- */
+  --color-primary: var(--color-brand-sky-400);
+  --color-on-primary: var(--color-neutral-900);
+  --color-primary-container: var(--color-brand-sky-900);
+  --color-on-primary-container: var(--color-brand-sky-100);
+
+  /* --- 次要颜色调整 --- */
+  --color-secondary: var(--color-neutral-400);
+  --color-on-secondary: var(--color-neutral-900);
+  --color-secondary-container: var(--color-neutral-800);
+  --color-on-secondary-container: var(--color-neutral-200);
+
+  /* --- 第三颜色调整 --- */
+  --color-tertiary: var(--color-brand-sky-300);
+  --color-on-tertiary: var(--color-neutral-900);
+  --color-tertiary-container: var(--color-brand-sky-800);
+  --color-on-tertiary-container: var(--color-brand-sky-200);
+
+  /* --- 表面色系调整 --- */
+  --color-background: var(--color-neutral-900);
+  --color-on-background: var(--color-neutral-100);
+
+  --color-surface: var(--color-neutral-800);
+  --color-on-surface: var(--color-neutral-200);
+  --color-surface-variant: var(--color-neutral-700);
+  --color-on-surface-variant: var(--color-neutral-300);
+
+  /* --- 容器系统调整 --- */
+  --color-surface-container-lowest: var(--color-neutral-950);
+  --color-surface-container-low: var(--color-neutral-900);
+  --color-surface-container: var(--color-neutral-800);
+  --color-surface-container-high: var(--color-neutral-700);
+  --color-surface-container-highest: var(--color-neutral-600);
+
+  --color-surface-dim: var(--color-neutral-950);
+  --color-surface-bright: var(--color-neutral-700);
+
+  /* --- 轮廓色系调整 --- */
+  --color-outline: var(--color-neutral-600);
+  --color-outline-variant: var(--color-neutral-700);
+
+  /* --- 语义化别名调整 --- */
+  --color-content: var(--color-on-surface);
+  --color-content-secondary: var(--color-on-surface-variant);
+  --color-headings: var(--color-on-background);
+
+  --color-link-hover: var(--color-brand-sky-300);
+  --color-link-visited: var(--color-brand-sky-200);
+}
+
+/* ===== 酒红主题 (亮色模式) ===== */
+:root[data-theme="wine"] {
+  /* --- 主要颜色 (酒红) --- */
+  --color-primary: var(--color-brand-wine-primary-light);
+  --color-on-primary: var(--color-brand-wine-on-primary-light);
+  --color-primary-container: var(--color-brand-wine-primary-container-light);
+  --color-on-primary-container: var(
+    --color-brand-wine-on-primary-container-light
+  );
+
+  /* --- 次要颜色 (酒红) --- */
+  --color-secondary: var(--color-brand-wine-secondary-light);
+  --color-on-secondary: var(--color-brand-wine-on-secondary-light);
+  --color-secondary-container: var(
+    --color-brand-wine-secondary-container-light
+  );
+  --color-on-secondary-container: var(
+    --color-brand-wine-on-secondary-container-light
+  );
+
+  /* --- 第三颜色 (酒红) --- */
+  --color-tertiary: var(--color-brand-wine-tertiary-light);
+  --color-on-tertiary: var(--color-brand-wine-on-tertiary-light);
+  --color-tertiary-container: var(--color-brand-wine-tertiary-container-light);
+  --color-on-tertiary-container: var(--color-on-tertiary-container);
+
+  /* --- 表面色系 (酒红) --- */
+  --color-background: var(--color-brand-wine-background-light);
+  --color-on-background: var(--color-brand-wine-on-background-light);
+
+  --color-surface: var(--color-brand-wine-surface-light);
+  --color-on-surface: var(--color-brand-wine-on-surface-light);
+  --color-surface-variant: var(--color-brand-wine-surface-variant-light);
+  --color-on-surface-variant: var(--color-brand-wine-on-surface-variant-light);
+
+  /* --- 容器系统 (酒红) --- */
+  --color-surface-container-lowest: var(
+    --color-brand-wine-surface-container-lowest-light
+  );
+  --color-surface-container-low: var(
+    --color-brand-wine-surface-container-low-light
+  );
+  --color-surface-container: var(--color-brand-wine-surface-container-light);
+  --color-surface-container-high: var(
+    --color-brand-wine-surface-container-high-light
+  );
+  --color-surface-container-highest: var(
+    --color-brand-wine-surface-container-highest-light
+  );
+
+  --color-surface-dim: var(--color-brand-wine-surface-dim-light);
+  --color-surface-bright: var(--color-brand-wine-surface-bright-light);
+  --color-surface-tint: var(--color-brand-wine-surface-tint-light);
+
+  /* --- 轮廓色系 (酒红) --- */
+  --color-outline: var(--color-brand-wine-outline-light);
+  --color-outline-variant: var(--color-brand-wine-surface-variant-light);
+
+  /* --- 语义化别名 (酒红) --- */
+  --color-content: var(--color-on-surface);
+  --color-content-secondary: var(--color-on-surface-variant);
+  --color-headings: var(--color-on-background);
+
+  --color-link: var(--color-primary);
+  --color-link-hover: var(--color-brand-wine-primary-container-light);
+  --color-link-visited: var(--color-brand-wine-secondary-light);
+}
+
+/* ===== 酒红主题 (暗色模式) ===== */
+:root[data-theme="wine-dark"],
+:root[data-theme="wine"].dark {
+  /* 色彩模式声明 */
+  color-scheme: dark;
+
+  /* --- 主要颜色 (酒红暗色) --- */
+  --color-primary: var(--color-brand-wine-primary-dark);
+  --color-on-primary: var(--color-brand-wine-on-primary-dark);
+  --color-primary-container: var(--color-brand-wine-primary-container-dark);
+  --color-on-primary-container: var(
+    --color-brand-wine-on-primary-container-dark
+  );
+
+  /* --- 次要颜色 (酒红暗色) --- */
+  --color-secondary: var(--color-brand-wine-secondary-dark);
+  --color-on-secondary: var(--color-brand-wine-on-secondary-dark);
+  --color-secondary-container: var(--color-brand-wine-secondary-container-dark);
+  --color-on-secondary-container: var(
+    --color-brand-wine-on-secondary-container-dark
+  );
+
+  /* --- 第三颜色 (酒红暗色) --- */
+  --color-tertiary: var(--color-brand-wine-tertiary-dark);
+  --color-on-tertiary: var(--color-brand-wine-on-tertiary-dark);
+  --color-tertiary-container: var(--color-brand-wine-tertiary-container-dark);
+  --color-on-tertiary-container: var(
+    --color-brand-wine-on-tertiary-container-dark
+  );
+
+  /* --- 表面色系 (酒红暗色) --- */
+  --color-background: var(--color-brand-wine-background-dark);
+  --color-on-background: var(--color-brand-wine-on-background-dark);
+
+  --color-surface: var(--color-brand-wine-surface-dark);
+  --color-on-surface: var(--color-brand-wine-on-surface-dark);
+  --color-surface-variant: var(--color-brand-wine-surface-variant-dark);
+  --color-on-surface-variant: var(--color-brand-wine-on-surface-variant-dark);
+
+  /* --- 容器系统 (酒红暗色) --- */
+  --color-surface-container-lowest: var(
+    --color-brand-wine-surface-container-lowest-dark
+  );
+  --color-surface-container-low: var(
+    --color-brand-wine-surface-container-low-dark
+  );
+  --color-surface-container: var(--color-brand-wine-surface-container-dark);
+  --color-surface-container-high: var(
+    --color-brand-wine-surface-container-high-dark
+  );
+  --color-surface-container-highest: var(
+    --color-brand-wine-surface-container-highest-dark
+  );
+
+  --color-surface-dim: var(--color-brand-wine-surface-dim-dark);
+  --color-surface-bright: var(--color-brand-wine-surface-bright-dark);
+  --color-surface-tint: var(--color-brand-wine-surface-tint-dark);
+
+  /* --- 轮廓色系 (酒红暗色) --- */
+  --color-outline: var(--color-brand-wine-outline-dark);
+  --color-outline-variant: var(--color-brand-wine-outline-variant-dark);
+
+  /* --- 语义化别名 (酒红暗色) --- */
+  --color-content: var(--color-on-surface);
+  --color-content-secondary: var(--color-on-surface-variant);
+  --color-headings: var(--color-on-background);
+
+  --color-link: var(--color-primary);
+  --color-link-hover: var(--color-brand-wine-primary-container-dark);
+  --color-link-visited: var(--color-brand-wine-secondary-dark);
+}
+
+/* ===== 实用工具类生成 ===== */
+
+/* 为了确保Tailwind能够生成基于新变量的工具类，
+   我们在这里提供一些基础映射 */
+
+/* 文本颜色映射 */
+.text-primary {
+  color: var(--color-primary);
+}
+.text-on-primary {
+  color: var(--color-on-primary);
+}
+.text-secondary {
+  color: var(--color-secondary);
+}
+.text-on-secondary {
+  color: var(--color-on-secondary);
+}
+.text-tertiary {
+  color: var(--color-tertiary);
+}
+.text-error {
+  color: var(--color-error);
+}
+.text-success {
+  color: var(--color-success);
+}
+.text-warning {
+  color: var(--color-warning);
+}
+.text-info {
+  color: var(--color-info);
+}
+.text-content {
+  color: var(--color-content);
+}
+.text-content-secondary {
+  color: var(--color-content-secondary);
+}
+.text-headings {
+  color: var(--color-headings);
+}
+
+/* 背景颜色映射 */
+.bg-primary {
+  background-color: var(--color-primary);
+}
+.bg-primary-container {
+  background-color: var(--color-primary-container);
+}
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+.bg-secondary-container {
+  background-color: var(--color-secondary-container);
+}
+.bg-tertiary {
+  background-color: var(--color-tertiary);
+}
+.bg-error {
+  background-color: var(--color-error);
+}
+.bg-error-container {
+  background-color: var(--color-error-container);
+}
+.bg-success {
+  background-color: var(--color-success);
+}
+.bg-success-container {
+  background-color: var(--color-success-container);
+}
+.bg-warning {
+  background-color: var(--color-warning);
+}
+.bg-warning-container {
+  background-color: var(--color-warning-container);
+}
+.bg-surface {
+  background-color: var(--color-surface);
+}
+.bg-surface-variant {
+  background-color: var(--color-surface-variant);
+}
+.bg-surface-container {
+  background-color: var(--color-surface-container);
+}
+.bg-surface-container-low {
+  background-color: var(--color-surface-container-low);
+}
+.bg-surface-container-high {
+  background-color: var(--color-surface-container-high);
+}
+
+/* 边框颜色映射 */
+.border-outline {
+  border-color: var(--color-outline);
+}
+.border-outline-variant {
+  border-color: var(--color-outline-variant);
+}
+.border-primary {
+  border-color: var(--color-primary);
+}
+.border-error {
+  border-color: var(--color-error);
+}
+
+/* 主题状态指示器 (用于调试) */
+.theme-indicator::after {
+  content: "default";
+}
+
+:root[data-theme="dark"] .theme-indicator::after {
+  content: "dark";
+}
+
+:root[data-theme="wine"] .theme-indicator::after {
+  content: "wine";
+}
+
+:root[data-theme="wine-dark"] .theme-indicator::after {
+  content: "wine-dark";
+}

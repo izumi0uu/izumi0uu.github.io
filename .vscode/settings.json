@@ -1,0 +1,26 @@
+{
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "css.customData": [".vscode/css_custom_data.json"],
+  "tailwindCSS.experimental.configFile": "tailwind.config.ts",
+  "tailwindCSS.includeLanguages": {
+    "astro": "html",
+    "typescript": "javascript",
+    "typescriptreact": "javascript"
+  },
+  "tailwindCSS.files.exclude": [
+    "**/.git/**",
+    "**/node_modules/**",
+    "**/.hg/**",
+    "**/.svn/**",
+    "**/dist/**",
+    "**/build/**"
+  ],
+  "emmet.includeLanguages": {
+    "astro": "html"
+  },
+  "files.associations": {
+    "*.astro": "astro"
+  }
+}

@@ -1,8 +1,31 @@
-/* automatically enable preflight */
+/**
+ * @file main.css
+ * @description 项目主样式文件 - Tailwind CSS v4 分层架构
+ * 
+ * 导入顺序：
+ * 1. Tailwind 核心层 (Preflight + 基础样式)
+ * 2. 基础设计令牌层 (foundation.css)
+ * 3. 语义化主题层 (semantic.css)
+ * 4. 组件样式层
+ * 5. 工具类层
+ */
+
+/* === Tailwind v4 核心层 === */
 @import "tailwindcss";
 
-@import "./theme/theme-v4.css";
+/* === 设计令牌层 === */
+/* 基础原子颜色定义 (@theme 指令) */
+@import "./theme/foundation.css";
 
+/* 语义化主题系统 (主题切换逻辑) */
+@import "./theme/semantic.css";
+
+/* === 应用层样式 === */
+/* 全局基础样式 (非颜色相关) */
 @import "./base/index.css";
+
+/* 组件样式 (使用语义化变量) */
 @import "./components/index.css";
+
+/* 自定义工具类 */
 @import "./utilities/index.css";
