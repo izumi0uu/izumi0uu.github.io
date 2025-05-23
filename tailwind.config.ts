@@ -67,7 +67,7 @@ const config: Config = {
         zh: ['"Noto Sans SC"', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        // === 酒红主题原始颜色 ===
+        // --- 酒红主题原始颜色 ---
 
         // --- 亮色模式主要颜色 ---
         "wine-primary-light": "rgb(144 75 63)",
