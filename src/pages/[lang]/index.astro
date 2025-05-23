@@ -1,7 +1,32 @@
 ---
-import Layout from "@/layouts/Base.astro";
+import Base from "@/layouts/Base.astro";
+import ThemeShowcase from "@/components/demo/ThemeShowcase.astro";
 ---
 
-<Layout>
-    <h1>Hello World</h1>
-</Layout>
+<Base>
+  <main class="container mx-auto px-4 py-8">
+    <section class="mb-12">
+      <h1 class="text-4xl font-bold text-on-surface mb-4">
+        🎨 Tailwind CSS v4 主题演示
+      </h1>
+      <p class="text-lg text-on-surface-variant mb-8">
+        欢迎体验完全重构的 Tailwind v4 主题系统。这个页面展示了新的颜色系统、自定义工具类和主题切换功能。
+      </p>
+      
+      <!-- 新的v4主题演示组件 -->
+      <ThemeShowcase />
+    </section>
+
+    <section class="mt-16 p-6 surface-container">
+      <h2 class="text-2xl font-semibold text-on-surface mb-4">🚀 迁移完成</h2>
+      <div class="space-y-3 text-on-surface-variant">
+        <p>✅ <strong>theme() 函数错误</strong>: 已替换为原生CSS变量</p>
+        <p>✅ <strong>ESBuild 语法错误</strong>: 已修复注释格式问题</p>
+        <p>✅ <strong>TypeScript 类型错误</strong>: 已添加正确的类型注解</p>
+        <p>✅ <strong>OKLCH 颜色空间</strong>: 现代颜色系统已启用</p>
+        <p>✅ <strong>自定义工具类</strong>: 利用v4的@utility指令</p>
+        <p>✅ <strong>主题切换</strong>: 支持4种主题模式</p>
+      </div>
+    </section>
+  </main>
+</Base>

@@ -41,11 +41,11 @@ const configClientData: ConfigClientType = {
   AUTHOR_TWITTER: "https://x.com/izumi0uu",
   AUTHOR_YOUTUBE: "https://www.youtube.com/@izumi0uu",
   REPO_URL: "https://github.com/izumi0uu/sakia-blog",
-  AUTHOR_AVATAR: "",
-  AUTHOR_DESCRIPTION: "",
-  AUTHOR_FACEBOOK: "",
-  AUTHOR_INSTAGRAM: "",
-  AUTHOR_BILIBILI: "",
+  AUTHOR_AVATAR: "https://avatars.githubusercontent.com/u/izumi0uu",
+  AUTHOR_DESCRIPTION: "a developer who loves technology and user experience.",
+  AUTHOR_FACEBOOK: "https://facebook.com/izumi0uu",
+  AUTHOR_INSTAGRAM: "https://instagram.com/izumi0uu",
+  AUTHOR_BILIBILI: "https://space.bilibili.com/izumi0uu",
 };
 
 const CONFIG_CLIENT = validateData(configClientData, configClientSchema);

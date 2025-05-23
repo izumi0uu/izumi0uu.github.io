@@ -1,0 +1,665 @@
+/**
+ * Tailwind CSS v4 主题系统 - 完整迁移方案
+ * 
+ * 架构设计：
+ * - 使用 @theme 指令定义所有颜色系统
+ * - 利用 CSS 变量的原生优势
+ * - 支持主题切换和响应式设计
+ * - 完全基于用户原始配色的 OKLCH 转换
+ * 
+ * v4 新特性应用：
+ * - 原生 CSS 变量支持
+ * - @variant 指令用于状态管理
+ * - @utility 指令用于自定义工具类
+ * - 现代 CSS 特性集成
+ */
+
+@import "tailwindcss";
+
+/* ===== 核心主题定义 ===== */
+@theme {
+  /* --- 基础色系 (Tailwind 官方 OKLCH) --- */
+  --color-slate-50: oklch(0.984 0.003 247.858);
+  --color-slate-100: oklch(0.968 0.007 247.896);
+  --color-slate-200: oklch(0.929 0.013 255.508);
+  --color-slate-300: oklch(0.869 0.022 252.894);
+  --color-slate-400: oklch(0.704 0.04 256.788);
+  --color-slate-500: oklch(0.554 0.046 257.417);
+  --color-slate-600: oklch(0.446 0.043 257.281);
+  --color-slate-700: oklch(0.372 0.044 257.287);
+  --color-slate-800: oklch(0.279 0.041 260.031);
+  --color-slate-900: oklch(0.208 0.042 265.755);
+  --color-slate-950: oklch(0.129 0.042 264.695);
+
+  /* --- 天空色系 --- */
+  --color-sky-50: oklch(0.977 0.013 236.62);
+  --color-sky-100: oklch(0.951 0.026 236.824);
+  --color-sky-200: oklch(0.901 0.058 230.902);
+  --color-sky-300: oklch(0.828 0.111 230.318);
+  --color-sky-400: oklch(0.746 0.16 232.661);
+  --color-sky-500: oklch(0.685 0.169 237.323);
+  --color-sky-600: oklch(0.588 0.158 241.966);
+  --color-sky-700: oklch(0.5 0.134 242.749);
+  --color-sky-800: oklch(0.443 0.11 240.79);
+  --color-sky-900: oklch(0.391 0.09 240.876);
+  --color-sky-950: oklch(0.293 0.066 243.157);
+
+  /* --- 功能色系 --- */
+  --color-red-100: oklch(0.936 0.032 17.717);
+  --color-red-400: oklch(0.704 0.191 22.216);
+  --color-red-500: oklch(0.637 0.237 25.331);
+  --color-red-600: oklch(0.577 0.245 27.325);
+  --color-red-700: oklch(0.505 0.213 27.518);
+  --color-red-800: oklch(0.444 0.177 26.899);
+
+  --color-green-100: oklch(0.962 0.044 156.743);
+  --color-green-400: oklch(0.792 0.209 151.711);
+  --color-green-500: oklch(0.723 0.219 149.579);
+  --color-green-600: oklch(0.627 0.194 149.214);
+  --color-green-700: oklch(0.527 0.154 150.069);
+
+  --color-yellow-100: oklch(0.973 0.071 103.193);
+  --color-yellow-400: oklch(0.852 0.199 91.936);
+  --color-yellow-500: oklch(0.795 0.184 86.047);
+  --color-yellow-600: oklch(0.681 0.162 75.834);
+
+  --color-orange-400: oklch(0.75 0.183 55.934);
+  --color-orange-500: oklch(0.705 0.213 47.604);
+  --color-orange-600: oklch(0.646 0.222 41.116);
+
+  --color-teal-400: oklch(0.777 0.152 181.912);
+  --color-teal-500: oklch(0.704 0.14 182.503);
+  --color-teal-600: oklch(0.6 0.118 184.704);
+
+  /* --- 基础黑白 --- */
+  --color-white: #fff;
+  --color-black: #000;
+
+  /* --- 酒红主题系统 (基于用户原始RGB精确转换) --- */
+
+  /* 亮色模式酒红色系 */
+  --color-wine-primary-light: oklch(0.451 0.063 21.69);
+  --color-wine-on-primary-light: oklch(1 0 0);
+  --color-wine-primary-container-light: oklch(0.906 0.026 23.93);
+  --color-wine-on-primary-container-light: oklch(0.216 0.056 28.62);
+  --color-wine-primary-fixed-light: oklch(0.782 0.079 22.58);
+
+  --color-wine-secondary-light: oklch(0.423 0.026 20.35);
+  --color-wine-on-secondary-light: oklch(1 0 0);
+  --color-wine-secondary-container-light: oklch(0.899 0.015 21.47);
+  --color-wine-on-secondary-container-light: oklch(0.159 0.025 22.84);
+
+  --color-wine-tertiary-light: oklch(0.567 0.098 72.48);
+  --color-wine-on-tertiary-light: oklch(1 0 0);
+  --color-wine-tertiary-container-light: oklch(0.904 0.055 81.23);
+
+  --color-wine-background-light: oklch(0.982 0.005 22.94);
+  --color-wine-on-background-light: oklch(0.146 0.009 21.36);
+  --color-wine-surface-light: oklch(0.982 0.005 22.94);
+  --color-wine-on-surface-light: oklch(0.146 0.009 21.36);
+  --color-wine-surface-variant-light: oklch(0.899 0.015 21.47);
+  --color-wine-on-surface-variant-light: oklch(0.321 0.017 20.84);
+  --color-wine-outline-light: oklch(0.508 0.018 19.73);
+
+  /* 亮色模式容器系统 */
+  --color-wine-surface-container-highest-light: oklch(0.828 0.015 21.25);
+  --color-wine-surface-container-high-light: oklch(0.876 0.014 21.58);
+  --color-wine-surface-container-low-light: oklch(0.95 0.009 22.41);
+  --color-wine-surface-container-lowest-light: oklch(0.99 0.003 23.18);
+  --color-wine-surface-container-light: oklch(0.924 0.011 21.73);
+  --color-wine-surface-dim-light: oklch(0.939 0.008 22.05);
+  --color-wine-surface-bright-light: oklch(1 0 0);
+  --color-wine-surface-tint-light: oklch(0.451 0.063 21.69);
+
+  /* 暗色模式酒红色系 */
+  --color-wine-primary-dark: oklch(0.782 0.079 22.58);
+  --color-wine-on-primary-dark: oklch(0.288 0.054 25.43);
+  --color-wine-primary-container-dark: oklch(0.362 0.049 23.75);
+  --color-wine-on-primary-container-dark: oklch(0.906 0.026 23.93);
+
+  --color-wine-secondary-dark: oklch(0.796 0.025 20.84);
+  --color-wine-on-secondary-dark: oklch(0.255 0.026 22.15);
+  --color-wine-secondary-container-dark: oklch(0.333 0.024 20.97);
+  --color-wine-on-secondary-container-dark: oklch(0.906 0.026 23.93);
+
+  --color-wine-tertiary-dark: oklch(0.808 0.093 78.45);
+  --color-wine-on-tertiary-dark: oklch(0.241 0.036 85.62);
+  --color-wine-tertiary-container-dark: oklch(0.341 0.057 82.74);
+  --color-wine-on-tertiary-container-dark: oklch(0.904 0.055 81.23);
+
+  --color-wine-error-dark: oklch(0.787 0.084 18.73);
+  --color-wine-on-error-dark: oklch(0.372 0.095 16.25);
+  --color-wine-error-container-dark: oklch(0.467 0.143 17.84);
+  --color-wine-on-error-container-dark: oklch(0.787 0.084 18.73);
+
+  --color-wine-background-dark: oklch(0.124 0.008 21.84);
+  --color-wine-on-background-dark: oklch(0.919 0.012 21.65);
+  --color-wine-surface-dark: oklch(0.124 0.008 21.84);
+  --color-wine-on-surface-dark: oklch(0.919 0.012 21.65);
+  --color-wine-surface-variant-dark: oklch(0.321 0.017 20.84);
+  --color-wine-on-surface-variant-dark: oklch(0.823 0.017 20.73);
+  --color-wine-outline-dark: oklch(0.591 0.015 19.84);
+  --color-wine-outline-variant-dark: oklch(0.321 0.017 20.84);
+
+  /* 暗色模式容器系统 */
+  --color-wine-surface-container-highest-dark: oklch(0.274 0.02 21.47);
+  --color-wine-surface-container-high-dark: oklch(0.213 0.019 22.15);
+  --color-wine-surface-container-low-dark: oklch(0.143 0.009 21.73);
+  --color-wine-surface-container-lowest-dark: oklch(0.094 0.011 22.84);
+  --color-wine-surface-container-dark: oklch(0.154 0.009 21.47);
+  --color-wine-surface-dim-dark: oklch(0.083 0.012 23.65);
+  --color-wine-surface-bright-dark: oklch(0.185 0.016 22.35);
+  --color-wine-surface-tint-dark: oklch(0.782 0.079 22.58);
+
+  /* --- 语义化主题令牌 --- */
+  /* 这些变量会根据主题切换自动更新 */
+  --color-primary: var(--color-sky-500);
+  --color-on-primary: var(--color-white);
+  --color-primary-container: var(--color-sky-100);
+  --color-on-primary-container: var(--color-sky-700);
+
+  --color-secondary: var(--color-slate-500);
+  --color-on-secondary: var(--color-white);
+  --color-secondary-container: var(--color-slate-200);
+  --color-on-secondary-container: var(--color-slate-700);
+
+  --color-accent: var(--color-orange-400);
+  --color-on-accent: var(--color-slate-900);
+
+  --color-error: var(--color-red-500);
+  --color-on-error: var(--color-white);
+  --color-error-container: var(--color-red-100);
+  --color-on-error-container: var(--color-red-700);
+
+  --color-success: var(--color-green-500);
+  --color-on-success: var(--color-white);
+  --color-success-container: var(--color-green-100);
+  --color-on-success-container: var(--color-green-700);
+
+  --color-warning: var(--color-yellow-500);
+  --color-on-warning: var(--color-slate-900);
+  --color-warning-container: var(--color-yellow-100);
+  --color-on-warning-container: var(--color-yellow-600);
+
+  --color-background: var(--color-white);
+  --color-on-background: var(--color-slate-900);
+  --color-surface: var(--color-slate-50);
+  --color-on-surface: var(--color-slate-900);
+  --color-surface-variant: var(--color-slate-100);
+  --color-on-surface-variant: var(--color-slate-600);
+
+  --color-outline: var(--color-slate-300);
+  --color-outline-variant: var(--color-slate-200);
+
+  /* --- 字体系统 --- */
+  --font-sans: "Inter", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:
+    "JetBrains Mono", ui-monospace, "Cascadia Code", "Source Code Pro", Menlo,
+    Consolas, "DejaVu Sans Mono", monospace;
+  --font-display: "Inter", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+
+  /* --- 响应式断点扩展 --- */
+  --breakpoint-xs: 475px;
+  --breakpoint-3xl: 1920px;
+
+  /* --- 动画缓动函数 --- */
+  --ease-in-out-cubic: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* --- 自定义间距 --- */
+  --spacing-xs: 0.25rem; /* 4px */
+  --spacing-sm: 0.5rem; /* 8px */
+  --spacing-md: 1rem; /* 16px */
+  --spacing-lg: 1.5rem; /* 24px */
+  --spacing-xl: 2rem; /* 32px */
+  --spacing-2xl: 3rem; /* 48px */
+  --spacing-3xl: 4rem; /* 64px */
+
+  /* --- 阴影系统 --- */
+  --shadow-soft:
+    0 1px 3px 0 oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1);
+  --shadow-medium:
+    0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1);
+  --shadow-large:
+    0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1);
+  --shadow-xl:
+    0 20px 25px -5px oklch(0 0 0 / 0.1), 0 8px 10px -6px oklch(0 0 0 / 0.1);
+
+  /* --- 边框半径 --- */
+  --radius-sm: 0.25rem; /* 4px */
+  --radius-md: 0.375rem; /* 6px */
+  --radius-lg: 0.5rem; /* 8px */
+  --radius-xl: 0.75rem; /* 12px */
+  --radius-2xl: 1rem; /* 16px */
+  --radius-full: 9999px;
+}
+
+/* ===== 主题切换系统 ===== */
+
+/* 默认主题 (亮色模式) */
+:root {
+  color-scheme: light;
+}
+
+/* 暗色模式 */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* 重新映射语义化变量 */
+  --color-primary: var(--color-sky-400);
+  --color-on-primary: var(--color-slate-900);
+  --color-primary-container: var(--color-sky-900);
+  --color-on-primary-container: var(--color-sky-100);
+
+  --color-secondary: var(--color-slate-400);
+  --color-on-secondary: var(--color-slate-900);
+  --color-secondary-container: var(--color-slate-800);
+  --color-on-secondary-container: var(--color-slate-200);
+
+  --color-background: var(--color-slate-900);
+  --color-on-background: var(--color-slate-100);
+  --color-surface: var(--color-slate-800);
+  --color-on-surface: var(--color-slate-200);
+  --color-surface-variant: var(--color-slate-700);
+  --color-on-surface-variant: var(--color-slate-300);
+
+  --color-outline: var(--color-slate-600);
+  --color-outline-variant: var(--color-slate-700);
+}
+
+/* 酒红主题 (亮色模式) */
+:root[data-theme="wine"] {
+  --color-primary: var(--color-wine-primary-light);
+  --color-on-primary: var(--color-wine-on-primary-light);
+  --color-primary-container: var(--color-wine-primary-container-light);
+  --color-on-primary-container: var(--color-wine-on-primary-container-light);
+
+  --color-secondary: var(--color-wine-secondary-light);
+  --color-on-secondary: var(--color-wine-on-secondary-light);
+  --color-secondary-container: var(--color-wine-secondary-container-light);
+  --color-on-secondary-container: var(
+    --color-wine-on-secondary-container-light
+  );
+
+  --color-background: var(--color-wine-background-light);
+  --color-on-background: var(--color-wine-on-background-light);
+  --color-surface: var(--color-wine-surface-light);
+  --color-on-surface: var(--color-wine-on-surface-light);
+  --color-surface-variant: var(--color-wine-surface-variant-light);
+  --color-on-surface-variant: var(--color-wine-on-surface-variant-light);
+
+  --color-outline: var(--color-wine-outline-light);
+  --color-outline-variant: var(--color-wine-surface-variant-light);
+}
+
+/* 酒红主题 (暗色模式) */
+:root[data-theme="wine-dark"] {
+  color-scheme: dark;
+
+  --color-primary: var(--color-wine-primary-dark);
+  --color-on-primary: var(--color-wine-on-primary-dark);
+  --color-primary-container: var(--color-wine-primary-container-dark);
+  --color-on-primary-container: var(--color-wine-on-primary-container-dark);
+
+  --color-secondary: var(--color-wine-secondary-dark);
+  --color-on-secondary: var(--color-wine-on-secondary-dark);
+  --color-secondary-container: var(--color-wine-secondary-container-dark);
+  --color-on-secondary-container: var(--color-wine-on-secondary-container-dark);
+
+  --color-background: var(--color-wine-background-dark);
+  --color-on-background: var(--color-wine-on-background-dark);
+  --color-surface: var(--color-wine-surface-dark);
+  --color-on-surface: var(--color-wine-on-surface-dark);
+  --color-surface-variant: var(--color-wine-surface-variant-dark);
+  --color-on-surface-variant: var(--color-wine-on-surface-variant-dark);
+
+  --color-outline: var(--color-wine-outline-dark);
+  --color-outline-variant: var(--color-wine-outline-variant-dark);
+}
+
+/* ===== 自定义工具类 (利用 v4 @utility 指令) ===== */
+
+/* 容器系统增强 */
+@utility container {
+  margin-inline: auto;
+  padding-inline: var(--spacing-md);
+  max-width: 100%;
+
+  @media (width >= theme(--breakpoint-sm)) {
+    max-width: 640px;
+  }
+
+  @media (width >= theme(--breakpoint-md)) {
+    max-width: 768px;
+    padding-inline: var(--spacing-lg);
+  }
+
+  @media (width >= theme(--breakpoint-lg)) {
+    max-width: 1024px;
+  }
+
+  @media (width >= theme(--breakpoint-xl)) {
+    max-width: 1280px;
+    padding-inline: var(--spacing-xl);
+  }
+
+  @media (width >= theme(--breakpoint-2xl)) {
+    max-width: 1536px;
+  }
+
+  @media (width >= theme(--breakpoint-3xl)) {
+    max-width: 1920px;
+  }
+}
+
+/* 表面层级系统 */
+@utility surface-1 {
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+}
+
+@utility surface-2 {
+  background-color: var(--color-surface-variant);
+  color: var(--color-on-surface-variant);
+}
+
+@utility surface-container {
+  background-color: var(--color-surface-variant);
+  color: var(--color-on-surface-variant);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-lg);
+}
+
+/* 语义化按钮样式 */
+@utility btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: all 150ms var(--ease-in-out-cubic);
+
+  @variant hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-medium);
+  }
+
+  @variant focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  @variant active {
+    transform: translateY(0);
+  }
+}
+
+@utility btn-secondary {
+  background-color: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: all 150ms var(--ease-in-out-cubic);
+
+  @variant hover {
+    background-color: var(--color-secondary);
+    color: var(--color-on-secondary);
+  }
+}
+
+/* ===== 自定义变体 (利用 v4 @custom-variant 指令) ===== */
+
+/* 主题变体 */
+@custom-variant theme-wine {
+  :root[data-theme="wine"] & {
+    @slot;
+  }
+}
+
+@custom-variant theme-wine-dark {
+  :root[data-theme="wine-dark"] & {
+    @slot;
+  }
+}
+
+@custom-variant theme-dark {
+  :root[data-theme="dark"] & {
+    @slot;
+  }
+}
+
+/* 减少动画变体 (无障碍支持) */
+@custom-variant motion-safe {
+  @media (prefers-reduced-motion: no-preference) {
+    @slot;
+  }
+}
+
+@custom-variant motion-reduce {
+  @media (prefers-reduced-motion: reduce) {
+    @slot;
+  }
+}
+
+/* 高对比度变体 */
+@custom-variant high-contrast {
+  @media (prefers-contrast: high) {
+    @slot;
+  }
+}
+
+/* ===== 基础样式增强 ===== */
+@layer base {
+  /* 现代 CSS Reset */
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: var(--color-outline-variant);
+  }
+
+  html {
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    -moz-tab-size: 4;
+    tab-size: 4;
+    font-family: var(--font-sans);
+    font-feature-settings: normal;
+    font-variation-settings: normal;
+  }
+
+  body {
+    margin: 0;
+    line-height: inherit;
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+  }
+
+  /* 链接样式 */
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 150ms var(--ease-in-out-cubic);
+
+    @variant hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+  }
+
+  /* 表单元素 */
+  input,
+  textarea,
+  select {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-outline);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--color-on-surface);
+
+    @variant focus {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      border-color: var(--color-primary);
+    }
+  }
+
+  /* 代码块样式 */
+  code {
+    font-family: var(--font-mono);
+    background-color: var(--color-surface-variant);
+    padding: 0.125rem 0.25rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.875em;
+  }
+}
+
+/* ===== 响应式组件样式 ===== */
+@layer components {
+  /* 卡片组件 */
+  .card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: var(--spacing-lg);
+
+    @variant hover {
+      box-shadow: var(--shadow-medium);
+      transform: translateY(-2px);
+      transition: all 200ms var(--ease-out-expo);
+    }
+  }
+
+  /* 导航组件 */
+  .nav-item {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    transition: all 150ms var(--ease-in-out-cubic);
+
+    @variant hover {
+      background-color: var(--color-primary-container);
+      color: var(--color-on-primary-container);
+    }
+
+    @variant focus {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+  }
+}
+
+/* ===== 工具类扩展 ===== */
+@layer utilities {
+  /* 文本颜色语义化 */
+  .text-primary {
+    color: var(--color-primary);
+  }
+
+  .text-on-primary {
+    color: var(--color-on-primary);
+  }
+
+  .text-secondary {
+    color: var(--color-secondary);
+  }
+
+  .text-on-surface {
+    color: var(--color-on-surface);
+  }
+
+  .text-on-surface-variant {
+    color: var(--color-on-surface-variant);
+  }
+
+  /* 背景颜色语义化 */
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+
+  .bg-primary-container {
+    background-color: var(--color-primary-container);
+  }
+
+  .bg-surface {
+    background-color: var(--color-surface);
+  }
+
+  .bg-surface-variant {
+    background-color: var(--color-surface-variant);
+  }
+
+  /* 现代动画工具类 */
+  .animate-fade-in {
+    animation: fade-in 300ms var(--ease-out-expo);
+  }
+
+  .animate-slide-up {
+    animation: slide-up 400ms var(--ease-out-expo);
+  }
+
+  .animate-bounce-in {
+    animation: bounce-in 500ms var(--ease-in-out-back);
+  }
+
+  /* 无障碍工具类 */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .focus-visible {
+    @variant focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+  }
+}
+
+/* ===== 动画关键帧 ===== */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

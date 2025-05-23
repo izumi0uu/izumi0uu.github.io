@@ -1,0 +1,371 @@
+---
+// Tailwind v4 主题系统演示组件
+// 展示新的颜色系统、工具类和主题切换功能
+---
+
+<div class="theme-showcase">
+  <!-- 主题切换器 -->
+  <div class="mb-8 p-6 surface-container">
+    <h2 class="text-2xl font-bold text-on-surface mb-4">🎨 Tailwind v4 主题演示</h2>
+    <div class="flex flex-wrap gap-4 mb-4">
+      <button 
+        id="theme-default" 
+        class="btn-secondary"
+        data-theme="default"
+      >
+        默认主题
+      </button>
+      <button 
+        id="theme-dark" 
+        class="btn-secondary"
+        data-theme="dark"
+      >
+        暗色模式
+      </button>
+      <button 
+        id="theme-wine" 
+        class="btn-secondary"
+        data-theme="wine"
+      >
+        酒红主题
+      </button>
+      <button 
+        id="theme-wine-dark" 
+        class="btn-secondary"
+        data-theme="wine-dark"
+      >
+        酒红暗色
+      </button>
+    </div>
+    <p class="text-on-surface-variant text-sm">
+      当前主题: <span id="current-theme" class="text-primary font-medium">default</span>
+    </p>
+  </div>
+
+  <!-- 颜色系统展示 -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+    <!-- 主色系 -->
+    <div class="card">
+      <h3 class="text-lg font-semibold text-on-surface mb-4">主色系</h3>
+      <div class="space-y-3">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded bg-primary border border-outline"></div>
+          <div>
+            <div class="text-sm font-medium text-on-surface">Primary</div>
+            <div class="text-xs text-on-surface-variant">var(--color-primary)</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded bg-primary-container border border-outline"></div>
+          <div>
+            <div class="text-sm font-medium text-on-surface">Primary Container</div>
+            <div class="text-xs text-on-surface-variant">var(--color-primary-container)</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded bg-secondary border border-outline"></div>
+          <div>
+            <div class="text-sm font-medium text-on-surface">Secondary</div>
+            <div class="text-xs text-on-surface-variant">var(--color-secondary)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 表面系统 -->
+    <div class="card">
+      <h3 class="text-lg font-semibold text-on-surface mb-4">表面系统</h3>
+      <div class="space-y-3">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded bg-surface border border-outline"></div>
+          <div>
+            <div class="text-sm font-medium text-on-surface">Surface</div>
+            <div class="text-xs text-on-surface-variant">var(--color-surface)</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded bg-surface-variant border border-outline"></div>
+          <div>
+            <div class="text-sm font-medium text-on-surface">Surface Variant</div>
+            <div class="text-xs text-on-surface-variant">var(--color-surface-variant)</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded" style="background-color: var(--color-background);">
+          </div>
+          <div>
+            <div class="text-sm font-medium text-on-surface">Background</div>
+            <div class="text-xs text-on-surface-variant">var(--color-background)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 功能色系 -->
+    <div class="card">
+      <h3 class="text-lg font-semibold text-on-surface mb-4">功能色系</h3>
+      <div class="space-y-3">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded border border-outline" style="background-color: var(--color-error);"></div>
+          <div>
+            <div class="text-sm font-medium text-on-surface">Error</div>
+            <div class="text-xs text-on-surface-variant">var(--color-error)</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded border border-outline" style="background-color: var(--color-success);"></div>
+          <div>
+            <div class="text-sm font-medium text-on-surface">Success</div>
+            <div class="text-xs text-on-surface-variant">var(--color-success)</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded border border-outline" style="background-color: var(--color-warning);"></div>
+          <div>
+            <div class="text-sm font-medium text-on-surface">Warning</div>
+            <div class="text-xs text-on-surface-variant">var(--color-warning)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 组件展示 -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- 按钮系统 -->
+    <div class="card">
+      <h3 class="text-lg font-semibold text-on-surface mb-4">按钮系统</h3>
+      <div class="space-y-4">
+        <div>
+          <h4 class="text-sm font-medium text-on-surface-variant mb-2">v4 自定义工具类</h4>
+          <div class="flex flex-wrap gap-3">
+            <button class="btn-primary">主要按钮</button>
+            <button class="btn-secondary">次要按钮</button>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-sm font-medium text-on-surface-variant mb-2">传统工具类</h4>
+          <div class="flex flex-wrap gap-3">
+            <button class="px-4 py-2 bg-primary text-on-primary rounded-md hover:opacity-90 transition-opacity">
+              传统主要
+            </button>
+            <button class="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-md hover:bg-secondary hover:text-on-secondary transition-colors">
+              传统次要
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 卡片和表面 -->
+    <div class="card">
+      <h3 class="text-lg font-semibold text-on-surface mb-4">表面层级</h3>
+      <div class="space-y-4">
+        <div class="surface-1 p-4 rounded-lg">
+          <div class="text-sm font-medium">Surface Level 1</div>
+          <div class="text-xs text-on-surface-variant mt-1">基础表面层</div>
+        </div>
+        <div class="surface-2 p-4 rounded-lg">
+          <div class="text-sm font-medium">Surface Level 2</div>
+          <div class="text-xs text-on-surface-variant mt-1">变体表面层</div>
+        </div>
+        <div class="surface-container p-4">
+          <div class="text-sm font-medium">Surface Container</div>
+          <div class="text-xs text-on-surface-variant mt-1">容器表面层</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 动画演示 -->
+  <div class="card">
+    <h3 class="text-lg font-semibold text-on-surface mb-4">现代动画系统</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <button 
+        id="fade-demo" 
+        class="p-4 bg-primary-container text-on-primary-container rounded-lg hover:bg-primary hover:text-on-primary transition-all motion-safe:animate-fade-in"
+      >
+        淡入动画
+      </button>
+      <button 
+        id="slide-demo" 
+        class="p-4 bg-secondary-container text-on-secondary-container rounded-lg hover:bg-secondary hover:text-on-secondary transition-all motion-safe:animate-slide-up"
+      >
+        滑入动画
+      </button>
+      <button 
+        id="bounce-demo" 
+        class="p-4 surface-container rounded-lg hover:bg-primary-container transition-all motion-safe:animate-bounce-in"
+      >
+        弹入动画
+      </button>
+    </div>
+    <p class="text-xs text-on-surface-variant mt-4">
+      💡 动画会根据用户的无障碍偏好自动调整
+    </p>
+  </div>
+
+  <!-- OKLCH 颜色展示 -->
+  <div class="card mt-6">
+    <h3 class="text-lg font-semibold text-on-surface mb-4">OKLCH 颜色空间</h3>
+    <div class="text-sm text-on-surface-variant mb-4">
+      Tailwind v4 使用现代 OKLCH 颜色空间，提供更一致的视觉感知和更好的颜色混合效果。
+    </div>
+    
+    <!-- 酒红色系展示 -->
+    <div class="space-y-4 theme-wine:block hidden">
+      <h4 class="text-sm font-medium text-on-surface">酒红主题色系 (OKLCH)</h4>
+      <div class="grid grid-cols-4 gap-2">
+        <div class="aspect-square rounded" style="background-color: var(--color-wine-primary-light);"></div>
+        <div class="aspect-square rounded" style="background-color: var(--color-wine-secondary-light);"></div>
+        <div class="aspect-square rounded" style="background-color: var(--color-wine-tertiary-light);"></div>
+        <div class="aspect-square rounded" style="background-color: var(--color-wine-surface-container-light);"></div>
+      </div>
+    </div>
+
+    <!-- 暗色酒红展示 -->
+    <div class="space-y-4 theme-wine-dark:block hidden">
+      <h4 class="text-sm font-medium text-on-surface">酒红暗色主题 (OKLCH)</h4>
+      <div class="grid grid-cols-4 gap-2">
+        <div class="aspect-square rounded" style="background-color: var(--color-wine-primary-dark);"></div>
+        <div class="aspect-square rounded" style="background-color: var(--color-wine-secondary-dark);"></div>
+        <div class="aspect-square rounded" style="background-color: var(--color-wine-tertiary-dark);"></div>
+        <div class="aspect-square rounded" style="background-color: var(--color-wine-surface-container-dark);"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 调试信息 -->
+  <div class="card mt-6" id="debug-info">
+    <h3 class="text-lg font-semibold text-on-surface mb-4">调试信息</h3>
+    <div class="text-sm font-mono text-on-surface-variant space-y-1" id="css-variables">
+      <!-- JavaScript 动态填充 -->
+    </div>
+  </div>
+</div>
+
+<script>
+  // 主题切换功能
+  function setTheme(theme: string): void {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    
+    // 更新当前主题显示
+    const currentThemeEl = document.getElementById('current-theme');
+    if (currentThemeEl) {
+      currentThemeEl.textContent = theme;
+    }
+    
+    // 更新按钮状态
+    document.querySelectorAll('[data-theme]').forEach(btn => {
+      btn.classList.remove('btn-primary');
+      btn.classList.add('btn-secondary');
+    });
+    
+    const activeBtn = document.querySelector(`[data-theme="${theme}"]`);
+    if (activeBtn) {
+      activeBtn.classList.remove('btn-secondary');
+      activeBtn.classList.add('btn-primary');
+    }
+    
+    updateDebugInfo();
+  }
+
+  // 更新调试信息
+  function updateDebugInfo(): void {
+    const debugEl = document.getElementById('css-variables');
+    if (!debugEl) return;
+    
+    const styles = getComputedStyle(document.documentElement);
+    const colorVariables: Record<string, string> = {};
+    
+    // 收集颜色变量
+    for (let prop of styles) {
+      if (prop.startsWith('--color-') && prop.includes('primary')) {
+        colorVariables[prop] = styles.getPropertyValue(prop).trim();
+      }
+    }
+    
+    // 显示主要变量
+    const html = Object.entries(colorVariables)
+      .slice(0, 5) // 只显示前5个
+      .map(([prop, value]) => `<div>${prop}: ${value}</div>`)
+      .join('');
+    
+    debugEl.innerHTML = html;
+  }
+
+  // 动画演示重新触发
+  function triggerAnimation(buttonId: string, animationClass: string): void {
+    const button = document.getElementById(buttonId);
+    if (!button) return;
+    
+    button.classList.remove(animationClass);
+    button.offsetHeight; // 强制重排
+    button.classList.add(animationClass);
+  }
+
+  // 初始化
+  document.addEventListener('DOMContentLoaded', () => {
+    // 读取保存的主题
+    const savedTheme = localStorage.getItem('theme') || 'default';
+    setTheme(savedTheme);
+    
+    // 绑定主题切换按钮
+    document.querySelectorAll('[data-theme]').forEach(button => {
+      button.addEventListener('click', (e: Event) => {
+        const target = e.target as HTMLElement;
+        const theme = target.getAttribute('data-theme');
+        if (theme) {
+          setTheme(theme);
+        }
+      });
+    });
+    
+    // 绑定动画演示按钮
+    document.getElementById('fade-demo')?.addEventListener('click', () => {
+      triggerAnimation('fade-demo', 'motion-safe:animate-fade-in');
+    });
+    
+    document.getElementById('slide-demo')?.addEventListener('click', () => {
+      triggerAnimation('slide-demo', 'motion-safe:animate-slide-up');
+    });
+    
+    document.getElementById('bounce-demo')?.addEventListener('click', () => {
+      triggerAnimation('bounce-demo', 'motion-safe:animate-bounce-in');
+    });
+    
+    // 系统主题检测
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', (e) => {
+      const currentTheme = localStorage.getItem('theme');
+      if (currentTheme === 'default') {
+        setTheme(e.matches ? 'dark' : 'default');
+      }
+    });
+  });
+</script>
+
+<style>
+  /* 确保自定义变体正常工作 */
+  .theme-wine\:block {
+    display: none;
+  }
+  
+  :root[data-theme="wine"] .theme-wine\:block {
+    display: block;
+  }
+  
+  .theme-wine-dark\:block {
+    display: none;
+  }
+  
+  :root[data-theme="wine-dark"] .theme-wine-dark\:block {
+    display: block;
+  }
+  
+  /* 动画重新触发的辅助样式 */
+  .animate-trigger {
+    animation: none !important;
+  }
+</style> 

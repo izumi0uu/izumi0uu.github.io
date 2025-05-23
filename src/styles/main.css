@@ -1,7 +1,7 @@
 /* automatically enable preflight */
 @import "tailwindcss";
 
-@import "./theme/index.css";
+@import "./theme/theme-v4.css";
 
 @import "./base/index.css";
 @import "./components/index.css";
