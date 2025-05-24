@@ -1,17 +1,7 @@
 ---
-import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink } from "@/components/react/ui/NavgationMenu";
+import NavigationWrapper from "@/components/react/ui/NavigationWrapper";
 ---
 
 <header>
-    <NavigationMenu>
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>Menu</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <NavigationMenuLink>Link 1</NavigationMenuLink>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
-      
+    <NavigationWrapper client:load />
 </header>

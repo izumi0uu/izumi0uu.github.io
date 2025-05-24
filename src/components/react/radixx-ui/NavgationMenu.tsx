@@ -12,7 +12,7 @@ const NavigationMenu = React.forwardRef<
   <NavigationMenuPrimitive.Root
     ref={ref}
     className={cn(
-      "relative z-10 flex max-w-max flex-1 items-center justify-center border-2 border-black transition-all dark:border-white dark:bg-zinc-800",
+      "border-outline bg-surface relative z-10 flex max-w-max flex-1 items-center justify-center border-2 transition-all",
       className
     )}
     {...props}
@@ -38,7 +38,7 @@ NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
 const NavigationMenuItem = NavigationMenuPrimitive.Item;
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-10 w-max items-center justify-center px-4 py-2 text-sm font-bold transition-colors hover:border-b-2 hover:border-black disabled:pointer-events-none disabled:opacity-50 dark:hover:border-white"
+  "group text-content hover:border-primary inline-flex h-10 w-max items-center justify-center px-4 py-2 text-sm font-bold transition-colors hover:border-b-2 disabled:pointer-events-none disabled:opacity-50"
 );
 
 const NavigationMenuTrigger = React.forwardRef<
@@ -52,7 +52,7 @@ const NavigationMenuTrigger = React.forwardRef<
   >
     {children}{" "}
     <ChevronDown
-      className="relative top-[1px] ml-1 size-3 font-bold transition duration-200 group-data-[state=open]:rotate-180"
+      className="text-content-secondary relative top-[1px] ml-1 size-3 font-bold transition duration-200 group-data-[state=open]:rotate-180"
       aria-hidden="true"
     />
   </NavigationMenuPrimitive.Trigger>
@@ -66,7 +66,7 @@ const NavigationMenuContent = React.forwardRef<
   <NavigationMenuPrimitive.Content
     ref={ref}
     className={cn(
-      "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 top-0 left-0 border-2 border-black transition-all md:absolute dark:border-white dark:bg-zinc-800",
+      "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 border-outline bg-surface-container text-content top-0 left-0 border-2 transition-all md:absolute",
       className
     )}
     {...props}
@@ -81,7 +81,7 @@ const NavigationMenuLink = React.forwardRef<
   <NavigationMenuPrimitive.Link
     ref={ref}
     className={cn(
-      "border-2 border-black transition-all dark:border-white dark:bg-zinc-800",
+      "border-outline bg-surface-container text-content border-2 transition-all",
       className
     )}
     {...props}
