@@ -7,7 +7,7 @@ import {
   NavigationMenuContent,
   NavigationMenuLink,
   navigationMenuTriggerStyle,
-} from "../radixx-ui/NavgationMenu";
+} from "../radix-ui/NavgationMenu";
 import { cn } from "@/utils/ui/styles";
 import { Link } from "@radix-ui/react-navigation-menu";
 // import { Icons } from "@/components/icons"
