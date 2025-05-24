@@ -13,7 +13,6 @@ const config: Config = {
   plugins: [
     // Typography plugin still uses JavaScript configuration in v4
     require("@tailwindcss/typography"),
-    require("tailwindcss-animate"),
   ],
 } satisfies Config;
 

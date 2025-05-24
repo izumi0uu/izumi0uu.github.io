@@ -62,12 +62,12 @@ const NavigationWrapper = () => {
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <a
-                    className="from-muted/50 to-muted flex size-full flex-col justify-end rounded-md bg-gradient-to-b p-6 no-underline outline-none select-none focus:shadow-md"
+                    className="bg-surface-variant hover:bg-surface-container-high flex size-full flex-col justify-end rounded-md p-6 no-underline transition-all duration-300 outline-none select-none focus:shadow-md"
                     href="/"
                   >
                     {/* <Icons.logo className="h-6 w-6" /> */}
-                    <div className="mt-4 mb-2 text-lg font-medium">BUOUUI</div>
-                    <p className="text-muted-foreground text-sm leading-tight">
+                    <div className="text-headings mt-4 mb-2 text-lg font-medium">BUOUUI</div>
+                    <p className="text-content-secondary text-sm leading-tight">
                       Beautifully designed components that you can copy and paste into your apps.
                       Accessible. Customizable. Open Source.
                     </p>
@@ -118,13 +118,13 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWit
           <a
             ref={ref}
             className={cn(
-              "block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none",
+              "hover:bg-surface-container block space-y-1 rounded-md p-3 leading-none no-underline transition-all duration-300 outline-none select-none",
               className
             )}
             {...props}
           >
-            <div className="text-sm leading-none font-medium uppercase">{title}</div>
-            <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">{children}</p>
+            <div className="text-headings text-sm leading-none font-medium uppercase">{title}</div>
+            <p className="text-content-secondary line-clamp-2 text-sm leading-snug">{children}</p>
           </a>
         </NavigationMenuLink>
       </li>

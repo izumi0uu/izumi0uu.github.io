@@ -12,7 +12,7 @@ const NavigationMenu = React.forwardRef<
   <NavigationMenuPrimitive.Root
     ref={ref}
     className={cn(
-      "border-outline bg-surface relative z-10 flex max-w-max flex-1 items-center justify-center border-2 transition-all",
+      "bg-surface border-outline relative z-10 flex max-w-max flex-1 items-center justify-center border-2",
       className
     )}
     {...props}
@@ -52,7 +52,7 @@ const NavigationMenuTrigger = React.forwardRef<
   >
     {children}{" "}
     <ChevronDown
-      className="text-content-secondary relative top-[1px] ml-1 size-3 font-bold transition duration-200 group-data-[state=open]:rotate-180"
+      className="text-content-secondary relative top-[1px] ml-1 size-3 font-bold transition-transform duration-300 group-data-[state=open]:rotate-180"
       aria-hidden="true"
     />
   </NavigationMenuPrimitive.Trigger>
@@ -66,7 +66,14 @@ const NavigationMenuContent = React.forwardRef<
   <NavigationMenuPrimitive.Content
     ref={ref}
     className={cn(
-      "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 border-outline bg-surface-container text-content top-0 left-0 border-2 transition-all md:absolute",
+      "border-outline bg-surface-container text-content top-0 left-0 w-full border-2 md:absolute md:w-auto",
+      "transition-all duration-300 ease-out",
+      "data-[state=closed]:opacity-0 data-[state=open]:opacity-100",
+      "data-[state=closed]:scale-95 data-[state=open]:scale-100",
+      "data-[motion=from-start]:-translate-x-2",
+      "data-[motion=from-end]:translate-x-2",
+      "data-[motion=to-start]:-translate-x-2",
+      "data-[motion=to-end]:translate-x-2",
       className
     )}
     {...props}
@@ -81,7 +88,7 @@ const NavigationMenuLink = React.forwardRef<
   <NavigationMenuPrimitive.Link
     ref={ref}
     className={cn(
-      "border-outline bg-surface-container text-content border-2 transition-all",
+      "border-outline bg-surface-container text-content hover:bg-surface-container-high border-2 transition-colors",
       className
     )}
     {...props}
@@ -96,7 +103,9 @@ const NavigationMenuViewport = React.forwardRef<
   <div className={cn("absolute top-full left-0 flex justify-center")}>
     <NavigationMenuPrimitive.Viewport
       className={cn(
-        "origin-top-center bg-background text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 relative h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden md:w-[var(--radix-navigation-menu-viewport-width)]",
+        "origin-top-center bg-surface text-content relative h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden md:w-[var(--radix-navigation-menu-viewport-width)]",
+        "transition-all duration-300 ease-out",
+        "data-[state=closed]:scale-95 data-[state=open]:scale-100",
         className
       )}
       ref={ref}
@@ -113,12 +122,14 @@ const NavigationMenuIndicator = React.forwardRef<
   <NavigationMenuPrimitive.Indicator
     ref={ref}
     className={cn(
-      "data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden",
+      "top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden",
+      "transition-opacity duration-200",
+      "data-[state=hidden]:opacity-0 data-[state=visible]:opacity-100",
       className
     )}
     {...props}
   >
-    <div className="bg-border relative top-[60%] size-2 rotate-45 rounded-tl-sm shadow-md" />
+    <div className="bg-outline relative top-[60%] size-2 rotate-45 rounded-tl-sm shadow-md" />
   </NavigationMenuPrimitive.Indicator>
 ));
 NavigationMenuIndicator.displayName = NavigationMenuPrimitive.Indicator.displayName;
