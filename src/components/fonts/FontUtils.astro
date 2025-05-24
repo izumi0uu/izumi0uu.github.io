@@ -7,67 +7,55 @@
 ---
 
 <style is:global>
-  /* Use the font variables defined in foundation.css */
+  /* ===== Language-specific font classes ===== */
   
-  /* Apply the optimized English font stack to pure English elements */
-  .font-en {
-    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
-    /* Variable Font optical size adjustment */
-    font-variation-settings: 'opsz' auto; 
-  }
-
-  /* Apply the optimized Chinese font stack to pure Chinese elements */
-  .font-zh {
+  /* Pure Chinese elements (FontLoader already binds .font-zh) */
+  .zh-only {
     font-family: "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
   }
 
-  /* Mixed font stack (default) - use CSS variables */
+  /* Pure English elements (FontLoader already binds .font-en) */
+  .en-only {
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-variation-settings: 'opsz' auto;
+  }
+
+  /* ===== Semantic font classes (use CSS variables) ===== */
+  
+  /* Mixed font stack (default) */
   .font-mixed,
   .font-sans {
     font-family: var(--font-family-sans);
   }
 
-  /* Code font - use CSS variables */
-  .font-code,
+  /* Monospace font (FontLoader binds code, pre, kbd, .font-code) */
   .font-mono {
     font-family: var(--font-family-mono);
   }
 
-  /* Display font (same as sans, but semantically different) */
-  .font-display {
-    font-family: var(--font-family-display);
-  }
-
-  /* Variable Font font weight optimization */
-  .font-light { font-weight: 300; }
-  .font-normal { font-weight: 400; }
-  .font-medium { font-weight: 500; }
-  .font-semibold { font-weight: 600; }
-  .font-bold { font-weight: 700; }
-  .font-extrabold { font-weight: 800; }
-  .font-black { font-weight: 900; }
-
-  /* Font variant settings (only applicable to supported Variable Font) */
+  /* ===== Advanced font features ===== */
+  
+  /* Inter OpenType features optimization */
   .font-inter-optimized {
     font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     font-variation-settings: 'opsz' auto;
   }
 
-  /* Code font variant */
+  /* code font optimization (disable ligatures) */
   .font-mono-optimized {
     font-family: var(--font-family-mono);
-    font-feature-settings: 'liga' 0; /* Disable ligatures, ensure code clarity */
+    font-feature-settings: 'liga' 0;
     font-variant-ligatures: none;
   }
 </style>
 
 <!--
-Usage:
-<p class="font-en">This is English text with optimized English font stack</p>
-<p class="font-zh">这是使用优化的中文字体堆栈的中文文本</p>
-<p class="font-mixed">这是混合中英文 Mixed Chinese and English text</p>
-<code class="font-code">const code = "代码使用等宽字体";</code>
-<h1 class="font-display font-bold">Display heading with Inter Variable Font</h1>
-<p class="font-inter-optimized">Optimized Inter with OpenType features</p>
+Optimized usage guide:
+- .font-zh / .zh-only: Pure Chinese elements
+- .en-only: Pure English elements (FontLoader already binds .font-en)
+- .font-mixed / .font-sans: Mixed Chinese and English (default)
+- .font-mono: Monospace font (FontLoader binds code, pre, kbd, .font-code)
+- .font-inter-optimized: Inter advanced features
+- .font-mono-optimized: Code font optimization
 --> 
