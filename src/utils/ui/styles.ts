@@ -21,8 +21,6 @@ import type { ClassValue } from "clsx";
  * cn(buttonVariants({ variant, size }), className)
  * ```
  */
-function cn(...inputs: ClassValue[]): string {
-  return twMerge(clsx(inputs));
-}
+const cn = (...inputs: ClassValue[]): string => twMerge(clsx(inputs));
 
 export { cn, cva, type VariantProps };
