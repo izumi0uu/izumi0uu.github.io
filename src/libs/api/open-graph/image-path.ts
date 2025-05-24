@@ -5,8 +5,9 @@ import { removeLeadingAndTrailingSlashes } from "@/utils/routing/paths";
 
 import type { OgImagePrefixType } from "@/types/constants";
 
-/** @description return open graph image url path
- * e.g. /blog/my-cool-post -> /api/open-graph/blog/my-cool-post.png
+/**
+ * @description return open graph image url path
+ * @example /blog/my-cool-post -> /api/open-graph/blog/my-cool-post.png
  */
 const getOpenGraphImagePath = (path: string): string => {
   // for error handling
@@ -26,8 +27,8 @@ const getOpenGraphImagePath = (path: string): string => {
 };
 
 /** @description return page prefix and validate it
- * e.g. /blog/posts/1 -> blog
- * e.g. "" (homepage) -> pages
+ * @example /blog/posts/1 -> blog
+ * @example "" (homepage) -> pages
  */
 const getPagePrefix = (path: string): OgImagePrefixType => {
   const trimmedPath = removeLeadingAndTrailingSlashes(path);

@@ -25,14 +25,16 @@ const defaultThemes = getDefaultThemes();
   const darkModePreference = window.matchMedia('(prefers-color-scheme: dark)');
 
   /**
-   * @description e.g. 'dark' -> 'default-dark(default mode, default theme)'
+   * @description 
+   * @example 'dark' -> 'default-dark(default mode, default theme)'
    * @param {string} themeMode - The target theme mode ('light' or 'dark').
    * @returns {object} The default theme object for the given mode.
    */
   const getDefaultTheme = (themeMode) => defaultThemes[themeMode];
 
   /**
-   * @description e.g. 'default-light' -> 'default'
+   * @description 
+   * @example 'default-light' -> 'default'
    * @param {string} themeName - The full name of the theme.
    * @returns {string | undefined} The prefix of the theme name, or undefined if not found.
    */
