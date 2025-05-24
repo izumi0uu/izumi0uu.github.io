@@ -15,6 +15,7 @@
     "@astrojs/react": "^4.2.5",
     "@astrojs/sitemap": "^3.3.1",
     "@expressive-code/plugin-collapsible-sections": "^0.41.2",
+    "@radix-ui/react-navigation-menu": "^1.2.13",
     "@remark-embedder/core": "^3.0.3",
     "@remark-embedder/transformer-oembed": "^5.0.1",
     "@tailwindcss/typography": "^0.5.16",

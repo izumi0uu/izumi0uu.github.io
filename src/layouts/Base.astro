@@ -2,7 +2,9 @@
 import '@/styles/main.css';
 import BaseHead from '@/components/BaseHead.astro';
 import StagewiseDevToolbar from '@/components/react/dev/StagewiseDevToolbar.tsx';
+import Header from '@/components/Header.astro';
 import type { BaseHeadProps } from '@/components/BaseHead.astro';
+import { cn } from '@/utils/ui/styles';
 
 export interface BaseProps extends BaseHeadProps {}
 
@@ -13,7 +15,8 @@ const { metadata } = Astro.props as BaseProps;
 <!doctype html>
 <html lang="en">
 	<BaseHead {metadata} />
-	<body>
+	<body class={cn("relative flex flex-col min-h-screen min-w-80 bg-surface transition-colors duration-500")}>
+		<Header />
 		<slot />
 		{import.meta.env.DEV && <StagewiseDevToolbar client:only="react" />}
 	</body>
