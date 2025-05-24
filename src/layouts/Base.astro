@@ -13,7 +13,7 @@ const { metadata } = Astro.props as BaseProps;
 <!doctype html>
 <html lang="en">
 	<BaseHead {metadata} />
-	<body class="font-mixed">
+	<body>
 		<slot />
 		{import.meta.env.DEV && <StagewiseDevToolbar client:only="react" />}
 	</body>
