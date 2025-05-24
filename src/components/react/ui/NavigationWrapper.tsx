@@ -9,7 +9,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/react/radix-ui/NavgationMenu";
+} from "@/components/react/radix-ui/NavigationMenu";
 
 import { cn } from "@/utils/ui/styles";
 // import { Icons } from "@/components/icons"
