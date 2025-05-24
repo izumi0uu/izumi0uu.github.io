@@ -1,15 +1,17 @@
+"use client";
+
 import * as React from "react";
 import {
   NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuTrigger,
   NavigationMenuContent,
+  NavigationMenuItem,
   NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "../radix-ui/NavgationMenu";
+} from "@/components/react/radix-ui/NavgationMenu";
+
 import { cn } from "@/utils/ui/styles";
-import { Link } from "@radix-ui/react-navigation-menu";
 // import { Icons } from "@/components/icons"
 
 const components: { title: string; href: string; description: string }[] = [
@@ -49,7 +51,7 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 
-export function NavigationWrapper() {
+const NavigationWrapper = () => {
   return (
     <NavigationMenu>
       <NavigationMenuList className="flex flex-col items-center justify-center space-x-4 md:flex-row">
@@ -60,12 +62,12 @@ export function NavigationWrapper() {
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <a
-                    className="bg-surface-variant flex size-full flex-col justify-end rounded-md p-6 no-underline outline-none select-none focus:shadow-md"
+                    className="from-muted/50 to-muted flex size-full flex-col justify-end rounded-md bg-gradient-to-b p-6 no-underline outline-none select-none focus:shadow-md"
                     href="/"
                   >
                     {/* <Icons.logo className="h-6 w-6" /> */}
-                    <div className="text-headings mt-4 mb-2 text-lg font-medium">BUOUUI</div>
-                    <p className="text-content-secondary text-sm leading-tight">
+                    <div className="mt-4 mb-2 text-lg font-medium">BUOUUI</div>
+                    <p className="text-muted-foreground text-sm leading-tight">
                       Beautifully designed components that you can copy and paste into your apps.
                       Accessible. Customizable. Open Source.
                     </p>
@@ -97,16 +99,16 @@ export function NavigationWrapper() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink asChild>
-            <a href="/docs" className={cn(navigationMenuTriggerStyle(), "border-0 uppercase")}>
+          <a href="/docs">
+            <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "border-0 uppercase")}>
               Documentation
-            </a>
-          </NavigationMenuLink>
+            </NavigationMenuLink>
+          </a>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );
-}
+};
 
 const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a">>(
   ({ className, title, children, ...props }, ref) => {
@@ -116,13 +118,13 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWit
           <a
             ref={ref}
             className={cn(
-              "hover:bg-surface-container block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none",
+              "block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none",
               className
             )}
             {...props}
           >
-            <div className="text-headings text-sm leading-none font-medium uppercase">{title}</div>
-            <p className="text-content-secondary line-clamp-2 text-sm leading-snug">{children}</p>
+            <div className="text-sm leading-none font-medium uppercase">{title}</div>
+            <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">{children}</p>
           </a>
         </NavigationMenuLink>
       </li>
@@ -131,4 +133,4 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWit
 );
 ListItem.displayName = "ListItem";
 
-export default NavigationWrapper;
+export { NavigationWrapper };
