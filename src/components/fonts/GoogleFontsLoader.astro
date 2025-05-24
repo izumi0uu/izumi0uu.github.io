@@ -1,8 +1,9 @@
 ---
 /**
- * Chinese font loader component
- * Use Google Fonts to load the Noto Sans SC font, optimize performance
- * Only load the Chinese font, local fonts (English and code) are handled by the FontLoader component
+ * Chinese font loader
+ * Load Noto Sans SC font from Google Fonts, optimize performance
+ * Only load Chinese font, local font (English and code) is handled by FontLoader component
+ * Keep the same font system as foundation.css
  */
 ---
 
@@ -16,20 +17,25 @@
   
   {/* apply the selector style to the Chinese font */}
   <style is:global>
-    .zh-only {
+    /* full Chinese font class */
+    .zh-only,
+    .font-zh {
       font-family: "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     
     {/* set the default font stack (mixed Chinese and English) */}
     html {
-      font-family:
-        "Inter",
-        "Noto Sans SC",
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
+      font-family: var(--font-family-sans, "Inter", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif);
+      /* optimize font rendering */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }
+
+    /* Ensure Variable Font loads different font weights correctly */
+    .font-normal { font-weight: 400; }
+    .font-medium { font-weight: 500; }
+    .font-semibold { font-weight: 600; }
+    .font-bold { font-weight: 700; }
   </style>
 </Fragment> 

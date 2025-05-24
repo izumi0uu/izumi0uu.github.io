@@ -2,28 +2,63 @@
 /**
  * Font utility component
  * Provide font-related utility classes and styles
+ * Integrate with the font system in foundation.css
  */
 ---
 
 <style is:global>
-  /* Apply optimized English font stack to pure English elements */
+  /* Use the font variables defined in foundation.css */
+  
+  /* Apply the optimized English font stack to pure English elements */
   .font-en {
-    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    /* Variable Font optical size adjustment */
+    font-variation-settings: 'opsz' auto; 
   }
 
-  /* Apply optimized Chinese font stack to pure Chinese elements */
+  /* Apply the optimized Chinese font stack to pure Chinese elements */
   .font-zh {
-    font-family: "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
   }
 
-  /* Mixed font stack (default) */
-  .font-mixed {
-    font-family: "Inter", "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* Mixed font stack (default) - use CSS variables */
+  .font-mixed,
+  .font-sans {
+    font-family: var(--font-family-sans);
   }
 
-  /* Code font */
-  .font-code {
-    font-family: "JetBrains Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* Code font - use CSS variables */
+  .font-code,
+  .font-mono {
+    font-family: var(--font-family-mono);
+  }
+
+  /* Display font (same as sans, but semantically different) */
+  .font-display {
+    font-family: var(--font-family-display);
+  }
+
+  /* Variable Font font weight optimization */
+  .font-light { font-weight: 300; }
+  .font-normal { font-weight: 400; }
+  .font-medium { font-weight: 500; }
+  .font-semibold { font-weight: 600; }
+  .font-bold { font-weight: 700; }
+  .font-extrabold { font-weight: 800; }
+  .font-black { font-weight: 900; }
+
+  /* Font variant settings (only applicable to supported Variable Font) */
+  .font-inter-optimized {
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    font-variation-settings: 'opsz' auto;
+  }
+
+  /* Code font variant */
+  .font-mono-optimized {
+    font-family: var(--font-family-mono);
+    font-feature-settings: 'liga' 0; /* Disable ligatures, ensure code clarity */
+    font-variant-ligatures: none;
   }
 </style>
 
@@ -33,4 +68,6 @@ Usage:
 <p class="font-zh">这是使用优化的中文字体堆栈的中文文本</p>
 <p class="font-mixed">这是混合中英文 Mixed Chinese and English text</p>
 <code class="font-code">const code = "代码使用等宽字体";</code>
+<h1 class="font-display font-bold">Display heading with Inter Variable Font</h1>
+<p class="font-inter-optimized">Optimized Inter with OpenType features</p>
 --> 

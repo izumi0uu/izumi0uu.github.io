@@ -1,5 +1,5 @@
 ---
-// use astro-font to optimize local font loading (Inter and JetBrains Mono)
+// use astro-font to optimize local font loading (Inter Variable Font and JetBrains Mono)
 import { AstroFont } from "astro-font";
 import { join } from "node:path";
 ---
@@ -10,24 +10,15 @@ import { join } from "node:path";
       name: "Inter",
       src: [
         {
-          weight: '400',
+          // use Variable Font, support all weights (400-900)
+          weight: '400 900',
           style: 'normal',
-          path: join(process.cwd(), 'public', 'fonts', 'inter', 'Inter-Regular.woff2')
-        },
-        {
-          weight: '500',
-          style: 'normal',
-          path: join(process.cwd(), 'public', 'fonts', 'inter', 'Inter-Medium.woff2')
-        },
-        {
-          weight: '700',
-          style: 'normal',
-          path: join(process.cwd(), 'public', 'fonts', 'inter', 'Inter-Bold.woff2')
+          path: join(process.cwd(), 'public', 'fonts', 'inter', 'Inter-VariableFont_opsz,wght.woff2')
         }
       ],
       preload: true,
       display: "swap",
-      selector: ".en-only",
+      selector: ".font-en, .en-only",
       fallback: "sans-serif",
     },
     {
@@ -46,7 +37,7 @@ import { join } from "node:path";
       ],
       preload: true,
       display: "swap",
-      selector: "code, pre, kbd",
+      selector: "code, pre, kbd, .font-code",
       fallback: "monospace",
     },
   ]}
