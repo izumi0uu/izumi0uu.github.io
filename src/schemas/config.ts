@@ -6,12 +6,9 @@ const booleanValues = ["true", "false", ""] as const;
 
 const modeValues = ["light", "dark"] as const;
 
-const themeValues = [
-  "default-light",
-  "default-dark",
-  "wine-light",
-  "wine-dark",
-] as const;
+const localeValues = ["en", "zh"] as const;
+
+const themeValues = ["default-light", "default-dark", "wine-light", "wine-dark"] as const;
 
 const domainSubdomainRegex =
   /^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.(?!-)[A-Za-z0-9-]{1,63}(?<!-))*\.[A-Za-z]{2,}$/;
@@ -24,10 +21,7 @@ const processEnvSchema = z.object({
     .transform((val) => val === "true")
     .default("false"),
   // ensure no trailing slash
-  SITE_URL: z
-    .string()
-    .url()
-    .regex(/[^/]$/, "SITE_URL should not end with a slash '/'"),
+  SITE_URL: z.string().url().regex(/[^/]$/, "SITE_URL should not end with a slash '/'"),
   PLAUSIBLE_SCRIPT_URL: z.string().url().or(z.literal("")).optional(),
   PLAUSIBLE_DOMAIN: z
     .string()
@@ -83,12 +77,20 @@ const configClientSchema = processEnvSchema
     })
   );
 
+const i18nSchema = z.object({
+  DEFAULT_LOCALE: z.enum(localeValues),
+  SUPPORTED_LOCALES: z.array(z.enum(localeValues)),
+  LOCALE_LABELS: z.record(z.enum(localeValues), z.string()),
+});
+
 export {
   nodeEnvValues,
   booleanValues,
   modeValues,
+  localeValues,
   themeValues,
   processEnvSchema,
   configServerSchema,
   configClientSchema,
+  i18nSchema,
 };

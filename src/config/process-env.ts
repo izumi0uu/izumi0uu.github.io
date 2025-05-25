@@ -16,10 +16,7 @@ import type { ProcessEnvType } from "../types/config";
 const NODE_ENV = process.env.NODE_ENV;
 
 // Check if NODE_ENV is defined and is one of the allowed values
-if (
-  !NODE_ENV ||
-  !nodeEnvValues.includes(NODE_ENV as (typeof nodeEnvValues)[number])
-) {
+if (!NODE_ENV || !nodeEnvValues.includes(NODE_ENV as (typeof nodeEnvValues)[number])) {
   // eslint-disable-next-line no-console
   console.error("Invalid process.env.NODE_ENV:", NODE_ENV);
   throw new Error("Invalid process.env.NODE_ENV");

@@ -2,8 +2,9 @@ import type { z } from "zod";
 import type {
   configClientSchema,
   configServerSchema,
+  localeValues,
   processEnvSchema,
-} from "../schemas/config";
+} from "@/schemas/config";
 
 type ConfigServerSchemaType = typeof configServerSchema;
 type ConfigServerType = z.infer<ConfigServerSchemaType>;
@@ -14,6 +15,8 @@ type ConfigClientType = z.infer<ConfigClientSchemaType>;
 type ProcessEnvSchemaType = typeof processEnvSchema;
 type ProcessEnvType = z.infer<ProcessEnvSchemaType>;
 
+type LocaleValues = (typeof localeValues)[number];
+
 export type {
   ConfigServerSchemaType,
   ConfigServerType,
@@ -21,4 +24,5 @@ export type {
   ConfigClientType,
   ProcessEnvSchemaType,
   ProcessEnvType,
+  LocaleValues,
 };
