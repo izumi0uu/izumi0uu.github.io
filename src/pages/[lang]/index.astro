@@ -5,7 +5,7 @@ import { getPageMetadata } from "@/utils/content/metadata";
 
 // 导出 getStaticPaths 函数用于生成静态路由
 export async function getStaticPaths() {
-  // 支持的语言列表
+  // 支持的语言列表（现在包括所有语言，因为 prefixDefaultLocale: true）
   const supportedLocales = ["en", "zh"];
   
   return supportedLocales.map((lang) => ({

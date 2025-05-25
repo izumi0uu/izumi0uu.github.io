@@ -1,5 +1,6 @@
 import type { LocalImageProps } from "astro:assets";
 import type { THEME_CONFIG, THEMES, MODES } from "@/constants/theme";
+import type { I18N_CONFIG } from "@/constants/i18n";
 import type { OG_IMAGE_PREFIXES, PAGE_METADATA } from "@/constants/metadata";
 import type { ValueUnion } from "@/types/utils";
 // import type { NAVIGATION_ITEMS } from "@/constants/navigation"; // Temporarily comment out due to linter error
@@ -39,9 +40,7 @@ type FixedImageConfig = Required<Pick<LocalImageProps, "width" | "height">> & {
 /**
  * @description type for individual responsive image configuration
  */
-type ResponsiveImageConfig = Required<
-  Pick<LocalImageProps, "widths" | "sizes">
-> & {
+type ResponsiveImageConfig = Required<Pick<LocalImageProps, "widths" | "sizes">> & {
   quality?: "low" | "mid" | "high" | "max" | number;
   loading?: LocalImageProps["loading"];
   // for debugging
@@ -55,7 +54,12 @@ type ImageSizes = {
   FIXED: Record<string, FixedImageConfig>;
   RESPONSIVE: Record<string, ResponsiveImageConfig>;
 };
-,
+
+/**
+ * @description type for i18n
+ */
+type I18NConfig = typeof I18N_CONFIG;
+
 /**
  * @description type for change theme custom event
  */
@@ -79,6 +83,7 @@ export type {
   ImageSizes,
   ChangeThemeCustomEvent,
   Breakpoint,
+  I18NConfig,
   // NavigationItem, // Temporarily comment out
   // CategoryType, // Temporarily comment out
   OgImagePrefixType,

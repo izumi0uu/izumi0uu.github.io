@@ -103,7 +103,7 @@ export default defineConfig({
     defaultLocale: "en",
     locales: ["zh", "en"],
     routing: {
-      prefixDefaultLocale: false,
+      prefixDefaultLocale: true,
     },
   },
   vite: {
