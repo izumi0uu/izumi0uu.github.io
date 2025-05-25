@@ -13,6 +13,8 @@
 
 /* === Tailwind v4 核心层 === */
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "tailwindcss-animate";
 
 /* === 设计令牌层 === */
 /* 基础原子颜色定义 (@theme 指令) */

@@ -26,6 +26,159 @@ const metadata = getPageMetadata("");
       <h1 class="text-4xl font-bold text-on-surface mb-4">
         {lang === "zh" ? "Tailwind CSS v4 主题演示" : "Tailwind CSS v4 Theme Showcase"}
       </h1>
+      <article class="prose lg:prose-xl">
+        <h1>Garlic bread with cheese: What the science tells us</h1>
+        <p>
+          For years parents have espoused the health benefits of eating garlic bread with cheese to their
+          children, with the food earning such an iconic status in our culture that kids will often dress
+          up as warm, cheesy loaf for Halloween.
+        </p>
+        <p>
+          But a recent study shows that the celebrated appetizer may be linked to a series of rabies cases
+          springing up around the country.
+        </p>
+        <!-- ... -->
+      </article>
+      <div class="animate-fade-in">
+        这段文字会淡入显示。
+      </div>
     </section>
+
+    <main class="container mx-auto px-4 py-8">
+      <h1 class="text-4xl font-bold mb-8 text-center text-on-surface">
+        {lang === "zh" ? "Typography 插件测试" : "Typography Plugin Test"}
+      </h1>
+      
+      <!-- 基本测试区域 -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4 text-on-surface">
+          {lang === "zh" ? "基本测试" : "Basic Test"}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-xl mb-2 text-on-surface">
+              {lang === "zh" ? "不使用 prose 类" : "Without prose class"}
+            </h3>
+            <div class="p-6 border-2 border-outline rounded-lg">
+              <h4>这是标题</h4>
+              <p>这是一段普通文本，没有应用 prose 类。</p>
+              <blockquote>这是一段引用文本。</blockquote>
+              <pre></pre>
+              <ul>
+                <li>列表项 1</li>
+                <li>列表项 2</li>
+                <li>列表项 3</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-xl mb-2 text-on-surface">
+              {lang === "zh" ? "使用 prose 类" : "With prose class"}
+            </h3>
+            <div class="prose p-6 border-2 border-outline rounded-lg bg-surface">
+              <h4>这是标题</h4>
+              <p>这是一段应用了 prose 类的文本，应该有更好的排版效果。</p>
+              <blockquote>这是一段引用文本。</blockquote>
+              <pre></pre>
+              <ul>
+                <li>列表项 1</li>
+                <li>列表项 2</li>
+                <li>列表项 3</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- 不同尺寸测试 -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4 text-on-surface">
+          {lang === "zh" ? "尺寸变体" : "Size Variants"}
+        </h2>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div>
+            <h3 class="text-xl mb-2 text-on-surface">prose-sm</h3>
+            <div class="prose prose-sm p-4 border-2 border-outline rounded-lg bg-surface">
+              <h4>小号排版</h4>
+              <p>这是使用 prose-sm 类的文本，字体大小较小。</p>
+              <ul>
+                <li>列表项 1</li>
+                <li>列表项 2</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-xl mb-2 text-on-surface">prose (默认)</h3>
+            <div class="prose p-4 border-2 border-outline rounded-lg bg-surface">
+              <h4>默认排版</h4>
+              <p>这是使用默认 prose 类的文本。</p>
+              <ul>
+                <li>列表项 1</li>
+                <li>列表项 2</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-xl mb-2 text-on-surface">prose-xl</h3>
+            <div class="prose prose-xl p-4 border-2 border-outline rounded-lg bg-surface">
+              <h4>大号排版</h4>
+              <p>这是使用 prose-xl 类的文本，字体大小较大。</p>
+              <ul>
+                <li>列表项 1</li>
+                <li>列表项 2</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- 主题测试 -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4 text-on-surface">
+          {lang === "zh" ? "主题适配" : "Theme Adaptation"}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-xl mb-2 text-on-surface">
+              {lang === "zh" ? "亮色主题" : "Light Theme"}
+            </h3>
+            <div class="prose p-6 border-2 border-outline rounded-lg bg-surface">
+              <h4>亮色主题排版</h4>
+              <p>这是在亮色主题下的排版效果。</p>
+              <a href="#">这是一个链接</a>
+              <blockquote>引用文本</blockquote>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-xl mb-2 text-on-surface">
+              {lang === "zh" ? "暗色主题" : "Dark Theme"}
+            </h3>
+            <div class="prose dark:prose-invert p-6 border-2 border-outline rounded-lg bg-surface">
+              <h4>暗色主题排版</h4>
+              <p>这是使用 dark:prose-invert 类在暗色主题下的排版效果。</p>
+              <a href="#">这是一个链接</a>
+              <blockquote>引用文本</blockquote>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- 自定义修饰符测试 -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4 text-on-surface">
+          {lang === "zh" ? "元素修饰符" : "Element Modifiers"}
+        </h2>
+        <div class="prose prose-headings:text-primary prose-a:text-secondary prose-a:font-bold prose-blockquote:border-accent p-6 border-2 border-outline rounded-lg bg-surface">
+          <h4>自定义标题颜色</h4>
+          <p>这段文本使用了元素修饰符来自定义样式。</p>
+          <a href="#">这是一个自定义样式的链接</a>
+          <blockquote>这是一个自定义边框颜色的引用</blockquote>
+        </div>
+      </section>
+    </main>
   </main>
 </Base>
