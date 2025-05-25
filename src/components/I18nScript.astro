@@ -101,10 +101,10 @@ import * as i18nConstants from "@/config/i18n";
     }
   }
 
-    /**
-     * @description check if browser language redirect has been attempted in this session
-     * @returns {boolean} true if attempted, false otherwise
-    */
+  /**
+  * @description check if browser language redirect has been attempted in this session
+  * @returns {boolean} true if attempted, false otherwise
+  */
   const hasRedirectBeenAttemptedThisSession = () => {
     try {
         return !!sessionStorage.getItem(BROWSER_LANG_REDIRECT_DONE_KEY);
