@@ -1,6 +1,6 @@
-import { validateData } from "@/utils/data/validation";
-import { i18nSchema } from "@/schemas/config";
-import type { LocaleValues } from "@/types/config";
+import { validateData } from "../utils/data/validation";
+import { i18nSchema } from "../schemas/config";
+import type { LocaleValues } from "../types/config";
 
 const i18nData = {
   SUPPORTED_LOCALES: ["en", "zh"] as LocaleValues[],

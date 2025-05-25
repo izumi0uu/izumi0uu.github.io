@@ -2,12 +2,11 @@
 /*
 * depends on user's browser language setting
  */
-import * as i18nConstants from "@/constants/i18n";
-import type { I18NConfig } from "@/types/constants";
+import * as i18nConstants from "@/config/i18n";
 
 
 ---
 
-<!-- <script is:inline define:vars={{ supportedLocales: i18nConstants.SUPPORTED_LOCALES }}>
+<script is:inline define:vars={{ supportedLocales: i18nConstants.SUPPORTED_LOCALES, defaultLocale: i18nConstants.DEFAULT_LOCALE, localeLabels: i18nConstants.LOCALE_LABELS }}>
   
-</script> -->
+</script>

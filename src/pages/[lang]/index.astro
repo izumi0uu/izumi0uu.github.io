@@ -2,18 +2,14 @@
 import Base from "@/layouts/Base.astro";
 import ThemeShowcase from "@/components/demo/ThemeShowcase.astro";
 import { getPageMetadata } from "@/utils/content/metadata";
+import { SUPPORTED_LOCALES } from "@/config/i18n";
 
-// 导出 getStaticPaths 函数用于生成静态路由
 export async function getStaticPaths() {
-  // 支持的语言列表（现在包括所有语言，因为 prefixDefaultLocale: true）
-  const supportedLocales = ["en", "zh"];
-  
-  return supportedLocales.map((lang) => ({
+  return SUPPORTED_LOCALES.map((lang) => ({
     params: { lang },
   }));
 }
 
-// 从路由参数中获取当前语言
 const { lang } = Astro.params;
 
 // 获取页面metadata（使用空字符串作为首页的key）
