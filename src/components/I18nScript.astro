@@ -115,7 +115,7 @@ import * as i18nConstants from "@/config/i18n";
   }
 
   /**
-  * @description set browser language redirect done in sessionStorage
+  * @description set browser language redirect already attempted in sessionStorage
   * @returns {void}
   */
   const setRedirectAttemptedThisSession = () => {
@@ -146,6 +146,22 @@ import * as i18nConstants from "@/config/i18n";
     return inferredLang;
   }
 
+  /**
+  * @description get url locale from pathname
+  * @returns {string} url locale
+  */
+  const getUrlLocaleFromPathname = (pathName, supportedLocales, defaultLocale,prefixDefaultLocale) => {
+    let currentLangFromUrl = null;
+    const pathSegments = pathName.split('/').filter(segment => segment);
+
+    if (pathSegments.length > 0 && supportedLocales.includes(pathSegments[0])) {
+        // e.g. /en/about -> 'en'
+        return pathSegments[0];
+      } else if (!prefixDefaultLocale) {
+        return defaultLocale;
+      }
+      return null;
+  }
 
   initBrowserLanguageRedirect();
 </script>
