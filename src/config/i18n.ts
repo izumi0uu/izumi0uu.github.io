@@ -9,7 +9,17 @@ const i18nData = {
     en: "English",
     zh: "中文",
   } as const,
+  LOCAL_STORAGE_KEY: "user-preferred-lang",
+  BROWSER_LANG_REDIRECT_DONE_KEY: "browser-lang-redirect-done",
+  PREFIX_DEFAULT_LOCALE: true,
 };
 
 export const I18N_CONFIG = validateData(i18nData, i18nSchema);
-export const { SUPPORTED_LOCALES, DEFAULT_LOCALE, LOCALE_LABELS } = I18N_CONFIG;
+export const {
+  SUPPORTED_LOCALES,
+  DEFAULT_LOCALE,
+  LOCALE_LABELS,
+  LOCAL_STORAGE_KEY,
+  BROWSER_LANG_REDIRECT_DONE_KEY,
+  PRFIX_DEFAULT_LOCALE,
+} = I18N_CONFIG;

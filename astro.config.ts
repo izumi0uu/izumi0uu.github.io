@@ -42,7 +42,7 @@ import { expressiveCodeIntegration } from "./src/libs/integrations/expressive-co
 import { sitemapIntegration } from "./src/libs/integrations/sitemap";
 
 import { PROCESS_ENV, astroEnvSchema } from "./src/config/process-env";
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "./src/config/i18n";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES, PRFIX_DEFAULT_LOCALE } from "./src/config/i18n";
 
 /**
  * Astro 配置
@@ -104,7 +104,7 @@ export default defineConfig({
     defaultLocale: DEFAULT_LOCALE,
     locales: SUPPORTED_LOCALES,
     routing: {
-      prefixDefaultLocale: true,
+      prefixDefaultLocale: PRFIX_DEFAULT_LOCALE,
     },
   },
   vite: {

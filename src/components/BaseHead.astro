@@ -20,6 +20,9 @@ import { ClientRouter } from "astro:transitions";
 // load theme-script component
 import ThemeScript from '@/components/ThemeScript.astro';
 
+// load i18n script component
+import I18nScript from '@/components/I18nScript.astro';
+
 // load utils
 import { handleMetadataTitle } from "@/utils/content/metadata";
 import { filterUndefined } from "@/utils/data/objects";
@@ -141,6 +144,9 @@ const ogImageUrl = new URL(image, url);
   {/* Theme */}
   {/* MUST be inside <head /> to avoid white flash, IMPORTANT */}
   <ThemeScript />
+
+  {/* i18n */}
+  <I18nScript />
 
   {/* turn on the feature of view transitions in Astro */}
   <ClientRouter fallback="none" />
