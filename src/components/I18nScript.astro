@@ -104,13 +104,13 @@ import * as i18nConstants from "@/config/i18n";
     /**
      * @description check if browser language redirect has been attempted in this session
      * @returns {boolean} true if attempted, false otherwise
-     */
+    */
   const hasRedirectBeenAttemptedThisSession = () => {
     try {
         return !!sessionStorage.getItem(BROWSER_LANG_REDIRECT_DONE_KEY);
     } catch (e) {
         console.warn("i18nScript: Could not access sessionStorage:", e);
-        return false; // 如果无法访问，则假定未尝试过，允许逻辑继续
+        return false;
     }
   }
 
