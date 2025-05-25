@@ -114,6 +114,38 @@ import * as i18nConstants from "@/config/i18n";
     }
   }
 
+  /**
+  * @description set browser language redirect done in sessionStorage
+  * @returns {void}
+  */
+  const setRedirectAttemptedThisSession = () => {
+    try {
+      sessionStorage.setItem(BROWSER_LANG_REDIRECT_DONE_KEY, "true");
+    } catch (e) {
+      console.warn("i18nScript: Could not access sessionStorage:", e);
+    }
+  }
+
+  /**
+  * @description get browser language and infer user's language preference
+  * @returns {string} inferred language
+  */
+  const inferLangFromBrowser = (supportedLocales, defaultLocale) => {
+    const browserLanguage = navigator.language || navigator.userLanguage || defaultLocale;
+    const browserLangCode = browserLanguage.toLowerCase().split("-")[0];
+    const browserRegionCode = browserLanguage.toLowerCase().split("-")[1];
+
+    let inferredLang = defaultLocale;
+
+    if (browserLangCode === 'zh') {
+      if (['cn', 'hk', 'mo', 'tw'].includes(browserRegionCode)) inferredLang = 'zh';
+      else inferredLang = 'en';
+    } else inferredLang = 'en';
+
+    if (!supportedLocales.includes(inferredLang)) inferredLang = defaultLocale;
+    return inferredLang;
+  }
+
 
   initBrowserLanguageRedirect();
 </script>
