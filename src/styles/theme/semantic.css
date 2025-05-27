@@ -92,6 +92,7 @@
   --color-base-secondary: var(--color-surface);
   --color-base-tertiary: var(--color-surface-variant);
   --color-base-code: var(--color-surface-container);
+  --color-base-code-secondary: var(--color-surface-container-high);
 }
 
 /* ===== 默认主题 (暗色模式) ===== */
@@ -156,19 +157,13 @@
   --color-primary: var(--color-brand-wine-primary-light);
   --color-on-primary: var(--color-brand-wine-on-primary-light);
   --color-primary-container: var(--color-brand-wine-primary-container-light);
-  --color-on-primary-container: var(
-    --color-brand-wine-on-primary-container-light
-  );
+  --color-on-primary-container: var(--color-brand-wine-on-primary-container-light);
 
   /* --- 次要颜色 (酒红) --- */
   --color-secondary: var(--color-brand-wine-secondary-light);
   --color-on-secondary: var(--color-brand-wine-on-secondary-light);
-  --color-secondary-container: var(
-    --color-brand-wine-secondary-container-light
-  );
-  --color-on-secondary-container: var(
-    --color-brand-wine-on-secondary-container-light
-  );
+  --color-secondary-container: var(--color-brand-wine-secondary-container-light);
+  --color-on-secondary-container: var(--color-brand-wine-on-secondary-container-light);
 
   /* --- 第三颜色 (酒红) --- */
   --color-tertiary: var(--color-brand-wine-tertiary-light);
@@ -186,19 +181,11 @@
   --color-on-surface-variant: var(--color-brand-wine-on-surface-variant-light);
 
   /* --- 容器系统 (酒红) --- */
-  --color-surface-container-lowest: var(
-    --color-brand-wine-surface-container-lowest-light
-  );
-  --color-surface-container-low: var(
-    --color-brand-wine-surface-container-low-light
-  );
+  --color-surface-container-lowest: var(--color-brand-wine-surface-container-lowest-light);
+  --color-surface-container-low: var(--color-brand-wine-surface-container-low-light);
   --color-surface-container: var(--color-brand-wine-surface-container-light);
-  --color-surface-container-high: var(
-    --color-brand-wine-surface-container-high-light
-  );
-  --color-surface-container-highest: var(
-    --color-brand-wine-surface-container-highest-light
-  );
+  --color-surface-container-high: var(--color-brand-wine-surface-container-high-light);
+  --color-surface-container-highest: var(--color-brand-wine-surface-container-highest-light);
 
   --color-surface-dim: var(--color-brand-wine-surface-dim-light);
   --color-surface-bright: var(--color-brand-wine-surface-bright-light);
@@ -228,25 +215,19 @@
   --color-primary: var(--color-brand-wine-primary-dark);
   --color-on-primary: var(--color-brand-wine-on-primary-dark);
   --color-primary-container: var(--color-brand-wine-primary-container-dark);
-  --color-on-primary-container: var(
-    --color-brand-wine-on-primary-container-dark
-  );
+  --color-on-primary-container: var(--color-brand-wine-on-primary-container-dark);
 
   /* --- 次要颜色 (酒红暗色) --- */
   --color-secondary: var(--color-brand-wine-secondary-dark);
   --color-on-secondary: var(--color-brand-wine-on-secondary-dark);
   --color-secondary-container: var(--color-brand-wine-secondary-container-dark);
-  --color-on-secondary-container: var(
-    --color-brand-wine-on-secondary-container-dark
-  );
+  --color-on-secondary-container: var(--color-brand-wine-on-secondary-container-dark);
 
   /* --- 第三颜色 (酒红暗色) --- */
   --color-tertiary: var(--color-brand-wine-tertiary-dark);
   --color-on-tertiary: var(--color-brand-wine-on-tertiary-dark);
   --color-tertiary-container: var(--color-brand-wine-tertiary-container-dark);
-  --color-on-tertiary-container: var(
-    --color-brand-wine-on-tertiary-container-dark
-  );
+  --color-on-tertiary-container: var(--color-brand-wine-on-tertiary-container-dark);
 
   /* --- 表面色系 (酒红暗色) --- */
   --color-background: var(--color-brand-wine-background-dark);
@@ -258,19 +239,11 @@
   --color-on-surface-variant: var(--color-brand-wine-on-surface-variant-dark);
 
   /* --- 容器系统 (酒红暗色) --- */
-  --color-surface-container-lowest: var(
-    --color-brand-wine-surface-container-lowest-dark
-  );
-  --color-surface-container-low: var(
-    --color-brand-wine-surface-container-low-dark
-  );
+  --color-surface-container-lowest: var(--color-brand-wine-surface-container-lowest-dark);
+  --color-surface-container-low: var(--color-brand-wine-surface-container-low-dark);
   --color-surface-container: var(--color-brand-wine-surface-container-dark);
-  --color-surface-container-high: var(
-    --color-brand-wine-surface-container-high-dark
-  );
-  --color-surface-container-highest: var(
-    --color-brand-wine-surface-container-highest-dark
-  );
+  --color-surface-container-high: var(--color-brand-wine-surface-container-high-dark);
+  --color-surface-container-highest: var(--color-brand-wine-surface-container-highest-dark);
 
   --color-surface-dim: var(--color-brand-wine-surface-dim-dark);
   --color-surface-bright: var(--color-brand-wine-surface-bright-dark);
@@ -334,6 +307,21 @@
 }
 
 /* 背景颜色映射 */
+.bg-base {
+  background-color: var(--color-base);
+}
+.bg-base-secondary {
+  background-color: var(--color-base-secondary);
+}
+.bg-base-tertiary {
+  background-color: var(--color-base-tertiary);
+}
+.bg-base-code {
+  background-color: var(--color-base-code);
+}
+.bg-base-code-secondary {
+  background-color: var(--color-base-code-secondary);
+}
 .bg-primary {
   background-color: var(--color-primary);
 }
