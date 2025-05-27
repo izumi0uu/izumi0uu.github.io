@@ -1,11 +1,19 @@
 ---
 import Base from '@/layouts/Base.astro';
 import I18nScript from '@/components/I18nScript.astro';
+import { SUPPORTED_LOCALES } from '@/config/i18n';
+
 
 const metadata = {
   title: 'i18n 测试页面',
   description: '用于测试国际化功能的页面',
 };
+
+export async function getStaticPaths() {
+  return SUPPORTED_LOCALES.map((lang) => ({
+    params: { lang },
+  }));
+}
 
 const currentLocale = Astro.currentLocale || 'en';
 ---

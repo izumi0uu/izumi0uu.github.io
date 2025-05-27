@@ -42,10 +42,8 @@ const I18nControls: React.FC = () => {
       pathSegments.shift();
     }
 
-    // 添加新的语言前缀（除非是默认语言）
-    if (locale !== DEFAULT_LOCALE) {
-      pathSegments.unshift(locale);
-    }
+    // 添加新的语言前缀（因为 PREFIX_DEFAULT_LOCALE 为 true，所有语言都需要前缀）
+    pathSegments.unshift(locale);
 
     urlObj.pathname = "/" + pathSegments.join("/");
     return urlObj.pathname + urlObj.search + urlObj.hash;
@@ -290,7 +288,7 @@ const I18nDevToolbar: React.FC = () => {
         div.style.position = "fixed";
         div.style.top = "20px";
         div.style.left = "20px";
-        div.style.zIndex = "99998"; // 比 Stagewise 工具栏稍低
+        div.style.zIndex = "99998";
         div.style.maxHeight = "80vh";
         div.style.overflowY = "auto";
         div.style.width = "300px";
