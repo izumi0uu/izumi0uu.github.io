@@ -157,9 +157,11 @@ const initializeRedirect = (): void => {
   markRedirectAsAttemptedThisSession();
 };
 
-// ensure to run after DOMContentLoaded
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initializeRedirect);
-} else {
-  initializeRedirect();
-}
+// // ensure to run after DOMContentLoaded
+// if (document.readyState === "loading") {
+//   document.addEventListener("DOMContentLoaded", initializeRedirect);
+// } else {
+//   initializeRedirect();
+// }
+
+export { initializeRedirect };

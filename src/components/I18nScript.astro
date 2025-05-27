@@ -1,15 +1,16 @@
 ---
-// import { languageTag as paraglideLanguageTag } from '@/paraglide/runtime';
-import * as i18nConstants from '@/config/i18n';
-
-const appSpecificI18nConfig = {
-  localStorageKey: i18nConstants.LOCAL_STORAGE_KEY,
-  sessionStorageKey: i18nConstants.BROWSER_LANG_REDIRECT_DONE_KEY,
-};
-
-// const htmlLang = paraglideLanguageTag();
+/*
+  This script is used to initialize the i18n redirect.
+  It is a ES module, so that we can import ParaglideJS runtime functions.
+  It is also a module script, so that we can use the initializeRedirect.
+*/
 ---
-<Fragment>
-  <script id="app-i18n-config-data" type="application/json" dangerously:set:html={JSON.stringify(appSpecificI18nConfig)} />
-  <script type="module" src="/src/scripts/i18n-initializer.js" />
-</Fragment>
+<script type="module">
+  import { initializeRedirect } from '@/scripts/i18n-initializer';
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeRedirect);
+  } else {
+    initializeRedirect();
+  }
+</script>

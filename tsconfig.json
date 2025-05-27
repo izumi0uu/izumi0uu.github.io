@@ -24,7 +24,8 @@
       "@/types/*": ["types/*"],
       "@/utils/*": ["utils/*"],
       "@/config/*": ["config/*"],
-      "@/paraglide/*": ["paraglide/*"]
+      "@/paraglide/*": ["paraglide/*"],
+      "@/scripts/*": ["scripts/*"]
     }
   },
   "include": [".astro/types.d.ts", "**/*.ts", "**/*.tsx", "**/*.astro"],
