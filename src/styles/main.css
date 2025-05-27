@@ -6,9 +6,8 @@
  * 1. Tailwind 核心层 (Preflight + 基础样式)
  * 2. 基础设计令牌层 (foundation.css)
  * 3. 语义化主题层 (semantic.css)
- * 4. 动画配置层 (animations.css)
- * 5. 组件样式层
- * 6. 工具类层
+ * 4. 组件样式层
+ * 5. 工具类层
  */
 
 /* === Tailwind v4 核心层 === */
@@ -22,9 +21,6 @@
 
 /* 语义化主题系统 (主题切换逻辑) */
 @import "./theme/semantic.css";
-
-/* 动画配置 (自定义动画) */
-@import "./theme/animations.css";
 
 /* === 应用层样式 === */
 /* 全局基础样式 (非颜色相关) */
