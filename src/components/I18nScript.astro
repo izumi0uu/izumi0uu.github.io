@@ -1,97 +1,15 @@
 ---
-/*
-* depends on user's browser language setting
- */
-import * as i18nConstants from "@/config/i18n";
+// import { languageTag as paraglideLanguageTag } from '@/paraglide/runtime';
+import * as i18nConstants from '@/config/i18n';
 
+const appSpecificI18nConfig = {
+  localStorageKey: i18nConstants.LOCAL_STORAGE_KEY,
+  sessionStorageKey: i18nConstants.BROWSER_LANG_REDIRECT_DONE_KEY,
+};
 
+// const htmlLang = paraglideLanguageTag();
 ---
-
-<script is:inline define:vars={{ i18nConstants }}>
- 
- const { SUPPORTED_LOCALES, DEFAULT_LOCALE, LOCALE_LABELS, LOCAL_STORAGE_KEY, BROWSER_LANG_REDIRECT_DONE_KEY, PREFIX_DEFAULT_LOCALE } = i18nConstants;
-
- const initBrowserLanguageRedirect = () => {
-    const currentPathname = window.location.pathname;
-    const currentSearch = window.location.search;
-    const currentHash = window.location.hash;
-    const origin = window.location.origin;
-
-}
-  /**
-  * @description get user's preferred language from localStorage
-  * @returns {string | null} user's preferred language, or null if not found or cannot access localStorage
-  */
-  const getStoredUserPreferredLang = () => {
-    try {
-        return localStorage.getItem(LOCAL_STORAGE_KEY);
-    } catch (e) {
-        console.warn(`i18nScript: Could not access localStorage ${LOCAL_STORAGE_KEY} for user preferred language:`, e);
-        return null;
-    }
-  }
-
-  /**
-  * @description check if browser language redirect has been attempted in this session
-  * @returns {boolean} true if attempted, false otherwise
-  */
-  const hasRedirectBeenAttemptedThisSession = () => {
-    try {
-        return !!sessionStorage.getItem(BROWSER_LANG_REDIRECT_DONE_KEY);
-    } catch (e) {
-        console.warn("i18nScript: Could not access sessionStorage:", e);
-        return false;
-    }
-  }
-
-  /**
-  * @description set browser language redirect already attempted in sessionStorage
-  * @returns {void}
-  */
-  const setRedirectAttemptedThisSession = () => {
-    try {
-      sessionStorage.setItem(BROWSER_LANG_REDIRECT_DONE_KEY, "true");
-    } catch (e) {
-      console.warn("i18nScript: Could not access sessionStorage:", e);
-    }
-  }
-
-  /**
-  * @description get browser language and infer user's language preference
-  * @returns {string} inferred language
-  */
-  const inferLangFromBrowser = (supportedLocales, defaultLocale) => {
-    const browserLanguage = navigator.language || navigator.userLanguage || defaultLocale;
-    const browserLangCode = browserLanguage.toLowerCase().split("-")[0];
-    const browserRegionCode = browserLanguage.toLowerCase().split("-")[1];
-
-    let inferredLang = defaultLocale;
-
-    if (browserLangCode === 'zh') {
-      if (['cn', 'hk', 'mo', 'tw'].includes(browserRegionCode)) inferredLang = 'zh';
-      else inferredLang = 'en';
-    } else inferredLang = 'en';
-
-    if (!supportedLocales.includes(inferredLang)) inferredLang = defaultLocale;
-    return inferredLang;
-  }
-
-  /**
-  * @description get url locale from pathname
-  * @returns {string} url locale
-  */
-  const getUrlLocaleFromPathname = (pathName, supportedLocales, defaultLocale,prefixDefaultLocale) => {
-    let currentLangFromUrl = null;
-    const pathSegments = pathName.split('/').filter(segment => segment);
-
-    if (pathSegments.length > 0 && supportedLocales.includes(pathSegments[0])) {
-        // e.g. /en/about -> 'en'
-        return pathSegments[0];
-      } else if (!prefixDefaultLocale) {
-        return defaultLocale;
-      }
-      return null;
-  }
-
-  initBrowserLanguageRedirect();
-</script>
+<Fragment>
+  <script id="app-i18n-config-data" type="application/json" dangerously:set:html={JSON.stringify(appSpecificI18nConfig)} />
+  <script type="module" src="/src/scripts/i18n-initializer.js" />
+</Fragment>
