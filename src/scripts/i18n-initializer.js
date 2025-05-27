@@ -20,38 +20,47 @@ import {
   // de-localize a href
   deLocalizeHref,
   extractLocaleFromUrl,
-} from "../paraglide/runtime";
+} from "../paraglide/runtime"; // Path alias is still used
+
+// Declare these variables but initialize them inside initializeRedirect
+let I18N_LOCAL_STORAGE_KEY;
+let BROWSER_LANG_REDIRECT_DONE_KEY;
 
 /**
  * get the app-specific i18n config from the DOM.
  * @returns {Object} the app-specific i18n config.
  */
 const getAppSpecificI18nConfig = () => {
+  // This function will only be called on the client now
   const configElement = document.getElementById("app-i18n-config-data");
   if (!configElement) {
     console.warn("i18nScript: App-specific i18n config data not found in DOM.");
     return {
+      localStorageKey: "user-preferred-lang", // Default
+      sessionStorageKey: "browser-lang-redirect-done", // Default
+    };
+  }
+  try {
+    const parsedConfig = JSON.parse(configElement.textContent || "{}");
+    return {
+      localStorageKey: parsedConfig.localStorageKey || "user-preferred-lang",
+      sessionStorageKey: parsedConfig.sessionStorageKey || "browser-lang-redirect-done",
+    };
+  } catch (e) {
+    console.error("i18nScript: Failed to parse App-specific i18n config data:", e);
+    return {
+      // Default on error
       localStorageKey: "user-preferred-lang",
       sessionStorageKey: "browser-lang-redirect-done",
     };
   }
-  try {
-    return JSON.parse(configElement.textContent || "{}");
-  } catch (e) {
-    console.error("i18nScript: Failed to parse App-specific i18n config data:", e);
-    return {};
-  }
 };
-
-const appSpecificI18nConfig = getAppSpecificI18nConfig();
-const I18N_LOCAL_STORAGE_KEY = appSpecificI18nConfig.localStorageKey;
-const BROWSER_LANG_REDIRECT_DONE_KEY = appSpecificI18nConfig.sessionStorageKey;
 
 /**
  * from localStorage get user's stored language preference.
  * @returns {string | null} the stored language code, or null if not found or inaccessible.
  */
-const getStoredUserPreferredLang = (): string | null => {
+const getStoredUserPreferredLang = () => {
   try {
     return localStorage.getItem(I18N_LOCAL_STORAGE_KEY);
   } catch (e) {
@@ -64,7 +73,7 @@ const getStoredUserPreferredLang = (): string | null => {
  * check if the current session has attempted a browser language redirect.
  * @returns {boolean} true if attempted, false otherwise.
  */
-const hasRedirectBeenAttemptedThisSession = (): boolean => {
+const hasRedirectBeenAttemptedThisSession = () => {
   try {
     return !!sessionStorage.getItem(BROWSER_LANG_REDIRECT_DONE_KEY);
   } catch (e) {
@@ -76,7 +85,7 @@ const hasRedirectBeenAttemptedThisSession = (): boolean => {
 /**
  * set the "redirect attempted" mark to sessionStorage.
  */
-const markRedirectAsAttemptedThisSession = (): void => {
+const markRedirectAsAttemptedThisSession = () => {
   try {
     sessionStorage.setItem(BROWSER_LANG_REDIRECT_DONE_KEY, "true");
   } catch (e) {
@@ -87,15 +96,14 @@ const markRedirectAsAttemptedThisSession = (): void => {
 /**
  * infer the user's likely preferred language based on browser language settings and predefined rules.
  * rules: chinese regions (cn, hk, mo, tw) -> 'zh'; others -> 'en'.
- * @returns {import('@/paraglide/runtime').Locale} the inferred language code
+ * @returns {string} the inferred language code (should match Paraglide's Locale type)
  */
-const inferLangFromBrowserSettings = (): import("@/paraglide/runtime").Locale => {
-  const browserRaw = navigator.language || (navigator as any).userLanguage || paraglideBaseLocale;
+const inferLangFromBrowserSettings = () => {
+  const browserRaw = navigator.language || navigator.userLanguage || paraglideBaseLocale;
   const browserLangCode = browserRaw.toLowerCase().split("-")[0];
   const browserRegionCode = browserRaw.toLowerCase().split("-")[1] || "";
 
-  // use ParaglideJS's baseLocale as default inference
-  let inferred: string = paraglideBaseLocale;
+  let inferred = paraglideBaseLocale;
 
   if (browserLangCode === "zh") {
     if (["cn", "hk", "mo", "tw", ""].includes(browserRegionCode)) {
@@ -107,8 +115,7 @@ const inferLangFromBrowserSettings = (): import("@/paraglide/runtime").Locale =>
     inferred = "en";
   }
 
-  // double check
-  if (paraglideIsLocale(inferred)) return inferred as import("@/paraglide/runtime").Locale;
+  if (paraglideIsLocale(inferred)) return inferred;
 
   return paraglideBaseLocale;
 };
@@ -116,7 +123,12 @@ const inferLangFromBrowserSettings = (): import("@/paraglide/runtime").Locale =>
 /**
  * the main initialization and redirect logic
  */
-const initializeRedirect = (): void => {
+export const initializeRedirect = () => {
+  // Initialize config keys here, now that we are on the client
+  const config = getAppSpecificI18nConfig();
+  I18N_LOCAL_STORAGE_KEY = config.localStorageKey;
+  BROWSER_LANG_REDIRECT_DONE_KEY = config.sessionStorageKey;
+
   const currentPathname = window.location.pathname;
   const currentSearch = window.location.search;
   const currentHash = window.location.hash;
@@ -157,11 +169,5 @@ const initializeRedirect = (): void => {
   markRedirectAsAttemptedThisSession();
 };
 
-// // ensure to run after DOMContentLoaded
-// if (document.readyState === "loading") {
-//   document.addEventListener("DOMContentLoaded", initializeRedirect);
-// } else {
-//   initializeRedirect();
-// }
-
-export { initializeRedirect };
+// Removed self-executing part
+// export { initializeRedirect }; // Already exported with const
