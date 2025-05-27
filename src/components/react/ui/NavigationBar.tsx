@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import * as React from "react";
+import * as React from "react"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -9,9 +9,9 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/react/radix-ui/NavigationMenu";
+} from "@/components/react/radix-ui/NavigationMenu"
 
-import { cn } from "@/utils/ui/styles";
+import { cn } from "@/utils/ui/styles"
 // import { Icons } from "@/components/icons"
 
 const components: { title: string; href: string; description: string }[] = [
@@ -49,9 +49,9 @@ const components: { title: string; href: string; description: string }[] = [
     description:
       "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   },
-];
+]
 
-const NavigationWrapper = () => {
+const NavigationBar = () => {
   return (
     <NavigationMenu>
       <NavigationMenuList className="flex flex-col items-center justify-center space-x-4 md:flex-row">
@@ -107,8 +107,8 @@ const NavigationWrapper = () => {
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
-  );
-};
+  )
+}
 
 const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWithoutRef<"a">>(
   ({ className, title, children, ...props }, ref) => {
@@ -128,9 +128,9 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, React.ComponentPropsWit
           </a>
         </NavigationMenuLink>
       </li>
-    );
+    )
   }
-);
-ListItem.displayName = "ListItem";
+)
+ListItem.displayName = "ListItem"
 
-export { NavigationWrapper };
+export { NavigationBar }
