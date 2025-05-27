@@ -61,29 +61,70 @@ const NavigationBar = () => {
         <NavigationMenuItem>
           <NavigationMenuTrigger>{m["pages.lists.blog.title"]()}</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-full gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+            <ul
+              className={cn(
+                "bg-surface-container-high grid w-full gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]",
+                "hover:bg-surface-container-high-dark"
+              )}
+            >
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <a
-                    className="bg-surface-variant hover:bg-surface-container-high flex size-full flex-col justify-end rounded-md p-6 no-underline transition-all duration-300 outline-none select-none focus:shadow-md"
+                    className={cn(
+                      "bg-surface-variant hover:bg-surface-container-high flex size-full flex-col justify-end rounded-md p-6 no-underline transition-all duration-300 outline-none select-none focus:shadow-md",
+                      "hover:bg-surface-container-high-dark"
+                    )}
                     href="/"
                   >
                     {/* <Icons.logo className="h-6 w-6" /> */}
-                    <div className="text-headings mt-4 mb-2 text-lg font-medium">BUOUUI</div>
-                    <p className="text-content-secondary text-sm leading-tight">
+                    <div
+                      className={cn(
+                        "text-headings mt-4 mb-2 text-lg font-medium",
+                        "hover:text-headings"
+                      )}
+                    >
+                      BUOUUI
+                    </div>
+                    <p
+                      className={cn(
+                        "text-content-secondary text-sm leading-tight",
+                        "hover:text-content"
+                      )}
+                    >
                       Beautifully designed components that you can copy and paste into your apps.
                       Accessible. Customizable. Open Source.
                     </p>
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/docs" title="Introduction">
+              <ListItem
+                href="/docs"
+                title="Introduction"
+                className={cn(
+                  "bg-surface-container-high text-content-secondary",
+                  "hover:bg-surface-container-high-dark"
+                )}
+              >
                 Re-usable components built using Radix UI and Tailwind CSS.
               </ListItem>
-              <ListItem href="/docs/installation" title="Installation">
+              <ListItem
+                href="/docs/installation"
+                title="Installation"
+                className={cn(
+                  "bg-surface-container-high text-content-secondary",
+                  "hover:bg-surface-container-high-dark"
+                )}
+              >
                 How to install dependencies and structure your app.
               </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Typography">
+              <ListItem
+                href="/docs/primitives/typography"
+                title="Typography"
+                className={cn(
+                  "bg-surface-container-high text-content-secondary",
+                  "hover:bg-surface-container-high-dark"
+                )}
+              >
                 Styles for headings, paragraphs, lists...etc
               </ListItem>
             </ul>
