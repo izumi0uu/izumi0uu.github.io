@@ -1,13 +1,238 @@
 ---
 /*
   This script is used to initialize the i18n redirect.
-  It is a ES module, so that we can import ParaglideJS runtime functions.
-  It is also a module script, so that we can use the initializeRedirect.
+  Using inline approach to avoid module resolution issues.
+  Logic matches the original i18n-initializer.js file exactly.
 */
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE, LOCAL_STORAGE_KEY, BROWSER_LANG_REDIRECT_DONE_KEY } from "../config/i18n";
 ---
-<script type="module">
-  import { initializeRedirect } from '../scripts/i18n-initializer.ts';
+<script type="module" define:vars={{ 
+  supportedLocales: SUPPORTED_LOCALES, 
+  defaultLocale: DEFAULT_LOCALE,
+  defaultLocalStorageKey: LOCAL_STORAGE_KEY,
+  defaultSessionStorageKey: BROWSER_LANG_REDIRECT_DONE_KEY
+}}>
+  console.log("I18nScript.astro: inline script basic test EXECUTED.");
 
+  // Use the passed configuration from Astro
+  const baseLocale = defaultLocale;
+  const locales = supportedLocales;
+  
+  function isLocale(locale) {
+    return !locale ? false : locales.includes(locale);
+  }
+
+  function extractLocaleFromUrl(url) {
+    const urlObj = new URL(url, "http://dummy.com");
+    const pathSegments = urlObj.pathname.split("/").filter(Boolean);
+    if (pathSegments.length > 0) {
+      const potentialLocale = pathSegments[0];
+      if (isLocale(potentialLocale)) {
+        return potentialLocale;
+      }
+    }
+    return baseLocale;
+  }
+
+  function deLocalizeHref(href) {
+    const url = new URL(href, window.location.origin);
+    const pathSegments = url.pathname.split("/").filter(Boolean);
+    if (pathSegments.length > 0 && isLocale(pathSegments[0])) {
+      url.pathname = "/" + pathSegments.slice(1).join("/");
+    }
+    if (href.startsWith("/") && url.origin === window.location.origin) {
+      return url.pathname + url.search + url.hash;
+    }
+    return url.href;
+  }
+
+  function localizeHref(href, options) {
+    const locale = options?.locale ?? baseLocale;
+    const url = new URL(href, window.location.origin);
+    const currentLocale = extractLocaleFromUrl(url.href);
+    
+    if (currentLocale === locale) {
+      return href;
+    }
+
+    const pathSegments = url.pathname.split("/").filter(Boolean);
+    if (pathSegments.length > 0 && isLocale(pathSegments[0])) {
+      pathSegments.shift();
+    }
+
+    if (locale === baseLocale) {
+      url.pathname = "/" + pathSegments.join("/");
+    } else {
+      url.pathname = "/" + locale + "/" + pathSegments.join("/");
+    }
+
+    if (href.startsWith("/") && url.origin === window.location.origin) {
+      return url.pathname + url.search + url.hash;
+    }
+    return url.href;
+  }
+
+  // Declare these variables but initialize them inside initializeRedirect
+  let I18N_LOCAL_STORAGE_KEY;
+  let BROWSER_LANG_REDIRECT_DONE_KEY;
+
+  /**
+   * get the app-specific i18n config from the DOM.
+   * @returns {Object} the app-specific i18n config.
+   */
+  const getAppSpecificI18nConfig = () => {
+    // This function will only be called on the client now
+    const configElement = document.getElementById("app-i18n-config-data");
+    if (!configElement) {
+      console.warn("i18nScript: App-specific i18n config data not found in DOM.");
+      return {
+        localStorageKey: defaultLocalStorageKey, // Use config from Astro
+        sessionStorageKey: defaultSessionStorageKey, // Use config from Astro
+      };
+    }
+    try {
+      const parsedConfig = JSON.parse(configElement.textContent || "{}");
+      return {
+        localStorageKey: parsedConfig.localStorageKey || defaultLocalStorageKey,
+        sessionStorageKey: parsedConfig.sessionStorageKey || defaultSessionStorageKey,
+      };
+    } catch (e) {
+      console.error("i18nScript: Failed to parse App-specific i18n config data:", e);
+      return {
+        // Default on error
+        localStorageKey: defaultLocalStorageKey,
+        sessionStorageKey: defaultSessionStorageKey,
+      };
+    }
+  };
+
+  /**
+   * from localStorage get user's stored language preference.
+   * @returns {string | null} the stored language code, or null if not found or inaccessible.
+   */
+  const getStoredUserPreferredLang = () => {
+    try {
+      return localStorage.getItem(I18N_LOCAL_STORAGE_KEY);
+    } catch (e) {
+      console.warn("i18nScript: Could not access localStorage:", e);
+      return null;
+    }
+  };
+
+  /**
+   * check if the current session has attempted a browser language redirect.
+   * @returns {boolean} true if attempted, false otherwise.
+   */
+  const hasRedirectBeenAttemptedThisSession = () => {
+    try {
+      return !!sessionStorage.getItem(BROWSER_LANG_REDIRECT_DONE_KEY);
+    } catch (e) {
+      console.warn("i18nScript: Could not access sessionStorage:", e);
+      return false;
+    }
+  };
+
+  /**
+   * set the "redirect attempted" mark to sessionStorage.
+   */
+  const markRedirectAsAttemptedThisSession = () => {
+    try {
+      sessionStorage.setItem(BROWSER_LANG_REDIRECT_DONE_KEY, "true");
+    } catch (e) {
+      console.warn("i18nScript: Could not set sessionStorage item:", e);
+    }
+  };
+
+  /**
+   * infer the user's likely preferred language based on browser language settings and predefined rules.
+   * rules: chinese regions (cn, hk, mo, tw) -> 'zh'; others -> 'en'.
+   * @returns {string} the inferred language code (should match Paraglide's Locale type)
+   */
+  const inferLangFromBrowserSettings = () => {
+    const browserRaw = navigator.language || navigator.userLanguage || baseLocale;
+    const browserLangCode = browserRaw.toLowerCase().split("-")[0];
+    const browserRegionCode = browserRaw.toLowerCase().split("-")[1] || "";
+
+    let inferred = baseLocale;
+
+    if (browserLangCode === "zh") {
+      if (["cn", "hk", "mo", "tw", ""].includes(browserRegionCode)) {
+        inferred = "zh";
+      } else {
+        inferred = "en";
+      }
+    } else {
+      inferred = "en";
+    }
+
+    if (isLocale(inferred)) return inferred;
+
+    return baseLocale;
+  };
+
+  /**
+   * the main initialization and redirect logic
+   */
+  const initializeRedirect = () => {
+    console.log("i18nScript: Starting redirect initialization...");
+    
+    // Initialize config keys here, now that we are on the client
+    const config = getAppSpecificI18nConfig();
+    I18N_LOCAL_STORAGE_KEY = config.localStorageKey;
+    BROWSER_LANG_REDIRECT_DONE_KEY = config.sessionStorageKey;
+
+    const currentPathname = window.location.pathname;
+    const currentSearch = window.location.search;
+    const currentHash = window.location.hash;
+    const origin = window.location.origin;
+
+    const storedUserLang = getStoredUserPreferredLang();
+    if (storedUserLang) {
+      console.log("i18nScript: User has stored language preference:", storedUserLang);
+      markRedirectAsAttemptedThisSession();
+      return;
+    }
+
+    if (hasRedirectBeenAttemptedThisSession()) {
+      console.log("i18nScript: Redirect already attempted this session");
+      return;
+    }
+
+    const inferredLang = inferLangFromBrowserSettings();
+    console.log("i18nScript: Inferred language:", inferredLang);
+
+    // use extractLocaleFromUrl to get the language from the current full URL
+    // note: extractLocaleFromUrl expects a full URL or URL object
+    const currentLangOnPage = extractLocaleFromUrl(window.location.href);
+    console.log("i18nScript: Current page language:", currentLangOnPage);
+
+    if (currentLangOnPage !== inferredLang) {
+      console.log("i18nScript: Language mismatch, redirecting...");
+      
+      // canonicalPath should be a non-localized path, e.g. /about, /blog/my-post
+      const canonicalPath = deLocalizeHref(currentPathname);
+
+      // build the new URL path part
+      // e.g. /about -> /zh/about
+      const newLocalizedPath = localizeHref(canonicalPath, { locale: inferredLang });
+
+      const newUrl = `${origin}${newLocalizedPath}${currentSearch}${currentHash}`;
+
+      console.log("i18nScript: Redirecting to:", newUrl);
+
+      // double check
+      if (currentPathname !== newLocalizedPath) {
+        markRedirectAsAttemptedThisSession();
+        window.location.replace(newUrl);
+        return;
+      }
+    }
+    
+    console.log("i18nScript: No redirect needed");
+    markRedirectAsAttemptedThisSession();
+  };
+
+  // Initialize the redirect logic
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initializeRedirect);
   } else {

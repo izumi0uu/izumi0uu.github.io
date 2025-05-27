@@ -1,4 +1,5 @@
 /**
+ * deprecated: because of the inline approach, we can't import ParaglideJS runtime functions.
  * This script is a ES module, so that we can import ParaglideJS runtime functions.
  * Mark the redirect as attempted (markRedirectAsAttemptedThisSession): set a sessionStorage item to indicate that the redirect has been attempted.
  * Infer user's preferred language (inferredLang): based on browser language settings and predefined rules.
