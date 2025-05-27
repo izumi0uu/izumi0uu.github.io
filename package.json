@@ -16,6 +16,7 @@
     "@astrojs/sitemap": "^3.3.1",
     "@expressive-code/plugin-collapsible-sections": "^0.41.2",
     "@radix-ui/react-accordion": "^1.2.11",
+    "@radix-ui/react-hover-card": "^1.1.14",
     "@radix-ui/react-navigation-menu": "^1.2.13",
     "@radix-ui/react-popover": "^1.1.14",
     "@radix-ui/react-progress": "^1.1.7",
