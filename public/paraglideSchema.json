@@ -1,0 +1,154 @@
+{
+  "anyOf": [
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "$schema": { "const": "https://inlang.com/schema/inlang-message-format", "type": "string" }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "patternProperties": {
+        "^(.*)$": {
+          "anyOf": [
+            { "type": "string" },
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "match": {
+                    "type": "object",
+                    "patternProperties": { "^(.*)$": { "type": "string" } }
+                  },
+                  "declarations": { "type": "array", "items": { "type": "string" } },
+                  "selectors": { "type": "array", "items": { "type": "string" } }
+                },
+                "required": ["match"]
+              }
+            },
+            {
+              "type": "object",
+              "patternProperties": {
+                "^(.*)$": {
+                  "anyOf": [
+                    { "type": "string" },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "match": {
+                            "type": "object",
+                            "patternProperties": { "^(.*)$": { "type": "string" } }
+                          },
+                          "declarations": { "type": "array", "items": { "type": "string" } },
+                          "selectors": { "type": "array", "items": { "type": "string" } }
+                        },
+                        "required": ["match"]
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "patternProperties": {
+                        "^(.*)$": {
+                          "anyOf": [
+                            { "type": "string" },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "match": {
+                                    "type": "object",
+                                    "patternProperties": { "^(.*)$": { "type": "string" } }
+                                  },
+                                  "declarations": {
+                                    "type": "array",
+                                    "items": { "type": "string" }
+                                  },
+                                  "selectors": { "type": "array", "items": { "type": "string" } }
+                                },
+                                "required": ["match"]
+                              }
+                            },
+                            {
+                              "type": "object",
+                              "patternProperties": {
+                                "^(.*)$": {
+                                  "anyOf": [
+                                    { "type": "string" },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "match": {
+                                            "type": "object",
+                                            "patternProperties": { "^(.*)$": { "type": "string" } }
+                                          },
+                                          "declarations": {
+                                            "type": "array",
+                                            "items": { "type": "string" }
+                                          },
+                                          "selectors": {
+                                            "type": "array",
+                                            "items": { "type": "string" }
+                                          }
+                                        },
+                                        "required": ["match"]
+                                      }
+                                    },
+                                    {
+                                      "type": "object",
+                                      "patternProperties": {
+                                        "^(.*)$": {
+                                          "anyOf": [
+                                            { "type": "string" },
+                                            {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "match": {
+                                                    "type": "object",
+                                                    "patternProperties": {
+                                                      "^(.*)$": { "type": "string" }
+                                                    }
+                                                  },
+                                                  "declarations": {
+                                                    "type": "array",
+                                                    "items": { "type": "string" }
+                                                  },
+                                                  "selectors": {
+                                                    "type": "array",
+                                                    "items": { "type": "string" }
+                                                  }
+                                                },
+                                                "required": ["match"]
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -11,7 +11,8 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/react/radix-ui/NavigationMenu"
 
-import { Routes } from "@/constants/routes"
+import { ROUTES } from "@/constants/routes"
+import * as m from "@/paraglide/messages"
 
 import { cn } from "@/utils/ui/styles"
 // import { Icons } from "@/components/icons"
@@ -58,7 +59,7 @@ const NavigationBar = () => {
     <NavigationMenu>
       <NavigationMenuList className="flex flex-col items-center justify-center space-x-4 md:flex-row">
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
+          <NavigationMenuTrigger>{m["pages.lists.blog.title"]()}</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-full gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
