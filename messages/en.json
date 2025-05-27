@@ -1,23 +1,78 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
+
   "greeting_message": "Hello world, I'm Izumi0uu",
-  "page_home_title": "Home",
-  "page_home_description": "Welcome to my space!",
-  "page_about_title": "About",
-  "page_about_description": "Learn more about me and this website.",
-  "page_lists_title": "Lists",
-  "page_lists_description": "Various lists of content.",
-  "page_lists_blog_title": "Blog",
-  "page_lists_blog_description": "Here I share my coding experiments and thoughts on Frontend stack like React, Next.js, Astro; Telegram Bot development; Web3 stack and knowledge; my personal experience about web3 hackathons and more. Feel free to read, explore, and comment.",
-  "page_lists_blog_tags_title": "Tags",
-  "page_lists_blog_tags_tag_title": "Tag",
-  "page_lists_blog_explore_title": "Explore",
-  "page_lists_blog_categories_title": "Categories",
-  "page_lists_blog_categories_category_title": "Category",
-  "page_lists_projects_title": "Projects",
-  "page_lists_projects_description": "Projects I have built over the past years.",
-  "page_lists_projects_project_title": "Project",
-  "page_lists_experience_title": "Experience",
-  "page_lists_experience_experience_title": "Experience",
-  "page_lists_links_title": "Links"
+
+  "pages": {
+    "home": {
+      "title": "Home",
+      "description": "Welcome to my space!"
+    },
+    "about": {
+      "title": "About",
+      "description": "Learn more about me and this website."
+    },
+    "lists": {
+      "title": "Lists",
+      "description": "Various lists of content.",
+      "blog": {
+        "title": "Blog",
+        "description": "Here I share my coding experiments and thoughts on Frontend stack like React, Next.js, Astro; Telegram Bot development; Web3 stack and knowledge; my personal experience about web3 hackathons and more. Feel free to read, explore, and comment.",
+        "tags": {
+          "title": "Tags",
+          "tag_title": "Tag"
+        },
+        "explore": {
+          "title": "Explore"
+        },
+        "categories": {
+          "title": "Categories",
+          "category_title": "Category"
+        }
+      },
+      "projects": {
+        "title": "Projects",
+        "description": "Projects I have built over the past years.",
+        "project_title": "Project"
+      },
+      "experience": {
+        "title": "Experience",
+        "experience_title": "Experience"
+      },
+      "links": {
+        "title": "Links",
+        "link_title": "Link"
+      }
+    }
+  },
+
+  "components": {
+    "navigation_menu": {
+      "home_link": "Home",
+      "about_link": "About",
+      "blog_link": "Blog",
+      "projects_link": "Projects",
+      "experience_link": "Experience",
+      "links_link": "Links"
+    },
+    "theme_switcher": {
+      "label": "Switch Theme",
+      "light_mode": "Light",
+      "dark_mode": "Dark",
+      "wine_mode": "Wine"
+    },
+    "footer": {
+      "copyright_text": "© {year} Izumi0uu. All rights reserved.",
+      "privacy_policy_link": "Privacy Policy"
+    }
+  },
+
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous"
+  }
 }

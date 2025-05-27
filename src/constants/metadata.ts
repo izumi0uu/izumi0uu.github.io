@@ -1,23 +1,23 @@
-import { CONFIG_CLIENT } from "@/config/client";
-import * as m from "@/paraglide/messages";
+import { CONFIG_CLIENT } from "@/config/client"
+import * as m from "@/paraglide/messages"
 
-import type { Metadata } from "@/types/common";
+import type { Metadata } from "@/types/common"
 
 // can't import getOpenGraphImagePath from image-path.ts here, avoid circular dependency
 
-const { SITE_TITLE, SITE_DESCRIPTION, SITE_URL } = CONFIG_CLIENT;
+const { SITE_TITLE, SITE_DESCRIPTION, SITE_URL } = CONFIG_CLIENT
 
 /** @description Must be url from "public" folder. */
-const defaultOgImage = `${SITE_URL}/images/default/default-open-graph-image.jpg`;
+const defaultOgImage = `${SITE_URL}/images/default/default-open-graph-image.jpg`
 
-const titleSeparator = "-";
+const titleSeparator = "-"
 
 const DEFAULT_METADATA: Required<Metadata> = {
   greeting: "",
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   image: defaultOgImage,
-} as const;
+} as const
 
 /**
  * @description used for ogImage api route and metadata for all pages that aren't defined in markdown frontmatter.
@@ -27,16 +27,16 @@ const DEFAULT_METADATA: Required<Metadata> = {
 const PAGE_METADATA = {
   "": {
     getGreeting: () => m.greeting_message(),
-    getTitle: () => m.page_home_title(),
-    getDescription: () => m.page_home_description(),
+    getTitle: () => m["pages.home.title"](),
+    getDescription: () => m["pages.home.description"](),
   },
   about: {
-    getTitle: () => m.page_about_title(),
-    getDescription: () => m.page_about_description(),
+    getTitle: () => m["pages.about.title"](),
+    getDescription: () => m["pages.about.description"](),
   },
   lists: {
-    getTitle: () => m.page_lists_title(),
-    getDescription: () => m.page_lists_description(),
+    getTitle: () => m["pages.lists.title"](),
+    getDescription: () => m["pages.lists.description"](),
   },
   /**
    * @description list pages
@@ -45,47 +45,47 @@ const PAGE_METADATA = {
    * and helping to distinguish different types of pages in the Open Graph image generation system（API）
    */
   "lists/blog": {
-    getTitle: () => m.page_lists_blog_title(),
-    getDescription: () => m.page_lists_blog_description(),
+    getTitle: () => m["pages.lists.blog.title"](),
+    getDescription: () => m["pages.lists.blog.description"](),
   },
   "lists/blog/tags": {
-    getTitle: () => m.page_lists_blog_tags_title(),
+    getTitle: () => m["pages.lists.blog.tags.title"](),
   },
   // 'src/pages/blog/tags/[tag]/[...page].astro' // dynamic tag param
   "lists/blog/tags/tag": {
-    getTitle: () => m.page_lists_blog_tags_tag_title(),
+    getTitle: () => m["pages.lists.blog.tags.tag_title"](),
   },
   "lists/blog/explore": {
-    getTitle: () => m.page_lists_blog_explore_title(),
+    getTitle: () => m["pages.lists.blog.explore.title"](),
   },
   "lists/blog/categories": {
-    getTitle: () => m.page_lists_blog_categories_title(),
+    getTitle: () => m["pages.lists.blog.categories.title"](),
   },
   // src/pages/blog/categories/[category]/[...page].astro
   "lists/blog/categories/category": {
-    getTitle: () => m.page_lists_blog_categories_category_title(),
+    getTitle: () => m["pages.lists.blog.categories.category_title"](),
   },
   "lists/projects": {
-    getTitle: () => m.page_lists_projects_title(),
-    getDescription: () => m.page_lists_projects_description(),
+    getTitle: () => m["pages.lists.projects.title"](),
+    getDescription: () => m["pages.lists.projects.description"](),
   },
   // src/pages/projects/[project]/[...page].astro
   "lists/projects/project": {
-    getTitle: () => m.page_lists_projects_project_title(),
+    getTitle: () => m["pages.lists.projects.project_title"](),
   },
   "lists/experience": {
-    getTitle: () => m.page_lists_experience_title(),
+    getTitle: () => m["pages.lists.experience.title"](),
   },
   "lists/experience/experience": {
-    getTitle: () => m.page_lists_experience_experience_title(),
+    getTitle: () => m["pages.lists.experience.experience_title"](),
   },
   "lists/links": {
-    getTitle: () => m.page_lists_links_title(),
+    getTitle: () => m["pages.lists.links.title"](),
   },
   "lists/links/link": {
-    getTitle: () => m.page_lists_links_link_title(),
+    getTitle: () => m["pages.lists.links.link_title"](),
   },
-} as const;
+} as const
 
 const OG_IMAGE_PREFIXES = {
   OG_BLOG: "blog",
@@ -93,6 +93,6 @@ const OG_IMAGE_PREFIXES = {
   OG_PAGES: "pages",
   OG_LISTS: "lists",
   OG_EXPERIENCE: "experience",
-} as const;
+} as const
 
-export { DEFAULT_METADATA, PAGE_METADATA, titleSeparator, OG_IMAGE_PREFIXES };
+export { DEFAULT_METADATA, PAGE_METADATA, titleSeparator, OG_IMAGE_PREFIXES }
