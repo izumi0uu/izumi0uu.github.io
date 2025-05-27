@@ -56,7 +56,7 @@ const components: { title: string; href: string; description: string }[] = [
 
 const NavigationBar = () => {
   return (
-    <NavigationMenu>
+    <NavigationMenu className={cn("bg-surface-container", "border-secondary")}>
       <NavigationMenuList className="flex flex-col items-center justify-center space-x-4 md:flex-row">
         <NavigationMenuItem>
           <NavigationMenuTrigger>{m["pages.lists.blog.title"]()}</NavigationMenuTrigger>
@@ -90,7 +90,7 @@ const NavigationBar = () => {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+          <NavigationMenuTrigger>{m["pages.lists.projects.title"]()}</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-full max-w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
               {components.map((component) => (
@@ -104,7 +104,14 @@ const NavigationBar = () => {
         <NavigationMenuItem>
           <a href="/docs">
             <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "border-0 uppercase")}>
-              Documentation
+              {m["pages.lists.experience.title"]()}
+            </NavigationMenuLink>
+          </a>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <a href="/docs">
+            <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "border-0 uppercase")}>
+              {m["pages.about.title"]()}
             </NavigationMenuLink>
           </a>
         </NavigationMenuItem>
