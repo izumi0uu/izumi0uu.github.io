@@ -2,6 +2,7 @@
 import '@/styles/main.css';
 import BaseHead from '@/components/BaseHead.astro';
 import StagewiseDevToolbar from '@/components/react/dev/StagewiseDevToolbar.tsx';
+import I18nDevToolbar from '@/components/react/dev/I18nDevToolbar.tsx';
 import Header from '@/components/Header.astro';
 import type { BaseHeadProps } from '@/components/BaseHead.astro';
 import { cn } from '@/utils/ui/styles';
@@ -20,5 +21,6 @@ const lang = Astro.currentLocale;
 		<Header />
 		<slot />
 		{import.meta.env.DEV && <StagewiseDevToolbar client:only="react" />}
+		{import.meta.env.DEV && <I18nDevToolbar client:only="react" />}
 	</body>
 </html>

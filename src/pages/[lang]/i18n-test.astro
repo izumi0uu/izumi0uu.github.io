@@ -1,0 +1,203 @@
+---
+import Base from '@/layouts/Base.astro';
+import I18nScript from '@/components/I18nScript.astro';
+
+const metadata = {
+  title: 'i18n 测试页面',
+  description: '用于测试国际化功能的页面',
+};
+
+const currentLocale = Astro.currentLocale || 'en';
+---
+
+<Base {metadata}>
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-headings text-4xl font-bold mb-8">
+        🌐 i18n 测试页面
+      </h1>
+      
+      <div class="bg-surface-container rounded-lg p-6 mb-8">
+        <h2 class="text-headings text-2xl font-semibold mb-4">当前语言信息</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-surface-container-high rounded-md p-4">
+            <h3 class="text-headings font-medium mb-2">Astro 信息</h3>
+            <ul class="text-content space-y-1 text-sm">
+              <li><strong>当前语言:</strong> {currentLocale}</li>
+              <li><strong>URL 路径:</strong> {Astro.url.pathname}</li>
+              <li><strong>完整 URL:</strong> {Astro.url.href}</li>
+            </ul>
+          </div>
+          
+          <div class="bg-surface-container-high rounded-md p-4">
+            <h3 class="text-headings font-medium mb-2">页面内容</h3>
+            <div class="text-content space-y-2 text-sm">
+              {currentLocale === 'zh' ? (
+                <div>
+                  <p><strong>语言:</strong> 中文</p>
+                  <p><strong>问候:</strong> 你好，世界！</p>
+                  <p><strong>描述:</strong> 这是中文版本的测试页面。</p>
+                </div>
+              ) : (
+                <div>
+                  <p><strong>Language:</strong> English</p>
+                  <p><strong>Greeting:</strong> Hello, World!</p>
+                  <p><strong>Description:</strong> This is the English version of the test page.</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-surface-container rounded-lg p-6 mb-8">
+        <h2 class="text-headings text-2xl font-semibold mb-4">测试链接</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="space-y-2">
+            <h3 class="text-headings font-medium">内部链接</h3>
+            <div class="space-y-1">
+              <a href="/en/i18n-test" class="text-primary hover:underline block">
+                🇺🇸 English Version
+              </a>
+              <a href="/zh/i18n-test" class="text-primary hover:underline block">
+                🇨🇳 中文版本
+              </a>
+              <a href="/en/" class="text-primary hover:underline block">
+                🏠 English Home
+              </a>
+              <a href="/zh/" class="text-primary hover:underline block">
+                🏠 中文首页
+              </a>
+            </div>
+          </div>
+          
+          <div class="space-y-2">
+            <h3 class="text-headings font-medium">相对链接测试</h3>
+            <div class="space-y-1">
+              <a href="/" class="text-primary hover:underline block">
+                根路径 (/)
+              </a>
+              <a href="../" class="text-primary hover:underline block">
+                上级目录 (../)
+              </a>
+              <a href="./i18n-test" class="text-primary hover:underline block">
+                当前目录 (./i18n-test)
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-surface-container rounded-lg p-6 mb-8">
+        <h2 class="text-headings text-2xl font-semibold mb-4">JavaScript 测试</h2>
+        <div class="space-y-4">
+          <div class="bg-surface-container-high rounded-md p-4">
+            <h3 class="text-headings font-medium mb-2">客户端信息</h3>
+            <div id="client-info" class="text-content text-sm space-y-1">
+              <p>正在加载...</p>
+            </div>
+          </div>
+          
+          <div class="bg-surface-container-high rounded-md p-4">
+            <h3 class="text-headings font-medium mb-2">存储测试</h3>
+            <div class="space-x-2">
+              <button 
+                id="set-locale-en" 
+                class="bg-primary text-on-primary px-3 py-1 rounded text-sm hover:opacity-90"
+              >
+                设置英文偏好
+              </button>
+              <button 
+                id="set-locale-zh" 
+                class="bg-primary text-on-primary px-3 py-1 rounded text-sm hover:opacity-90"
+              >
+                设置中文偏好
+              </button>
+              <button 
+                id="clear-locale" 
+                class="bg-error text-on-error px-3 py-1 rounded text-sm hover:opacity-90"
+              >
+                清除偏好
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-surface-container rounded-lg p-6">
+        <h2 class="text-headings text-2xl font-semibold mb-4">使用说明</h2>
+        <div class="text-content space-y-3 text-sm">
+          <p>
+            <strong>开发工具栏:</strong> 在开发模式下，你会在页面左上角看到 i18n 开发工具栏。
+            它提供了以下功能：
+          </p>
+          <ul class="list-disc list-inside space-y-1 ml-4">
+            <li><strong>当前状态:</strong> 显示当前语言、路径、浏览器语言等信息</li>
+            <li><strong>语言切换:</strong> 快速切换到不同语言版本</li>
+            <li><strong>语言偏好:</strong> 设置或清除存储的语言偏好</li>
+            <li><strong>重定向测试:</strong> 测试自动重定向逻辑</li>
+            <li><strong>URL 预览:</strong> 查看不同语言的 URL 格式</li>
+            <li><strong>调试信息:</strong> 显示配置参数和存储键</li>
+          </ul>
+          <p>
+            <strong>测试步骤:</strong>
+          </p>
+          <ol class="list-decimal list-inside space-y-1 ml-4">
+            <li>使用开发工具栏切换语言，观察 URL 和页面内容变化</li>
+            <li>设置语言偏好，然后刷新页面测试是否保持</li>
+            <li>清除偏好后测试自动重定向功能</li>
+            <li>在浏览器开发者工具中修改语言设置测试推断逻辑</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 客户端脚本 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 更新客户端信息
+      const updateClientInfo = () => {
+        const clientInfo = document.getElementById('client-info');
+        if (clientInfo) {
+          clientInfo.innerHTML = `
+            <p><strong>当前 URL:</strong> ${window.location.href}</p>
+            <p><strong>路径名:</strong> ${window.location.pathname}</p>
+            <p><strong>浏览器语言:</strong> ${navigator.language}</p>
+            <p><strong>用户代理:</strong> ${navigator.userAgent.substring(0, 100)}...</p>
+            <p><strong>存储的语言偏好:</strong> ${localStorage.getItem('user-preferred-lang') || '无'}</p>
+            <p><strong>重定向标记:</strong> ${sessionStorage.getItem('browser-lang-redirect-done') ? '已设置' : '未设置'}</p>
+          `;
+        }
+      };
+
+      updateClientInfo();
+
+      // 存储测试按钮
+      document.getElementById('set-locale-en')?.addEventListener('click', () => {
+        localStorage.setItem('user-preferred-lang', 'en');
+        updateClientInfo();
+        alert('已设置英文偏好');
+      });
+
+      document.getElementById('set-locale-zh')?.addEventListener('click', () => {
+        localStorage.setItem('user-preferred-lang', 'zh');
+        updateClientInfo();
+        alert('已设置中文偏好');
+      });
+
+      document.getElementById('clear-locale')?.addEventListener('click', () => {
+        localStorage.removeItem('user-preferred-lang');
+        sessionStorage.removeItem('browser-lang-redirect-done');
+        updateClientInfo();
+        alert('已清除所有偏好设置');
+      });
+
+      // 监听存储变化
+      window.addEventListener('storage', updateClientInfo);
+    });
+  </script>
+
+  <!-- 包含 i18n 脚本 -->
+  <I18nScript />
+</Base> 

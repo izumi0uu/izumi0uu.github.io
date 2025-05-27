@@ -15,8 +15,8 @@ Consider Colocating Related Files: For very tightly coupled features, consider k
 
 ## i18n
 
-Beacuse of the use of ParaglideJS and use SSG, the i18n is a little bit complicated.
+Beacuse of the use of ParaglideJS and use SSG and the complexity of module resolution in browser environment, the i18n is a little bit complicated.
 
-To make sure we could import some functions from ParaglideJS runtime, we need to do some tricks.
+It's hard to import ParaglideJS's runtime functions in the client-side script.
 
-Not like the 'ThemeScript' which I write in <style: inline> tag, I write it in src/script/i18n-initializer.ts. as a ES module, so that we could import ParaglideJS runtime functions.
+So I directly use ParaglideJS's runtime functions's copy in the client-side script.
