@@ -63,8 +63,7 @@ const NavigationBar = () => {
           <NavigationMenuContent>
             <ul
               className={cn(
-                "bg-surface-container-high grid w-full gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]",
-                "hover:bg-surface-container-high-dark"
+                "bg-surface-container-low grid w-full gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]"
               )}
             >
               <li className="row-span-3">
