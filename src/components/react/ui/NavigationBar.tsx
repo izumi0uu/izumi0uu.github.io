@@ -57,10 +57,10 @@ const components: { title: string; href: string; description: string }[] = [
 
 const NavigationBar = () => {
   return (
-    <NavigationMenu>
+    <NavigationMenu className="bg-surface-container-low">
       <NavigationMenuList className="flex flex-col items-center justify-center space-x-4 md:flex-row">
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
+          <NavigationMenuTrigger>{m["pages.lists.blog.title"]()}</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-full gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
