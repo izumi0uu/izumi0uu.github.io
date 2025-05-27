@@ -5,9 +5,9 @@ import StagewiseDevToolbar from '@/components/react/dev/StagewiseDevToolbar.tsx'
 import I18nDevToolbar from '@/components/react/dev/I18nDevToolbar.tsx';
 import ThemeDevToolbar from '@/components/react/dev/ThemeDevToolbar.tsx';
 import Header from '@/components/Header.astro';
+import { Toaster } from '@/components/react/radix-ui/Toaster';
 import type { BaseHeadProps } from '@/components/BaseHead.astro';
 import { cn } from '@/utils/ui/styles';
-
 export interface BaseProps extends BaseHeadProps {}
 
 const { metadata } = Astro.props as BaseProps;
@@ -24,5 +24,6 @@ const lang = Astro.currentLocale;
 		{import.meta.env.DEV && <StagewiseDevToolbar client:only="react" />}
 		<!-- {import.meta.env.DEV && <I18nDevToolbar client:only="react" />} -->
 		{import.meta.env.DEV && <ThemeDevToolbar client:only="react" />}
+		<Toaster />
 	</body>
 </html>
