@@ -20,8 +20,12 @@ import { ClientRouter } from "astro:transitions";
 // load theme-script component
 import ThemeScript from '@/components/ThemeScript.astro';
 
-// load i18n script component
+// load i18n script component and paraglide runtime
 import I18nScript from '@/components/I18nScript.astro';
+import {
+  locales, 
+  localizeHref               // 用于生成本地化 URL
+} from '@/paraglide/runtime'; // 确保路径正确
 
 // load utils
 import { handleMetadataTitle } from "@/utils/content/metadata";
@@ -124,6 +128,9 @@ const ogImageUrl = new URL(image, url);
   <meta property="twitter:title" content={title} />
   <meta property="twitter:description" content={description} />
   <meta property="twitter:image" content={ogImageUrl} />
+  {/* <meta name="twitter:site" content="@你的Twitter用户名" /> */}
+  {/* <meta name="twitter:creator" content="@你的Twitter用户名或作者用户名" /> */}
+
   
   {/* Analytics */}
   {
@@ -140,6 +147,19 @@ const ogImageUrl = new URL(image, url);
       </>
     )
   }
+
+  {/* seo for muti-lang */}
+  {
+	locales.map((locale) => (
+		<link
+			rel="alternate"
+			hreflang={locale}
+			href={localizeHref(Astro.url.href, {
+				locale: locale,
+			})}
+		/>
+	))
+}
 
   {/* Theme */}
   {/* MUST be inside <head /> to avoid white flash, IMPORTANT */}
