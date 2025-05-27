@@ -77,33 +77,15 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE, LOCAL_STORAGE_KEY, BROWSER_LANG_REDI
   let BROWSER_LANG_REDIRECT_DONE_KEY;
 
   /**
-   * get the app-specific i18n config from the DOM.
+   * get the app-specific i18n config.
    * @returns {Object} the app-specific i18n config.
    */
   const getAppSpecificI18nConfig = () => {
-    // This function will only be called on the client now
-    const configElement = document.getElementById("app-i18n-config-data");
-    if (!configElement) {
-      console.warn("i18nScript: App-specific i18n config data not found in DOM.");
-      return {
-        localStorageKey: defaultLocalStorageKey, 
-        sessionStorageKey: defaultSessionStorageKey, 
-      };
-    }
-    try {
-      const parsedConfig = JSON.parse(configElement.textContent || "{}");
-      return {
-        localStorageKey: parsedConfig.localStorageKey || defaultLocalStorageKey,
-        sessionStorageKey: parsedConfig.sessionStorageKey || defaultSessionStorageKey,
-      };
-    } catch (e) {
-      console.error("i18nScript: Failed to parse App-specific i18n config data:", e);
-      return {
-        // Default on error
-        localStorageKey: defaultLocalStorageKey,
-        sessionStorageKey: defaultSessionStorageKey,
-      };
-    }
+    // Use the configuration passed from Astro via define:vars
+    return {
+      localStorageKey: defaultLocalStorageKey,
+      sessionStorageKey: defaultSessionStorageKey,
+    };
   };
 
   /**
