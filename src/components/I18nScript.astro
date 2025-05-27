@@ -86,8 +86,8 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE, LOCAL_STORAGE_KEY, BROWSER_LANG_REDI
     if (!configElement) {
       console.warn("i18nScript: App-specific i18n config data not found in DOM.");
       return {
-        localStorageKey: defaultLocalStorageKey, // Use config from Astro
-        sessionStorageKey: defaultSessionStorageKey, // Use config from Astro
+        localStorageKey: defaultLocalStorageKey, 
+        sessionStorageKey: defaultSessionStorageKey, 
       };
     }
     try {
