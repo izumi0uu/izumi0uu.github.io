@@ -57,7 +57,7 @@ const components: { title: string; href: string; description: string }[] = [
 
 const NavigationBar = () => {
   return (
-    <NavigationMenu className="bg-surface-container hover:border-b-2 hover:bg-amber-200">
+    <NavigationMenu className="bg-base-secondary hover:border-b-2 hover:bg-amber-200">
       <NavigationMenuList className="flex flex-col items-center justify-center space-x-4 md:flex-row">
         <NavigationMenuItem>
           <NavigationMenuTrigger>
