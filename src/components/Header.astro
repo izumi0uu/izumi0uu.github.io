@@ -1,7 +1,11 @@
 ---
 import { NavigationBar } from "@/components/react/ui/NavigationBar";
+import { Separator } from "@/components/react/radix-ui/Separator";
 ---
 
 <header>
-    <NavigationBar client:load />
+    <div class="flex flex-col gap-2">
+        <NavigationBar client:load />
+        <Separator client:load />
+    </div>
 </header>
