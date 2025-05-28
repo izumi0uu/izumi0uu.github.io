@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Button } from "@/components/react/radix-ui/Button"
+import { SearchBox } from "@/components/react/ui/searchBox"
 
 import { CONFIG_CLIENT } from "@/config/client"
 import { ROUTES } from "@/constants/routes"
@@ -30,7 +31,9 @@ const NavigationBar = () => {
           <Button variant="brutal">{m["components.navigation_menu.links_link"]()}</Button>
         </nav>
       </div>
-      <div className="flex flex-1 items-center justify-between md:justify-end"></div>
+      <div className="flex flex-1 items-center justify-between md:justify-end">
+        <SearchBox />
+      </div>
     </div>
   )
 }
