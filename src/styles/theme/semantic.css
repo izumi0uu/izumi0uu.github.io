@@ -153,6 +153,9 @@
 
 /* ===== 酒红主题 (亮色模式) ===== */
 :root[data-theme="wine"] {
+  /* 色彩模式声明 */
+  color-scheme: light;
+
   /* --- 主要颜色 (酒红) --- */
   --color-primary: var(--color-brand-wine-primary-light);
   --color-on-primary: var(--color-brand-wine-on-primary-light);
@@ -169,7 +172,7 @@
   --color-tertiary: var(--color-brand-wine-tertiary-light);
   --color-on-tertiary: var(--color-brand-wine-on-tertiary-light);
   --color-tertiary-container: var(--color-brand-wine-tertiary-container-light);
-  --color-on-tertiary-container: var(--color-on-tertiary-container);
+  --color-on-tertiary-container: var(--color-brand-wine-on-tertiary-container-light);
 
   /* --- 表面色系 (酒红) --- */
   --color-background: var(--color-brand-wine-background-light);
@@ -268,8 +271,7 @@
 /* 为了确保Tailwind能够生成基于新变量的工具类，
    我们在这里提供一些基础映射 */
 
-/* 文本颜色映射 */
-.text-primary {
+文本颜色映射 .text-primary {
   color: var(--color-primary);
 }
 .text-on-primary {

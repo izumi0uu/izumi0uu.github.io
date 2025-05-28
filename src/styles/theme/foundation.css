@@ -41,175 +41,78 @@
   /* ===== 品牌酒红色系 (Brand Wine - 基于用户原始RGB精确转换) ===== */
 
   /* 酒红亮色模式色系 */
-  --color-brand-wine-primary-light: oklch(
-    0.451 0.063 21.69
-  ); /* rgb(144 75 63) */
+  --color-brand-wine-primary-light: oklch(0.451 0.063 21.69); /* rgb(144 75 63) */
   --color-brand-wine-on-primary-light: oklch(1 0 0); /* rgb(255 255 255) */
-  --color-brand-wine-primary-container-light: oklch(
-    0.906 0.026 23.93
-  ); /* rgb(255 218 212) */
-  --color-brand-wine-on-primary-container-light: oklch(
-    0.216 0.056 28.62
-  ); /* rgb(58 9 4) */
-  --color-brand-wine-primary-fixed-light: oklch(
-    0.782 0.079 22.58
-  ); /* rgb(255 180 167) */
+  --color-brand-wine-primary-container-light: oklch(0.906 0.026 23.93); /* rgb(255 218 212) */
+  --color-brand-wine-on-primary-container-light: oklch(0.216 0.056 28.62); /* rgb(58 9 4) */
+  --color-brand-wine-primary-fixed-light: oklch(0.782 0.079 22.58); /* rgb(255 180 167) */
 
-  --color-brand-wine-secondary-light: oklch(
-    0.423 0.026 20.35
-  ); /* rgb(119 86 81) */
+  --color-brand-wine-secondary-light: oklch(0.423 0.026 20.35); /* rgb(119 86 81) */
   --color-brand-wine-on-secondary-light: oklch(1 0 0); /* rgb(255 255 255) */
-  --color-brand-wine-secondary-container-light: oklch(
-    0.899 0.015 21.47
-  ); /* rgb(245 221 217) */
-  --color-brand-wine-on-secondary-container-light: oklch(
-    0.159 0.025 22.84
-  ); /* rgb(40 18 15) */
+  --color-brand-wine-secondary-container-light: oklch(0.899 0.015 21.47); /* rgb(245 221 217) */
+  --color-brand-wine-on-secondary-container-light: oklch(0.159 0.025 22.84); /* rgb(40 18 15) */
 
-  --color-brand-wine-tertiary-light: oklch(
-    0.567 0.098 72.48
-  ); /* rgb(159 119 25) */
+  --color-brand-wine-tertiary-light: oklch(0.567 0.098 72.48); /* rgb(159 119 25) */
   --color-brand-wine-on-tertiary-light: oklch(1 0 0); /* rgb(255 255 255) */
-  --color-brand-wine-tertiary-container-light: oklch(
-    0.904 0.055 81.23
-  ); /* rgb(251 224 166) */
+  --color-brand-wine-tertiary-container-light: oklch(0.904 0.055 81.23); /* rgb(251 224 166) */
+  --color-brand-wine-on-tertiary-container-light: oklch(0.241 0.036 85.62); /* rgb(67 48 0) */
 
   /* 酒红表面色系 (亮色模式) */
-  --color-brand-wine-background-light: oklch(
-    0.982 0.005 22.94
-  ); /* rgb(255 248 246) */
-  --color-brand-wine-on-background-light: oklch(
-    0.146 0.009 21.36
-  ); /* rgb(35 25 24) */
-  --color-brand-wine-surface-light: oklch(
-    0.982 0.005 22.94
-  ); /* rgb(255 248 246) */
-  --color-brand-wine-on-surface-light: oklch(
-    0.146 0.009 21.36
-  ); /* rgb(35 25 24) */
-  --color-brand-wine-surface-variant-light: oklch(
-    0.899 0.015 21.47
-  ); /* rgb(245 221 217) */
-  --color-brand-wine-on-surface-variant-light: oklch(
-    0.321 0.017 20.84
-  ); /* rgb(83 67 64) */
-  --color-brand-wine-outline-light: oklch(
-    0.508 0.018 19.73
-  ); /* rgb(133 115 112) */
+  --color-brand-wine-background-light: oklch(0.982 0.005 22.94); /* rgb(255 248 246) */
+  --color-brand-wine-on-background-light: oklch(0.146 0.009 21.36); /* rgb(35 25 24) */
+  --color-brand-wine-surface-light: oklch(0.982 0.005 22.94); /* rgb(255 248 246) */
+  --color-brand-wine-on-surface-light: oklch(0.146 0.009 21.36); /* rgb(35 25 24) */
+  --color-brand-wine-surface-variant-light: oklch(0.899 0.015 21.47); /* rgb(245 221 217) */
+  --color-brand-wine-on-surface-variant-light: oklch(0.321 0.017 20.84); /* rgb(83 67 64) */
+  --color-brand-wine-outline-light: oklch(0.508 0.018 19.73); /* rgb(133 115 112) */
 
   /* 酒红容器系统 (亮色模式) */
   --color-brand-wine-surface-container-highest-light: oklch(
     0.828 0.015 21.25
   ); /* rgb(220 200 195) */
-  --color-brand-wine-surface-container-high-light: oklch(
-    0.876 0.014 21.58
-  ); /* rgb(235 215 210) */
-  --color-brand-wine-surface-container-light: oklch(
-    0.924 0.011 21.73
-  ); /* rgb(246 230 226) */
-  --color-brand-wine-surface-container-low-light: oklch(
-    0.95 0.009 22.41
-  ); /* rgb(252 238 234) */
-  --color-brand-wine-surface-container-lowest-light: oklch(
-    0.99 0.003 23.18
-  ); /* rgb(255 250 248) */
-  --color-brand-wine-surface-dim-light: oklch(
-    0.939 0.008 22.05
-  ); /* rgb(245 235 230) */
+  --color-brand-wine-surface-container-high-light: oklch(0.876 0.014 21.58); /* rgb(235 215 210) */
+  --color-brand-wine-surface-container-light: oklch(0.924 0.011 21.73); /* rgb(246 230 226) */
+  --color-brand-wine-surface-container-low-light: oklch(0.95 0.009 22.41); /* rgb(252 238 234) */
+  --color-brand-wine-surface-container-lowest-light: oklch(0.99 0.003 23.18); /* rgb(255 250 248) */
+  --color-brand-wine-surface-dim-light: oklch(0.939 0.008 22.05); /* rgb(245 235 230) */
   --color-brand-wine-surface-bright-light: oklch(1 0 0); /* rgb(255 255 255) */
-  --color-brand-wine-surface-tint-light: oklch(
-    0.451 0.063 21.69
-  ); /* rgb(144 75 63) */
+  --color-brand-wine-surface-tint-light: oklch(0.451 0.063 21.69); /* rgb(144 75 63) */
 
   /* 酒红暗色模式色系 */
-  --color-brand-wine-primary-dark: oklch(
-    0.782 0.079 22.58
-  ); /* rgb(255 180 167) */
-  --color-brand-wine-on-primary-dark: oklch(
-    0.288 0.054 25.43
-  ); /* rgb(86 30 21) */
-  --color-brand-wine-primary-container-dark: oklch(
-    0.362 0.049 23.75
-  ); /* rgb(114 51 40) */
-  --color-brand-wine-on-primary-container-dark: oklch(
-    0.906 0.026 23.93
-  ); /* rgb(255 218 212) */
+  --color-brand-wine-primary-dark: oklch(0.782 0.079 22.58); /* rgb(255 180 167) */
+  --color-brand-wine-on-primary-dark: oklch(0.288 0.054 25.43); /* rgb(86 30 21) */
+  --color-brand-wine-primary-container-dark: oklch(0.362 0.049 23.75); /* rgb(114 51 40) */
+  --color-brand-wine-on-primary-container-dark: oklch(0.906 0.026 23.93); /* rgb(255 218 212) */
 
-  --color-brand-wine-secondary-dark: oklch(
-    0.796 0.025 20.84
-  ); /* rgb(227 188 182) */
-  --color-brand-wine-on-secondary-dark: oklch(
-    0.255 0.026 22.15
-  ); /* rgb(68 42 37) */
-  --color-brand-wine-secondary-container-dark: oklch(
-    0.333 0.024 20.97
-  ); /* rgb(93 63 58) */
-  --color-brand-wine-on-secondary-container-dark: oklch(
-    0.906 0.026 23.93
-  ); /* rgb(255 218 212) */
+  --color-brand-wine-secondary-dark: oklch(0.796 0.025 20.84); /* rgb(227 188 182) */
+  --color-brand-wine-on-secondary-dark: oklch(0.255 0.026 22.15); /* rgb(68 42 37) */
+  --color-brand-wine-secondary-container-dark: oklch(0.333 0.024 20.97); /* rgb(93 63 58) */
+  --color-brand-wine-on-secondary-container-dark: oklch(0.906 0.026 23.93); /* rgb(255 218 212) */
 
-  --color-brand-wine-tertiary-dark: oklch(
-    0.808 0.093 78.45
-  ); /* rgb(229 190 93) */
-  --color-brand-wine-on-tertiary-dark: oklch(
-    0.241 0.036 85.62
-  ); /* rgb(67 48 0) */
-  --color-brand-wine-tertiary-container-dark: oklch(
-    0.341 0.057 82.74
-  ); /* rgb(92 70 0) */
-  --color-brand-wine-on-tertiary-container-dark: oklch(
-    0.904 0.055 81.23
-  ); /* rgb(251 224 166) */
+  --color-brand-wine-tertiary-dark: oklch(0.808 0.093 78.45); /* rgb(229 190 93) */
+  --color-brand-wine-on-tertiary-dark: oklch(0.241 0.036 85.62); /* rgb(67 48 0) */
+  --color-brand-wine-tertiary-container-dark: oklch(0.341 0.057 82.74); /* rgb(92 70 0) */
+  --color-brand-wine-on-tertiary-container-dark: oklch(0.904 0.055 81.23); /* rgb(251 224 166) */
 
   /* 酒红表面色系 (暗色模式) */
-  --color-brand-wine-background-dark: oklch(
-    0.124 0.008 21.84
-  ); /* rgb(26 17 16) */
-  --color-brand-wine-on-background-dark: oklch(
-    0.919 0.012 21.65
-  ); /* rgb(241 223 219) */
+  --color-brand-wine-background-dark: oklch(0.124 0.008 21.84); /* rgb(26 17 16) */
+  --color-brand-wine-on-background-dark: oklch(0.919 0.012 21.65); /* rgb(241 223 219) */
   --color-brand-wine-surface-dark: oklch(0.124 0.008 21.84); /* rgb(26 17 16) */
-  --color-brand-wine-on-surface-dark: oklch(
-    0.919 0.012 21.65
-  ); /* rgb(241 223 219) */
-  --color-brand-wine-surface-variant-dark: oklch(
-    0.321 0.017 20.84
-  ); /* rgb(83 67 64) */
-  --color-brand-wine-on-surface-variant-dark: oklch(
-    0.823 0.017 20.73
-  ); /* rgb(214 194 189) */
-  --color-brand-wine-outline-dark: oklch(
-    0.591 0.015 19.84
-  ); /* rgb(158 139 135) */
-  --color-brand-wine-outline-variant-dark: oklch(
-    0.321 0.017 20.84
-  ); /* rgb(83 67 64) */
+  --color-brand-wine-on-surface-dark: oklch(0.919 0.012 21.65); /* rgb(241 223 219) */
+  --color-brand-wine-surface-variant-dark: oklch(0.321 0.017 20.84); /* rgb(83 67 64) */
+  --color-brand-wine-on-surface-variant-dark: oklch(0.823 0.017 20.73); /* rgb(214 194 189) */
+  --color-brand-wine-outline-dark: oklch(0.591 0.015 19.84); /* rgb(158 139 135) */
+  --color-brand-wine-outline-variant-dark: oklch(0.321 0.017 20.84); /* rgb(83 67 64) */
 
   /* 酒红容器系统 (暗色模式) */
-  --color-brand-wine-surface-container-highest-dark: oklch(
-    0.274 0.02 21.47
-  ); /* rgb(70 50 45) */
-  --color-brand-wine-surface-container-high-dark: oklch(
-    0.213 0.019 22.15
-  ); /* rgb(55 35 30) */
-  --color-brand-wine-surface-container-dark: oklch(
-    0.154 0.009 21.47
-  ); /* rgb(35 25 23) */
-  --color-brand-wine-surface-container-low-dark: oklch(
-    0.143 0.009 21.73
-  ); /* rgb(30 20 18) */
-  --color-brand-wine-surface-container-lowest-dark: oklch(
-    0.094 0.011 22.84
-  ); /* rgb(20 10 8) */
-  --color-brand-wine-surface-dim-dark: oklch(
-    0.083 0.012 23.65
-  ); /* rgb(15 8 6) */
-  --color-brand-wine-surface-bright-dark: oklch(
-    0.185 0.016 22.35
-  ); /* rgb(45 25 20) */
-  --color-brand-wine-surface-tint-dark: oklch(
-    0.782 0.079 22.58
-  ); /* rgb(255 180 167) */
+  --color-brand-wine-surface-container-highest-dark: oklch(0.274 0.02 21.47); /* rgb(70 50 45) */
+  --color-brand-wine-surface-container-high-dark: oklch(0.213 0.019 22.15); /* rgb(55 35 30) */
+  --color-brand-wine-surface-container-dark: oklch(0.154 0.009 21.47); /* rgb(35 25 23) */
+  --color-brand-wine-surface-container-low-dark: oklch(0.143 0.009 21.73); /* rgb(30 20 18) */
+  --color-brand-wine-surface-container-lowest-dark: oklch(0.094 0.011 22.84); /* rgb(20 10 8) */
+  --color-brand-wine-surface-dim-dark: oklch(0.083 0.012 23.65); /* rgb(15 8 6) */
+  --color-brand-wine-surface-bright-dark: oklch(0.185 0.016 22.35); /* rgb(45 25 20) */
+  --color-brand-wine-surface-tint-dark: oklch(0.782 0.079 22.58); /* rgb(255 180 167) */
 
   /* ===== 功能色系 (Functional Colors) ===== */
 
@@ -268,11 +171,10 @@
   /* ===== 其他设计令牌 ===== */
 
   /* 字体系统 */
-  --font-family-sans:
-    "Inter", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+  --font-family-sans: "Inter", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
   --font-family-mono:
-    "JetBrains Mono", ui-monospace, "Cascadia Code", "Source Code Pro", Menlo,
-    Consolas, "DejaVu Sans Mono", monospace;
+    "JetBrains Mono", ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas,
+    "DejaVu Sans Mono", monospace;
 
   /* 间距系统 */
   --spacing-0: 0;
@@ -302,14 +204,10 @@
 
   /* 阴影系统 */
   --shadow-sm: 0 1px 2px 0 oklch(0 0 0 / 0.05);
-  --shadow-default:
-    0 1px 3px 0 oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1);
-  --shadow-md:
-    0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1);
-  --shadow-lg:
-    0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1);
-  --shadow-xl:
-    0 20px 25px -5px oklch(0 0 0 / 0.1), 0 8px 10px -6px oklch(0 0 0 / 0.1);
+  --shadow-default: 0 1px 3px 0 oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px oklch(0 0 0 / 0.1), 0 8px 10px -6px oklch(0 0 0 / 0.1);
   --shadow-2xl: 0 25px 50px -12px oklch(0 0 0 / 0.25);
 
   /* 动画缓动函数 */

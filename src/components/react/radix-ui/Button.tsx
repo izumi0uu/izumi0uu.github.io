@@ -9,16 +9,20 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border-input bg-background hover:bg-accent hover:text-accent-foreground border",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+        default:
+          "bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container",
+        destructive:
+          "bg-error text-on-error hover:bg-error-container hover:text-on-error-container",
+        outline:
+          "border-outline bg-surface text-content hover:bg-surface-container hover:text-primary border",
+        secondary:
+          "bg-secondary text-on-secondary hover:bg-secondary-container hover:text-on-secondary-container",
+        ghost: "text-content hover:bg-surface-container hover:text-primary",
+        link: "text-primary hover:text-link-hover underline-offset-4 hover:underline",
         brutal:
-          "rounded-sm border-2 border-black bg-blue-500 px-8 py-4 text-white shadow-[4px_4px_0_0_#000] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none dark:border-white dark:shadow-[4px_4px_0_0_#fff] dark:hover:shadow-none",
+          "border-outline bg-primary text-on-primary rounded-sm border-2 px-8 py-4 shadow-[4px_4px_0_0_var(--color-outline)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none",
         "brutal-normal":
-          "rounded-sm border-2 border-black bg-white px-8 py-4 shadow-[4px_4px_0_0_#000] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none dark:border-white dark:bg-zinc-800 dark:text-white dark:shadow-[4px_4px_0_0_#fff] dark:hover:shadow-none",
+          "border-outline bg-surface text-content rounded-sm border-2 px-8 py-4 shadow-[4px_4px_0_0_var(--color-outline)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none",
       },
       size: {
         default: "h-10 px-4 py-2",
