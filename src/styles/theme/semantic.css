@@ -81,6 +81,7 @@
   --color-content: var(--color-on-surface);
   --color-content-secondary: var(--color-on-surface-variant);
   --color-headings: var(--color-on-background);
+  /* 注释：captions 是用于描述图片或视频的文本，通常是图片或视频的标题或描述。 */
   --color-captions: var(--color-on-surface-variant);
 
   --color-link: var(--color-primary);
@@ -279,26 +280,101 @@
 .text-on-primary {
   color: var(--color-on-primary);
 }
+.text-primary-container {
+  color: var(--color-primary-container);
+}
+.text-on-primary-container {
+  color: var(--color-on-primary-container);
+}
 .text-secondary {
   color: var(--color-secondary);
 }
 .text-on-secondary {
   color: var(--color-on-secondary);
 }
+.text-secondary-container {
+  color: var(--color-secondary-container);
+}
+.text-on-secondary-container {
+  color: var(--color-on-secondary-container);
+}
 .text-tertiary {
   color: var(--color-tertiary);
+}
+.text-on-tertiary {
+  color: var(--color-on-tertiary);
+}
+.text-tertiary-container {
+  color: var(--color-tertiary-container);
+}
+.text-on-tertiary-container {
+  color: var(--color-on-tertiary-container);
 }
 .text-error {
   color: var(--color-error);
 }
+.text-on-error {
+  color: var(--color-on-error);
+}
+.text-error-container {
+  color: var(--color-error-container);
+}
+.text-on-error-container {
+  color: var(--color-on-error-container);
+}
 .text-success {
   color: var(--color-success);
+}
+.text-on-success {
+  color: var(--color-on-success);
+}
+.text-success-container {
+  color: var(--color-success-container);
+}
+.text-on-success-container {
+  color: var(--color-on-success-container);
 }
 .text-warning {
   color: var(--color-warning);
 }
+.text-on-warning {
+  color: var(--color-on-warning);
+}
+.text-warning-container {
+  color: var(--color-warning-container);
+}
+.text-on-warning-container {
+  color: var(--color-on-warning-container);
+}
 .text-info {
   color: var(--color-info);
+}
+.text-on-info {
+  color: var(--color-on-info);
+}
+.text-info-container {
+  color: var(--color-info-container);
+}
+.text-on-info-container {
+  color: var(--color-on-info-container);
+}
+.text-background {
+  color: var(--color-background);
+}
+.text-on-background {
+  color: var(--color-on-background);
+}
+.text-surface {
+  color: var(--color-surface);
+}
+.text-on-surface {
+  color: var(--color-on-surface);
+}
+.text-surface-variant {
+  color: var(--color-surface-variant);
+}
+.text-on-surface-variant {
+  color: var(--color-on-surface-variant);
 }
 .text-content {
   color: var(--color-content);
@@ -308,6 +384,18 @@
 }
 .text-headings {
   color: var(--color-headings);
+}
+.text-captions {
+  color: var(--color-captions);
+}
+.text-link {
+  color: var(--color-link);
+}
+.text-link-hover {
+  color: var(--color-link-hover);
+}
+.text-link-visited {
+  color: var(--color-link-visited);
 }
 
 /* 背景颜色映射 */
@@ -341,6 +429,9 @@
 .bg-tertiary {
   background-color: var(--color-tertiary);
 }
+.bg-tertiary-container {
+  background-color: var(--color-tertiary-container);
+}
 .bg-error {
   background-color: var(--color-error);
 }
@@ -359,6 +450,15 @@
 .bg-warning-container {
   background-color: var(--color-warning-container);
 }
+.bg-info {
+  background-color: var(--color-info);
+}
+.bg-info-container {
+  background-color: var(--color-info-container);
+}
+.bg-background {
+  background-color: var(--color-background);
+}
 .bg-surface {
   background-color: var(--color-surface);
 }
@@ -368,11 +468,23 @@
 .bg-surface-container {
   background-color: var(--color-surface-container);
 }
+.bg-surface-container-lowest {
+  background-color: var(--color-surface-container-lowest);
+}
 .bg-surface-container-low {
   background-color: var(--color-surface-container-low);
 }
 .bg-surface-container-high {
   background-color: var(--color-surface-container-high);
+}
+.bg-surface-container-highest {
+  background-color: var(--color-surface-container-highest);
+}
+.bg-surface-dim {
+  background-color: var(--color-surface-dim);
+}
+.bg-surface-bright {
+  background-color: var(--color-surface-bright);
 }
 
 /* 边框颜色映射 */
@@ -385,8 +497,50 @@
 .border-primary {
   border-color: var(--color-primary);
 }
+.border-primary-container {
+  border-color: var(--color-primary-container);
+}
+.border-secondary {
+  border-color: var(--color-secondary);
+}
+.border-secondary-container {
+  border-color: var(--color-secondary-container);
+}
+.border-tertiary {
+  border-color: var(--color-tertiary);
+}
+.border-tertiary-container {
+  border-color: var(--color-tertiary-container);
+}
 .border-error {
   border-color: var(--color-error);
+}
+.border-error-container {
+  border-color: var(--color-error-container);
+}
+.border-success {
+  border-color: var(--color-success);
+}
+.border-success-container {
+  border-color: var(--color-success-container);
+}
+.border-warning {
+  border-color: var(--color-warning);
+}
+.border-warning-container {
+  border-color: var(--color-warning-container);
+}
+.border-info {
+  border-color: var(--color-info);
+}
+.border-info-container {
+  border-color: var(--color-info-container);
+}
+.border-surface {
+  border-color: var(--color-surface);
+}
+.border-surface-variant {
+  border-color: var(--color-surface-variant);
 }
 
 /* 主题状态指示器 (用于调试) */
