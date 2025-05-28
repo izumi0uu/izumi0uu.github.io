@@ -37,7 +37,7 @@ const frameworks = [
   },
 ]
 
-export function ComboboxDemo() {
+const SearchBox = () => {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
 
@@ -85,3 +85,5 @@ export function ComboboxDemo() {
     </Popover>
   )
 }
+
+export { SearchBox }
