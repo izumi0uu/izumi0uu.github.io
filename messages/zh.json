@@ -88,7 +88,17 @@
         "typescript": "TypeScript",
         "javascript": "JavaScript"
       },
-      "tips_placeholder": "输入搜索..."
+      "tips_placeholder": "输入搜索...",
+      "experience_options": {
+        "title": "经历",
+        "hackathon": "黑客马拉松",
+        "open_source": "开源",
+        "telegram_bot": "电报Bot"
+      },
+      "project_options": {
+        "title": "项目",
+        "Decode": "Decode"
+      }
     }
   },
   "common": {
