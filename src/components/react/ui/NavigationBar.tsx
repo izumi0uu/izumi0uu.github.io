@@ -64,19 +64,21 @@ const NavigationBar = () => {
           <NavigationMenuContent>
             <ul className="grid w-full gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
-                <NavigationMenuLink asChild>
-                  <a
-                    className="from-muted/50 to-muted flex size-full flex-col justify-end rounded-md bg-gradient-to-b p-6 no-underline outline-none select-none focus:shadow-md"
-                    href="/"
-                  >
-                    {/* <Icons.logo className="h-6 w-6" /> */}
-                    <div className="mt-4 mb-2 text-lg font-medium">BUOUUI</div>
-                    <p className="text-muted-foreground text-sm leading-tight">
-                      Beautifully designed components that you can copy and paste into your apps.
-                      Accessible. Customizable. Open Source.
-                    </p>
-                  </a>
-                </NavigationMenuLink>
+                <a>
+                  <NavigationMenuLink asChild>
+                    <a
+                      className="from-muted/50 to-muted flex size-full flex-col justify-end rounded-md bg-gradient-to-b p-6 no-underline outline-none select-none focus:shadow-md"
+                      href="/"
+                    >
+                      {/* <Icons.logo className="h-6 w-6" /> */}
+                      <div className="mt-4 mb-2 text-lg font-medium">BUOUUI</div>
+                      <p className="text-muted-foreground text-sm leading-tight">
+                        Beautifully designed components that you can copy and paste into your apps.
+                        Accessible. Customizable. Open Source.
+                      </p>
+                    </a>
+                  </NavigationMenuLink>
+                </a>
               </li>
               <ListItem href="/docs" title="Introduction">
                 Re-usable components built using Radix UI and Tailwind CSS.
