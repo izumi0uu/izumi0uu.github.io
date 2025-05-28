@@ -60,7 +60,7 @@ const SearchBox = () => {
       </PopoverTrigger>
       <PopoverContent className="w-[300px] border-0 p-0 shadow-none">
         <Command>
-          <CommandInput placeholder="Type a command or search..." />
+          <CommandInput placeholder={m["components.search_box.tips_placeholder"]()} />
           <CommandList>
             <CommandEmpty>{m["components.search_box.no_results"]()}</CommandEmpty>
             <CommandGroup heading={m["components.search_box.tech_options.title"]()}>

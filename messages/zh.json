@@ -87,7 +87,8 @@
         "web3": "Web3",
         "typescript": "TypeScript",
         "javascript": "JavaScript"
-      }
+      },
+      "tips_placeholder": "输入搜索..."
     }
   },
   "common": {

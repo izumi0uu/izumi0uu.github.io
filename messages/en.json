@@ -88,7 +88,8 @@
       "project_options": {
         "title": "Project",
         "Decode": "Decode, a web3 education platform"
-      }
+      },
+      "tips_placeholder": "Type a command or search..."
     }
   },
   "common": {
