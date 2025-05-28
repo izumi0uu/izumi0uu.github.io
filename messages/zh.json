@@ -1,8 +1,6 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-
   "greeting_message": "你好, 我是 Izumi0uu",
-
   "pages": {
     "home": {
       "title": "首页",
@@ -45,7 +43,6 @@
       }
     }
   },
-
   "components": {
     "navigation_menu": {
       "home_link": "首页",
@@ -66,7 +63,6 @@
       "privacy_policy_link": "隐私政策"
     }
   },
-
   "common": {
     "loading": "加载中...",
     "error": "发生错误",

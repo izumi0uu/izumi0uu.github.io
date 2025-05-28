@@ -1,8 +1,6 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-
   "greeting_message": "Hello world, I'm Izumi0uu",
-
   "pages": {
     "home": {
       "title": "Home",
@@ -31,7 +29,7 @@
         }
       },
       "projects": {
-        "title": "Projects",
+        "title": "Project",
         "description": "Projects I have built over the past years.",
         "project_title": "Project"
       },
@@ -45,13 +43,12 @@
       }
     }
   },
-
   "components": {
     "navigation_menu": {
       "home_link": "Home",
-      "about_link": "About",
+      "about_link": "About Me",
       "blog_link": "Blog",
-      "projects_link": "Projects",
+      "projects_link": "Project",
       "experience_link": "Experience",
       "links_link": "Links"
     },
@@ -66,7 +63,6 @@
       "privacy_policy_link": "Privacy Policy"
     }
   },
-
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
