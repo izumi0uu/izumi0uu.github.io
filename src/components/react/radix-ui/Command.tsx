@@ -52,7 +52,7 @@ const CommandInput = React.forwardRef<
     )}
     cmdk-input-wrapper=""
   >
-    <Search className="mr-2 size-4 shrink-0 opacity-50" />
+    <Search className="text-on-surface-variant mr-2 size-4 shrink-0" />
     <CommandPrimitive.Input
       ref={ref}
       className={cn(
@@ -73,7 +73,7 @@ const CommandList = React.forwardRef<
   <CommandPrimitive.List
     ref={ref}
     className={cn(
-      "mt-4 max-h-[400px] overflow-x-hidden overflow-y-auto border-l-4 border-red-500 pl-4",
+      "border-outline-variant mt-4 max-h-[400px] overflow-x-hidden overflow-y-auto border-l-4 pl-4",
       className
     )}
     {...props}
@@ -98,7 +98,7 @@ const CommandGroup = React.forwardRef<
   <CommandPrimitive.Group
     ref={ref}
     className={cn(
-      "text-foreground [&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:uppercase",
+      "text-content [&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:uppercase",
       className
     )}
     {...props}
