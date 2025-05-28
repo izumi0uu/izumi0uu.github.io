@@ -2,6 +2,7 @@
 import Base from "@/layouts/Base.astro";
 import { getPageMetadata } from "@/utils/content/metadata";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
+import { SemanticColorExamples } from "@/components/react/examples/SemanticColorExamples";
 
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
@@ -176,4 +177,5 @@ const metadata = getPageMetadata("");
       </section>
     </div>
   </main>
+  <SemanticColorExamples client:load />
 </Base>
