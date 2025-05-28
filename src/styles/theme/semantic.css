@@ -152,7 +152,7 @@
 }
 
 /* ===== 酒红主题 (亮色模式) ===== */
-:root[data-theme="wine"] {
+:root[data-theme="wine-light"] {
   /* 色彩模式声明 */
   color-scheme: light;
 
@@ -271,7 +271,8 @@
 /* 为了确保Tailwind能够生成基于新变量的工具类，
    我们在这里提供一些基础映射 */
 
-文本颜色映射 .text-primary {
+/* 文本颜色映射 */
+.text-primary {
   color: var(--color-primary);
 }
 .text-on-primary {
@@ -396,8 +397,8 @@
   content: "dark";
 }
 
-:root[data-theme="wine"] .theme-indicator::after {
-  content: "wine";
+:root[data-theme="wine-light"] .theme-indicator::after {
+  content: "wine-light";
 }
 
 :root[data-theme="wine-dark"] .theme-indicator::after {
