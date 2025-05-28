@@ -61,6 +61,32 @@
     "footer": {
       "copyright_text": "© {year} Izumi0uu. 保留所有权利。",
       "privacy_policy_link": "隐私政策"
+    },
+    "search_box": {
+      "placeholder": "搜索文章...",
+      "tech_title": {
+        "react": "React",
+        "web3": "Web3",
+        "astro": "Astro",
+        "nextjs": "Next.js",
+        "tailwind": "Tailwind",
+        "typescript": "TypeScript",
+        "javascript": "JavaScript"
+      },
+      "no_results": "未找到相关文章。",
+      "tech_options": {
+        "nextjs": "Next.js",
+        "react": "React",
+        "astro": "Astro",
+        "vue": "Vue.js",
+        "nuxt": "Nuxt.js",
+        "svelte": "Svelte",
+        "sveltekit": "SvelteKit",
+        "remix": "Remix",
+        "web3": "Web3",
+        "typescript": "TypeScript",
+        "javascript": "JavaScript"
+      }
     }
   },
   "common": {

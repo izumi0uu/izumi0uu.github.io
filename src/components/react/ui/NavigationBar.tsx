@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Button } from "@/components/react/radix-ui/Button"
-import { SearchBox } from "@/components/react/ui/searchBox"
+import { SearchBox } from "@/components/react/ui/SearchBox"
 
 import { CONFIG_CLIENT } from "@/config/client"
 import { ROUTES } from "@/constants/routes"

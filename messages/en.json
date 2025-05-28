@@ -61,6 +61,23 @@
     "footer": {
       "copyright_text": "© {year} Izumi0uu. All rights reserved.",
       "privacy_policy_link": "Privacy Policy"
+    },
+    "search_box": {
+      "placeholder": "Search articles...",
+      "no_results": "No articles found.",
+      "tech_options": {
+        "nextjs": "Next.js",
+        "react": "React",
+        "astro": "Astro",
+        "vue": "Vue.js",
+        "nuxt": "Nuxt.js",
+        "svelte": "Svelte",
+        "sveltekit": "SvelteKit",
+        "remix": "Remix",
+        "web3": "Web3",
+        "typescript": "TypeScript",
+        "javascript": "JavaScript"
+      }
     }
   },
   "common": {

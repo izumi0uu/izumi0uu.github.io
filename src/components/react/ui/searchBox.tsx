@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Check, ChevronsUpDown } from "lucide-react"
+import { Check, Search } from "lucide-react"
 
 import { cn } from "@/utils/ui/styles"
 import { Button } from "@/components/react/radix-ui/Button"
@@ -14,32 +14,21 @@ import {
 } from "@/components/react/radix-ui/Command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/react/radix-ui/Popover"
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
+import * as m from "@/paraglide/messages"
+
+// 简化的技术选项列表
+const techOptions = [
+  { value: "nextjs", label: m["components.search_box.tech_options.nextjs"] },
+  { value: "react", label: m["components.search_box.tech_options.react"] },
+  { value: "astro", label: m["components.search_box.tech_options.astro"] },
+  { value: "web3", label: m["components.search_box.tech_options.web3"] },
+  { value: "typescript", label: m["components.search_box.tech_options.typescript"] },
+  { value: "javascript", label: m["components.search_box.tech_options.javascript"] },
 ]
 
 const SearchBox = () => {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
+  const [value, setValue] = React.useState<string>("")
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -51,32 +40,30 @@ const SearchBox = () => {
           className="w-[200px] justify-between"
         >
           {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
-          <ChevronsUpDown className="ml-2 size-4 shrink-0 fill-current opacity-100" />
+            ? techOptions.find((tech) => tech.value === value)?.label()
+            : m["components.search_box.placeholder"]()}
+
+          <Search className="ml-2 h-4 w-4 shrink-0 opacity-100 transition-transform duration-200 ease-in-out hover:scale-125" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[300px] border-0 p-0 shadow-none">
         <Command>
-          <CommandInput placeholder="Search framework..." />
-          <CommandEmpty>No framework found.</CommandEmpty>
+          <CommandInput placeholder={m["components.search_box.placeholder"]()} />
+          <CommandEmpty>{m["components.search_box.no_results"]()}</CommandEmpty>
           <CommandGroup>
-            {frameworks.map((framework) => (
+            {techOptions.map((tech) => (
               <CommandItem
-                key={framework.value}
-                value={framework.value}
+                key={tech.value}
+                value={tech.value}
                 onSelect={(currentValue) => {
                   setValue(currentValue === value ? "" : currentValue)
                   setOpen(false)
                 }}
               >
                 <Check
-                  className={cn(
-                    "mr-2 size-4",
-                    value === framework.value ? "opacity-100" : "opacity-0"
-                  )}
+                  className={cn("mr-2 size-4", value === tech.value ? "opacity-100" : "opacity-0")}
                 />
-                {framework.label}
+                {tech.label()}
               </CommandItem>
             ))}
           </CommandGroup>
