@@ -16,7 +16,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/react/radi
 
 import * as m from "@/paraglide/messages"
 
-// 简化的技术选项列表
 const techOptions = [
   { value: "nextjs", label: m["components.search_box.tech_options.nextjs"] },
   { value: "react", label: m["components.search_box.tech_options.react"] },
@@ -34,7 +33,7 @@ const SearchBox = () => {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="brutal"
+          variant="brutal-normal"
           role="combobox"
           aria-expanded={open}
           className="w-[200px] justify-between"
