@@ -195,7 +195,8 @@
   --color-surface-tint: var(--color-brand-wine-surface-tint-light);
 
   /* --- 轮廓色系 (酒红) --- */
-  --color-outline: var(--color-brand-wine-outline-light);
+  /* --color-outline: var(--color-brand-wine-outline-light); */
+  --color-outline: var(--color-brand-wine-on-background-light);
   --color-outline-variant: var(--color-brand-wine-surface-variant-light);
 
   /* --- 语义化别名 (酒红) --- */
