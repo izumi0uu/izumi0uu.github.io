@@ -76,7 +76,18 @@
         "remix": "Remix",
         "web3": "Web3",
         "typescript": "TypeScript",
-        "javascript": "JavaScript"
+        "javascript": "JavaScript",
+        "title": "Tech"
+      },
+      "experience_options": {
+        "title": "Experience",
+        "hackathon": "Hackathon",
+        "open_source": "Open Source",
+        "telegram_bot": "Telegram Bot"
+      },
+      "project_options": {
+        "title": "Project",
+        "Decode": "Decode, a web3 education platform"
       }
     }
   },

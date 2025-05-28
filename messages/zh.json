@@ -71,7 +71,8 @@
         "nextjs": "Next.js",
         "tailwind": "Tailwind",
         "typescript": "TypeScript",
-        "javascript": "JavaScript"
+        "javascript": "JavaScript",
+        "title": "技术"
       },
       "no_results": "未找到相关文章。",
       "tech_options": {

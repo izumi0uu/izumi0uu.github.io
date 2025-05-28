@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Check, Search } from "lucide-react"
+import { Calculator, Calendar, CreditCard, Search, Settings, Smile, User } from "lucide-react"
 
 import { cn } from "@/utils/ui/styles"
 import { Button } from "@/components/react/radix-ui/Button"
@@ -11,6 +11,9 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandShortcut,
+  CommandList,
+  CommandSeparator,
 } from "@/components/react/radix-ui/Command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/react/radix-ui/Popover"
 
@@ -23,6 +26,16 @@ const techOptions = [
   { value: "web3", label: m["components.search_box.tech_options.web3"] },
   { value: "typescript", label: m["components.search_box.tech_options.typescript"] },
   { value: "javascript", label: m["components.search_box.tech_options.javascript"] },
+]
+
+const experienceOptions = [
+  { value: "hackathon", label: m["components.search_box.experience_options.hackathon"] },
+  { value: "open_source", label: m["components.search_box.experience_options.open_source"] },
+  { value: "telegram_bot", label: m["components.search_box.experience_options.telegram_bot"] },
+]
+
+const projectOptions = [
+  { value: "decode", label: m["components.search_box.project_options.Decode"] },
 ]
 
 const SearchBox = () => {
@@ -47,25 +60,36 @@ const SearchBox = () => {
       </PopoverTrigger>
       <PopoverContent className="w-[300px] border-0 p-0 shadow-none">
         <Command>
-          <CommandInput placeholder={m["components.search_box.placeholder"]()} />
-          <CommandEmpty>{m["components.search_box.no_results"]()}</CommandEmpty>
-          <CommandGroup>
-            {techOptions.map((tech) => (
-              <CommandItem
-                key={tech.value}
-                value={tech.value}
-                onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue)
-                  setOpen(false)
-                }}
-              >
-                <Check
-                  className={cn("mr-2 size-4", value === tech.value ? "opacity-100" : "opacity-0")}
-                />
-                {tech.label()}
-              </CommandItem>
-            ))}
-          </CommandGroup>
+          <CommandInput placeholder="Type a command or search..." />
+          <CommandList>
+            <CommandEmpty>{m["components.search_box.no_results"]()}</CommandEmpty>
+            <CommandGroup heading={m["components.search_box.tech_options.title"]()}>
+              {techOptions.map((tech) => (
+                <CommandItem key={tech.value}>
+                  <Calendar className="mr-2 size-4" />
+                  <span>{tech.label()}</span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading={m["components.search_box.experience_options.title"]()}>
+              {experienceOptions.map((experience) => (
+                <CommandItem key={experience.value}>
+                  <User className="mr-2 size-4" />
+                  <span>{experience.label()}</span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading={m["components.search_box.project_options.title"]()}>
+              {projectOptions.map((project) => (
+                <CommandItem key={project.value}>
+                  <CreditCard className="mr-2 size-4" />
+                  <span>{project.label()}</span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
         </Command>
       </PopoverContent>
     </Popover>
