@@ -1,8 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Calculator, Calendar, CreditCard, Search, Settings, Smile, User } from "lucide-react"
-
+import { Search, Sword, Swords, ShieldHalf } from "lucide-react"
 import { cn } from "@/utils/ui/styles"
 import { Button } from "@/components/react/radix-ui/Button"
 import {
@@ -11,7 +10,6 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
-  CommandShortcut,
   CommandList,
   CommandSeparator,
 } from "@/components/react/radix-ui/Command"
@@ -66,7 +64,7 @@ const SearchBox = () => {
             <CommandGroup heading={m["components.search_box.tech_options.title"]()}>
               {techOptions.map((tech) => (
                 <CommandItem key={tech.value}>
-                  <Calendar className="mr-2 size-4" />
+                  <Swords className="mr-2 size-4" />
                   <span>{tech.label()}</span>
                 </CommandItem>
               ))}
@@ -75,7 +73,7 @@ const SearchBox = () => {
             <CommandGroup heading={m["components.search_box.experience_options.title"]()}>
               {experienceOptions.map((experience) => (
                 <CommandItem key={experience.value}>
-                  <User className="mr-2 size-4" />
+                  <Sword className="mr-2 size-4" />
                   <span>{experience.label()}</span>
                 </CommandItem>
               ))}
@@ -84,7 +82,7 @@ const SearchBox = () => {
             <CommandGroup heading={m["components.search_box.project_options.title"]()}>
               {projectOptions.map((project) => (
                 <CommandItem key={project.value}>
-                  <CreditCard className="mr-2 size-4" />
+                  <ShieldHalf className="mr-2 size-4" />
                   <span>{project.label()}</span>
                 </CommandItem>
               ))}
