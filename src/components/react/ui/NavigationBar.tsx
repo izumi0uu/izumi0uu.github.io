@@ -10,7 +10,6 @@ import * as m from "@/paraglide/messages"
 
 import { cn } from "@/utils/ui/styles"
 import { Link } from "@radix-ui/react-navigation-menu"
-// import { Icons } from "@/components/icons"
 
 const NavigationBar = () => {
   return (
