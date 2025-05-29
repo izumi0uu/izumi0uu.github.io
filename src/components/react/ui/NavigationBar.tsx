@@ -1,7 +1,7 @@
 "use client"
 
-import * as React from "react"
-import { Button } from "@/components/react/radix-ui/Button"
+// import { Button } from "@/components/react/radix-ui/Button"
+import { ButtonNew as Button } from "@/components/react/radix-ui/ButtonNew"
 import { SearchBox } from "@/components/react/ui/SearchBox"
 
 import { CONFIG_CLIENT } from "@/config/client"
