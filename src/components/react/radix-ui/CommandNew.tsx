@@ -45,11 +45,11 @@ const CommandInput = React.forwardRef<
     className="border-outline bg-surface dark:bg-surface-variant focus-within:border-primary flex items-center border-2 px-3 shadow-[2px_2px_0_0_var(--color-outline)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none dark:hover:shadow-none"
     cmdk-input-wrapper=""
   >
-    <Search className="mr-2 size-4 shrink-0 opacity-50" />
+    <Search className="text-on-surface-variant mr-2 size-4 shrink-0 opacity-50" />
     <CommandPrimitive.Input
       ref={ref}
       className={cn(
-        "placeholder:text-muted-foreground flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50",
+        "text-on-surface placeholder:text-on-surface-variant flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50",
         className
       )}
       {...props}
