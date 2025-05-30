@@ -91,7 +91,7 @@ const CommandGroup = React.forwardRef<
   <CommandPrimitive.Group
     ref={ref}
     className={cn(
-      "text-foreground [&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:uppercase",
+      "text-on-surface-variant [&_[cmdk-group-heading]]:text-on-surface-variant overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:uppercase",
       className
     )}
     {...props}
@@ -119,7 +119,11 @@ const CommandItem = React.forwardRef<
   <CommandPrimitive.Item
     ref={ref}
     className={cn(
-      "aria-selected:bg-accent aria-selected:text-accent-foreground relative flex cursor-default items-center border-b-2 border-black p-2 transition-all outline-none select-none hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:border-white dark:bg-zinc-800 dark:hover:shadow-none",
+      "text-on-surface relative flex cursor-default items-center rounded-md p-2 text-sm outline-none select-none",
+      "aria-selected:bg-primary-container aria-selected:text-on-primary-container",
+      "hover:bg-on-surface hover:bg-opacity-[.08]",
+      "focus:bg-on-surface focus:bg-opacity-[.12]",
+      "data-[disabled]:pointer-events-none data-[disabled]:opacity-40",
       className
     )}
     {...props}
