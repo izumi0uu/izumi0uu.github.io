@@ -42,7 +42,7 @@ const CommandInput = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
 >(({ className, ...props }, ref) => (
   <div
-    className="border-outline bg-surface dark:bg-surface-variant focus-within:border-primary flex items-center border-2 px-3 shadow-[2px_2px_0_0_var(--color-outline)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none dark:shadow-[2px_2px_0_0_var(--color-outline)] dark:hover:shadow-none"
+    className="border-outline bg-surface dark:bg-surface-variant focus-within:border-primary flex items-center border-2 px-3 shadow-[2px_2px_0_0_var(--color-outline)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none dark:hover:shadow-none"
     cmdk-input-wrapper=""
   >
     <Search className="mr-2 size-4 shrink-0 opacity-50" />
