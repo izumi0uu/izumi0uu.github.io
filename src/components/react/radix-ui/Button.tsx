@@ -18,7 +18,20 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-on-secondary hover:bg-secondary-container hover:text-on-secondary-container",
         ghost: "text-content hover:bg-surface-container hover:text-primary",
-        link: "text-primary hover:text-link-hover underline-offset-4 hover:underline",
+        link: "text-link hover:text-link-hover underline-offset-4 hover:underline",
+        success: "bg-success text-on-success hover:bg-success/90",
+        warning: "bg-warning text-on-warning hover:bg-warning/90",
+        info: "bg-info text-on-info hover:bg-info/90",
+        "primary-container":
+          "bg-primary-container text-on-primary-container hover:bg-primary-container/80",
+        "secondary-container":
+          "bg-secondary-container text-on-secondary-container hover:bg-secondary-container/80",
+        "success-container":
+          "bg-success-container text-on-success-container hover:bg-success-container/80",
+        "error-container": "bg-error-container text-on-error-container hover:bg-error-container/80",
+        "warning-container":
+          "bg-warning-container text-on-warning-container hover:bg-warning-container/80",
+        "info-container": "bg-info-container text-on-info-container hover:bg-info-container/80",
         brutal:
           "border-outline bg-primary text-on-primary rounded-sm border-2 px-8 py-4 shadow-[4px_4px_0_0_var(--color-outline)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none",
         "brutal-normal":

@@ -16,7 +16,7 @@
 @plugin "tailwindcss-animate";
 
 /* === 设计令牌层 === */
-/* 基础原子颜色定义 (@theme 指令) */
+/* 基础原子颜色定义 */
 @import "./theme/foundation.css";
 
 /* 语义化主题系统 (主题切换逻辑) */

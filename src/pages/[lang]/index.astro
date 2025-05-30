@@ -2,7 +2,7 @@
 import Base from "@/layouts/Base.astro";
 import { getPageMetadata } from "@/utils/content/metadata";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
-import { SemanticColorExamples } from "@/components/react/examples/SemanticColorExamples";
+import { ButtonExamples } from "@/components/react/examples/ButtonExamples";
 
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
@@ -22,7 +22,7 @@ const metadata = getPageMetadata("");
       <h1 class="text-4xl font-bold text-on-surface mb-4">
         {lang === "zh" ? "Tailwind CSS v4 主题演示" : "Tailwind CSS v4 Theme Showcase"}
       </h1>
-      <article class="prose lg:prose-xl">
+      <article class="prose lg:prose-xl text-content">
         <h1>Garlic bread with cheese: What the science tells us</h1>
         <p>
           For years parents have espoused the health benefits of eating garlic bread with cheese to their
@@ -35,10 +35,18 @@ const metadata = getPageMetadata("");
         </p>
         <!-- ... -->
       </article>
-      <div class="animate-fade-in">
+      <div class="animate-fade-in text-content">
         这段文字会淡入显示。
       </div>
     </section>
+
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold text-headings mb-6 border-b border-outline pb-2">
+        {lang === "zh" ? "按钮组件示例 (React)" : "Button Component Examples (React)"}
+      </h2>
+      <ButtonExamples client:visible />
+    </section>
+
     <div class="container mx-auto px-4 py-8">
       <h1 class="text-4xl font-bold mb-8 text-center text-on-surface">
         {lang === "zh" ? "Typography 插件测试" : "Typography Plugin Test"}
@@ -174,7 +182,66 @@ const metadata = getPageMetadata("");
           <blockquote>这是一个自定义边框颜色的引用</blockquote>
         </div>
       </section>
+      
+      <!-- Tailwind v4 语义化变量演示 -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4 text-on-surface">
+          {lang === "zh" ? "Tailwind v4 语义化变量演示" : "Tailwind v4 Semantic Variables Demo"}
+        </h2>
+        
+        <!-- 颜色系统演示 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          <!-- 主要颜色 -->
+          <div class="bg-primary text-on-primary p-4 rounded-lg">
+            <h4 class="font-semibold mb-2">Primary</h4>
+            <p>bg-primary + text-on-primary</p>
+          </div>
+          
+          <!-- 次要颜色 -->
+          <div class="bg-secondary text-on-secondary p-4 rounded-lg">
+            <h4 class="font-semibold mb-2">Secondary</h4>
+            <p>bg-secondary + text-on-secondary</p>
+          </div>
+          
+          <!-- 成功状态 -->
+          <div class="bg-success text-on-success p-4 rounded-lg">
+            <h4 class="font-semibold mb-2">Success</h4>
+            <p>bg-success + text-on-success</p>
+          </div>
+          
+          <!-- 错误状态 -->
+          <div class="bg-error text-on-error p-4 rounded-lg">
+            <h4 class="font-semibold mb-2">Error</h4>
+            <p>bg-error + text-on-error</p>
+          </div>
+          
+          <!-- 警告状态 -->
+          <div class="bg-warning text-on-warning p-4 rounded-lg">
+            <h4 class="font-semibold mb-2">Warning</h4>
+            <p>bg-warning + text-on-warning</p>
+          </div>
+          
+          <!-- 信息状态 -->
+          <div class="bg-info text-on-info p-4 rounded-lg">
+            <h4 class="font-semibold mb-2">Info</h4>
+            <p>bg-info + text-on-info</p>
+          </div>
+        </div>
+        
+        <!-- 表面层次演示 -->
+        <div class="bg-surface-container-lowest p-6 rounded-lg">
+          <h4 class="text-on-surface font-semibold mb-4">表面层次系统</h4>
+          <div class="bg-surface-container-low p-4 rounded mb-4">
+            <div class="bg-surface-container p-4 rounded mb-4">
+              <div class="bg-surface-container-high p-4 rounded mb-4">
+                <div class="bg-surface-container-highest p-4 rounded text-center">
+                  <span class="text-on-surface">最高层内容</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
-  <SemanticColorExamples client:load />
 </Base>

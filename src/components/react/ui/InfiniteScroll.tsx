@@ -194,4 +194,4 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
   )
 }
 
-export { InfiniteScroll }
+export default InfiniteScroll

@@ -1,0 +1,234 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getPageMetadata } from "@/utils/content/metadata";
+import { SUPPORTED_LOCALES } from "@/config/i18n";
+
+export async function getStaticPaths() {
+  return SUPPORTED_LOCALES.map((lang) => ({
+    params: { lang },
+  }));
+}
+
+const { lang } = Astro.params;
+const metadata = getPageMetadata("");
+---
+
+<Base {metadata}>
+  <main class="bg-base mx-auto min-h-screen px-4 py-8">
+    <div class="max-w-6xl mx-auto">
+      <header class="mb-12">
+        <h1 class="text-headings text-4xl font-bold mb-4">
+          {lang === "zh" ? "语义化工具类测试页面" : "Semantic Utility Classes Test"}
+        </h1>
+        <p class="text-content-secondary text-lg">
+          {lang === "zh" ? 
+            "此页面用于测试 Tailwind v4 是否正确生成了所有语义化变量对应的工具类" : 
+            "This page tests if Tailwind v4 correctly generates utility classes for all semantic variables"
+          }
+        </p>
+        <div class="theme-indicator text-content-secondary text-sm mt-2">
+          当前主题：
+        </div>
+      </header>
+
+      <!-- 主要颜色测试 -->
+      <section class="mb-12">
+        <h2 class="text-headings text-2xl font-semibold mb-6">主要颜色系统 (Primary Colors)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-primary text-on-primary p-4 rounded-lg">
+            <h3 class="font-semibold">bg-primary</h3>
+            <p class="text-on-primary">text-on-primary</p>
+          </div>
+          <div class="bg-primary-container text-on-primary-container p-4 rounded-lg">
+            <h3 class="font-semibold">bg-primary-container</h3>
+            <p class="text-on-primary-container">text-on-primary-container</p>
+          </div>
+          <div class="bg-secondary text-on-secondary p-4 rounded-lg">
+            <h3 class="font-semibold">bg-secondary</h3>
+            <p class="text-on-secondary">text-on-secondary</p>
+          </div>
+          <div class="bg-secondary-container text-on-secondary-container p-4 rounded-lg">
+            <h3 class="font-semibold">bg-secondary-container</h3>
+            <p class="text-on-secondary-container">text-on-secondary-container</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 功能状态颜色测试 -->
+      <section class="mb-12">
+        <h2 class="text-headings text-2xl font-semibold mb-6">功能状态颜色 (Functional Colors)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-success text-on-success p-4 rounded-lg">
+            <h3 class="font-semibold">✅ bg-success</h3>
+            <p class="text-on-success">text-on-success</p>
+          </div>
+          <div class="bg-error text-on-error p-4 rounded-lg">
+            <h3 class="font-semibold">❌ bg-error</h3>
+            <p class="text-on-error">text-on-error</p>
+          </div>
+          <div class="bg-warning text-on-warning p-4 rounded-lg">
+            <h3 class="font-semibold">⚠️ bg-warning</h3>
+            <p class="text-on-warning">text-on-warning</p>
+          </div>
+          <div class="bg-info text-on-info p-4 rounded-lg">
+            <h3 class="font-semibold">ℹ️ bg-info</h3>
+            <p class="text-on-info">text-on-info</p>
+          </div>
+        </div>
+        
+        <!-- 容器变体 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+          <div class="bg-success-container text-on-success-container p-4 rounded-lg">
+            <h3 class="font-semibold">✅ Container</h3>
+            <p class="text-on-success-container">success-container</p>
+          </div>
+          <div class="bg-error-container text-on-error-container p-4 rounded-lg">
+            <h3 class="font-semibold">❌ Container</h3>
+            <p class="text-on-error-container">error-container</p>
+          </div>
+          <div class="bg-warning-container text-on-warning-container p-4 rounded-lg">
+            <h3 class="font-semibold">⚠️ Container</h3>
+            <p class="text-on-warning-container">warning-container</p>
+          </div>
+          <div class="bg-info-container text-on-info-container p-4 rounded-lg">
+            <h3 class="font-semibold">ℹ️ Container</h3>
+            <p class="text-on-info-container">info-container</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 表面颜色测试 -->
+      <section class="mb-12">
+        <h2 class="text-headings text-2xl font-semibold mb-6">表面颜色系统 (Surface Colors)</h2>
+        <div class="bg-surface p-6 rounded-lg border border-outline">
+          <h3 class="text-on-surface font-semibold mb-4">bg-surface + text-on-surface</h3>
+          <div class="bg-surface-variant text-on-surface-variant p-4 rounded mb-4">
+            <p>bg-surface-variant + text-on-surface-variant</p>
+          </div>
+          <div class="bg-background text-on-background p-4 rounded">
+            <p>bg-background + text-on-background</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 容器层次系统测试 -->
+      <section class="mb-12">
+        <h2 class="text-headings text-2xl font-semibold mb-6">容器层次系统 (Container Hierarchy)</h2>
+        <div class="bg-surface-container-lowest p-6 rounded-lg">
+          <p class="text-content mb-4">surface-container-lowest</p>
+          <div class="bg-surface-container-low p-4 rounded">
+            <p class="text-content mb-4">surface-container-low</p>
+            <div class="bg-surface-container p-4 rounded">
+              <p class="text-content mb-4">surface-container</p>
+              <div class="bg-surface-container-high p-4 rounded">
+                <p class="text-content mb-4">surface-container-high</p>
+                <div class="bg-surface-container-highest p-4 rounded text-center">
+                  <p class="text-content">surface-container-highest</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 边框和轮廓测试 -->
+      <section class="mb-12">
+        <h2 class="text-headings text-2xl font-semibold mb-6">边框和轮廓 (Borders & Outlines)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-surface p-4 border-2 border-outline rounded-lg">
+            <h3 class="text-content font-semibold">border-outline</h3>
+            <p class="text-content-secondary">主要边框颜色</p>
+          </div>
+          <div class="bg-surface p-4 border-2 border-outline-variant rounded-lg">
+            <h3 class="text-content font-semibold">border-outline-variant</h3>
+            <p class="text-content-secondary">次要边框颜色</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 链接系统测试 -->
+      <section class="mb-12">
+        <h2 class="text-headings text-2xl font-semibold mb-6">链接系统 (Link Colors)</h2>
+        <div class="bg-surface p-6 rounded-lg border border-outline">
+          <p class="text-content mb-4">
+            这是一个 <a href="#" class="text-link hover:text-link-hover underline">普通链接 (text-link + hover:text-link-hover)</a> 的示例。
+          </p>
+          <p class="text-content">
+            这是一个 <a href="#" class="text-link-visited underline">已访问链接 (text-link-visited)</a> 的示例。
+          </p>
+        </div>
+      </section>
+
+      <!-- 文本层次系统测试 -->
+      <section class="mb-12">
+        <h2 class="text-headings text-2xl font-semibold mb-6">文本层次系统 (Text Hierarchy)</h2>
+        <div class="bg-surface p-6 rounded-lg border border-outline space-y-4">
+          <h3 class="text-headings text-xl font-semibold">text-headings</h3>
+          <p class="text-content">这是主要内容文本 (text-content)</p>
+          <p class="text-content-secondary">这是次要内容文本 (text-content-secondary)</p>
+          <p class="text-captions text-sm">这是说明文字或图片注释 (text-captions)</p>
+        </div>
+      </section>
+
+      <!-- 分层背景系统测试 -->
+      <section class="mb-12">
+        <h2 class="text-headings text-2xl font-semibold mb-6">分层背景系统 (Layered Backgrounds)</h2>
+        <div class="bg-base p-6 rounded-lg">
+          <h3 class="text-content font-semibold mb-4">bg-base (基础背景)</h3>
+          <div class="bg-base-secondary p-4 rounded mb-4">
+            <h4 class="text-content font-medium mb-2">bg-base-secondary</h4>
+            <div class="bg-base-tertiary p-4 rounded mb-4">
+              <h5 class="text-content font-medium mb-2">bg-base-tertiary</h5>
+              <div class="bg-base-code p-3 rounded font-mono text-sm mb-2">
+                <code class="text-content">bg-base-code (代码背景)</code>
+              </div>
+              <div class="bg-base-code-secondary p-3 rounded font-mono text-sm">
+                <code class="text-content">bg-base-code-secondary</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 透明度测试 -->
+      <section class="mb-12">
+        <h2 class="text-headings text-2xl font-semibold mb-6">透明度支持 (Opacity Support)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-primary/80 text-on-primary p-4 rounded-lg">
+            <h3 class="font-semibold">bg-primary/80</h3>
+            <p>80% 透明度</p>
+          </div>
+          <div class="bg-success/60 text-on-success p-4 rounded-lg">
+            <h3 class="font-semibold">bg-success/60</h3>
+            <p>60% 透明度</p>
+          </div>
+          <div class="bg-surface-container/90 text-content p-4 rounded-lg">
+            <h3 class="font-semibold">bg-surface-container/90</h3>
+            <p>90% 透明度</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 验证总结 -->
+      <section class="bg-surface-container p-6 rounded-lg border border-outline">
+        <h2 class="text-headings text-2xl font-semibold mb-4">🎯 验证总结</h2>
+        <div class="text-content space-y-2">
+          <p>✅ <strong>主要颜色系统</strong>：primary, secondary, tertiary 及其 container 和 on- 变体</p>
+          <p>✅ <strong>功能状态颜色</strong>：success, error, warning, info 及其 container 和 on- 变体</p>
+          <p>✅ <strong>表面颜色系统</strong>：background, surface, surface-variant 及其 on- 变体</p>
+          <p>✅ <strong>容器层次系统</strong>：5级容器层次 + dim/bright/tint</p>
+          <p>✅ <strong>边框轮廓系统</strong>：outline, outline-variant</p>
+          <p>✅ <strong>链接系统</strong>：link, link-hover, link-visited</p>
+          <p>✅ <strong>文本层次系统</strong>：headings, content, content-secondary, captions</p>
+          <p>✅ <strong>分层背景系统</strong>：base, base-secondary, base-tertiary, base-code</p>
+          <p>✅ <strong>透明度支持</strong>：所有颜色都支持 /opacity 语法</p>
+        </div>
+        <div class="mt-6 p-4 bg-info-container text-on-info-container rounded">
+          <p class="font-medium">
+            如果您看到所有颜色都正确显示，说明 Tailwind v4 已成功生成了语义化工具类！
+          </p>
+        </div>
+      </section>
+    </div>
+  </main>
+</Base> 

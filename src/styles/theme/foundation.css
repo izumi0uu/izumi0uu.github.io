@@ -2,13 +2,14 @@
  * @file foundation.css
  * @description 基础设计令牌层 - 单一事实来源
  * 
- * 职责：定义所有原子化的颜色值作为CSS变量
- * - 使用 @theme 指令符合 Tailwind v4 规范
+ * 职责：定义所有原子化的颜色值及基础设计变量
+ * - 使用 @theme 指令生成 Tailwind 工具类
  * - 颜色值使用现代 OKLCH 颜色空间
  * - 按品牌色系、功能色系、中性色系分类组织
- * - 提供完整的明暗色阶
+ * src/styles/theme/foundation.css 
  */
 
+/* ===== 基础设计令牌定义 ===== */
 @theme {
   /* ===== 中性色系 (Neutral Scale) ===== */
   --color-neutral-0: oklch(1 0 0); /* 纯白 */
@@ -38,8 +39,7 @@
   --color-brand-sky-900: oklch(0.391 0.09 240.876);
   --color-brand-sky-950: oklch(0.293 0.066 243.157);
 
-  /* ===== 品牌酒红色系 (Brand Wine - 基于用户原始RGB精确转换) ===== */
-
+  /* ===== 品牌酒红色系 (Brand Wine) ===== */
   /* 酒红亮色模式色系 */
   --color-brand-wine-primary-light: oklch(0.451 0.063 21.69); /* rgb(144 75 63) */
   --color-brand-wine-on-primary-light: oklch(1 0 0); /* rgb(255 255 255) */
@@ -168,6 +168,89 @@
   --color-functional-info-900: oklch(0.391 0.09 240.876);
   --color-functional-info-950: oklch(0.293 0.066 243.157);
 
+  /* ===== 语义化主题变量 - 默认值 ===== */
+  /* 这些变量会生成对应的工具类 */
+
+  /* --- 主要颜色 (Primary) --- */
+  --color-primary: var(--color-brand-sky-500);
+  --color-on-primary: var(--color-neutral-0);
+  --color-primary-container: var(--color-brand-sky-100);
+  --color-on-primary-container: var(--color-brand-sky-700);
+
+  /* --- 次要颜色 (Secondary) --- */
+  --color-secondary: var(--color-neutral-500);
+  --color-on-secondary: var(--color-neutral-0);
+  --color-secondary-container: var(--color-neutral-200);
+  --color-on-secondary-container: var(--color-neutral-700);
+
+  /* --- 第三颜色 (Tertiary) --- */
+  --color-tertiary: var(--color-brand-sky-600);
+  --color-on-tertiary: var(--color-neutral-0);
+  --color-tertiary-container: var(--color-brand-sky-50);
+  --color-on-tertiary-container: var(--color-brand-sky-800);
+
+  /* --- 功能色系 --- */
+  --color-error: var(--color-functional-error-500);
+  --color-on-error: var(--color-neutral-0);
+  --color-error-container: var(--color-functional-error-100);
+  --color-on-error-container: var(--color-functional-error-700);
+
+  --color-success: var(--color-functional-success-500);
+  --color-on-success: var(--color-neutral-0);
+  --color-success-container: var(--color-functional-success-100);
+  --color-on-success-container: var(--color-functional-success-700);
+
+  --color-warning: var(--color-functional-warning-500);
+  --color-on-warning: var(--color-neutral-900);
+  --color-warning-container: var(--color-functional-warning-100);
+  --color-on-warning-container: var(--color-functional-warning-700);
+
+  --color-info: var(--color-functional-info-500);
+  --color-on-info: var(--color-neutral-0);
+  --color-info-container: var(--color-functional-info-100);
+  --color-on-info-container: var(--color-functional-info-700);
+
+  /* --- 表面色系 (Surface) --- */
+  --color-background: var(--color-neutral-0);
+  --color-on-background: var(--color-neutral-900);
+
+  --color-surface: var(--color-neutral-50);
+  --color-on-surface: var(--color-neutral-900);
+  --color-surface-variant: var(--color-neutral-100);
+  --color-on-surface-variant: var(--color-neutral-600);
+
+  /* --- 容器系统 --- */
+  --color-surface-container-lowest: var(--color-neutral-0);
+  --color-surface-container-low: var(--color-neutral-50);
+  --color-surface-container: var(--color-neutral-100);
+  --color-surface-container-high: var(--color-neutral-200);
+  --color-surface-container-highest: var(--color-neutral-300);
+
+  --color-surface-dim: var(--color-neutral-100);
+  --color-surface-bright: var(--color-neutral-0);
+  --color-surface-tint: var(--color-primary);
+
+  /* --- 轮廓色系 (Outline) --- */
+  --color-outline: var(--color-neutral-300);
+  --color-outline-variant: var(--color-neutral-200);
+
+  /* --- 语义化别名 (Semantic Aliases) --- */
+  --color-content: var(--color-on-surface);
+  --color-content-secondary: var(--color-on-surface-variant);
+  --color-headings: var(--color-on-background);
+  --color-captions: var(--color-on-surface-variant);
+
+  --color-link: var(--color-primary);
+  --color-link-hover: var(--color-brand-sky-600);
+  --color-link-visited: var(--color-brand-sky-700);
+
+  /* --- 分层背景系统 --- */
+  --color-base: var(--color-background);
+  --color-base-secondary: var(--color-surface);
+  --color-base-tertiary: var(--color-surface-variant);
+  --color-base-code: var(--color-surface-container);
+  --color-base-code-secondary: var(--color-surface-container-high);
+
   /* ===== 其他设计令牌 ===== */
 
   /* 字体系统 */
@@ -229,27 +312,18 @@
   --breakpoint-3xl: 1920px;
 }
 
-/* ===== Global base styles ===== */
-
-/* Global font rendering optimization - applied to all elements */
+/* ===== 全局基础样式 ===== */
 html {
-  /* Font smoothing rendering */
+  font-family: var(--font-family-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  /* Text rendering quality optimization */
   text-rendering: optimizeLegibility;
-
-  /* Default font system */
-  font-family: var(--font-family-sans);
 }
 
-/* Code element font optimization */
+/* 代码字体 */
 code,
-pre,
 kbd,
-samp {
-  /* Code font does not need ligatures, ensure clarity */
-  font-feature-settings: "liga" 0;
-  font-variant-ligatures: none;
+samp,
+pre {
+  font-family: var(--font-family-mono);
 }
