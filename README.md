@@ -1,10 +1,5 @@
 # izumi0uu's blog
 
-## font management
-
-base layer (zh-only/en-only)：make sure fonts are loaded and applied correctly
-fine layer (font-\* 系列)：provide more semantic and rich tools for developers
-
 ## file organization - utils, constants, utils
 
 Maintain Domain-Based Organization: Continue organizing files by domain across all three directories.
@@ -20,3 +15,110 @@ Beacuse of the use of ParaglideJS and use SSG and the complexity of module resol
 It's hard to import ParaglideJS's runtime functions in the client-side script.
 
 So I directly use ParaglideJS's runtime functions's copy in the client-side script.
+
+## font management
+
+字体管理系统采用分层架构，确保最佳的性能和用户体验：
+
+### 🏗️ 字体系统架构
+
+#### 基础层 (Foundation Layer)
+
+- **foundation.css**: 定义字体系统的 CSS 变量和设计令牌
+  - `--font-family-sans`: 混合中英文字体栈 (Inter + Noto Sans SC)
+  - `--font-family-mono`: 等宽字体栈 (JetBrains Mono)
+  - 为整个系统提供统一的字体变量
+
+#### 加载层 (Loading Layer)
+
+按优先级顺序加载字体资源：
+
+1. **FontLoader.astro** (本地字体 - 最高优先级)
+
+   - 使用 `astro-font` 优化本地字体加载
+   - 加载 Inter Variable Font (400-900 权重) + JetBrains Mono (400, 700)
+   - `preload: true` 确保关键字体优先加载
+   - `display: swap` 防止字体加载阻塞渲染
+   - 绑定选择器：`.font-en`、`.en-only`、`code`、`pre`、`kbd`
+
+2. **GoogleFontsLoader.astro** (中文字体)
+
+   - 从 Google Fonts 加载 Noto Sans SC (400, 500, 700)
+   - 使用 `preconnect` 优化连接性能
+   - 专门处理中文字符显示
+
+3. **FontUtils.astro** (工具层)
+   - 提供语言特定的字体类：`.zh-only`、`.en-only`、`.font-mixed`
+   - 扩展语义化字体类：`.font-sans`、`.font-mono`
+   - 高级优化类：`.font-inter-optimized`、`.font-mono-optimized`
+
+#### 应用层 (Application Layer)
+
+- **BaseHead.astro**: 统一管理字体加载顺序
+  ```astro
+  <FontLoader />          <!-- 1. 本地字体优先 -->
+  <GoogleFontsLoader />   <!-- 2. 中文字体补充 -->
+  <FontUtils />           <!-- 3. 工具类扩展 -->
+  ```
+
+### 🔄 运行机制与协调作用
+
+#### 字体加载策略
+
+1. **渐进式加载**: 本地字体 → 网络字体 → 工具类增强
+2. **回退机制**: 每个字体都配置了合适的 fallback 字体栈
+3. **性能优化**:
+   - 本地字体使用 `preload` 优先加载
+   - Google Fonts 使用 `preconnect` 预连接
+   - 所有字体使用 `display: swap` 避免 FOIT
+
+#### 字体绑定与选择器
+
+```css
+/* 自动绑定 (FontLoader) */
+.font-en, .en-only → Inter Variable Font
+code, pre, kbd, .font-code → JetBrains Mono
+
+/* 手动绑定 (FontUtils) */
+.zh-only → Noto Sans SC
+.font-mixed, .font-sans → CSS变量字体栈
+.font-mono → 等宽字体栈;
+```
+
+#### 多语言字体协调
+
+- **英文内容**: 使用 Inter 获得最佳排版效果
+- **中文内容**: 使用 Noto Sans SC 确保可读性
+- **混合内容**: 通过 CSS 变量实现智能字体栈回退
+- **代码内容**: 统一使用 JetBrains Mono
+
+### 🎯 使用指南
+
+#### 基本用法
+
+```html
+<!-- 纯英文元素 -->
+<div class="en-only">English Content</div>
+
+<!-- 纯中文元素 -->
+<div class="zh-only">中文内容</div>
+
+<!-- 中英混合元素 (默认) -->
+<div class="font-mixed">Mixed 混合内容</div>
+
+<!-- 代码元素 -->
+<code>console.log('hello world')</code>
+```
+
+#### 高级优化
+
+```html
+<!-- Inter高级特性优化 -->
+<div class="font-inter-optimized">Advanced Typography</div>
+
+<!-- 代码字体优化 (禁用连字) -->
+<code class="font-mono-optimized">=> != === !==</code>
+```
+
+**base layer (zh-only/en-only)**：确保字体正确加载和应用
+**fine layer (font-\* 系列)**：为开发者提供更多语义化和丰富的工具
