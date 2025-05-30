@@ -1,4 +1,4 @@
-import { ButtonNew } from "@/components/react/radix-ui/ButtonNew"
+import { Button } from "@/components/react/radix-ui/Button"
 
 /**
  * 按钮示例组件 - 展示所有语义化变体
@@ -12,21 +12,21 @@ export function ButtonExamples() {
       <div>
         <h2 className="text-headings mb-4 text-xl font-semibold">🎨 基础按钮变体</h2>
         <div className="flex flex-wrap items-center gap-3">
-          <ButtonNew variant="default">主要按钮</ButtonNew>
-          <ButtonNew variant="secondary">次要按钮</ButtonNew>
-          <ButtonNew variant="outline">轮廓按钮</ButtonNew>
-          <ButtonNew variant="ghost">幽灵按钮</ButtonNew>
-          <ButtonNew variant="link">链接按钮</ButtonNew>
+          <Button variant="default">主要按钮</Button>
+          <Button variant="secondary">次要按钮</Button>
+          <Button variant="outline">轮廓按钮</Button>
+          <Button variant="ghost">幽灵按钮</Button>
+          <Button variant="link">链接按钮</Button>
         </div>
       </div>
 
       <div>
         <h2 className="text-headings mb-4 text-xl font-semibold">⚡ 功能状态按钮</h2>
         <div className="flex flex-wrap items-center gap-3">
-          <ButtonNew variant="success">成功操作</ButtonNew>
-          <ButtonNew variant="destructive">危险操作 (Error)</ButtonNew>
-          <ButtonNew variant="warning">警告操作</ButtonNew>
-          <ButtonNew variant="info">信息提示</ButtonNew>
+          <Button variant="success">成功操作</Button>
+          <Button variant="destructive">危险操作 (Error)</Button>
+          <Button variant="warning">警告操作</Button>
+          <Button variant="info">信息提示</Button>
         </div>
       </div>
 
@@ -37,40 +37,40 @@ export function ButtonExamples() {
           语义色，提供更柔和的背景，通常用于次级强调或信息区域内的按钮。
         </p>
         <div className="flex flex-wrap items-center gap-3">
-          <ButtonNew variant="primary-container">主色容器</ButtonNew>
-          <ButtonNew variant="secondary-container">次色容器</ButtonNew>
-          <ButtonNew variant="success-container">成功容器</ButtonNew>
-          <ButtonNew variant="error-container">错误容器</ButtonNew>
-          <ButtonNew variant="warning-container">警告容器</ButtonNew>
-          <ButtonNew variant="info-container">信息容器</ButtonNew>
+          <Button variant="primary-container">主色容器</Button>
+          <Button variant="secondary-container">次色容器</Button>
+          <Button variant="success-container">成功容器</Button>
+          <Button variant="error-container">错误容器</Button>
+          <Button variant="warning-container">警告容器</Button>
+          <Button variant="info-container">信息容器</Button>
         </div>
       </div>
 
       <div>
         <h2 className="text-headings mb-4 text-xl font-semibold">🎯 Brutal 风格按钮 (实验性)</h2>
         <div className="flex flex-wrap items-center gap-4">
-          <ButtonNew variant="brutal">Brutal 主色</ButtonNew>
-          <ButtonNew variant="brutal-normal">Brutal 普通 (基于Surface)</ButtonNew>
+          <Button variant="brutal">Brutal 主色</Button>
+          <Button variant="brutal-normal">Brutal 普通 (基于Surface)</Button>
         </div>
       </div>
 
       <div>
         <h2 className="text-headings mb-4 text-xl font-semibold">📏 尺寸变体 (以主色容器为例)</h2>
         <div className="flex flex-wrap items-end gap-3">
-          <ButtonNew size="sm" variant="primary-container">
+          <Button size="sm" variant="primary-container">
             小按钮
-          </ButtonNew>
-          <ButtonNew size="default" variant="primary-container">
+          </Button>
+          <Button size="default" variant="primary-container">
             默认按钮
-          </ButtonNew>
-          <ButtonNew size="lg" variant="primary-container">
+          </Button>
+          <Button size="lg" variant="primary-container">
             大按钮
-          </ButtonNew>
-          <ButtonNew size="icon" variant="primary-container">
+          </Button>
+          <Button size="icon" variant="primary-container">
             <span role="img" aria-label="icon">
               🔥
             </span>
-          </ButtonNew>
+          </Button>
         </div>
       </div>
 
@@ -81,11 +81,11 @@ export function ButtonExamples() {
           <div className="border-outline rounded-lg border p-4">
             <h3 className="text-content mb-3 font-medium">表单操作</h3>
             <div className="flex flex-wrap items-center gap-3">
-              <ButtonNew variant="default">保存更改</ButtonNew>
-              <ButtonNew variant="secondary">取消</ButtonNew>
-              <ButtonNew variant="destructive" className="ml-auto">
+              <Button variant="default">保存更改</Button>
+              <Button variant="secondary">取消</Button>
+              <Button variant="destructive" className="ml-auto">
                 删除记录
-              </ButtonNew>
+              </Button>
             </div>
           </div>
 
@@ -93,12 +93,12 @@ export function ButtonExamples() {
           <div className="border-outline rounded-lg border p-4">
             <h3 className="text-content mb-3 font-medium">通知与提示</h3>
             <div className="flex flex-wrap items-center gap-3">
-              <ButtonNew variant="success-container">✅ 任务已完成</ButtonNew>
-              <ButtonNew variant="warning-container">⚠️ 注意：低库存</ButtonNew>
-              <ButtonNew variant="info-container">ℹ️ 查看版本更新</ButtonNew>
-              <ButtonNew variant="error-container" className="ml-auto">
+              <Button variant="success-container">✅ 任务已完成</Button>
+              <Button variant="warning-container">⚠️ 注意：低库存</Button>
+              <Button variant="info-container">ℹ️ 查看版本更新</Button>
+              <Button variant="error-container" className="ml-auto">
                 ❌ 连接超时
-              </ButtonNew>
+              </Button>
             </div>
           </div>
 
@@ -106,9 +106,9 @@ export function ButtonExamples() {
           <div className="border-outline rounded-lg border p-4">
             <h3 className="text-content mb-3 font-medium">导航与探索</h3>
             <div className="flex flex-wrap items-center gap-3">
-              <ButtonNew variant="link">了解更多详情</ButtonNew>
-              <ButtonNew variant="ghost">查看个人资料</ButtonNew>
-              <ButtonNew variant="outline">分享给朋友</ButtonNew>
+              <Button variant="link">了解更多详情</Button>
+              <Button variant="ghost">查看个人资料</Button>
+              <Button variant="outline">分享给朋友</Button>
             </div>
           </div>
         </div>
