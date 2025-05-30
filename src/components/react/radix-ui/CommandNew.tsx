@@ -15,7 +15,7 @@ const Command = React.forwardRef<
   <CommandPrimitive
     ref={ref}
     className={cn(
-      "flex size-full flex-col border-4 border-black bg-white p-6 transition-all dark:border-white dark:bg-zinc-800",
+      "bg-surface-container border-outline flex size-full flex-col border-4 p-6 transition-all",
       className
     )}
     {...props}
@@ -42,7 +42,7 @@ const CommandInput = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
 >(({ className, ...props }, ref) => (
   <div
-    className="flex items-center border-2 border-black bg-white px-3 shadow-[2px_2px_0_0_#000] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none dark:border-white dark:bg-zinc-800 dark:shadow-[2px_2px_0_0_#fff] dark:hover:shadow-none"
+    className="border-outline bg-surface dark:bg-surface-variant focus-within:border-primary flex items-center border-2 px-3 shadow-[2px_2px_0_0_var(--color-outline)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none dark:shadow-[2px_2px_0_0_var(--color-outline)] dark:hover:shadow-none"
     cmdk-input-wrapper=""
   >
     <Search className="mr-2 size-4 shrink-0 opacity-50" />
