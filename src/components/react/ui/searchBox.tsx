@@ -12,7 +12,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/react/radix-ui/Command"
+} from "@/components/react/radix-ui/CommandNew"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/react/radix-ui/Popover"
 
 import * as m from "@/paraglide/messages"
