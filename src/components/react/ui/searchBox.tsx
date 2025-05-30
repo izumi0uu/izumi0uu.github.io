@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { Search, Sword, Swords, ShieldHalf } from "lucide-react"
 import { Button } from "@/components/react/radix-ui/Button"
 import {
@@ -35,8 +36,8 @@ const projectOptions = [
 ]
 
 const SearchBox = () => {
-  const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState<string>("")
+  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState<string>("")
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
