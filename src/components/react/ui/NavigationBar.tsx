@@ -12,7 +12,7 @@ import { Link } from "@radix-ui/react-navigation-menu"
 
 const NavigationBar = () => {
   return (
-    <div className="container flex h-14 max-w-screen-2xl items-center">
+    <div className="container flex h-14 max-w-screen-2xl items-center px-8">
       <div className="flex gap-6 md:gap-10">
         <a className="hidden items-center justify-center space-x-2 lg:flex" href="/">
           <Button variant="brutal-normal" className="text-2xl">
