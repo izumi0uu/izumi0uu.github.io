@@ -35,9 +35,20 @@ const projectOptions = [
   { value: "decode", label: m["components.search_box.project_options.Decode"] },
 ]
 
+const allOptions = [...techOptions, ...experienceOptions, ...projectOptions]
+
 const SearchBox = () => {
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState<string>("")
+
+  const handleSelect = (currentValue: string) => {
+    setValue(currentValue === value ? "" : currentValue)
+    setOpen(false)
+  }
+
+  const getSelectedLabel = () => {
+    return allOptions.find((option) => option.value === value)?.label()
+  }
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -48,9 +59,7 @@ const SearchBox = () => {
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          {value
-            ? techOptions.find((tech) => tech.value === value)?.label()
-            : m["components.search_box.placeholder"]()}
+          {value ? getSelectedLabel() : m["components.search_box.placeholder"]()}
 
           <Search className="ml-2 h-4 w-4 shrink-0 opacity-100 transition-transform duration-200 ease-in-out hover:scale-125" />
         </Button>
@@ -62,7 +71,7 @@ const SearchBox = () => {
             <CommandEmpty>{m["components.search_box.no_results"]()}</CommandEmpty>
             <CommandGroup heading={m["components.search_box.tech_options.title"]()}>
               {techOptions.map((tech) => (
-                <CommandItem key={tech.value}>
+                <CommandItem key={tech.value} value={tech.value} onSelect={handleSelect}>
                   <Swords className="mr-2 size-4" />
                   <span>{tech.label()}</span>
                 </CommandItem>
@@ -71,7 +80,11 @@ const SearchBox = () => {
             <CommandSeparator />
             <CommandGroup heading={m["components.search_box.experience_options.title"]()}>
               {experienceOptions.map((experience) => (
-                <CommandItem key={experience.value}>
+                <CommandItem
+                  key={experience.value}
+                  value={experience.value}
+                  onSelect={handleSelect}
+                >
                   <Sword className="mr-2 size-4" />
                   <span>{experience.label()}</span>
                 </CommandItem>
@@ -80,7 +93,7 @@ const SearchBox = () => {
             <CommandSeparator />
             <CommandGroup heading={m["components.search_box.project_options.title"]()}>
               {projectOptions.map((project) => (
-                <CommandItem key={project.value}>
+                <CommandItem key={project.value} value={project.value} onSelect={handleSelect}>
                   <ShieldHalf className="mr-2 size-4" />
                   <span>{project.label()}</span>
                 </CommandItem>
