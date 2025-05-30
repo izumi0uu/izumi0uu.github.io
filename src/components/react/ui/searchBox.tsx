@@ -1,8 +1,6 @@
 "use client"
 
-import * as React from "react"
 import { Search, Sword, Swords, ShieldHalf } from "lucide-react"
-import { cn } from "@/utils/ui/styles"
 import { Button } from "@/components/react/radix-ui/Button"
 import {
   Command,
