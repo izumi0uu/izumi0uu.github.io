@@ -121,29 +121,13 @@ export default defineConfig({
       paraglideVitePlugin({
         project: "./project.inlang",
         outdir: "./src/paraglide",
-        /**
-         * Configure locale detection strategy priority order
-         * @description Determines how ParaglideJS detects the current locale
-         */
+        // Configure locale detection strategy priority order
         strategy: [
           "url", // Detect from URL path (important for SSG builds)
           "localStorage", // User stored language preference
           "cookie", // Server-side language preference
           "preferredLanguage", // Browser language detection
           "baseLocale", // Default fallback locale
-        ],
-        /**
-         * Configure URL patterns for localized routing
-         * @description Maps language codes to their URL patterns
-         */
-        urlPatterns: [
-          {
-            pattern: "/:path(.*)?",
-            localized: [
-              ["zh", "/zh/:path(.*)?"],
-              ["en", "/en/:path(.*)?"],
-            ],
-          },
         ],
       }),
     ],
