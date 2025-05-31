@@ -10,11 +10,16 @@ Consider Colocating Related Files: For very tightly coupled features, consider k
 
 ## i18n
 
+TODO(FIX):
+1.paraglideMiddleware 暂时不支持Astro的SSG模式2.不是默认语言的页面在路由跳转会发生默认语言到指定语言的闪烁切换
+
 use ParaglideJS's runtime functions's copy in the client-side script.
 
-partially use the custom functions to handle the session storage and after-session action.
+partially use the custom functions to handle the session storage and other things.
 
 ## font management
+
+TODO(FIX): 1.字体加载在路由切换/首次加载会切换fallback三次
 
 字体管理系统采用分层架构，确保最佳的性能和用户体验：
 
