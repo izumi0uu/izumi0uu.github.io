@@ -1,0 +1,23 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getPageMetadata } from "@/utils/content/metadata";
+import { SUPPORTED_LOCALES } from "@/config/i18n";
+
+export async function getStaticPaths() {
+  return SUPPORTED_LOCALES.map((lang) => ({
+    params: { lang },
+  }));
+}
+
+const { lang } = Astro.params;
+
+const metadata = getPageMetadata("lists/blog");
+---
+
+<Base {metadata}>
+  <main class="bg-base mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-on-surface mb-4">
+      Hello World
+    </h1>
+  </main>
+</Base>

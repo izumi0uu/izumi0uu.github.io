@@ -121,14 +121,14 @@ export default defineConfig({
       paraglideVitePlugin({
         project: "./project.inlang",
         outdir: "./src/paraglide",
-        // Configure locale detection strategy priority order
+        // Configure locale detection strategy for SSG mode
         strategy: [
-          "url", // Detect from URL path (important for SSG builds)
-          "localStorage", // User stored language preference
-          "cookie", // Server-side language preference
-          "preferredLanguage", // Browser language detection
-          "baseLocale", // Default fallback locale
+          "url", // Primary: URL-based detection (essential for SSG)
+          "localStorage", // User preference storage
+          "baseLocale", // Fallback to default locale
         ],
+        // Disable AsyncLocalStorage for static builds
+        disableAsyncLocalStorage: true,
       }),
     ],
   },
