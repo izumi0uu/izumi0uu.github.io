@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/react/radix-ui/Button"
-import { SearchBox } from "@/components/react/ui/SearchBox"
+import { Button } from "@/components/react/radix-ui/Button";
+import { SearchBox } from "@/components/react/ui/SearchBox";
 
-import { CONFIG_CLIENT } from "@/config/client"
-import { ROUTES } from "@/constants/routes"
-import * as m from "@/paraglide/messages"
+import { CONFIG_CLIENT } from "@/config/client";
+import { ROUTES } from "@/constants/routes";
+import * as m from "@/paraglide/messages";
 
-import { cn } from "@/utils/ui/styles"
+import { cn } from "@/utils/ui/styles";
 
 const NavigationBar = () => {
   return (
@@ -32,7 +32,7 @@ const NavigationBar = () => {
         <SearchBox />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export { NavigationBar }
+export { NavigationBar };
