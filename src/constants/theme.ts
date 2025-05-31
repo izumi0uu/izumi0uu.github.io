@@ -5,7 +5,7 @@
 const MODES = {
   light: "light",
   dark: "dark",
-} as const;
+} as const
 
 const THEMES = [
   {
@@ -24,25 +24,25 @@ const THEMES = [
     mode: MODES.dark,
     name: "wine-dark",
   },
-] as const;
+] as const
 
 const THEME_CONFIG = {
   MODE_CLASS: "dark",
   DATA_ATTRIBUTE: "data-theme",
   CHANGE_EVENT: "theme-change",
   LOCAL_STORAGE_KEY: "theme",
-} as const;
+} as const
 
 // for debugging
 const DEFAULT_THEMES = {
   light: THEMES[0],
   dark: THEMES[1],
-} as const;
+} as const
 
 // for debugging
 const WINE_THEMES = {
   light: THEMES[2],
   dark: THEMES[3],
-} as const;
+} as const
 
-export { MODES, THEMES, THEME_CONFIG, DEFAULT_THEMES, WINE_THEMES };
+export { MODES, THEMES, THEME_CONFIG, DEFAULT_THEMES, WINE_THEMES }
