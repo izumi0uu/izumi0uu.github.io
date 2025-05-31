@@ -10,11 +10,9 @@ Consider Colocating Related Files: For very tightly coupled features, consider k
 
 ## i18n
 
-Beacuse of the use of ParaglideJS and use SSG and the complexity of module resolution in browser environment, the i18n is a little bit complicated.
+use ParaglideJS's runtime functions's copy in the client-side script.
 
-It's hard to import ParaglideJS's runtime functions in the client-side script.
-
-So I directly use ParaglideJS's runtime functions's copy in the client-side script.
+partially use the custom functions to handle the session storage and after-session action.
 
 ## font management
 

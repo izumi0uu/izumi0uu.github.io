@@ -8,7 +8,6 @@ import { ROUTES } from "@/constants/routes"
 import * as m from "@/paraglide/messages"
 
 import { cn } from "@/utils/ui/styles"
-import { Link } from "@radix-ui/react-navigation-menu"
 
 const NavigationBar = () => {
   return (

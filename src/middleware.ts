@@ -1,11 +1,9 @@
 /**
  * @description in SSG pattern, the main effect of middleware is to prepare data for building and simulate the behavior of the development server.
  */
-export function onRequest(context: any, next: () => Promise<void>) {
-  // intercept data from a request
-  // optionally, modify the properties in `locals`
-  context.locals.title = "New title";
+import { paraglideMiddleware } from "./paraglide/server.js"
+import { defineMiddleware } from "astro:middleware"
 
-  // return a Response or the result of calling `next()`
-  return next();
-}
+export const onRequest = defineMiddleware(async (context, next) => {
+  return paraglideMiddleware(context.request, ({ request }) => next(request))
+})
