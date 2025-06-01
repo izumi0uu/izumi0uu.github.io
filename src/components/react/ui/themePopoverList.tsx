@@ -46,11 +46,35 @@ const ThemePopoverList: React.FC<ThemePopoverListProps> = ({ className }) => {
   };
 
   useEffect(() => {
+    updateThemeState();
 
+    const handleThemeChange = (event: Event) => {
+        const customEvent = event as ChangeThemeCustomEvent;
+        const newTheme = customEvent.detail.theme;
+        const prefix = getThemeNamePrefix(newTheme.name);
+        setCurrentThemePrefix(prefix);
+        
+        const themes = getAvailableThemePrefixes();
+        setAvailableThemes(themes);
+      };
+      document.addEventListener(CHANGE_EVENT, handleThemeChange);
+
+      return () => {
+        document.removeEventListener(CHANGE_EVENT, handleThemeChange);
+      };
   }, []);
 
   const handleThemeChange = (themePrefix: string) => {
+    try {
+        const nextTheme = switchToTheme(themePrefix);
+        const payload = { detail: { theme: nextTheme } } as ChangeThemeCustomEvent;
+        const themeChangeEvent = new CustomEvent(CHANGE_EVENT, payload);
 
+        // dispatch event
+        document.dispatchEvent(themeChangeEvent);
+    } catch (error) {
+        console.error(`Failed to switch theme: ${themePrefix}`, error);
+    }
   };
 
   return (
