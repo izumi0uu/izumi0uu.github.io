@@ -56,7 +56,10 @@
       "label": "Switch Theme",
       "light_mode": "Light",
       "dark_mode": "Dark",
-      "wine_mode": "Wine"
+      "wine_mode": "Wine",
+      "wine_theme": "Wine",
+      "default_theme": "Default",
+      "cancel": "Cancel"
     },
     "footer": {
       "copyright_text": "© {year} Izumi0uu. All rights reserved.",
@@ -90,6 +93,11 @@
         "Decode": "Decode"
       },
       "tips_placeholder": "Type a command or search..."
+    },
+    "mode_switcher": {
+      "label": "Switch Mode",
+      "light_mode": "Light",
+      "dark_mode": "Dark"
     }
   },
   "common": {

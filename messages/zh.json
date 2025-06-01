@@ -56,7 +56,10 @@
       "label": "切换主题",
       "light_mode": "亮色",
       "dark_mode": "暗色",
-      "wine_mode": "酒红"
+      "wine_mode": "酒红",
+      "wine_theme": "酒红",
+      "default_theme": "默认",
+      "cancel": "取消"
     },
     "footer": {
       "copyright_text": "© {year} Izumi0uu. 保留所有权利。",
@@ -99,6 +102,11 @@
         "title": "项目",
         "Decode": "Decode"
       }
+    },
+    "mode_switcher": {
+      "label": "切换模式",
+      "light_mode": "亮色",
+      "dark_mode": "暗色"
     }
   },
   "common": {
