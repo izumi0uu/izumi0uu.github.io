@@ -55,7 +55,7 @@ export const ModeToggleButton: React.FC<ModeToggleButtonProps> = ({ className })
       role="switch"
       variant="brutal"
       aria-checked={isDark}
-      aria-label={isDark ? "switch to light mode" : "switch to dark mode"}
+      aria-label={"mode-toggle-button"}
       onClick={handleToggle}
     >
       {isDark ? <Sun /> : <Moon />}
