@@ -32,6 +32,21 @@ interface ThemePopoverListProps {
   className?: string;
 }
 
+/**
+ * @description 主题前缀到 i18n 翻译的映射函数
+ * @param themePrefix - 主题前缀（如 "default", "wine"）
+ * @returns 翻译后的主题显示名称
+ */
+const getThemeDisplayName = (themePrefix: string): string => {
+  const themeMap: Record<string, () => string> = {
+    default: () => m["components.theme_switcher.themes.default"](),
+    wine: () => m["components.theme_switcher.themes.wine"](),
+  };
+
+  // 如果找到对应的翻译，使用翻译；否则返回首字母大写的原始前缀
+  return themeMap[themePrefix]?.() ?? themePrefix.charAt(0).toUpperCase() + themePrefix.slice(1);
+};
+
 const ThemePopoverList: React.FC<ThemePopoverListProps> = ({ className }) => {
   const [currentThemePrefix, setCurrentThemePrefix] = useState<string>("");
   const [availableThemes, setAvailableThemes] = useState<string[]>([]);
@@ -84,12 +99,13 @@ const ThemePopoverList: React.FC<ThemePopoverListProps> = ({ className }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="brutal">
+        <Button variant="brutal" className={className}>
           <Palette />
+          <span className="sr-only">{m["components.theme_switcher.label"]()}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>Appearance</DropdownMenuLabel>
+        <DropdownMenuLabel>{m["components.theme_switcher.label"]()}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {availableThemes.map((themePrefix) => (
           <DropdownMenuCheckboxItem
@@ -97,9 +113,10 @@ const ThemePopoverList: React.FC<ThemePopoverListProps> = ({ className }) => {
             checked={currentThemePrefix === themePrefix}
             onCheckedChange={() => handleThemeChange(themePrefix)}
           >
-            {themePrefix}
+            {getThemeDisplayName(themePrefix)}
           </DropdownMenuCheckboxItem>
         ))}
+        <DropdownMenuSeparator />
         <DropdownMenuCheckboxItem onCheckedChange={() => handleThemeChange("cancel")}>
           {m["components.theme_switcher.cancel"]()}
         </DropdownMenuCheckboxItem>

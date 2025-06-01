@@ -59,7 +59,11 @@
       "wine_mode": "Wine",
       "wine_theme": "Wine",
       "default_theme": "Default",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "themes": {
+        "default": "Default",
+        "wine": "Wine"
+      }
     },
     "footer": {
       "copyright_text": "© {year} Izumi0uu. All rights reserved.",

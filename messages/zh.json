@@ -59,7 +59,11 @@
       "wine_mode": "酒红",
       "wine_theme": "酒红",
       "default_theme": "默认",
-      "cancel": "取消"
+      "cancel": "取消",
+      "themes": {
+        "default": "默认",
+        "wine": "酒红"
+      }
     },
     "footer": {
       "copyright_text": "© {year} Izumi0uu. 保留所有权利。",
