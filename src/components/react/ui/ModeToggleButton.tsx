@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 import { Button } from "@/components/react/radix-ui/Button";
-import { clsx } from "clsx";
 import { THEME_CONFIG } from "@/constants/theme";
 import { getNextTheme } from "@/utils/ui/theme";
 
@@ -56,10 +55,10 @@ export const ModeToggleButton: React.FC<ModeToggleButtonProps> = ({ className })
       role="switch"
       variant="brutal"
       aria-checked={isDark}
-      aria-label={isDark ? "切换到亮色主题" : "切换到暗色主题"}
+      aria-label={isDark ? "switch to light mode" : "switch to dark mode"}
       onClick={handleToggle}
     >
-      {isDark ? <Moon /> : <Sun />}
+      {isDark ? <Sun /> : <Moon />}
     </Button>
   );
 };
