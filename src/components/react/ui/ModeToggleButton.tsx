@@ -16,12 +16,12 @@ const ModeToggleButton: React.FC<ModeToggleButtonProps> = ({ className }) => {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    const checkTheme = () => {
+    const checkCurrentMode = () => {
       const isDarkMode = document.documentElement.classList.contains("dark");
       setIsDark(isDarkMode);
     };
 
-    checkTheme();
+    checkCurrentMode();
 
     const handleThemeChange = (event: Event) => {
       const customEvent = event as ChangeThemeCustomEvent;
