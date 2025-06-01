@@ -5,7 +5,7 @@ import { SplitText as GSAPSplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(ScrollTrigger, GSAPSplitText);
 
-export interface SplitTextProps {
+interface SplitTextProps {
   text: string;
   className?: string;
   delay?: number;
@@ -128,4 +128,4 @@ const SplitText: React.FC<SplitTextProps> = ({
   );
 };
 
-export default SplitText;
+export { SplitText, type SplitTextProps };
