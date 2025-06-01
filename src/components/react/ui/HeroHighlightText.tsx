@@ -3,27 +3,6 @@ import { cn } from "@/utils/ui/styles";
 import { motion } from "motion/react";
 import React from "react";
 
-const HeroHighlight = ({
-  children,
-  className,
-  containerClassName,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  containerClassName?: string;
-}) => {
-  return (
-    <div
-      className={cn(
-        "bg-surface-container relative flex h-[40rem] w-full items-center justify-center transition-colors duration-300",
-        containerClassName
-      )}
-    >
-      <div className={cn("relative z-20", className)}>{children}</div>
-    </div>
-  );
-};
-
 const Highlight = ({
   children,
   className,
@@ -77,4 +56,4 @@ const Highlight = ({
   );
 };
 
-export { HeroHighlight, Highlight };
+export { Highlight };

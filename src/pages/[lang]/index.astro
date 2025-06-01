@@ -4,7 +4,8 @@ import { getPageMetadata } from "@/utils/content/metadata";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
 import { SplitText } from "@/components/react/ui/SpiltText";
 import { FallingText } from "@/components/react/ui/FallingText";
-import { HeroHighlight, Highlight } from "@/components/react/ui/HeroHighlightText";
+import { Highlight } from "@/components/react/ui/HeroHighlightText";
+import { cn } from "@/utils/ui/styles";
 import * as m from "@/paraglide/messages";
 
 export async function getStaticPaths() {
@@ -23,7 +24,12 @@ const fallingText = m["pages.home.falling_text"]();
 
 <Base {metadata}>
   <main class="bg-background px-4 py-8 min-h-screen">
-    <section class="mb-12 flex justify-center items-center h-[30vh] w-full">
+    <section
+      class={cn(
+        "mb-12 flex flex-col justify-center items-center h-[30vh] w-full",
+        "bg-surface-container relative flex h-[40rem] w-full items-center justify-center transition-colors duration-300"
+      )}
+    >
       <SplitText
         text={"Hello, I'm Izumi0uu!"}
         className="text-8xl font-semibold text-center text-headings"
@@ -34,6 +40,14 @@ const fallingText = m["pages.home.falling_text"]();
         threshold={0.1}
         client:only="react"
       />
+      <div class="relative z-20">
+        <h1
+          class="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-on-surface max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto"
+        >
+          With insomnia, nothing&apos;s real. Everything is far away. Everything is a{" "}
+          <Highlight variant="primary" className="mx-1"> copy, of a copy, of a copy. </Highlight>
+        </h1>
+      </div>
     </section>
 
     <section class="mb-12 flex justify-center items-center h-[30vh] w-full">
@@ -48,20 +62,6 @@ const fallingText = m["pages.home.falling_text"]();
         mouseConstraintStiffness={0.9}
         client:load
       />
-    </section>
-
-    <section class="mb-12 flex justify-center items-center min-h-[50vh] w-full">
-      <HeroHighlight
-        client:only="react"
-        containerClassName="h-auto py-16 rounded-2xl shadow-lg border border-outline/20"
-      >
-        <h1
-          class="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-on-surface max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto"
-        >
-          With insomnia, nothing&apos;s real. Everything is far away. Everything is a{" "}
-          <Highlight variant="primary" className="mx-1"> copy, of a copy, of a copy. </Highlight>
-        </h1>
-      </HeroHighlight>
     </section>
 
     <!-- 语义化主题演示区域 -->
