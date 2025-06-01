@@ -49,64 +49,60 @@ const ThemePopoverList: React.FC<ThemePopoverListProps> = ({ className }) => {
     updateThemeState();
 
     const handleThemeChange = (event: Event) => {
-        const customEvent = event as ChangeThemeCustomEvent;
-        const newTheme = customEvent.detail.theme;
-        const prefix = getThemeNamePrefix(newTheme.name);
-        setCurrentThemePrefix(prefix);
-        
-        const themes = getAvailableThemePrefixes();
-        setAvailableThemes(themes);
-      };
-      document.addEventListener(CHANGE_EVENT, handleThemeChange);
+      const customEvent = event as ChangeThemeCustomEvent;
+      const newTheme = customEvent.detail.theme;
+      const prefix = getThemeNamePrefix(newTheme.name);
+      setCurrentThemePrefix(prefix);
 
-      return () => {
-        document.removeEventListener(CHANGE_EVENT, handleThemeChange);
-      };
+      const themes = getAvailableThemePrefixes();
+      setAvailableThemes(themes);
+    };
+    document.addEventListener(CHANGE_EVENT, handleThemeChange);
+
+    return () => {
+      document.removeEventListener(CHANGE_EVENT, handleThemeChange);
+    };
   }, []);
 
   const handleThemeChange = (themePrefix: string) => {
-    try {
-        const nextTheme = switchToTheme(themePrefix);
-        const payload = { detail: { theme: nextTheme } } as ChangeThemeCustomEvent;
-        const themeChangeEvent = new CustomEvent(CHANGE_EVENT, payload);
+    if (themePrefix === "cancel") return;
 
-        // dispatch event
-        document.dispatchEvent(themeChangeEvent);
+    try {
+      const nextTheme = switchToTheme(themePrefix);
+      const payload = { detail: { theme: nextTheme } } as ChangeThemeCustomEvent;
+      const themeChangeEvent = new CustomEvent(CHANGE_EVENT, payload);
+
+      // dispatch event
+      document.dispatchEvent(themeChangeEvent);
     } catch (error) {
-        console.error(`Failed to switch theme: ${themePrefix}`, error);
+      console.error(`Failed to switch theme: ${themePrefix}`, error);
     }
   };
 
   return (
     <DropdownMenu>
-    <DropdownMenuTrigger asChild>
-      <Button variant="brutal"><Palette /></Button>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent className="w-56">
-      <DropdownMenuLabel>Appearance</DropdownMenuLabel>
-      <DropdownMenuSeparator />
-      <DropdownMenuCheckboxItem
-        checked={showStatusBar}
-        onCheckedChange={setShowStatusBar}
-      >
-        Status Bar
-      </DropdownMenuCheckboxItem>
-      <DropdownMenuCheckboxItem
-        checked={showActivityBar}
-        onCheckedChange={setShowActivityBar}
-        disabled
-      >
-        Activity Bar
-      </DropdownMenuCheckboxItem>
-      <DropdownMenuCheckboxItem
-        checked={showPanel}
-        onCheckedChange={setShowPanel}
-      >
-        Panel
-      </DropdownMenuCheckboxItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
-)
+      <DropdownMenuTrigger asChild>
+        <Button variant="brutal">
+          <Palette />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56">
+        <DropdownMenuLabel>Appearance</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        {availableThemes.map((themePrefix) => (
+          <DropdownMenuCheckboxItem
+            key={themePrefix}
+            checked={currentThemePrefix === themePrefix}
+            onCheckedChange={() => handleThemeChange(themePrefix)}
+          >
+            {themePrefix}
+          </DropdownMenuCheckboxItem>
+        ))}
+        <DropdownMenuCheckboxItem onCheckedChange={() => handleThemeChange("cancel")}>
+          Cancel
+        </DropdownMenuCheckboxItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
