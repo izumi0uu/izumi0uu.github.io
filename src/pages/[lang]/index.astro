@@ -16,9 +16,6 @@ const { lang } = Astro.params;
 // 获取页面metadata（使用空字符串作为首页的key）
 const metadata = getPageMetadata("");
 
-const handleAnimationComplete = () => {
-  console.log('All letters have animated!');
-};
 ---
 
 <Base {metadata}>
