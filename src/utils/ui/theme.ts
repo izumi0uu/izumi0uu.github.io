@@ -28,6 +28,16 @@ const getCurrentTheme = () => {
 };
 
 /**
+ * @description 获取当前主题的前缀
+ * @returns {string} 当前主题前缀，如果没有当前主题返回空字符串
+ */
+const getCurrentThemePrefix = (): string => {
+  const currentTheme = getCurrentTheme();
+  if (!currentTheme) return "";
+  return getThemeNamePrefix(currentTheme.name) || "";
+};
+
+/**
  * @description notes: 会遍历 THEMES 数组
  * @returns {Theme} 下一个主题
  */
@@ -208,5 +218,6 @@ export {
   toggleModeInSameTheme,
   toggleThemeInSameMode,
   getAvailableThemePrefixes,
+  getThemeNamePrefix,
   switchToTheme,
 };
