@@ -2,12 +2,62 @@
 import { NavigationBar } from "@/components/react/ui/NavigationBar";
 import { Separator } from "@/components/react/radix-ui/Separator";
 import { InfiniteScroll } from "@/components/react/ui/InfiniteScroll";
+import { SplitText, type SplitTextProps } from "@/components/react/ui/SpiltText";
+import { HeroHighlight, Highlight } from "@/components/react/ui/HeroHighlightText";
+import { motion } from "motion/react";
 ---
 
 <header>
     <div class="flex flex-col gap-2">
         <NavigationBar client:load />
         <Separator client:load />
-        <InfiniteScroll client:load />
+        
+        <!-- <InfiniteScroll 
+            client:only="react"
+            items={[
+                { content: "示例内容 1" },
+                { content: "示例内容 2" },
+                { content: "示例内容 3" },
+                { content: "示例内容 4" },
+            ]}
+        /> -->
+        <SplitText
+            client:only="react"
+            text="Hello, I'm Izumi0uu"
+            className="text-2xl font-semibold text-center"
+            delay={100}
+            duration={0.6}
+            ease="power3.out"
+            splitType="chars"
+            from={{ opacity: 0, y: 40 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.1}
+        />
+
+
+    <HeroHighlight>
+      <motion.h1
+        initial={{
+          opacity: 0,
+          y: 20,
+        }}
+        animate={{
+          opacity: 1,
+          y: [20, -5, 0],
+        }}
+        transition={{
+          duration: 0.5,
+          ease: [0.4, 0.0, 0.2, 1],
+        }}
+        className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto "
+      >
+        With insomnia, nothing&apos;s real. Everything is far away. Everything
+        is a{" "}
+        <Highlight className="text-content">
+          copy, of a copy, of a copy.
+        </Highlight>
+      </motion.h1>
+    </HeroHighlight client:only="react">
+
     </div>
 </header>

@@ -1,9 +1,7 @@
-import React, { useRef, useEffect } from "react";
-import { gsap } from "gsap";
-import { Observer } from "gsap/Observer";
-import "./InfiniteScroll.css";
+"use client";
 
-gsap.registerPlugin(Observer);
+import React, { useRef, useEffect, useState } from "react";
+import { clsx } from "clsx";
 
 interface InfiniteScrollItem {
   content: React.ReactNode;
@@ -42,6 +40,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [gsapReady, setGsapReady] = useState(false);
 
   const getTiltTransform = (): string => {
     if (!isTilted) return "none";
@@ -50,13 +49,52 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       : "rotateX(20deg) rotateZ(20deg) skewX(-20deg)";
   };
 
+  // 动态导入 GSAP，避免 require 问题
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const loadGSAP = async () => {
+      try {
+        // 使用动态 import 而不是 require
+        const [{ default: gsap }, { Observer }] = await Promise.all([
+          import("gsap"),
+          import("gsap/Observer"),
+        ]);
+
+        // 注册插件
+        gsap.registerPlugin(Observer);
+
+        // 将 GSAP 实例存储到 window 对象
+        (window as any).gsap = gsap;
+        (window as any).Observer = Observer;
+
+        setGsapReady(true);
+      } catch (error) {
+        console.error("Failed to load GSAP:", error);
+      }
+    };
+
+    loadGSAP();
+  }, []);
+
+  useEffect(() => {
+    // 确保 GSAP 已加载且在客户端环境
+    if (!gsapReady || typeof window === "undefined") return;
+
+    const gsap = (window as any).gsap;
+    const Observer = (window as any).Observer;
+
+    if (!gsap || !Observer) {
+      console.warn("GSAP or Observer not available");
+      return;
+    }
+
     const container = containerRef.current;
     if (!container) return;
     if (items.length === 0) return;
 
     // Get all child elements of container as HTMLDivElement[]
-    const divItems = gsap.utils.toArray<HTMLDivElement>(container.children);
+    const divItems = gsap.utils.toArray(container.children) as HTMLDivElement[];
     if (!divItems.length) return;
 
     const firstItem = divItems[0];
@@ -68,7 +106,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
 
     const wrapFn = gsap.utils.wrap(-totalHeight, totalHeight);
 
-    divItems.forEach((child, i) => {
+    divItems.forEach((child: HTMLDivElement, i: number) => {
       const y = i * totalItemHeight;
       gsap.set(child, { y });
     });
@@ -77,13 +115,13 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       target: container,
       type: "wheel,touch,pointer",
       preventDefault: true,
-      onPress: ({ target }) => {
+      onPress: ({ target }: any) => {
         (target as HTMLElement).style.cursor = "grabbing";
       },
-      onRelease: ({ target }) => {
+      onRelease: ({ target }: any) => {
         (target as HTMLElement).style.cursor = "grab";
       },
-      onChange: ({ deltaY, isDragging, event }) => {
+      onChange: ({ deltaY, isDragging, event }: any) => {
         const d = event.type === "wheel" ? -deltaY : deltaY;
         const distance = isDragging ? d * 5 : d * 10;
         divItems.forEach((child) => {
@@ -105,7 +143,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       const speedPerFrame = autoplaySpeed * directionFactor;
 
       const tick = () => {
-        divItems.forEach((child) => {
+        divItems.forEach((child: HTMLDivElement) => {
           gsap.set(child, {
             y: `+=${speedPerFrame}`,
             modifiers: {
@@ -146,6 +184,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       if (rafId) cancelAnimationFrame(rafId);
     };
   }, [
+    gsapReady, // 添加 gsapReady 依赖
     items,
     autoplay,
     autoplaySpeed,
@@ -158,33 +197,70 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
 
   return (
     <>
+      {/* 仅保留渐变遮罩的复杂样式，其他都用 Tailwind */}
       <style>
         {`
-          .infinite-scroll-wrapper {
-            max-height: ${maxHeight};
+          .gradient-mask-top {
+            background: linear-gradient(to bottom, black, transparent);
           }
-
-          .infinite-scroll-container {
-            width: ${width};
-          }
-
-          .infinite-scroll-item {
-            height: ${itemMinHeight}px;
-            margin-top: ${negativeMargin};
+          .gradient-mask-bottom {
+            background: linear-gradient(to top, black, transparent);
           }
         `}
       </style>
 
-      <div className="infinite-scroll-wrapper" ref={wrapperRef}>
+      <div
+        ref={wrapperRef}
+        className={clsx(
+          "relative flex w-full items-center justify-center",
+          "overflow-hidden",
+          "transform-gpu will-change-transform [backface-visibility:hidden]",
+          "[transform-style:preserve-3d]"
+        )}
+        style={{
+          maxHeight,
+          overscrollBehavior: "none",
+        }}
+      >
+        {/* 顶部渐变遮罩 */}
+        <div className="gradient-mask-top pointer-events-none absolute top-0 z-10 h-1/4 w-full" />
+
+        {/* 底部渐变遮罩 */}
+        <div className="gradient-mask-bottom pointer-events-none absolute bottom-0 z-10 h-1/4 w-full" />
+
         <div
-          className="infinite-scroll-container"
           ref={containerRef}
+          className={clsx(
+            "flex flex-col px-4",
+            "cursor-grab active:cursor-grabbing",
+            "origin-center",
+            "transform-gpu will-change-transform [backface-visibility:hidden]",
+            "[transform-style:preserve-3d]"
+          )}
           style={{
+            width,
             transform: getTiltTransform(),
+            overscrollBehavior: "contain",
           }}
         >
           {items.map((item, i) => (
-            <div className="infinite-scroll-item" key={i}>
+            <div
+              key={i}
+              className={clsx(
+                "relative flex items-center justify-center",
+                "border-outline rounded-2xl border-2",
+                "p-4",
+                "text-center text-xl font-semibold",
+                "select-none",
+                "box-border",
+                "transform-gpu will-change-transform [backface-visibility:hidden]",
+                "[transform-style:preserve-3d]"
+              )}
+              style={{
+                height: `${itemMinHeight}px`,
+                marginTop: negativeMargin,
+              }}
+            >
               {item.content}
             </div>
           ))}
