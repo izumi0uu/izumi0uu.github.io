@@ -12,7 +12,7 @@ interface ModeToggleButtonProps {
   className?: string;
 }
 
-export const ModeToggleButton: React.FC<ModeToggleButtonProps> = ({ className }) => {
+const ModeToggleButton: React.FC<ModeToggleButtonProps> = ({ className }) => {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
@@ -57,10 +57,11 @@ export const ModeToggleButton: React.FC<ModeToggleButtonProps> = ({ className })
       aria-checked={isDark}
       aria-label={"mode-toggle-button"}
       onClick={handleToggle}
+      className={className}
     >
       {isDark ? <Sun /> : <Moon />}
     </Button>
   );
 };
 
-export default ModeToggleButton;
+export { ModeToggleButton };
