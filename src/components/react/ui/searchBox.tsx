@@ -53,6 +53,7 @@ const SearchBox = () => {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
+        {/* group允许子元素响应父元素的 hover 状态 */}
         <Button
           variant="brutal-normal"
           role="combobox"
