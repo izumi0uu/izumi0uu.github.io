@@ -5,9 +5,7 @@
   "css.customData": [".vscode/css_custom_data.json"],
   "tailwindCSS.experimental.configFile": "tailwind.config.ts",
   "tailwindCSS.includeLanguages": {
-    "astro": "html",
-    "typescript": "javascript",
-    "typescriptreact": "javascript"
+    "astro": "html"
   },
   "tailwindCSS.files.exclude": [
     "**/.git/**",
@@ -24,15 +22,30 @@
     "*.astro": "astro"
   },
   "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit",
-    "source.organizeImports": "never"
+    "source.fixAll": "explicit"
   },
   "typescript.preferences.importModuleSpecifier": "relative",
   "typescript.suggest.autoImports": false,
+  "prettier.enable": true,
+  "prettier.requireConfig": true,
+  "prettier.useEditorConfig": false,
   "prettier.documentSelectors": ["**/*.astro"],
+  "astro.format.enable": true,
   "[astro]": {
-    "editor.defaultFormatter": "astro-build.astro-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

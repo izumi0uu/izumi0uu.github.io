@@ -1,45 +1,7 @@
 {
   "version": 1.1,
-  "atDirectives": [
-    {
-      "name": "@theme",
-      "description": "Tailwind CSS v4 theme directive for defining design tokens",
-      "references": [
-        {
-          "name": "Tailwind CSS v4 Documentation",
-          "url": "https://tailwindcss.com/docs/upgrade-guide"
-        }
-      ]
-    },
-    {
-      "name": "@utility",
-      "description": "Tailwind CSS v4 utility directive for creating custom utility classes",
-      "references": [
-        {
-          "name": "Tailwind CSS v4 Documentation",
-          "url": "https://tailwindcss.com/docs/upgrade-guide"
-        }
-      ]
-    },
-    {
-      "name": "@variant",
-      "description": "Tailwind CSS v4 variant directive for state management",
-      "references": [
-        {
-          "name": "Tailwind CSS v4 Documentation",
-          "url": "https://tailwindcss.com/docs/upgrade-guide"
-        }
-      ]
-    },
-    {
-      "name": "@custom-variant",
-      "description": "Tailwind CSS v4 custom variant directive",
-      "references": [
-        {
-          "name": "Tailwind CSS v4 Documentation",
-          "url": "https://tailwindcss.com/docs/upgrade-guide"
-        }
-      ]
-    }
-  ]
+  "properties": [],
+  "atDirectives": [],
+  "pseudoClasses": [],
+  "pseudoElements": []
 }
