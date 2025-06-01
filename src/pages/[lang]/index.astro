@@ -4,6 +4,7 @@ import { getPageMetadata } from "@/utils/content/metadata";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
 import { SplitText } from "@/components/react/ui/SpiltText";
 import { FallingText } from "@/components/react/ui/FallingText";
+import * as m from "@/paraglide/messages";
 
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
@@ -15,6 +16,8 @@ const { lang } = Astro.params;
 
 // 获取页面metadata（使用空字符串作为首页的key）
 const metadata = getPageMetadata("");
+
+const fallingText = m["pages.home.falling_text"]();
 
 ---
 
@@ -39,7 +42,7 @@ const metadata = getPageMetadata("");
     </section>
     <section class="mb-12 flex justify-center items-center h-[30vh] w-full">
       <FallingText
-      text={`I got a lot of ideas and I want to share them with you. Hope you like them.`}
+      text={m["pages.home.falling_text"]()}
       highlightWords={["ideas", "share"]}
       highlightClass="highlighted"
       trigger="scroll"

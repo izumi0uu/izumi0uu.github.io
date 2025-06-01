@@ -4,7 +4,8 @@
   "pages": {
     "home": {
       "title": "Home",
-      "description": "Welcome to my space!"
+      "description": "Welcome to my space!",
+      "falling_text": "I got a lot of ideas and I want to share them with you. Hope you like them."
     },
     "about": {
       "title": "About Me",

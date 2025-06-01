@@ -4,7 +4,8 @@
   "pages": {
     "home": {
       "title": "首页",
-      "description": "欢迎来到我的空间!"
+      "description": "欢迎来到我的空间!",
+      "falling_text": "我 有 很 多 想 法 和 你 分 享 。希 望 你 喜 欢 。"
     },
     "about": {
       "title": "关于我",
