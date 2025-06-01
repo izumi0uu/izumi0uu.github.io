@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
+import type { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
 
 import { Button } from "@/components/react/radix-ui/Button";
 import {
@@ -15,7 +15,7 @@ import {
 
 type Checked = DropdownMenuCheckboxItemProps["checked"];
 
-const DropdownMenuCheckboxes: React.FC = () => {
+const Checkboxes: React.FC = () => {
   const [showStatusBar, setShowStatusBar] = React.useState<Checked>(true);
   const [showActivityBar, setShowActivityBar] = React.useState<Checked>(false);
   const [showPanel, setShowPanel] = React.useState<Checked>(false);
@@ -46,4 +46,4 @@ const DropdownMenuCheckboxes: React.FC = () => {
   );
 };
 
-export { DropdownMenuCheckboxes };
+export { Checkboxes };

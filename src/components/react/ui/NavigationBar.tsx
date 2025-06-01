@@ -7,6 +7,7 @@ import { CONFIG_CLIENT } from "@/config/client";
 import { ROUTES } from "@/constants/routes";
 import * as m from "@/paraglide/messages";
 import { ModeToggleButton } from "@/components/react/ui/ModeToggleButton";
+import { ThemePopoverList } from "@/components/react/ui/themePopoverList";
 
 import { cn } from "@/utils/ui/styles";
 
@@ -32,6 +33,7 @@ const NavigationBar = () => {
       <div className="flex flex-1 items-center justify-between md:justify-end">
         <SearchBox />
         <ModeToggleButton />
+        <ThemePopoverList />
       </div>
     </div>
   );

@@ -131,19 +131,71 @@ const toggleModeInSameTheme = (): Theme => {
 
 /**
  * @description 在同一模式下切换主题
- * @param {string} themeName - 当前主题名称
- * @returns {Theme} 同一模式下相对主题的主题对象
+ * @param {string} [targetThemePrefix] - 目标主题前缀（可选），如 'wine', 'default'
+ * @returns {Theme} 同一模式下的目标主题对象
  */
-const toggleThemeInSameMode = (themeName: Theme["name"]) => {
+const toggleThemeInSameMode = (targetThemePrefix?: string): Theme => {
   const currentTheme = getCurrentTheme();
   if (!currentTheme) {
     const defaultThemes = getDefaultThemes();
     const currentMode = getCurrentMode();
-    return defaultThemes[currentMode];
+    return currentMode === MODES.light ? defaultThemes.light : defaultThemes.dark;
   }
 
   const currentThemePrefix = getThemeNamePrefix(currentTheme.name);
   const currentMode = currentTheme.mode;
+
+  // 获取当前模式下的所有主题
+  const sameModelThemes = THEMES.filter((theme) => theme.mode === currentMode);
+
+  if (targetThemePrefix) {
+    // 如果指定了目标主题前缀，直接查找该主题
+    const targetTheme = sameModelThemes.find(
+      (theme) => getThemeNamePrefix(theme.name) === targetThemePrefix
+    );
+
+    if (targetTheme) {
+      return targetTheme;
+    }
+
+    // 如果找不到指定的主题，返回当前主题
+    console.warn(`Theme with prefix "${targetThemePrefix}" not found in ${currentMode} mode`);
+    return currentTheme;
+  } else {
+    // 如果没有指定目标主题，循环切换到下一个主题
+    const currentIndex = sameModelThemes.findIndex((theme) => theme.name === currentTheme.name);
+
+    if (currentIndex === -1) {
+      // 如果当前主题不在列表中，返回第一个主题
+      return sameModelThemes[0] || currentTheme;
+    }
+
+    // 循环到下一个主题
+    const nextIndex = (currentIndex + 1) % sameModelThemes.length;
+    return sameModelThemes[nextIndex];
+  }
+};
+
+/**
+ * @description 获取当前模式下所有可用的主题前缀
+ * @returns {string[]} 主题前缀数组
+ */
+const getAvailableThemePrefixes = (): string[] => {
+  const currentMode = getCurrentMode();
+  const sameModelThemes = THEMES.filter((theme) => theme.mode === currentMode);
+
+  return [...new Set(sameModelThemes.map((theme) => getThemeNamePrefix(theme.name)))].filter(
+    Boolean
+  ) as string[];
+};
+
+/**
+ * @description 切换到指定主题（保持当前模式）
+ * @param {string} themePrefix - 主题前缀，如 'wine', 'default'
+ * @returns {Theme} 指定主题的当前模式版本
+ */
+const switchToTheme = (themePrefix: string): Theme => {
+  return toggleThemeInSameMode(themePrefix);
 };
 
 export {
@@ -155,4 +207,6 @@ export {
   getDefaultThemes,
   toggleModeInSameTheme,
   toggleThemeInSameMode,
+  getAvailableThemePrefixes,
+  switchToTheme,
 };
