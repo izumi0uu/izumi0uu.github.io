@@ -8,8 +8,6 @@
   "semi": true,
   "singleQuote": false,
   "trailingComma": "es5",
-  "importOrder": ["^react", "^@radix-ui/(.*)$", "^@/(.*)$", "^[./]"],
-  "importOrderSeparation": true,
   "overrides": [
     {
       "files": "*.astro",
