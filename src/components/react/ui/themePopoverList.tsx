@@ -10,6 +10,8 @@ import {
 } from "@/components/react/radix-ui/DropdownMenu";
 import { Palette } from "lucide-react";
 
+import * as m from "@/paraglide/messages";
+
 import type { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
 import type { ChangeThemeCustomEvent } from "@/types/constants";
 
@@ -99,7 +101,7 @@ const ThemePopoverList: React.FC<ThemePopoverListProps> = ({ className }) => {
           </DropdownMenuCheckboxItem>
         ))}
         <DropdownMenuCheckboxItem onCheckedChange={() => handleThemeChange("cancel")}>
-          Cancel
+          {m["components.theme_switcher.cancel"]()}
         </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>
