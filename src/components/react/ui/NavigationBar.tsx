@@ -6,6 +6,7 @@ import { SearchBox } from "@/components/react/ui/SearchBox";
 import { CONFIG_CLIENT } from "@/config/client";
 import { ROUTES } from "@/constants/routes";
 import * as m from "@/paraglide/messages";
+import { ModeToggleButton } from "@/components/react/ui/ModeToggleButton";
 
 import { cn } from "@/utils/ui/styles";
 
@@ -30,6 +31,7 @@ const NavigationBar = () => {
       </div>
       <div className="flex flex-1 items-center justify-between md:justify-end">
         <SearchBox />
+        <ModeToggleButton />
       </div>
     </div>
   );
