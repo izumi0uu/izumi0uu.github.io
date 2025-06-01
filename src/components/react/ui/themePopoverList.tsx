@@ -1,13 +1,55 @@
-import { Palette } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Checkboxes } from "@/components/react/radix-ui/CheckedBoxes";
 import { Button } from "@/components/react/radix-ui/Button";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/react/radix-ui/DropdownMenu";
+import { Palette } from "lucide-react";
 
+import type { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
 import type { ChangeThemeCustomEvent } from "@/types/constants";
+
 import { THEME_CONFIG } from "@/constants/theme";
 import { toggleModeInSameTheme } from "@/utils/ui/theme";
 
 const { CHANGE_EVENT } = THEME_CONFIG;
+
+type Checked = DropdownMenuCheckboxItemProps["checked"];
+
+const Checkboxes: React.FC = () => {
+  const [showStatusBar, setShowStatusBar] = useState<Checked>(true);
+  const [showActivityBar, setShowActivityBar] = useState<Checked>(false);
+  const [showPanel, setShowPanel] = useState<Checked>(false);
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="brutal-normal">Open</Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56">
+        <DropdownMenuLabel>Appearance</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuCheckboxItem checked={showStatusBar} onCheckedChange={setShowStatusBar}>
+          Status Bar
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={showActivityBar}
+          onCheckedChange={setShowActivityBar}
+          disabled
+        >
+          Activity Bar
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem checked={showPanel} onCheckedChange={setShowPanel}>
+          Panel
+        </DropdownMenuCheckboxItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
 
 interface ThemePopoverListProps {
   className?: string;
