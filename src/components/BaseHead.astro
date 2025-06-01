@@ -1,12 +1,11 @@
 ---
-
 // load fonts and font utils
 import FontLoader from "@/components/fonts/FontLoader.astro";
 import GoogleFontsLoader from "@/components/fonts/GoogleFontsLoader.astro";
 import FontUtils from "@/components/fonts/FontUtils.astro";
 
 // load styles
-import '@/styles/main.css';
+import "@/styles/main.css";
 
 // load default metadata
 import { DEFAULT_METADATA } from "@/constants/metadata";
@@ -18,14 +17,14 @@ import { CONFIG_CLIENT } from "@/config/client";
 import { ClientRouter } from "astro:transitions";
 
 // load theme-script component
-import ThemeScript from '@/components/ThemeScript.astro';
+import ThemeScript from "@/components/ThemeScript.astro";
 
 // load i18n script component and paraglide runtime
-import I18nScript from '@/components/I18nScript.astro';
+import I18nScript from "@/components/I18nScript.astro";
 import {
-  locales, 
-  localizeHref               // 用于生成本地化 URL
-} from '@/paraglide/runtime'; // 确保路径正确
+  locales,
+  localizeHref, // 用于生成本地化 URL
+} from "@/paraglide/runtime"; // 确保路径正确
 
 // load utils
 import { handleMetadataTitle } from "@/utils/content/metadata";
@@ -37,7 +36,14 @@ import type { Metadata } from "@/types/common";
 // load routes
 import { ROUTES } from "@/constants/routes";
 
-const {SITE_URL_CANONICAL, SITE_TITLE, SITE_DESCRIPTION, AUTHOR_NAME, PLAUSIBLE_DOMAIN, PLAUSIBLE_SCRIPT_URL} = CONFIG_CLIENT;
+const {
+  SITE_URL_CANONICAL,
+  SITE_TITLE,
+  SITE_DESCRIPTION,
+  AUTHOR_NAME,
+  PLAUSIBLE_DOMAIN,
+  PLAUSIBLE_SCRIPT_URL,
+} = CONFIG_CLIENT;
 
 export interface BaseHeadProps {
   metadata: Metadata;
@@ -47,10 +53,10 @@ export interface BaseHeadProps {
  * @description receive every single metadata from every single specific page
  * @example. <html lang="en">
  *    // pass metadata to BaseHead
- *    <BaseHead metadata={metadata} /> 
+ *    <BaseHead metadata={metadata} />
  *    <body>
  *      // page content
- *      <slot /> 
+ *      <slot />
  *    </body>
  *  </html>
  */
@@ -60,7 +66,7 @@ const { metadata } = Astro.props as BaseHeadProps;
  * @description site: SITE_URL var + '/', SITE_URL changed by environment
  *  url: current page url, per page
  */
-const { url } = Astro; 
+const { url } = Astro;
 const { host, pathname, search } = url; // host - izumi0uu.com
 
 // replace host - all deployments point to single canonical deployment url
@@ -68,19 +74,18 @@ const canonicalUrl = new URL(`${pathname}${search}`, SITE_URL_CANONICAL);
 
 const handledMetadata = handleMetadataTitle(metadata);
 
-const filteredMetadata = filterUndefined(handledMetadata)
+const filteredMetadata = filterUndefined(handledMetadata);
 const mergedMetadata: Required<Metadata> = { ...DEFAULT_METADATA, ...filteredMetadata };
 
 const { title, description, image } = mergedMetadata;
 
 // convert to absolute url
 const ogImageUrl = new URL(image, url);
-
 ---
 
 <head>
   {/* Global Metadata */}
-  <meta charset="utf-8"/> 
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
   <meta name="theme-color" content="" />
@@ -109,8 +114,18 @@ const ogImageUrl = new URL(image, url);
   <meta name="author" content={AUTHOR_NAME} />
 
   {/* Feeds - RSS and JSON Feed links */}
-  <link rel="alternate" type="application/rss+xml" title={`${title} RSS feed`} href={`${ROUTES.API.FEED_RSS}`} />
-  <link rel="alternate" type="application/json" title={`${title} JSON feed`} href={`${ROUTES.API.FEED_JSON}`} />
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title={`${title} RSS feed`}
+    href={`${ROUTES.API.FEED_RSS}`}
+  />
+  <link
+    rel="alternate"
+    type="application/json"
+    title={`${title} JSON feed`}
+    href={`${ROUTES.API.FEED_JSON}`}
+  />
 
   {/* Sitemap */}
   <link rel="sitemap" type="application/xml" title="Sitemap" href={`${ROUTES.STATIC.SITEMAP}`} />
@@ -131,7 +146,6 @@ const ogImageUrl = new URL(image, url);
   {/* <meta name="twitter:site" content="@你的Twitter用户名" /> */}
   {/* <meta name="twitter:creator" content="@你的Twitter用户名或作者用户名" /> */}
 
-  
   {/* Analytics */}
   {
     PLAUSIBLE_SCRIPT_URL && (
@@ -150,16 +164,16 @@ const ogImageUrl = new URL(image, url);
 
   {/* seo for muti-lang */}
   {
-	locales.map((locale) => (
-		<link
-			rel="alternate"
-			hreflang={locale}
-			href={localizeHref(Astro.url.href, {
-				locale: locale,
-			})}
-		/>
-	))
-}
+    locales.map((locale) => (
+      <link
+        rel="alternate"
+        hreflang={locale}
+        href={localizeHref(Astro.url.href, {
+          locale: locale,
+        })}
+      />
+    ))
+  }
 
   {/* Theme */}
   {/* MUST be inside <head /> to avoid white flash, IMPORTANT */}
@@ -173,10 +187,10 @@ const ogImageUrl = new URL(image, url);
 
   {/* Load local fonts (Inter + JetBrains Mono) */}
   <FontLoader />
-  
+
   {/* Load Chinese fonts (Noto Sans SC) */}
   <GoogleFontsLoader />
-  
+
   {/* Load font utility classes */}
   <FontUtils />
 </head>

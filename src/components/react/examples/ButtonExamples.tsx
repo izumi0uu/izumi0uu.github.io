@@ -1,4 +1,4 @@
-import { Button } from "@/components/react/radix-ui/Button"
+import { Button } from "@/components/react/radix-ui/Button";
 
 /**
  * 按钮示例组件 - 展示所有语义化变体
@@ -130,5 +130,5 @@ export function ButtonExamples() {
         </div>
       </div>
     </div>
-  )
+  );
 }

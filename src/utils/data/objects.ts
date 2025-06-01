@@ -2,20 +2,13 @@
  * @description currently used for ParaglideJS i18n resulted from types/common.ts
  * @returns {T} The result of the function call or the fallback value.
  */
-const getValueFromFunctionOrFallback = <T>(
-  obj: any,
-  funcName: string,
-  fallbackValue: T
-): T => {
+const getValueFromFunctionOrFallback = <T>(obj: any, funcName: string, fallbackValue: T): T => {
   if (obj && typeof obj[funcName] === "function") {
     try {
       // call the paraglide m function
       return obj[funcName]();
     } catch (error) {
-      console.error(
-        `Error calling function ${funcName} on object ${obj}:`,
-        error
-      );
+      console.error(`Error calling function ${funcName} on object ${obj}:`, error);
       // return the fallback value
       return fallbackValue;
     }
@@ -29,9 +22,7 @@ const getValueFromFunctionOrFallback = <T>(
  * @returns {T} object with undefined values removed
  */
 const filterUndefined = <T extends Record<string, any>>(obj: T): T =>
-  Object.fromEntries(
-    Object.entries(obj).filter(([_key, value]) => value !== undefined)
-  ) as T;
+  Object.fromEntries(Object.entries(obj).filter(([_key, value]) => value !== undefined)) as T;
 
 /**
  * @description randomize an array

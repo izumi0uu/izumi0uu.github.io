@@ -62,14 +62,6 @@ interface FilterParams {
   filterSlug?: string;
 }
 
-export type {
-  PostCollection,
-  Post,
-  PostsByTime,
-  Filter,
-  FilterType,
-  FilterLink,
-  FilterParams,
-};
+export type { PostCollection, Post, PostsByTime, Filter, FilterType, FilterLink, FilterParams };
 
 export { VALID_FILTER_KEYS, FILTER_CONFIG };

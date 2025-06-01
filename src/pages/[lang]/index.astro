@@ -4,6 +4,7 @@ import { getPageMetadata } from "@/utils/content/metadata";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
 import { SplitText } from "@/components/react/ui/SpiltText";
 import { FallingText } from "@/components/react/ui/FallingText";
+import { HeroHighlight, Highlight } from "@/components/react/ui/HeroHighlightText";
 import * as m from "@/paraglide/messages";
 
 export async function getStaticPaths() {
@@ -18,40 +19,44 @@ const { lang } = Astro.params;
 const metadata = getPageMetadata("");
 
 const fallingText = m["pages.home.falling_text"]();
-
 ---
 
 <Base {metadata}>
-  <main class="bg-base  px-4 py-8">
-    <section class="mb-12 flex justify-center items-center h-[30vh] w-full">
-      <!-- <SplitText
-        text="Hello, GSAP!"
-        className="text-2xl font-semibold text-center"
+  <main class="bg-base px-4 py-8">
+   <section class="mb-12 flex justify-center items-center h-[30vh] w-full">
+      <SplitText
+        text={"Hello, I'm Izumi0uu!"}
+        className="text-8xl font-semibold text-center"
         delay={100}
         duration={0.6}
         ease="power3.out"
         splitType="chars"
-        from={{ opacity: 0, y: 40 }}
-        to={{ opacity: 1, y: 0 }}
         threshold={0.1}
-        rootMargin="-100px"
-        textAlign="center"
-        onLetterAnimationComplete={handleAnimationComplete}
-        client:load /> -->
-  
+        client:only="react"
+      />
     </section>
     <section class="mb-12 flex justify-center items-center h-[30vh] w-full">
       <FallingText
-      text={m["pages.home.falling_text"]()}
-      highlightWords={["ideas", "share"]}
-      highlightClass="highlighted"
-      trigger="scroll"
-      wireframes={false}
-      gravity={0.3}
-      fontSize="2rem"
-      mouseConstraintStiffness={0.9}
-      client:load
-  />
+        text={m["pages.home.falling_text"]()}
+        highlightWords={["ideas", "share"]}
+        highlightClass="highlighted"
+        trigger="scroll"
+        wireframes={false}
+        gravity={0.3}
+        fontSize="2rem"
+        mouseConstraintStiffness={0.9}
+        client:load
+      />
+    </section>
+    <section class="mb-12 flex justify-center items-center h-[30vh] w-full">
+      <HeroHighlight client:only="react" containerClassName="h-auto py-16">
+        <h1
+          class="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-headings max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto"
+        >
+          With insomnia, nothing&apos;s real. Everything is far away. Everything is a{" "}
+          <Highlight className="text-content"> copy, of a copy, of a copy. </Highlight>
+        </h1>
+      </HeroHighlight>
     </section>
   </main>
 </Base>

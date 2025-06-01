@@ -4,12 +4,12 @@
  * Astro 会在构建时将这些变量的值注入到客户端代码中，确保敏感信息不会泄露。
  */
 
-import { PLAUSIBLE_DOMAIN, PLAUSIBLE_SCRIPT_URL, SITE_URL } from "astro:env/client"
+import { PLAUSIBLE_DOMAIN, PLAUSIBLE_SCRIPT_URL, SITE_URL } from "astro:env/client";
 
-import { configClientSchema } from "@/schemas/config"
-import { validateData } from "@/utils/data/validation"
+import { configClientSchema } from "@/schemas/config";
+import { validateData } from "@/utils/data/validation";
 
-import type { ConfigClientType } from "@/types/config"
+import type { ConfigClientType } from "@/types/config";
 
 const configClientData: ConfigClientType = {
   /**
@@ -42,8 +42,8 @@ const configClientData: ConfigClientType = {
   AUTHOR_FACEBOOK: "https://facebook.com/izumi0uu",
   AUTHOR_INSTAGRAM: "https://instagram.com/izumi0uu",
   AUTHOR_BILIBILI: "https://space.bilibili.com/izumi0uu",
-}
+};
 
-const CONFIG_CLIENT = validateData(configClientData, configClientSchema)
+const CONFIG_CLIENT = validateData(configClientData, configClientSchema);
 
-export { CONFIG_CLIENT }
+export { CONFIG_CLIENT };

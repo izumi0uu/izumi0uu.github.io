@@ -27,7 +27,7 @@ examples/
 1. **开发环境**：访问 `http://localhost:4321/zh/semantic-examples`
 2. **组件导入**：
    ```tsx
-   import { SemanticColorExamples } from "@/components/react/examples/SemanticColorExamples"
+   import { SemanticColorExamples } from "@/components/react/examples/SemanticColorExamples";
    ```
 
 ## 🎯 使用场景
@@ -152,8 +152,8 @@ const MyColorExample = () => {
       <h3 className="text-headings mb-4">我的示例</h3>
       <p className="text-content">示例内容...</p>
     </div>
-  )
-}
+  );
+};
 ```
 
 ## 📚 相关文档

@@ -59,9 +59,12 @@ TODO(FIX): 1.字体加载在路由切换/首次加载会切换fallback三次
 
 - **BaseHead.astro**: 统一管理字体加载顺序
   ```astro
-  <FontLoader />          <!-- 1. 本地字体优先 -->
-  <GoogleFontsLoader />   <!-- 2. 中文字体补充 -->
-  <FontUtils />           <!-- 3. 工具类扩展 -->
+  <FontLoader />
+  <!-- 1. 本地字体优先 -->
+  <GoogleFontsLoader />
+  <!-- 2. 中文字体补充 -->
+  <FontUtils />
+  <!-- 3. 工具类扩展 -->
   ```
 
 ### 🔄 运行机制与协调作用

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react"
-import * as themeConstants from "@/constants/theme"
+import React, { useEffect, useState } from "react";
+import * as themeConstants from "@/constants/theme";
 
 // 提取常量以便使用
-const { MODES, THEMES, THEME_CONFIG, DEFAULT_THEMES, WINE_THEMES } = themeConstants
-const { CHANGE_EVENT, DATA_ATTRIBUTE, LOCAL_STORAGE_KEY } = THEME_CONFIG
+const { MODES, THEMES, THEME_CONFIG, DEFAULT_THEMES, WINE_THEMES } = themeConstants;
+const { CHANGE_EVENT, DATA_ATTRIBUTE, LOCAL_STORAGE_KEY } = THEME_CONFIG;
 
 // 主题名称映射表，用于显示更友好的名称
 const THEME_NAME_MAP: Record<string, string> = {
@@ -11,13 +11,13 @@ const THEME_NAME_MAP: Record<string, string> = {
   "default-dark": "默认暗色",
   "wine-light": "酒红亮色",
   "wine-dark": "酒红暗色",
-}
+};
 
 // 主题控制组件的属性接口
 export interface ThemeControlsProps {
-  className?: string
-  showTitle?: boolean
-  compact?: boolean
+  className?: string;
+  showTitle?: boolean;
+  compact?: boolean;
 }
 
 // 主题控制组件
@@ -26,59 +26,59 @@ const ThemeDevToolbar: React.FC<ThemeControlsProps> = ({
   showTitle = true,
   compact = false,
 }) => {
-  const [currentTheme, setCurrentTheme] = useState<{ name: string; mode: string } | null>(null)
+  const [currentTheme, setCurrentTheme] = useState<{ name: string; mode: string } | null>(null);
 
   // 初始化和监听主题变化
   useEffect(() => {
     // 获取当前主题
     const getCurrentTheme = () => {
-      const isDark = document.documentElement.classList.contains(MODES.dark)
-      const themeName = document.documentElement.getAttribute(DATA_ATTRIBUTE) || "default"
+      const isDark = document.documentElement.classList.contains(MODES.dark);
+      const themeName = document.documentElement.getAttribute(DATA_ATTRIBUTE) || "default";
 
       // 查找匹配的主题对象 - 使用精确匹配
       const theme = THEMES.find(
         (t) =>
           t.name === themeName ||
           (themeName === "default" && t.name === (isDark ? "default-dark" : "default-light"))
-      )
+      );
 
       return (
         theme || {
           name: themeName,
           mode: isDark ? MODES.dark : MODES.light,
         }
-      )
-    }
+      );
+    };
 
     // 设置初始状态
-    setCurrentTheme(getCurrentTheme())
+    setCurrentTheme(getCurrentTheme());
 
     // 创建一个观察器来监听 HTML 根元素的属性变化
     const observer = new MutationObserver(() => {
-      setCurrentTheme(getCurrentTheme())
-    })
+      setCurrentTheme(getCurrentTheme());
+    });
 
     // 开始观察 data-theme 和 class 属性的变化
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: [DATA_ATTRIBUTE, "class"],
-    })
+    });
 
-    return () => observer.disconnect()
-  }, [])
+    return () => observer.disconnect();
+  }, []);
 
   // 切换到特定主题
   const changeTheme = (theme: (typeof THEMES)[number]) => {
     // 创建并分发主题变更事件
     const event = new CustomEvent(CHANGE_EVENT, {
       detail: { theme },
-    })
-    document.dispatchEvent(event)
-  }
+    });
+    document.dispatchEvent(event);
+  };
 
   // 切换主题
   const switchTheme = (themeName: "default" | "wine") => {
-    const isDark = currentTheme?.mode === MODES.dark
+    const isDark = currentTheme?.mode === MODES.dark;
     const targetTheme =
       themeName === "default"
         ? isDark
@@ -86,18 +86,18 @@ const ThemeDevToolbar: React.FC<ThemeControlsProps> = ({
           : DEFAULT_THEMES.light
         : isDark
           ? WINE_THEMES.dark
-          : WINE_THEMES.light
+          : WINE_THEMES.light;
 
-    changeTheme(targetTheme)
-  }
+    changeTheme(targetTheme);
+  };
 
   // 切换模式（亮/暗）
   const toggleMode = () => {
-    const isDark = currentTheme?.mode === MODES.dark
-    const themeName = currentTheme?.name || ""
+    const isDark = currentTheme?.mode === MODES.dark;
+    const themeName = currentTheme?.name || "";
 
     // 确定当前是哪个主题系列
-    const isWineTheme = themeName.startsWith("wine")
+    const isWineTheme = themeName.startsWith("wine");
 
     // 根据当前主题系列和目标模式选择正确的主题
     const targetTheme = isWineTheme
@@ -106,15 +106,15 @@ const ThemeDevToolbar: React.FC<ThemeControlsProps> = ({
         : WINE_THEMES.dark
       : isDark
         ? DEFAULT_THEMES.light
-        : DEFAULT_THEMES.dark
+        : DEFAULT_THEMES.dark;
 
-    changeTheme(targetTheme)
-  }
+    changeTheme(targetTheme);
+  };
 
-  if (!currentTheme) return null
+  if (!currentTheme) return null;
 
   // 获取友好的主题名称
-  const friendlyThemeName = THEME_NAME_MAP[currentTheme.name] || currentTheme.name
+  const friendlyThemeName = THEME_NAME_MAP[currentTheme.name] || currentTheme.name;
 
   return (
     <div
@@ -168,7 +168,7 @@ const ThemeDevToolbar: React.FC<ThemeControlsProps> = ({
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ThemeDevToolbar
+export default ThemeDevToolbar;

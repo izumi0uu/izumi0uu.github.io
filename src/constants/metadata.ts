@@ -1,23 +1,23 @@
-import { CONFIG_CLIENT } from "@/config/client"
-import * as m from "@/paraglide/messages"
+import { CONFIG_CLIENT } from "@/config/client";
+import * as m from "@/paraglide/messages";
 
-import type { Metadata } from "@/types/common"
+import type { Metadata } from "@/types/common";
 
 // can't import getOpenGraphImagePath from image-path.ts here, avoid circular dependency
 
-const { SITE_TITLE, SITE_DESCRIPTION, SITE_URL } = CONFIG_CLIENT
+const { SITE_TITLE, SITE_DESCRIPTION, SITE_URL } = CONFIG_CLIENT;
 
 /** @description Must be url from "public" folder. */
-const defaultOgImage = `${SITE_URL}/images/default/default-open-graph-image.jpg`
+const defaultOgImage = `${SITE_URL}/images/default/default-open-graph-image.jpg`;
 
-const titleSeparator = "-"
+const titleSeparator = "-";
 
 const DEFAULT_METADATA: Required<Metadata> = {
   greeting: "",
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   image: defaultOgImage,
-} as const
+} as const;
 
 /**
  * @description used for ogImage api route and metadata for all pages that aren't defined in markdown frontmatter.
@@ -85,7 +85,7 @@ const PAGE_METADATA = {
   "lists/links/link": {
     getTitle: () => m["pages.lists.links.link_title"](),
   },
-} as const
+} as const;
 
 const OG_IMAGE_PREFIXES = {
   OG_BLOG: "blog",
@@ -93,6 +93,6 @@ const OG_IMAGE_PREFIXES = {
   OG_PAGES: "pages",
   OG_LISTS: "lists",
   OG_EXPERIENCE: "experience",
-} as const
+} as const;
 
-export { DEFAULT_METADATA, PAGE_METADATA, titleSeparator, OG_IMAGE_PREFIXES }
+export { DEFAULT_METADATA, PAGE_METADATA, titleSeparator, OG_IMAGE_PREFIXES };

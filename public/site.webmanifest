@@ -21,14 +21,7 @@
   "start_url": "/",
   "scope": "/",
   "description": "izumi0uu's blog",
-  "categories": [
-    "blog",
-    "personal",
-    "portfolio",
-    "projects",
-    "about",
-    "contact"
-  ],
+  "categories": ["blog", "personal", "portfolio", "projects", "about", "contact"],
   "keywords": [
     "izumi0uu",
     "blog",

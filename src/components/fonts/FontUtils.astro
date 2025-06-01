@@ -8,7 +8,7 @@
 
 <style is:global>
   /* ===== Language-specific font classes ===== */
-  
+
   /* Pure Chinese elements (FontLoader already binds .font-zh) */
   .zh-only {
     font-family: "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
@@ -17,11 +17,11 @@
   /* Pure English elements (FontLoader already binds .font-en) */
   .en-only {
     font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
-    font-variation-settings: 'opsz' auto;
+    font-variation-settings: "opsz" auto;
   }
 
   /* ===== Semantic font classes (use CSS variables) ===== */
-  
+
   /* Mixed font stack (default) */
   .font-mixed,
   .font-sans {
@@ -34,18 +34,18 @@
   }
 
   /* ===== Advanced font features ===== */
-  
+
   /* Inter OpenType features optimization */
   .font-inter-optimized {
     font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
-    font-variation-settings: 'opsz' auto;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-variation-settings: "opsz" auto;
   }
 
   /* code font optimization (disable ligatures) */
   .font-mono-optimized {
     font-family: var(--font-family-mono);
-    font-feature-settings: 'liga' 0;
+    font-feature-settings: "liga" 0;
     font-variant-ligatures: none;
   }
 </style>
@@ -58,4 +58,5 @@ usage guide:
 - .font-mono: Monospace font (FontLoader binds code, pre, kbd, .font-code)
 - .font-inter-optimized: Inter advanced features
 - .font-mono-optimized: Code font optimization
---> 
+-->
+

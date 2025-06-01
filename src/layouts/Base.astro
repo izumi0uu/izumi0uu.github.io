@@ -1,13 +1,13 @@
 ---
-import '@/styles/main.css';
-import BaseHead from '@/components/BaseHead.astro';
-import StagewiseDevToolbar from '@/components/react/dev/StagewiseDevToolbar.tsx';
-import I18nDevToolbar from '@/components/react/dev/I18nDevToolbar.tsx';
-import ThemeDevToolbar from '@/components/react/dev/ThemeDevToolbar.tsx';
-import Header from '@/components/Header.astro';
-import { Toaster } from '@/components/react/radix-ui/Toaster';
-import type { BaseHeadProps } from '@/components/BaseHead.astro';
-import { cn } from '@/utils/ui/styles';
+import "@/styles/main.css";
+import BaseHead from "@/components/BaseHead.astro";
+import StagewiseDevToolbar from "@/components/react/dev/StagewiseDevToolbar.tsx";
+import I18nDevToolbar from "@/components/react/dev/I18nDevToolbar.tsx";
+import ThemeDevToolbar from "@/components/react/dev/ThemeDevToolbar.tsx";
+import Header from "@/components/Header.astro";
+import { Toaster } from "@/components/react/radix-ui/Toaster";
+import type { BaseHeadProps } from "@/components/BaseHead.astro";
+import { cn } from "@/utils/ui/styles";
 export interface BaseProps extends BaseHeadProps {}
 
 const { metadata } = Astro.props as BaseProps;
@@ -17,13 +17,17 @@ const lang = Astro.currentLocale;
 
 <!doctype html>
 <html lang={lang}>
-	<BaseHead {metadata} />
-	<body class={cn("relative flex flex-col min-h-screen min-w-80 bg-base transition-colors duration-500")}>
-		<Header />
-		<slot />
-		{import.meta.env.DEV && <StagewiseDevToolbar client:only="react" />}
-		<!-- {import.meta.env.DEV && <I18nDevToolbar client:only="react" />} -->
-		<!-- {import.meta.env.DEV && <ThemeDevToolbar client:only="react" />} -->
-		<Toaster />
-	</body>
+  <BaseHead {metadata} />
+  <body
+    class={cn(
+      "relative flex flex-col min-h-screen min-w-80 bg-base transition-colors duration-500"
+    )}
+  >
+    <Header />
+    <slot />
+    {import.meta.env.DEV && <StagewiseDevToolbar client:only="react" />}
+    <!-- {import.meta.env.DEV && <I18nDevToolbar client:only="react" />} -->
+    <!-- {import.meta.env.DEV && <ThemeDevToolbar client:only="react" />} -->
+    <Toaster />
+  </body>
 </html>

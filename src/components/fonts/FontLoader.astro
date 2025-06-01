@@ -13,10 +13,16 @@ import { join } from "node:path";
       src: [
         {
           // use Variable Font, support all weights (400-900)
-          weight: '400 900',
-          style: 'normal',
-          path: join(process.cwd(), 'public', 'fonts', 'inter', 'Inter-VariableFont_opsz,wght.woff2')
-        }
+          weight: "400 900",
+          style: "normal",
+          path: join(
+            process.cwd(),
+            "public",
+            "fonts",
+            "inter",
+            "Inter-VariableFont_opsz,wght.woff2"
+          ),
+        },
       ],
       preload: true,
       display: "swap",
@@ -27,15 +33,27 @@ import { join } from "node:path";
       name: "JetBrains Mono",
       src: [
         {
-          weight: '400',
-          style: 'normal',
-          path: join(process.cwd(), 'public', 'fonts', 'jetbrains-mono', 'JetBrainsMono-Regular.woff2')
+          weight: "400",
+          style: "normal",
+          path: join(
+            process.cwd(),
+            "public",
+            "fonts",
+            "jetbrains-mono",
+            "JetBrainsMono-Regular.woff2"
+          ),
         },
         {
-          weight: '700',
-          style: 'normal',
-          path: join(process.cwd(), 'public', 'fonts', 'jetbrains-mono', 'JetBrainsMono-Bold.woff2')
-        }
+          weight: "700",
+          style: "normal",
+          path: join(
+            process.cwd(),
+            "public",
+            "fonts",
+            "jetbrains-mono",
+            "JetBrainsMono-Bold.woff2"
+          ),
+        },
       ],
       preload: true,
       display: "swap",
@@ -43,4 +61,5 @@ import { join } from "node:path";
       fallback: "monospace",
     },
   ]}
-/> 
+/>
+

@@ -5,25 +5,25 @@
  */
 
 // @ts-check
-import { defineConfig } from "astro/config"
-import mdx from "@astrojs/mdx"
-import partytown from "@astrojs/partytown"
-import react from "@astrojs/react"
-import icon from "astro-icon"
-import tailwindcss from "@tailwindcss/vite"
-import { astroFont } from "astro-font/integration"
+import { defineConfig } from "astro/config";
+import mdx from "@astrojs/mdx";
+import partytown from "@astrojs/partytown";
+import react from "@astrojs/react";
+import icon from "astro-icon";
+import tailwindcss from "@tailwindcss/vite";
+import { astroFont } from "astro-font/integration";
 
 // Import core embedder and transformer
-import remarkEmbedder from "@remark-embedder/core"
+import remarkEmbedder from "@remark-embedder/core";
 // @ts-ignore - 包可能缺少类型定义
-import oembedTransformer from "@remark-embedder/transformer-oembed"
+import oembedTransformer from "@remark-embedder/transformer-oembed";
 
 // Import other plugins directly or from index
-import rehypeExternalLinks from "./plugins/rehype-external-links.mjs"
-import rehypeAutolinkHeadings from "./plugins/rehype-autolink-headings.mjs"
+import rehypeExternalLinks from "./plugins/rehype-external-links.mjs";
+import rehypeAutolinkHeadings from "./plugins/rehype-autolink-headings.mjs";
 // Attempt to use preset directly for linting
 
-import { paraglideVitePlugin } from "@inlang/paraglide-js"
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
 import {
   remarkLint, // Markdown 代码风格检查
@@ -36,13 +36,13 @@ import {
   remarkDropcap, // 首字下沉
   remarkCapitalizeHeadings, // 标题首字母大写
   remarkCallout, // 自定义提示框
-} from "./plugins/index"
+} from "./plugins/index";
 
-import { expressiveCodeIntegration } from "./src/libs/integrations/expressive-code"
-import { sitemapIntegration } from "./src/libs/integrations/sitemap"
+import { expressiveCodeIntegration } from "./src/libs/integrations/expressive-code";
+import { sitemapIntegration } from "./src/libs/integrations/sitemap";
 
-import { PROCESS_ENV, astroEnvSchema } from "./src/config/process-env"
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES, PREFIX_DEFAULT_LOCALE } from "./src/config/i18n"
+import { PROCESS_ENV, astroEnvSchema } from "./src/config/process-env";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES, PREFIX_DEFAULT_LOCALE } from "./src/config/i18n";
 
 /**
  * Astro 配置
@@ -133,4 +133,4 @@ export default defineConfig({
     ],
   },
   output: "static",
-})
+});

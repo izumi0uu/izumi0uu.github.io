@@ -5,11 +5,15 @@
  */
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE, BROWSER_LANG_REDIRECT_DONE_KEY } from "../config/i18n";
 ---
-<script type="module" define:vars={{ 
-  supportedLocales: SUPPORTED_LOCALES, 
-  defaultLocale: DEFAULT_LOCALE,
-  sessionStorageKey: BROWSER_LANG_REDIRECT_DONE_KEY
-}}>
+
+<script
+  type="module"
+  define:vars={{
+    supportedLocales: SUPPORTED_LOCALES,
+    defaultLocale: DEFAULT_LOCALE,
+    sessionStorageKey: BROWSER_LANG_REDIRECT_DONE_KEY,
+  }}
+>
   console.log("I18nScript.astro: Session management executing...");
 
   const baseLocale = defaultLocale;
@@ -52,8 +56,10 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE, BROWSER_LANG_REDIRECT_DONE_KEY } fro
 
     // Mark session to prevent future redirects in this session
     markRedirectAsAttemptedThisSession();
-    
-    console.log("i18nScript: Session management initialized. ParaglideJS will handle language detection.");
+
+    console.log(
+      "i18nScript: Session management initialized. ParaglideJS will handle language detection."
+    );
   };
 
   // Execute session management initialization

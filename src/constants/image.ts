@@ -159,13 +159,7 @@ export const IMAGE_SIZES = {
       loading: "lazy",
     },
     MDX_EXPAND_LG: {
-      widths: [
-        TW_SCREENS.XS,
-        TW_SCREENS.SM,
-        TW_SCREENS.MD,
-        TW_SCREENS.LG,
-        TW_SCREENS.XL,
-      ],
+      widths: [TW_SCREENS.XS, TW_SCREENS.SM, TW_SCREENS.MD, TW_SCREENS.LG, TW_SCREENS.XL],
       sizes: `(max-width: ${TW_SCREENS.XS}px) ${TW_SCREENS.XS}px, (max-width: ${TW_SCREENS.MD}px) ${TW_SCREENS.MD}px, (max-width: ${TW_SCREENS.LG}px) ${TW_SCREENS.LG}px, ${TW_SCREENS.XL}px`,
       // for debugging
       debugClass: `border-8 border-blue-500 [@media(max-width:475px)]:!border-yellow-300 [@media(max-width:768px)]:border-orange-500 [@media(max-width:1280px)]:border-red-500`,

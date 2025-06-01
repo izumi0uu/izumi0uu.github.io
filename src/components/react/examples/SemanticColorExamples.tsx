@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   AlertCircle,
   CheckCircle,
@@ -17,9 +17,9 @@ import {
   Trash2,
   Plus,
   X,
-} from "lucide-react"
+} from "lucide-react";
 
-import { cn } from "@/utils/ui/styles"
+import { cn } from "@/utils/ui/styles";
 
 /**
  * 语义化颜色系统使用示例组件
@@ -28,7 +28,7 @@ import { cn } from "@/utils/ui/styles"
  * 涵盖了文本、背景、边框、状态指示、交互元素等多种用法
  */
 const SemanticColorExamples = () => {
-  const [selectedTab, setSelectedTab] = React.useState("basics")
+  const [selectedTab, setSelectedTab] = React.useState("basics");
 
   return (
     <div className="bg-background text-on-background min-h-screen p-8">
@@ -583,7 +583,7 @@ const SemanticColorExamples = () => {
         </footer>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export { SemanticColorExamples }
+export { SemanticColorExamples };

@@ -21,14 +21,13 @@ const metadata = getPageMetadata("");
           {lang === "zh" ? "语义化工具类测试页面" : "Semantic Utility Classes Test"}
         </h1>
         <p class="text-content-secondary text-lg">
-          {lang === "zh" ? 
-            "此页面用于测试 Tailwind v4 是否正确生成了所有语义化变量对应的工具类" : 
-            "This page tests if Tailwind v4 correctly generates utility classes for all semantic variables"
+          {
+            lang === "zh"
+              ? "此页面用于测试 Tailwind v4 是否正确生成了所有语义化变量对应的工具类"
+              : "This page tests if Tailwind v4 correctly generates utility classes for all semantic variables"
           }
         </p>
-        <div class="theme-indicator text-content-secondary text-sm mt-2">
-          当前主题：
-        </div>
+        <div class="theme-indicator text-content-secondary text-sm mt-2">当前主题：</div>
       </header>
 
       <!-- 主要颜色测试 -->
@@ -75,7 +74,7 @@ const metadata = getPageMetadata("");
             <p class="text-on-info">text-on-info</p>
           </div>
         </div>
-        
+
         <!-- 容器变体 -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
           <div class="bg-success-container text-on-success-container p-4 rounded-lg">
@@ -113,7 +112,9 @@ const metadata = getPageMetadata("");
 
       <!-- 容器层次系统测试 -->
       <section class="mb-12">
-        <h2 class="text-headings text-2xl font-semibold mb-6">容器层次系统 (Container Hierarchy)</h2>
+        <h2 class="text-headings text-2xl font-semibold mb-6">
+          容器层次系统 (Container Hierarchy)
+        </h2>
         <div class="bg-surface-container-lowest p-6 rounded-lg">
           <p class="text-content mb-4">surface-container-lowest</p>
           <div class="bg-surface-container-low p-4 rounded">
@@ -151,10 +152,14 @@ const metadata = getPageMetadata("");
         <h2 class="text-headings text-2xl font-semibold mb-6">链接系统 (Link Colors)</h2>
         <div class="bg-surface p-6 rounded-lg border border-outline">
           <p class="text-content mb-4">
-            这是一个 <a href="#" class="text-link hover:text-link-hover underline">普通链接 (text-link + hover:text-link-hover)</a> 的示例。
+            这是一个 <a href="#" class="text-link hover:text-link-hover underline"
+              >普通链接 (text-link + hover:text-link-hover)</a
+            > 的示例。
           </p>
           <p class="text-content">
-            这是一个 <a href="#" class="text-link-visited underline">已访问链接 (text-link-visited)</a> 的示例。
+            这是一个 <a href="#" class="text-link-visited underline"
+              >已访问链接 (text-link-visited)</a
+            > 的示例。
           </p>
         </div>
       </section>
@@ -172,7 +177,9 @@ const metadata = getPageMetadata("");
 
       <!-- 分层背景系统测试 -->
       <section class="mb-12">
-        <h2 class="text-headings text-2xl font-semibold mb-6">分层背景系统 (Layered Backgrounds)</h2>
+        <h2 class="text-headings text-2xl font-semibold mb-6">
+          分层背景系统 (Layered Backgrounds)
+        </h2>
         <div class="bg-base p-6 rounded-lg">
           <h3 class="text-content font-semibold mb-4">bg-base (基础背景)</h3>
           <div class="bg-base-secondary p-4 rounded mb-4">
@@ -213,9 +220,17 @@ const metadata = getPageMetadata("");
       <section class="bg-surface-container p-6 rounded-lg border border-outline">
         <h2 class="text-headings text-2xl font-semibold mb-4">🎯 验证总结</h2>
         <div class="text-content space-y-2">
-          <p>✅ <strong>主要颜色系统</strong>：primary, secondary, tertiary 及其 container 和 on- 变体</p>
-          <p>✅ <strong>功能状态颜色</strong>：success, error, warning, info 及其 container 和 on- 变体</p>
-          <p>✅ <strong>表面颜色系统</strong>：background, surface, surface-variant 及其 on- 变体</p>
+          <p>
+            ✅ <strong>主要颜色系统</strong>：primary, secondary, tertiary 及其 container 和 on-
+            变体
+          </p>
+          <p>
+            ✅ <strong>功能状态颜色</strong>：success, error, warning, info 及其 container 和 on-
+            变体
+          </p>
+          <p>
+            ✅ <strong>表面颜色系统</strong>：background, surface, surface-variant 及其 on- 变体
+          </p>
           <p>✅ <strong>容器层次系统</strong>：5级容器层次 + dim/bright/tint</p>
           <p>✅ <strong>边框轮廓系统</strong>：outline, outline-variant</p>
           <p>✅ <strong>链接系统</strong>：link, link-hover, link-visited</p>
@@ -231,4 +246,5 @@ const metadata = getPageMetadata("");
       </section>
     </div>
   </main>
-</Base> 
+</Base>
+

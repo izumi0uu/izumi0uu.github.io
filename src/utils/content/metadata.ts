@@ -1,8 +1,4 @@
-import {
-  DEFAULT_METADATA,
-  PAGE_METADATA,
-  titleSeparator,
-} from "@/constants/metadata";
+import { DEFAULT_METADATA, PAGE_METADATA, titleSeparator } from "@/constants/metadata";
 
 import { CONFIG_CLIENT } from "@/config/client";
 
@@ -63,9 +59,7 @@ const handleMetadataTitle = (metadata: Metadata) => {
 
   const newMetadata = {
     ...metadata,
-    title: passedTitle
-      ? `${passedTitle}${titleSeparator}${AUTHOR_NAME}`
-      : defaultTitle,
+    title: passedTitle ? `${passedTitle}${titleSeparator}${AUTHOR_NAME}` : defaultTitle,
   };
 
   return newMetadata;

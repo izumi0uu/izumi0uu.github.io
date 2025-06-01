@@ -4,8 +4,8 @@
  * for each page being generated. This prevents getLocale() from returning server locale
  * instead of the intended page locale during static generation.
  */
-import { paraglideMiddleware } from "./paraglide/server.js"
-import { defineMiddleware } from "astro:middleware"
+import { paraglideMiddleware } from "./paraglide/server.js";
+import { defineMiddleware } from "astro:middleware";
 
 export const onRequest = defineMiddleware(async (context, next) => {
   // Enable middleware only during build process (SSG generation)
@@ -20,5 +20,5 @@ export const onRequest = defineMiddleware(async (context, next) => {
   //   }
   // }
 
-  return next()
-})
+  return next();
+});

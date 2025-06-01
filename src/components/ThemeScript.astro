@@ -7,15 +7,17 @@ import { getDefaultThemes } from "@/utils/ui/theme";
 const { DEFAULT_MODE } = CONFIG_CLIENT;
 const { THEME_META_TAG_SELECTOR } = SELECTORS;
 const defaultThemes = getDefaultThemes();
-
 ---
-{/* 
+
+{
+  /* 
   Only responsible for proposing suggestions based on environment changes and broadcasting notifications.
   Each component can decide how to respond to this notification, achieving more flexible and centralized control.
   Inlined to avoid flash of white content.
   By default, Astro will process, optimize, and bundle any script and style tags.
   You can opt-out of this behavior with the is:inline directive.
-*/}
+*/
+}
 <script
   is:inline
   define:vars={{ themeConstants, defaultThemes, DEFAULT_MODE, THEME_META_TAG_SELECTOR }}
@@ -26,10 +28,10 @@ const defaultThemes = getDefaultThemes();
   /**
    * @description used for event listener: is user prefer dark mode?
    */
-  const darkModePreference = window.matchMedia('(prefers-color-scheme: dark)');
+  const darkModePreference = window.matchMedia("(prefers-color-scheme: dark)");
 
   /**
-   * @description 
+   * @description
    * @example 'dark' -> 'default-dark(default mode, default theme)'
    * @param {string} themeMode - The target theme mode ('light' or 'dark').
    * @returns {object} The default theme object for the given mode.
@@ -37,12 +39,12 @@ const defaultThemes = getDefaultThemes();
   const getDefaultTheme = (themeMode) => defaultThemes[themeMode];
 
   /**
-   * @description 
+   * @description
    * @example 'default-light' -> 'default'
    * @param {string} themeName - The full name of the theme.
    * @returns {string | undefined} The prefix of the theme name, or undefined if not found.
    */
-  const getThemeNamePrefix = (themeName) => themeName.split('-')?.[0];
+  const getThemeNamePrefix = (themeName) => themeName.split("-")?.[0];
 
   /**
    * @description get user theme, then traversal all prefix themes, and find the best match
@@ -69,7 +71,7 @@ const defaultThemes = getDefaultThemes();
     const resultTheme = newTheme ?? defaultTheme;
 
     return resultTheme;
-  }
+  };
 
   /**
    * @description 'dark' | 'light' | null
@@ -77,7 +79,7 @@ const defaultThemes = getDefaultThemes();
    */
   const getBrowserMode = () => {
     // note: even "darkModePreference.matches" is false, it doesn't automatically mean that the user prefers "light mode". The user may be in the "no-preference state", or their browser may not support this feature (although modern browsers all support it).
-    const lightModePreference = window.matchMedia('(prefers-color-scheme: light)');
+    const lightModePreference = window.matchMedia("(prefers-color-scheme: light)");
 
     let browserMode;
 
@@ -93,7 +95,7 @@ const defaultThemes = getDefaultThemes();
         break;
     }
     return browserMode;
-  }
+  };
 
   /**
    * @description to get stored theme, if invalid, clear it
@@ -101,9 +103,10 @@ const defaultThemes = getDefaultThemes();
    * @returns {object | null} The stored theme object, or null if not found or invalid.
    */
   const getStoredTheme = () => {
-    const storedThemeString = typeof localStorage !== 'undefined' && localStorage.getItem(LOCAL_STORAGE_KEY);
+    const storedThemeString =
+      typeof localStorage !== "undefined" && localStorage.getItem(LOCAL_STORAGE_KEY);
 
-    if(!storedThemeString) return null;
+    if (!storedThemeString) return null;
 
     let storedTheme;
     try {
@@ -114,15 +117,14 @@ const defaultThemes = getDefaultThemes();
     }
 
     // invalid theme
-    if(!(storedTheme && storedTheme.name && storedTheme.mode)) {
+    if (!(storedTheme && storedTheme.name && storedTheme.mode)) {
       // clear stored invalid theme
       localStorage.removeItem(LOCAL_STORAGE_KEY);
       return null;
     }
 
     return storedTheme;
-    
-  }
+  };
 
   /**
    * @description to init theme, priority: stored mode > browser mode and theme > default app mode, config
@@ -132,11 +134,11 @@ const defaultThemes = getDefaultThemes();
   const getTheme = () => {
     // either from storage
     const storedTheme = getStoredTheme();
-    if(storedTheme) return storedTheme;
+    if (storedTheme) return storedTheme;
 
     // or fallback to default theme for browser mode
     const browserMode = getBrowserMode();
-    if(browserMode) {
+    if (browserMode) {
       const defaultBrowserTheme = getDefaultTheme(browserMode);
       return defaultBrowserTheme;
     }
@@ -144,7 +146,7 @@ const defaultThemes = getDefaultThemes();
     // fallback to app default
     const defaultAppTheme = getDefaultTheme(DEFAULT_MODE);
     return defaultAppTheme;
-  }
+  };
 
   /**
    * @description to set theme, validate theme, then update root class(dark or '') and data-theme
@@ -155,8 +157,10 @@ const defaultThemes = getDefaultThemes();
       (theme) => theme.name === newTheme.name && theme.mode === newTheme.mode
     );
 
-    if(!validatedTheme) {
-      return console.warn(`Invalid theme value '${JSON.stringify(newTheme)}' received. Expected ${JSON.stringify(THEMES)}.`);
+    if (!validatedTheme) {
+      return console.warn(
+        `Invalid theme value '${JSON.stringify(newTheme)}' received. Expected ${JSON.stringify(THEMES)}.`
+      );
     }
 
     const root = document.documentElement;
@@ -166,18 +170,18 @@ const defaultThemes = getDefaultThemes();
       // get current theme name from 'data-theme' attribute
       name: root.getAttribute(DATA_ATTRIBUTE),
       mode: isDarkMode ? MODES.dark : MODES.light,
-    }
+    };
 
     const isExistingTheme =
       newTheme.name === existingTheme.name && newTheme.mode === existingTheme.mode;
 
     // root already set to newTheme, exit early
-    if(isExistingTheme) return;
+    if (isExistingTheme) return;
 
     // update root class and data-theme
     root.setAttribute(DATA_ATTRIBUTE, newTheme.name);
 
-    if(newTheme.mode === MODES.dark) {
+    if (newTheme.mode === MODES.dark) {
       // add dark mode class if it's not already there
       if (!isDarkMode) root.classList.add(MODES.dark);
     } else {
@@ -187,13 +191,13 @@ const defaultThemes = getDefaultThemes();
     }
 
     // save to storage
-    if(typeof localStorage !== 'undefined') {
+    if (typeof localStorage !== "undefined") {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTheme));
     }
 
     // must have dealy for bg color to apply
     setTimeout(() => updateMetaTag(), 1000);
-  }
+  };
 
   /**
    * @description to make sure meta tag content is updated with the correct bg color and for the purpose of serveing for browser to detect theme
@@ -201,23 +205,23 @@ const defaultThemes = getDefaultThemes();
   const updateMetaTag = () => {
     // choose <body> as color source is a common convention, because it usually represents the "canvas" color of the page.
     const bodyElement = document.body;
-    if(!bodyElement) return;
+    if (!bodyElement) return;
 
     const computedStyles = window.getComputedStyle(bodyElement);
     const bgColor = computedStyles.backgroundColor;
 
     const metaElement = document.querySelector(THEME_META_TAG_SELECTOR);
-    if(!metaElement) return;
+    if (!metaElement) return;
 
-    metaElement.setAttribute('content', bgColor); 
-  }
+    metaElement.setAttribute("content", bgColor);
+  };
 
   // initial setup
   setTheme(getTheme());
 
   // View Transitions hook to restore theme, the astro:after-swap event fires after the new page content has been swapped in
   // allows Astro sites to maintain the benefits of multi-page applications (like better SEO and initial load performance) while also providing smooth transitions between pages that are typically associated with SPAs.
-  document.addEventListener('astro:after-swap', () => setTheme(getTheme()));
+  document.addEventListener("astro:after-swap", () => setTheme(getTheme()));
 
   // listen for theme-change custom event, fired in src/components/ThemeToggle.astro
   document.addEventListener(CHANGE_EVENT, (event) => {
@@ -225,7 +229,7 @@ const defaultThemes = getDefaultThemes();
   });
 
   // listen for prefers-color-scheme change
-  darkModePreference.addEventListener('change', (event) => {
+  darkModePreference.addEventListener("change", (event) => {
     const newMode = event.matches ? MODES.dark : MODES.light;
     const newTheme = getThemeFromMode(newMode);
 
