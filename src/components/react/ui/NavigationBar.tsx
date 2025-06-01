@@ -8,6 +8,7 @@ import { ROUTES } from "@/constants/routes";
 import * as m from "@/paraglide/messages";
 import { ModeToggleButton } from "@/components/react/ui/ModeToggleButton";
 import { ThemePopoverList } from "@/components/react/ui/themePopoverList";
+import { I18nToggleButton } from "@/components/react/ui/I18nToggleButton";
 
 import { cn } from "@/utils/ui/styles";
 
@@ -34,6 +35,7 @@ const NavigationBar = () => {
         <SearchBox />
         <ModeToggleButton />
         <ThemePopoverList />
+        <I18nToggleButton className="mt-1 ml-2" />
       </div>
     </div>
   );
