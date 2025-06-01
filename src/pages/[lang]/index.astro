@@ -3,6 +3,7 @@ import Base from "@/layouts/Base.astro";
 import { getPageMetadata } from "@/utils/content/metadata";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
 import { ButtonExamples } from "@/components/react/examples/ButtonExamples";
+import { SplitText } from "@/components/react/ui/SpiltText";
 
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
@@ -14,30 +15,29 @@ const { lang } = Astro.params;
 
 // 获取页面metadata（使用空字符串作为首页的key）
 const metadata = getPageMetadata("");
+
+const handleAnimationComplete = () => {
+  console.log('All letters have animated!');
+};
 ---
 
 <Base {metadata}>
   <main class="bg-base mx-auto px-4 py-8">
     <section class="mb-12">
-      <h1 class="text-4xl font-bold text-on-surface mb-4">
-        {lang === "zh" ? "Tailwind CSS v4 主题演示" : "Tailwind CSS v4 Theme Showcase"}
-      </h1>
-      <article class="prose lg:prose-xl text-content">
-        <h1>Garlic bread with cheese: What the science tells us</h1>
-        <p>
-          For years parents have espoused the health benefits of eating garlic bread with cheese to their
-          children, with the food earning such an iconic status in our culture that kids will often dress
-          up as warm, cheesy loaf for Halloween.
-        </p>
-        <p>
-          But a recent study shows that the celebrated appetizer may be linked to a series of rabies cases
-          springing up around the country.
-        </p>
-        <!-- ... -->
-      </article>
-      <div class="animate-fade-in text-content">
-        这段文字会淡入显示。
-      </div>
+      <SplitText
+        text="Hello, GSAP!"
+        className="text-2xl font-semibold text-center"
+        delay={100}
+        duration={0.6}
+        ease="power3.out"
+        splitType="chars"
+        from={{ opacity: 0, y: 40 }}
+        to={{ opacity: 1, y: 0 }}
+        threshold={0.1}
+        rootMargin="-100px"
+        textAlign="center"
+        onLetterAnimationComplete={handleAnimationComplete}
+      />
     </section>
 
     <section class="mb-12">
