@@ -8,14 +8,14 @@ const MODES = {
 } as const;
 
 const THEMES = [
-  // {
-  //   mode: MODES.light,
-  //   name: "default-light",
-  // },
-  // {
-  //   mode: MODES.dark,
-  //   name: "default-dark",
-  // },
+  {
+    mode: MODES.light,
+    name: "default-light",
+  },
+  {
+    mode: MODES.dark,
+    name: "default-dark",
+  },
   {
     mode: MODES.light,
     name: "wine-light",

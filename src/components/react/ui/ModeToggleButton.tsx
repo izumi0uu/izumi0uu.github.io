@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 import { Button } from "@/components/react/radix-ui/Button";
 import { THEME_CONFIG } from "@/constants/theme";
-import { getNextTheme } from "@/utils/ui/theme";
+import { getCurrentTheme, getNextTheme, toggleModeInSameTheme } from "@/utils/ui/theme";
 
 import type { ChangeThemeCustomEvent } from "@/types/constants";
 
@@ -38,7 +38,7 @@ const ModeToggleButton: React.FC<ModeToggleButtonProps> = ({ className }) => {
 
   const handleToggle = () => {
     try {
-      const nextTheme = getNextTheme();
+      const nextTheme = toggleModeInSameTheme();
       const payload = { detail: { theme: nextTheme } } as ChangeThemeCustomEvent;
       const themeChangeEvent = new CustomEvent(CHANGE_EVENT, payload);
 

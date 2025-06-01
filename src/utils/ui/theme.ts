@@ -5,9 +5,17 @@ import type { Mode, Theme } from "@/types/constants";
 const { DEFAULT_MODE, DEFAULT_THEME } = CONFIG_CLIENT;
 const { MODE_CLASS, DATA_ATTRIBUTE } = THEME_CONFIG;
 
+/**
+ * @description 获取当前模式
+ * @returns {Mode} e.g. light or dark
+ */
 const getCurrentMode = () =>
   document.documentElement.classList.contains(MODE_CLASS) ? MODES.dark : MODES.light;
 
+/**
+ * @description 获取当前主题
+ * @returns {Theme | null} e.g. { mode: 'light', name: 'default-light' }
+ */
 const getCurrentTheme = () => {
   const themeName = document.documentElement.getAttribute(DATA_ATTRIBUTE);
   const isValidThemeName =
@@ -19,6 +27,10 @@ const getCurrentTheme = () => {
   return currentTheme;
 };
 
+/**
+ * @description notes: 会遍历 THEMES 数组
+ * @returns {Theme} 下一个主题
+ */
 const getNextTheme = () => {
   const currentTheme = getCurrentTheme();
 
@@ -47,7 +59,7 @@ const validateTheme = (theme: Theme["name"]): void => {
 };
 
 /**
- * @description 根据在客户端配置中设置的单一默认主题（一个模式及其对应的主题名称），
+ * @description 根据在客户端配置中设置的单一默认主题（一个模式及其对应的主题名称）， e.g. DEFAULT_MODE: "light", DEFAULT_THEME: "wine-light",
  * 推断并返回一个包含亮色和暗色两种模式下各自默认主题配置的对象。
  *
  * 工作流程：
@@ -104,6 +116,65 @@ const getDefaultThemes = () => {
   return defaultThemes;
 };
 
+/**
+ * @description 获取主题名称的前缀（去掉模式后缀）
+ * @example 'default-light' -> 'default'
+ * @param {string} themeName - 完整的主题名称
+ * @returns {string | undefined} 主题名称前缀，如果未找到返回 undefined
+ */
+const getThemeNamePrefix = (themeName: Theme["name"]) => themeName.split("-")?.[0];
+
+/**
+ * @description 在同一主题族内切换模式（light ↔ dark）
+ * eg: wine-light ↔ wine-dark, default-light ↔ default-dark
+ * @returns {Theme} 同一主题族内相对模式的主题对象
+ */
+const toggleModeInSameTheme = (): Theme => {
+  const currentTheme = getCurrentTheme();
+  if (!currentTheme) {
+    const defaultThemes = getDefaultThemes();
+    const currentMode = getCurrentMode();
+
+    return defaultThemes[currentMode];
+  }
+
+  const currentThemePrefix = getThemeNamePrefix(currentTheme.name);
+  const currentMode = currentTheme.mode;
+
+  const targetMode = currentMode === MODES.light ? MODES.dark : MODES.light;
+
+  const targetTheme = THEMES.find((theme) => {
+    const themePrefix = getThemeNamePrefix(theme.name);
+    const isModeMatch = theme.mode === targetMode;
+    const isThemeNameMatch =
+      themePrefix && currentThemePrefix && themePrefix === currentThemePrefix;
+
+    return isModeMatch && isThemeNameMatch;
+  });
+
+  if (targetTheme) return targetTheme;
+
+  const defaultThemes = getDefaultThemes();
+  return defaultThemes[targetMode];
+};
+
+/**
+ * @description 在同一模式下切换主题
+ * @param {string} themeName - 当前主题名称
+ * @returns {Theme} 同一模式下相对主题的主题对象
+ */
+const toggleThemeInSameMode = (themeName: Theme["name"]) => {
+  const currentTheme = getCurrentTheme();
+  if (!currentTheme) {
+    const defaultThemes = getDefaultThemes();
+    const currentMode = getCurrentMode();
+    return defaultThemes[currentMode];
+  }
+
+  const currentThemePrefix = getThemeNamePrefix(currentTheme.name);
+  const currentMode = currentTheme.mode;
+};
+
 export {
   getCurrentMode,
   getCurrentTheme,
@@ -111,4 +182,6 @@ export {
   validateMode,
   validateTheme,
   getDefaultThemes,
+  toggleModeInSameTheme,
+  toggleThemeInSameMode,
 };

@@ -23,7 +23,7 @@ const lang = Astro.currentLocale;
 		<slot />
 		{import.meta.env.DEV && <StagewiseDevToolbar client:only="react" />}
 		<!-- {import.meta.env.DEV && <I18nDevToolbar client:only="react" />} -->
-		{import.meta.env.DEV && <ThemeDevToolbar client:only="react" />}
+		<!-- {import.meta.env.DEV && <ThemeDevToolbar client:only="react" />} -->
 		<Toaster />
 	</body>
 </html>
