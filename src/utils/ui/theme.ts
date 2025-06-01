@@ -1,47 +1,50 @@
-import { CONFIG_CLIENT } from "@/config/client"
-import { MODES, THEME_CONFIG, THEMES } from "@/constants/theme"
-import type { Mode, Theme } from "@/types/constants"
+import { CONFIG_CLIENT } from "@/config/client";
+import { MODES, THEME_CONFIG, THEMES } from "@/constants/theme";
+import type { Mode, Theme } from "@/types/constants";
 
-const { DEFAULT_MODE, DEFAULT_THEME } = CONFIG_CLIENT
-const { MODE_CLASS, DATA_ATTRIBUTE } = THEME_CONFIG
+const { DEFAULT_MODE, DEFAULT_THEME } = CONFIG_CLIENT;
+const { MODE_CLASS, DATA_ATTRIBUTE } = THEME_CONFIG;
 
 const getCurrentMode = () =>
-  document.documentElement.classList.contains(MODE_CLASS) ? MODES.dark : MODES.light
+  document.documentElement.classList.contains(MODE_CLASS) ? MODES.dark : MODES.light;
 
 const getCurrentTheme = () => {
-  const themeName = document.documentElement.getAttribute(DATA_ATTRIBUTE)
+  const themeName = document.documentElement.getAttribute(DATA_ATTRIBUTE);
   const isValidThemeName =
-    Boolean(themeName) && THEMES.map((theme) => theme.name).includes(themeName as Theme["name"])
+    Boolean(themeName) && THEMES.map((theme) => theme.name).includes(themeName as Theme["name"]);
 
-  if (!isValidThemeName) return null
+  if (!isValidThemeName) return null;
 
-  const currentTheme = THEMES.find((theme) => theme.name === themeName) as Theme
-  return currentTheme
-}
+  const currentTheme = THEMES.find((theme) => theme.name === themeName) as Theme;
+  return currentTheme;
+};
 
 const getNextTheme = () => {
-  const currentTheme = getCurrentTheme()
+  const currentTheme = getCurrentTheme();
 
-  const currentIndex = THEMES.findIndex((theme) => currentTheme && currentTheme.name === theme.name)
+  const currentIndex = THEMES.findIndex(
+    (theme) => currentTheme && currentTheme.name === theme.name
+  );
 
   if (currentIndex === -1) {
-    const currentMode = getCurrentMode()
-    const defaultThemes = getDefaultThemes()
+    const currentMode = getCurrentMode();
+    const defaultThemes = getDefaultThemes();
 
-    return defaultThemes[currentMode]
+    return defaultThemes[currentMode];
   }
 
-  const nextIndex = (currentIndex + 1) % THEMES.length
-  return THEMES[nextIndex]
-}
+  const nextIndex = (currentIndex + 1) % THEMES.length;
+  return THEMES[nextIndex];
+};
 
 const validateMode = (mode: Mode): void => {
-  if (![MODES.light, MODES.dark].includes(mode)) throw new Error(`Invalid mode: ${mode}`)
-}
+  if (![MODES.light, MODES.dark].includes(mode)) throw new Error(`Invalid mode: ${mode}`);
+};
 
 const validateTheme = (theme: Theme["name"]): void => {
-  if (!THEMES.map((theme) => theme.name).includes(theme)) throw new Error(`Invalid theme: ${theme}`)
-}
+  if (!THEMES.map((theme) => theme.name).includes(theme))
+    throw new Error(`Invalid theme: ${theme}`);
+};
 
 /**
  * @description 根据在客户端配置中设置的单一默认主题（一个模式及其对应的主题名称），
@@ -63,17 +66,17 @@ const validateTheme = (theme: Theme["name"]): void => {
  * 但前提是主题命名规范要配合。
  */
 const getDefaultThemes = () => {
-  validateMode(DEFAULT_MODE)
-  validateTheme(DEFAULT_THEME)
+  validateMode(DEFAULT_MODE);
+  validateTheme(DEFAULT_THEME);
 
-  const isDarkMode = DEFAULT_MODE === MODES.dark
+  const isDarkMode = DEFAULT_MODE === MODES.dark;
 
-  const otherMode = isDarkMode ? MODES.light : MODES.dark
+  const otherMode = isDarkMode ? MODES.light : MODES.dark;
   // infer the other theme name from the default theme name using replace
-  const otherTheme = DEFAULT_THEME.replace(DEFAULT_MODE, otherMode) as Theme["name"]
+  const otherTheme = DEFAULT_THEME.replace(DEFAULT_MODE, otherMode) as Theme["name"];
 
-  validateMode(otherMode)
-  validateTheme(otherTheme)
+  validateMode(otherMode);
+  validateTheme(otherTheme);
 
   // normalized and structured output
   const defaultThemes = isDarkMode
@@ -96,10 +99,10 @@ const getDefaultThemes = () => {
           mode: otherMode,
           name: otherTheme,
         },
-      }
+      };
 
-  return defaultThemes
-}
+  return defaultThemes;
+};
 
 export {
   getCurrentMode,
@@ -108,4 +111,4 @@ export {
   validateMode,
   validateTheme,
   getDefaultThemes,
-}
+};
