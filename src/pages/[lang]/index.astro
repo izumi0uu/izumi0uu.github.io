@@ -2,8 +2,8 @@
 import Base from "@/layouts/Base.astro";
 import { getPageMetadata } from "@/utils/content/metadata";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
-import { ButtonExamples } from "@/components/react/examples/ButtonExamples";
 import { SplitText } from "@/components/react/ui/SpiltText";
+import { FallingText } from "@/components/react/ui/FallingText";
 
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
@@ -22,9 +22,9 @@ const handleAnimationComplete = () => {
 ---
 
 <Base {metadata}>
-  <main class="bg-base mx-auto px-4 py-8">
-    <section class="mb-12">
-      <SplitText
+  <main class="bg-base  px-4 py-8">
+    <section class="mb-12 flex justify-center items-center h-[30vh] w-full">
+      <!-- <SplitText
         text="Hello, GSAP!"
         className="text-2xl font-semibold text-center"
         delay={100}
@@ -37,210 +37,21 @@ const handleAnimationComplete = () => {
         rootMargin="-100px"
         textAlign="center"
         onLetterAnimationComplete={handleAnimationComplete}
-        client:load />
+        client:load /> -->
+  
     </section>
-    <section class="mb-12">
-      <h2 class="text-3xl font-bold text-headings mb-6 border-b border-outline pb-2">
-        {lang === "zh" ? "按钮组件示例 (React)" : "Button Component Examples (React)"}
-      </h2>
-      <ButtonExamples client:visible />
+    <section class="mb-12 flex justify-center items-center h-[30vh] w-full">
+      <FallingText
+      text={`I got a lot of ideas and I want to share them with you. Hope you like them.`}
+      highlightWords={["ideas", "share"]}
+      highlightClass="highlighted"
+      trigger="scroll"
+      wireframes={false}
+      gravity={0.50}
+      fontSize="2rem"
+      mouseConstraintStiffness={0.9}
+      client:load
+  />
     </section>
-
-    <div class="container mx-auto px-4 py-8">
-      <h1 class="text-4xl font-bold mb-8 text-center text-on-surface">
-        {lang === "zh" ? "Typography 插件测试" : "Typography Plugin Test"}
-      </h1>
-      
-      <!-- 基本测试区域 -->
-      <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4 text-on-surface">
-          {lang === "zh" ? "基本测试" : "Basic Test"}
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h3 class="text-xl mb-2 text-on-surface">
-              {lang === "zh" ? "不使用 prose 类" : "Without prose class"}
-            </h3>
-            <div class="p-6 border-2 border-outline rounded-lg">
-              <h4>这是标题</h4>
-              <p>这是一段普通文本，没有应用 prose 类。</p>
-              <blockquote>这是一段引用文本。</blockquote>
-              <pre></pre>
-              <ul>
-                <li>列表项 1</li>
-                <li>列表项 2</li>
-                <li>列表项 3</li>
-              </ul>
-            </div>
-          </div>
-          
-          <div>
-            <h3 class="text-xl mb-2 text-on-surface">
-              {lang === "zh" ? "使用 prose 类" : "With prose class"}
-            </h3>
-            <div class="prose p-6 border-2 border-outline rounded-lg bg-surface">
-              <h4>这是标题</h4>
-              <p>这是一段应用了 prose 类的文本，应该有更好的排版效果。</p>
-              <blockquote>这是一段引用文本。</blockquote>
-              <pre></pre>
-              <ul>
-                <li>列表项 1</li>
-                <li>列表项 2</li>
-                <li>列表项 3</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <!-- 不同尺寸测试 -->
-      <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4 text-on-surface">
-          {lang === "zh" ? "尺寸变体" : "Size Variants"}
-        </h2>
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div>
-            <h3 class="text-xl mb-2 text-on-surface">prose-sm</h3>
-            <div class="prose prose-sm p-4 border-2 border-outline rounded-lg bg-surface">
-              <h4>小号排版</h4>
-              <p>这是使用 prose-sm 类的文本，字体大小较小。</p>
-              <ul>
-                <li>列表项 1</li>
-                <li>列表项 2</li>
-              </ul>
-            </div>
-          </div>
-          
-          <div>
-            <h3 class="text-xl mb-2 text-on-surface">prose (默认)</h3>
-            <div class="prose p-4 border-2 border-outline rounded-lg bg-surface">
-              <h4>默认排版</h4>
-              <p>这是使用默认 prose 类的文本。</p>
-              <ul>
-                <li>列表项 1</li>
-                <li>列表项 2</li>
-              </ul>
-            </div>
-          </div>
-          
-          <div>
-            <h3 class="text-xl mb-2 text-on-surface">prose-xl</h3>
-            <div class="prose prose-xl p-4 border-2 border-outline rounded-lg bg-surface">
-              <h4>大号排版</h4>
-              <p>这是使用 prose-xl 类的文本，字体大小较大。</p>
-              <ul>
-                <li>列表项 1</li>
-                <li>列表项 2</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <!-- 主题测试 -->
-      <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4 text-on-surface">
-          {lang === "zh" ? "主题适配" : "Theme Adaptation"}
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h3 class="text-xl mb-2 text-on-surface">
-              {lang === "zh" ? "亮色主题" : "Light Theme"}
-            </h3>
-            <div class="prose p-6 border-2 border-outline rounded-lg bg-surface">
-              <h4>亮色主题排版</h4>
-              <p>这是在亮色主题下的排版效果。</p>
-              <a href="#">这是一个链接</a>
-              <blockquote>引用文本</blockquote>
-            </div>
-          </div>
-          
-          <div>
-            <h3 class="text-xl mb-2 text-on-surface">
-              {lang === "zh" ? "暗色主题" : "Dark Theme"}
-            </h3>
-            <div class="prose dark:prose-invert p-6 border-2 border-outline rounded-lg bg-surface">
-              <h4>暗色主题排版</h4>
-              <p>这是使用 dark:prose-invert 类在暗色主题下的排版效果。</p>
-              <a href="#">这是一个链接</a>
-              <blockquote>引用文本</blockquote>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <!-- 自定义修饰符测试 -->
-      <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4 text-on-surface">
-          {lang === "zh" ? "元素修饰符" : "Element Modifiers"}
-        </h2>
-        <div class="prose prose-headings:text-primary prose-a:text-secondary prose-a:font-bold prose-blockquote:border-accent p-6 border-2 border-outline rounded-lg bg-surface">
-          <h4>自定义标题颜色</h4>
-          <p>这段文本使用了元素修饰符来自定义样式。</p>
-          <a href="#">这是一个自定义样式的链接</a>
-          <blockquote>这是一个自定义边框颜色的引用</blockquote>
-        </div>
-      </section>
-      
-      <!-- Tailwind v4 语义化变量演示 -->
-      <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4 text-on-surface">
-          {lang === "zh" ? "Tailwind v4 语义化变量演示" : "Tailwind v4 Semantic Variables Demo"}
-        </h2>
-        
-        <!-- 颜色系统演示 -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-          <!-- 主要颜色 -->
-          <div class="bg-primary text-on-primary p-4 rounded-lg">
-            <h4 class="font-semibold mb-2">Primary</h4>
-            <p>bg-primary + text-on-primary</p>
-          </div>
-          
-          <!-- 次要颜色 -->
-          <div class="bg-secondary text-on-secondary p-4 rounded-lg">
-            <h4 class="font-semibold mb-2">Secondary</h4>
-            <p>bg-secondary + text-on-secondary</p>
-          </div>
-          
-          <!-- 成功状态 -->
-          <div class="bg-success text-on-success p-4 rounded-lg">
-            <h4 class="font-semibold mb-2">Success</h4>
-            <p>bg-success + text-on-success</p>
-          </div>
-          
-          <!-- 错误状态 -->
-          <div class="bg-error text-on-error p-4 rounded-lg">
-            <h4 class="font-semibold mb-2">Error</h4>
-            <p>bg-error + text-on-error</p>
-          </div>
-          
-          <!-- 警告状态 -->
-          <div class="bg-warning text-on-warning p-4 rounded-lg">
-            <h4 class="font-semibold mb-2">Warning</h4>
-            <p>bg-warning + text-on-warning</p>
-          </div>
-          
-          <!-- 信息状态 -->
-          <div class="bg-info text-on-info p-4 rounded-lg">
-            <h4 class="font-semibold mb-2">Info</h4>
-            <p>bg-info + text-on-info</p>
-          </div>
-        </div>
-        
-        <!-- 表面层次演示 -->
-        <div class="bg-surface-container-lowest p-6 rounded-lg">
-          <h4 class="text-on-surface font-semibold mb-4">表面层次系统</h4>
-          <div class="bg-surface-container-low p-4 rounded mb-4">
-            <div class="bg-surface-container p-4 rounded mb-4">
-              <div class="bg-surface-container-high p-4 rounded mb-4">
-                <div class="bg-surface-container-highest p-4 rounded text-center">
-                  <span class="text-on-surface">最高层内容</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
   </main>
 </Base>
