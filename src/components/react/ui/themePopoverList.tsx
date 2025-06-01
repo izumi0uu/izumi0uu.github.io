@@ -4,7 +4,7 @@ import { Button } from "@/components/react/radix-ui/Button";
 
 const ThemePopoverList = () => {
   return (
-    <Button variant="ghost" size="icon">
+    <Button variant="brutal" size="icon">
       <Palette />
     </Button>
   );

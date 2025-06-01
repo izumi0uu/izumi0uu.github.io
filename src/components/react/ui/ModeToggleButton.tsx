@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 import { Button } from "@/components/react/radix-ui/Button";
 import { THEME_CONFIG } from "@/constants/theme";
-import { getCurrentTheme, getNextTheme, toggleModeInSameTheme } from "@/utils/ui/theme";
+import { toggleModeInSameTheme } from "@/utils/ui/theme";
 
 import type { ChangeThemeCustomEvent } from "@/types/constants";
 
