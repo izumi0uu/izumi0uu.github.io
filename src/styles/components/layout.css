@@ -19,6 +19,7 @@
   @apply flex flex-1 flex-col;
 }
 
+/* 主题切换动画 */
 .mode-theme-switch {
   @apply transition-colors duration-500;
 }
