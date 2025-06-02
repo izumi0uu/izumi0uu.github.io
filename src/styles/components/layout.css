@@ -19,7 +19,20 @@
   @apply flex flex-1 flex-col;
 }
 
+.flex-col-1-layout-center {
+  @apply flex flex-1 flex-col items-center justify-center;
+}
+
+/* Flex 行布局 - 填充父容器高度 */
+.flex-row-1-layout {
+  @apply flex flex-1 flex-row;
+}
+
+.flex-row-1-layout-center {
+  @apply flex flex-1 flex-row items-center justify-center;
+}
+
 /* 主题切换动画 */
 .mode-theme-switch {
-  @apply transition-colors duration-500;
+  @apply transition-colors duration-3500;
 }

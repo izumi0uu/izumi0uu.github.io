@@ -40,27 +40,29 @@ const fallingText = m["pages.home.falling_text"]();
       <h1
         class="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-on-surface max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto"
       >
-        With insomnia, nothing&apos;s real. Everything is far away. Everything is a{" "}
-        <Highlight variant="secondary" className="mx-1" client:only="react">
-          copy, of a copy, of a copy.
+        <div class="flex-row-1-layout-center">
+          I'm a
+          <RotatingText
+            texts={["Frontend Developer", "Web Developer", "Web3 Enthusiast"]}
+            mainClassName={cn(
+              "text-2xl text-on-primary overflow-hidden items-center justify-center rounded-lg"
+            )}
+            staggerFrom={"last"}
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "-120%" }}
+            staggerDuration={0.025}
+            splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+            transition={{ type: "spring", damping: 30, stiffness: 400 }}
+            rotationInterval={2000}
+            client:only="react"
+          />
+        </div>
+        Happy to see you here! In this place, you can find some of interesting ideas and projects.
+        <Highlight variant="tertiary" className="mx-1" client:only="react">
+          Enjoy your time here!
         </Highlight>
       </h1>
-    </div>
-
-    <div class="flex-col-1-layout h-[6rem]">
-      <RotatingText
-        texts={["Frontend Developer", "Web Developer", "a Web3 Enthusiast"]}
-        mainClassName="px-2 sm:px-2 md:px-3 bg-primary text-on-primary overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
-        staggerFrom={"last"}
-        initial={{ y: "100%" }}
-        animate={{ y: 0 }}
-        exit={{ y: "-120%" }}
-        staggerDuration={0.025}
-        splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
-        transition={{ type: "spring", damping: 30, stiffness: 400 }}
-        rotationInterval={2000}
-        client:only="react"
-      />
     </div>
   </section>
 
