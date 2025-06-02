@@ -13,7 +13,7 @@ const { className, ...rest } = Astro.props;
 ---
 
 <Base {...rest}>
-  <main class={cn("w-full flex-1 flex flex-col", className)}>
+  <main class={cn("w-full flex-col-1-layout", className)}>
     <slot />
   </main>
 </Base>
