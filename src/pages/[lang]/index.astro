@@ -1,5 +1,5 @@
 ---
-import Base from "@/layouts/Base.astro";
+import FullWidth from "@/layouts/FullWidth.astro";
 import { getPageMetadata } from "@/utils/content/metadata";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
 import { SplitText } from "@/components/react/ui/SpiltText";
@@ -22,124 +22,86 @@ const metadata = getPageMetadata("");
 const fallingText = m["pages.home.falling_text"]();
 ---
 
-<Base {metadata}>
-  <main class="bg-background px-4 py-8 min-h-screen">
-    <section
-      class={cn(
-        "mb-12 flex flex-col justify-center items-center h-[30vh] w-full",
-        "bg-surface-container relative flex h-[40rem] w-full items-center justify-center transition-colors duration-300"
-      )}
-    >
-      <SplitText
-        text={"Hello, I'm Izumi0uu!"}
-        className="text-8xl font-semibold text-center text-headings"
-        delay={100}
-        duration={0.6}
-        ease="power3.out"
-        splitType="chars"
-        threshold={0.1}
-        client:only="react"
-      />
-      <div class="relative z-20">
-        <h1
-          class="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-on-surface max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto"
-        >
-          With insomnia, nothing&apos;s real. Everything is far away. Everything is a{" "}
-          <Highlight variant="primary" className="mx-1"> copy, of a copy, of a copy. </Highlight>
-        </h1>
-      </div>
-    </section>
+<FullWidth {metadata}>
+  <section
+    class={cn(
+      "mb-12 flex flex-col justify-center items-center h-[30vh] w-full",
+      "bg-surface-container relative flex h-[40rem] w-full items-center justify-center transition-colors duration-300"
+    )}
+  >
+    <SplitText
+      text={"Hello, I'm Izumi0uu!"}
+      className="text-8xl font-semibold text-center text-headings"
+      delay={100}
+      duration={0.6}
+      ease="power3.out"
+      splitType="chars"
+      threshold={0.1}
+      client:only="react"
+    />
+    <div class="relative z-20">
+      <h1
+        class="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-on-surface max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto"
+      >
+        With insomnia, nothing&apos;s real. Everything is far away. Everything is a{" "}
+        <Highlight variant="primary" className="mx-1"> copy, of a copy, of a copy. </Highlight>
+      </h1>
+    </div>
+  </section>
 
-    <section class="mb-12 flex justify-center items-center h-[30vh] w-full">
-      <FallingText
-        text={m["pages.home.falling_text"]()}
-        highlightWords={["ideas", "share"]}
-        highlightClass="highlighted"
-        trigger="hover"
-        wireframes={false}
-        gravity={0.3}
-        fontSize="2rem"
-        mouseConstraintStiffness={0.9}
-        client:load
-      />
-    </section>
+  <section class="mb-12 flex justify-center items-center h-[30vh] w-full">
+    <FallingText
+      text={m["pages.home.falling_text"]()}
+      highlightWords={["ideas", "share"]}
+      highlightClass="highlighted"
+      trigger="hover"
+      wireframes={false}
+      gravity={0.3}
+      fontSize="2rem"
+      mouseConstraintStiffness={0.9}
+      client:load
+    />
+  </section>
 
-    <!-- 语义化主题演示区域 -->
-    <section class="mb-12 space-y-8">
-      <div class="text-center">
-        <h2 class="text-3xl font-bold text-headings mb-4">🎨 语义化主题演示</h2>
-        <p class="text-content-secondary text-lg max-w-2xl mx-auto">
-          展示不同语义化变体的强调效果，完美适配任何主题切换
+  <!-- 语义化主题演示区域 -->
+  <section class="mb-12 space-y-8">
+    <div class="text-center">
+      <h2 class="text-3xl font-bold text-headings mb-4">🎨 语义化主题演示</h2>
+      <p class="text-content-secondary text-lg max-w-2xl mx-auto">
+        展示不同语义化变体的强调效果，完美适配任何主题切换
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <!-- Primary 变体 -->
+      <div
+        class="bg-surface p-6 rounded-lg border-2 border-outline/20 hover:shadow-md transition-shadow"
+      >
+        <h3 class="text-xl font-semibold text-on-surface mb-3">Primary 强调</h3>
+        <p class="text-content leading-relaxed">
+          这是使用 <Highlight variant="primary">主要品牌色</Highlight> 的强调效果， 适合突出最重要的内容和核心信息。
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        <!-- Primary 变体 -->
-        <div
-          class="bg-surface p-6 rounded-lg border-2 border-outline/20 hover:shadow-md transition-shadow"
-        >
-          <h3 class="text-xl font-semibold text-on-surface mb-3">Primary 强调</h3>
-          <p class="text-content leading-relaxed">
-            这是使用 <Highlight variant="primary">主要品牌色</Highlight> 的强调效果， 适合突出最重要的内容和核心信息。
-          </p>
-        </div>
-
-        <!-- Secondary 变体 -->
-        <div
-          class="bg-surface p-6 rounded-lg border border-outline/20 hover:shadow-md transition-shadow"
-        >
-          <h3 class="text-xl font-semibold text-on-surface mb-3">Secondary 强调</h3>
-          <p class="text-content leading-relaxed">
-            这是使用 <Highlight variant="secondary">次要颜色</Highlight> 的强调效果， 适合辅助信息和补充说明。
-          </p>
-        </div>
-
-        <!-- Tertiary 变体 -->
-        <div
-          class="bg-surface p-6 rounded-lg border border-outline/20 hover:shadow-md transition-shadow"
-        >
-          <h3 class="text-xl font-semibold text-on-surface mb-3">Tertiary 强调</h3>
-          <p class="text-content leading-relaxed">
-            这是使用 <Highlight variant="tertiary">第三级颜色</Highlight> 的强调效果， 适合创建丰富的视觉层次。
-          </p>
-        </div>
+      <!-- Secondary 变体 -->
+      <div
+        class="bg-surface p-6 rounded-lg border border-outline/20 hover:shadow-md transition-shadow"
+      >
+        <h3 class="text-xl font-semibold text-on-surface mb-3">Secondary 强调</h3>
+        <p class="text-content leading-relaxed">
+          这是使用 <Highlight variant="secondary">次要颜色</Highlight> 的强调效果， 适合辅助信息和补充说明。
+        </p>
       </div>
-    </section>
 
-    <!-- 技术特性说明区域 -->
-    <section class="mb-12">
-      <div class="bg-surface-container p-8 rounded-xl border border-outline/20 max-w-4xl mx-auto">
-        <h2 class="text-2xl font-bold text-headings mb-6 text-center">✨ 语义化设计亮点</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-content">
-          <div>
-            <h3 class="font-semibold text-on-surface mb-2">🎯 完全语义化</h3>
-            <p class="text-sm text-content-secondary">
-              所有颜色都使用语义化CSS变量，如 <code
-                class="bg-surface-container px-2 py-1 rounded text-xs">--color-primary</code
-              >、
-              <code class="bg-surface-container px-2 py-1 rounded text-xs">--color-surface</code> 等
-            </p>
-          </div>
-          <div>
-            <h3 class="font-semibold text-on-surface mb-2">🌓 主题自适应</h3>
-            <p class="text-sm text-content-secondary">
-              自动适配明暗主题切换，支持多套主题方案（如酒红主题），无需修改组件代码
-            </p>
-          </div>
-          <div>
-            <h3 class="font-semibold text-on-surface mb-2">🎬 流畅动画</h3>
-            <p class="text-sm text-content-secondary">
-              使用 Motion 库实现渐进式动画效果，包括背景扩展、透明度变化和悬停缩放
-            </p>
-          </div>
-          <div>
-            <h3 class="font-semibold text-on-surface mb-2">♿ 无障碍友好</h3>
-            <p class="text-sm text-content-secondary">
-              遵循语义化HTML结构，适当的ARIA标签，确保屏幕阅读器的良好支持
-            </p>
-          </div>
-        </div>
+      <!-- Tertiary 变体 -->
+      <div
+        class="bg-surface p-6 rounded-lg border border-outline/20 hover:shadow-md transition-shadow"
+      >
+        <h3 class="text-xl font-semibold text-on-surface mb-3">Tertiary 强调</h3>
+        <p class="text-content leading-relaxed">
+          这是使用 <Highlight variant="tertiary">第三级颜色</Highlight> 的强调效果， 适合创建丰富的视觉层次。
+        </p>
       </div>
-    </section>
-  </main>
-</Base>
+    </div>
+  </section>
+</FullWidth>
