@@ -41,7 +41,7 @@ const fallingText = m["pages.home.falling_text"]();
         class="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-on-surface max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto"
       >
         With insomnia, nothing&apos;s real. Everything is far away. Everything is a{" "}
-        <Highlight variant="primary" className="mx-1" client:only="react">
+        <Highlight variant="secondary" className="mx-1" client:only="react">
           copy, of a copy, of a copy.
         </Highlight>
       </h1>
@@ -49,8 +49,8 @@ const fallingText = m["pages.home.falling_text"]();
 
     <div class="flex-col-1-layout h-[6rem]">
       <RotatingText
-        texts={["React", "Bits", "Is", "Cool!"]}
-        mainClassName="px-2 sm:px-2 md:px-3 bg-cyan-300 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+        texts={["Frontend Developer", "Web Developer", "a Web3 Enthusiast"]}
+        mainClassName="px-2 sm:px-2 md:px-3 bg-primary text-on-primary overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
         staggerFrom={"last"}
         initial={{ y: "100%" }}
         animate={{ y: 0 }}

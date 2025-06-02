@@ -48,7 +48,7 @@ const Highlight = ({
       )}
     >
       <span
-        className="via-surface-bright/10 absolute inset-0 rounded-lg bg-gradient-to-r from-transparent to-transparent opacity-0 transition-opacity duration-500 hover:opacity-100"
+        className="absolute inset-0 rounded-lg bg-gradient-to-r from-transparent via-surface-bright/10 to-transparent opacity-0 transition-opacity duration-500 hover:opacity-100"
         aria-hidden="true"
       />
       <span className="relative z-10">{children}</span>
