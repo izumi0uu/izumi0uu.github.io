@@ -20,11 +20,7 @@ const lang = Astro.currentLocale;
 <!doctype html>
 <html lang={lang}>
   <BaseHead {metadata} />
-  <body
-    class={cn(
-      "relative flex flex-col min-h-screen min-w-80 bg-base transition-colors duration-500"
-    )}
-  >
+  <body class={cn("relative flex flex-col min-h-screen min-w-80 bg-base mode-theme-switch")}>
     <Header />
     <slot />
     {import.meta.env.DEV && <StagewiseDevToolbar client:only="react" />}

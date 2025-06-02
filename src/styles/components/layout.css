@@ -18,3 +18,7 @@
 .flex-col-1-layout {
   @apply flex flex-1 flex-col;
 }
+
+.mode-theme-switch {
+  @apply transition-colors duration-500;
+}
