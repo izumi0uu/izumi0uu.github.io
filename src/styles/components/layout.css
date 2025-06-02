@@ -1,12 +1,20 @@
-/* responsive  padding  */
+/**
+ * @file layout.css  
+ * @description 布局相关的自定义组件样式
+ * Tailwind v4 兼容 - 避免自定义类之间的相互引用
+ */
+
+/* 响应式居中布局 - 基础版本 */
 .centered {
   @apply w-full md:mx-auto;
 }
 
+/* 响应式居中布局 - 带填充版本 */
 .centered-px {
-  @apply centered px-4 lg:px-0;
+  @apply w-full px-4 md:mx-auto lg:px-0;
 }
 
+/* Flex 列布局 - 填充父容器高度 */
 .flex-col-1-layout {
   @apply flex flex-1 flex-col;
 }
