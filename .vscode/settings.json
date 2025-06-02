@@ -1,8 +1,8 @@
 {
-  "css.validate": false,
+  "css.validate": true,
   "less.validate": false,
   "scss.validate": false,
-  "css.customData": [".vscode/css_custom_data.json"],
+  "css.customData": [".vscode/tailwind_custom_data.json"],
   "tailwindCSS.includeLanguages": {
     "astro": "html"
   },
@@ -15,10 +15,12 @@
     "**/build/**"
   ],
   "emmet.includeLanguages": {
-    "astro": "html"
+    "astro": "html",
+    "css": "css"
   },
   "files.associations": {
-    "*.astro": "astro"
+    "*.astro": "astro",
+    "*.css": "css"
   },
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
@@ -46,5 +48,20 @@
   },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "css.lint.unknownAtRules": "ignore",
+  "css.lint.validProperties": [],
+  "css.completion.completePropertyWithSemicolon": true,
+  "css.completion.triggerPropertyValueCompletion": true,
+  "css.hover.documentation": true,
+  "css.hover.references": true,
+  "css.format.enable": true,
+  "css.lint.importStatement": "ignore",
+  "css.suggest.insertMode": "replace",
+  "typescript.suggest.paths": true,
+  "typescript.preferences.includePackageJsonAutoImports": "auto",
+  "search.useIgnoreFiles": true,
+  "search.useGlobalIgnoreFiles": true,
+  "editor.gotoLocation.multipleDefinitions": "goto",
+  "editor.gotoLocation.multipleDeclarations": "goto"
 }

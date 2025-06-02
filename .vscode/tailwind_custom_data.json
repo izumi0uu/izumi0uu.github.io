@@ -1,0 +1,96 @@
+{
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@import",
+      "description": "The @import CSS at-rule is used to import style rules from other style sheets.",
+      "syntax": "@import <string> <media-query-list>?",
+      "references": [
+        {
+          "name": "MDN Reference",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@import"
+        }
+      ]
+    },
+    {
+      "name": "@theme",
+      "description": "Tailwind v4 theme configuration directive for defining design tokens.",
+      "syntax": "@theme { /* theme configuration */ }",
+      "references": [
+        {
+          "name": "Tailwind CSS v4 Documentation",
+          "url": "https://tailwindcss.com/docs"
+        }
+      ]
+    },
+    {
+      "name": "@tailwind",
+      "description": "Use the @tailwind directive to insert Tailwind's base, components, utilities styles into your CSS.",
+      "syntax": "@tailwind base | components | utilities | variants",
+      "references": [
+        {
+          "name": "Tailwind CSS Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#tailwind"
+        }
+      ]
+    },
+    {
+      "name": "@apply",
+      "description": "Use the @apply directive to inline any existing utility classes into your own custom CSS.",
+      "syntax": "@apply <utility-class>+",
+      "references": [
+        {
+          "name": "Tailwind CSS Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#apply"
+        }
+      ]
+    },
+    {
+      "name": "@layer",
+      "description": "Use the @layer directive to tell Tailwind which 'bucket' a set of custom styles belong to.",
+      "syntax": "@layer base | components | utilities { /* styles */ }",
+      "references": [
+        {
+          "name": "Tailwind CSS Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#layer"
+        }
+      ]
+    },
+    {
+      "name": "@responsive",
+      "description": "Generate responsive variants of your own classes by wrapping their definitions in the @responsive directive.",
+      "syntax": "@responsive { /* styles */ }",
+      "references": [
+        {
+          "name": "Tailwind CSS Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#responsive"
+        }
+      ]
+    },
+    {
+      "name": "@screen",
+      "description": "Create media queries that reference your breakpoints by name instead of duplicating their values.",
+      "syntax": "@screen <breakpoint-name> { /* styles */ }",
+      "references": [
+        {
+          "name": "Tailwind CSS Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#screen"
+        }
+      ]
+    },
+    {
+      "name": "@variants",
+      "description": "Generate hover, focus, active and other variants of your own utilities.",
+      "syntax": "@variants <variant-list> { /* styles */ }",
+      "references": [
+        {
+          "name": "Tailwind CSS Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#variants"
+        }
+      ]
+    }
+  ],
+  "properties": [],
+  "pseudoClasses": [],
+  "pseudoElements": []
+}
