@@ -1,15 +1,7 @@
-/**
- * @file layout.css  
- * @description 布局相关的自定义组件样式
- * 使用 Tailwind v4 兼容语法定义可复用的布局类
- */
-
-/* 居中布局类 - 响应式宽度控制 */
 .centered {
   @apply w-full md:mx-auto;
 }
 
-/* 带填充的居中布局类 */
 .centered-px {
   @apply w-full px-4 md:mx-auto lg:px-0;
 }
