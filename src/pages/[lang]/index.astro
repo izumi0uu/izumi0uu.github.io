@@ -7,7 +7,6 @@ import { FallingText } from "@/components/react/ui/FallingText";
 import { Highlight } from "@/components/react/ui/HeroHighlightText";
 import { cn } from "@/utils/ui/styles";
 import * as m from "@/paraglide/messages";
-
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
     params: { lang },
@@ -24,16 +23,18 @@ const fallingText = m["pages.home.falling_text"]();
 
 <FullWidth {metadata}>
   <section class={cn("flex-col-1-layout bg-surface-container h-[40rem] mode-theme-switch")}>
-    <SplitText
-      text={"Hello, I'm Izumi0uu!"}
-      className="text-8xl font-semibold text-center text-headings"
-      delay={100}
-      duration={0.6}
-      ease="power3.out"
-      splitType="chars"
-      threshold={0.1}
-      client:only="react"
-    />
+    <div class="flex-col-1-layout h-[6rem]">
+      <SplitText
+        text={"Hello, I'm Izumi0uu!"}
+        className="text-7xl font-semibold text-center text-headings"
+        delay={100}
+        duration={0.6}
+        ease="power3.out"
+        splitType="chars"
+        threshold={0.1}
+        client:only="react"
+      />
+    </div>
     <div class="relative z-20">
       <h1
         class="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-on-surface max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto"
