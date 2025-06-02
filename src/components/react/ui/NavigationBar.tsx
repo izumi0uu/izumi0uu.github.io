@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/react/radix-ui/Button";
 import { SearchBox } from "@/components/react/ui/SearchBox";
 
@@ -9,10 +10,16 @@ import * as m from "@/paraglide/messages";
 import { ModeToggleButton } from "@/components/react/ui/ModeToggleButton";
 import { ThemePopoverList } from "@/components/react/ui/ThemePopoverList";
 import { I18nToggleButton } from "@/components/react/ui/I18nToggleButton";
-
+import { MobileNavIcon, MobileNavigationBar } from "@/components/react/ui/MoblieNavigationBar";
 import { cn } from "@/utils/ui/styles";
 
 const NavigationBar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div className="container flex h-14 max-w-screen-2xl items-center px-8">
       <div className="flex gap-6 md:gap-10">
@@ -36,6 +43,9 @@ const NavigationBar = () => {
         <ModeToggleButton />
         <ThemePopoverList />
         <I18nToggleButton className="mt-1 ml-2" />
+        <MobileNavigationBar position="top">
+          <MobileNavIcon isActive={isMenuOpen} onClick={toggleMenu} />
+        </MobileNavigationBar>
       </div>
     </div>
   );
