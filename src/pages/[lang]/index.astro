@@ -1,13 +1,14 @@
 ---
-import FullWidth from "@/layouts/FullWidth.astro";
 import { getPageMetadata } from "@/utils/content/metadata";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
 import { SplitText } from "@/components/react/ui/SpiltText";
 import { FallingText } from "@/components/react/ui/FallingText";
-import { Highlight } from "@/components/react/ui/HeroHighlightText";
 import RotatingText from "@/components/react/ui/RotatingText";
 import { cn } from "@/utils/ui/styles";
 import * as m from "@/paraglide/messages";
+
+import Centered from "@/layouts/Centered.astro";
+
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
     params: { lang },
@@ -22,7 +23,7 @@ const metadata = getPageMetadata("");
 const fallingText = m["pages.home.falling_text"]();
 ---
 
-<FullWidth {metadata}>
+<Centered {metadata}>
   <section class={cn("flex-col-1-layout bg-surface-container mode-theme-switch")}>
     <div class="flex-row-1-layout">
       <div>
@@ -66,7 +67,7 @@ const fallingText = m["pages.home.falling_text"]();
       </div>
     </div>
   </section>
-</FullWidth>
+</Centered>
 
 <section class="mb-12 flex justify-center items-center h-[30vh] w-full">
   <FallingText
