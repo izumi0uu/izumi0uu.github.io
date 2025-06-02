@@ -8,6 +8,8 @@ import Header from "@/components/Header.astro";
 import { Toaster } from "@/components/react/radix-ui/Toaster";
 import type { BaseHeadProps } from "@/components/BaseHead.astro";
 import { cn } from "@/utils/ui/styles";
+import { ToTopScroll } from "@/components/react/ui/ToTopScroll";
+
 export interface BaseProps extends BaseHeadProps {}
 
 const { metadata } = Astro.props as BaseProps;
@@ -29,5 +31,6 @@ const lang = Astro.currentLocale;
     <!-- {import.meta.env.DEV && <I18nDevToolbar client:only="react" />} -->
     <!-- {import.meta.env.DEV && <ThemeDevToolbar client:only="react" />} -->
     <Toaster />
+    <ToTopScroll client:only="react" />
   </body>
 </html>
