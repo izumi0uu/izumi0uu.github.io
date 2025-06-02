@@ -1,7 +1,12 @@
+/* responsive  padding  */
 .centered {
   @apply w-full md:mx-auto;
 }
 
 .centered-px {
-  @apply w-full px-4 md:mx-auto lg:px-0;
+  @apply centered px-4 lg:px-0;
+}
+
+.flex-col-1-layout {
+  @apply flex flex-1 flex-col;
 }
