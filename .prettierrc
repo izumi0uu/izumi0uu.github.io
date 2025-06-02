@@ -2,6 +2,7 @@
   "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-astro"],
   "tailwindFunctions": ["clsx", "cn", "cva"],
   "tailwindAttributes": ["class", "className"],
+  "tailwindStylesheet": "./src/styles/main.css",
   "printWidth": 100,
   "tabWidth": 2,
   "useTabs": false,
