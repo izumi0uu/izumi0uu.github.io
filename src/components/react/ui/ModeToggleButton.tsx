@@ -3,6 +3,7 @@ import { Sun, Moon } from "lucide-react";
 import { Button } from "@/components/react/radix-ui/Button";
 import { THEME_CONFIG } from "@/constants/theme";
 import { toggleModeInSameTheme } from "@/utils/ui/theme";
+import { cn } from "@/utils/ui/styles";
 
 import type { ChangeThemeCustomEvent } from "@/types/constants";
 
@@ -57,9 +58,15 @@ const ModeToggleButton: React.FC<ModeToggleButtonProps> = ({ className }) => {
       aria-checked={isDark}
       aria-label={"mode-toggle-button"}
       onClick={handleToggle}
-      className={className}
+      className={cn("group", className)}
     >
-      {isDark ? <Sun /> : <Moon />}
+      <div className="transition-transform duration-200 ease-in-out group-hover:scale-125">
+        {isDark ? (
+          <Sun className="h-4 w-4 shrink-0 opacity-100" />
+        ) : (
+          <Moon className="h-4 w-4 shrink-0 opacity-100" />
+        )}
+      </div>
     </Button>
   );
 };

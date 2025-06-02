@@ -99,8 +99,10 @@ const ThemePopoverList: React.FC<ThemePopoverListProps> = ({ className }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="brutal" className={className}>
-          <Palette />
+        <Button variant="brutal" className="group">
+          <div className="transition-transform duration-200 ease-in-out group-hover:scale-125">
+            <Palette className="h-4 w-4 shrink-0 opacity-100" />
+          </div>
           <span className="sr-only">{m["components.theme_switcher.label"]()}</span>
         </Button>
       </DropdownMenuTrigger>
