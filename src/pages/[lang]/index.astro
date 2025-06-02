@@ -5,6 +5,7 @@ import { SUPPORTED_LOCALES } from "@/config/i18n";
 import { SplitText } from "@/components/react/ui/SpiltText";
 import { FallingText } from "@/components/react/ui/FallingText";
 import { Highlight } from "@/components/react/ui/HeroHighlightText";
+import RotatingText from "@/components/react/ui/RotatingText";
 import { cn } from "@/utils/ui/styles";
 import * as m from "@/paraglide/messages";
 export async function getStaticPaths() {
@@ -26,7 +27,7 @@ const fallingText = m["pages.home.falling_text"]();
     <div class="flex-col-1-layout h-[6rem]">
       <SplitText
         text={"Hello, I'm Izumi0uu!"}
-        className="text-7xl font-semibold text-center text-headings"
+        className="text-8xl font-semibold text-center text-headings"
         delay={100}
         duration={0.6}
         ease="power3.out"
@@ -35,13 +36,31 @@ const fallingText = m["pages.home.falling_text"]();
         client:only="react"
       />
     </div>
-    <div class="relative z-20">
+    <div class="flex-col-1-layout h-[6rem]">
       <h1
         class="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-on-surface max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto"
       >
         With insomnia, nothing&apos;s real. Everything is far away. Everything is a{" "}
-        <Highlight variant="primary" className="mx-1"> copy, of a copy, of a copy. </Highlight>
+        <Highlight variant="primary" className="mx-1" client:only="react">
+          copy, of a copy, of a copy.
+        </Highlight>
       </h1>
+    </div>
+
+    <div class="flex-col-1-layout h-[6rem]">
+      <RotatingText
+        texts={["React", "Bits", "Is", "Cool!"]}
+        mainClassName="px-2 sm:px-2 md:px-3 bg-cyan-300 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+        staggerFrom={"last"}
+        initial={{ y: "100%" }}
+        animate={{ y: 0 }}
+        exit={{ y: "-120%" }}
+        staggerDuration={0.025}
+        splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+        transition={{ type: "spring", damping: 30, stiffness: 400 }}
+        rotationInterval={2000}
+        client:only="react"
+      />
     </div>
   </section>
 
