@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpToLine } from "lucide-react";
 import { SELECTORS } from "@/constants/dom";
 import { cn } from "@/utils/ui/styles";
-import { Button } from "@/components/react/radix-ui/Button";
+import { Button, type ButtonProps } from "@/components/react/radix-ui/Button";
 
 import type { FC, MouseEvent, RefObject } from "react";
 
@@ -12,20 +12,20 @@ const { SCROLL_TO_TOP_SELECTOR } = SELECTORS;
 const fixedClasses = ["opacity-1", "translate-y-0"];
 const hiddenClasses = ["opacity-0", "translate-y-20"];
 
-const showLink = (linkRef: RefObject<HTMLAnchorElement | null>): void => {
-  linkRef.current?.classList.add(...fixedClasses);
-  linkRef.current?.classList.remove(...hiddenClasses);
+const showButton = (buttonRef: RefObject<HTMLButtonElement | null>): void => {
+  buttonRef.current?.classList.add(...fixedClasses);
+  buttonRef.current?.classList.remove(...hiddenClasses);
 };
 
-const hideLink = (linkRef: RefObject<HTMLAnchorElement | null>): void => {
-  linkRef.current?.classList.remove(...fixedClasses);
-  linkRef.current?.classList.add(...hiddenClasses);
+const hideButton = (buttonRef: RefObject<HTMLButtonElement | null>): void => {
+  buttonRef.current?.classList.remove(...fixedClasses);
+  buttonRef.current?.classList.add(...hiddenClasses);
 };
 
 const getHalfViewportHeight = (window: Window) => Math.floor(window.innerHeight / 2);
 
 const ToTopScroll: FC = () => {
-  const linkRef = useRef<HTMLAnchorElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const topRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -49,9 +49,9 @@ const ToTopScroll: FC = () => {
         }
       });
 
-      if (linkRef.current) {
-        if (isAtTop || isAtBottom) hideLink(linkRef);
-        else showLink(linkRef);
+      if (buttonRef.current) {
+        if (isAtTop || isAtBottom) hideButton(buttonRef);
+        else showButton(buttonRef);
       }
     };
 
@@ -78,7 +78,7 @@ const ToTopScroll: FC = () => {
     };
   }, []);
 
-  const handleScrollToTop = (event: MouseEvent<HTMLAnchorElement>) => {
+  const handleScrollToTop = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     const anchorElement = document.querySelector(SCROLL_TO_TOP_SELECTOR);
@@ -100,23 +100,25 @@ const ToTopScroll: FC = () => {
         className="pointer-events-none absolute bottom-0 w-0"
         style={{ height: `${height}px` }}
       />
-      <a
-        ref={linkRef}
+
+      <Button
+        ref={buttonRef}
         id="to-top"
-        href={SCROLL_TO_TOP_SELECTOR}
+        variant="brutal"
+        size="icon"
         onClick={handleScrollToTop}
         className={cn(
-          // default styles
-          "bg-base-200 border-base-300 fixed right-6 bottom-6 z-10 rounded border p-1",
-          // initial state
+          "fixed right-6 bottom-6 z-50",
           hiddenClasses,
-          // transition classes
-          "transition-all duration-300"
+          "transition-all duration-300 ease-out",
+          "backdrop-blur-sm",
+          "flex items-center justify-center"
         )}
-        aria-label="Scroll to top"
+        aria-label="back to top"
+        title="back to top"
       >
-        <ArrowUpToLine className="text-content hover:text-links-hover" />
-      </a>
+        <ArrowUpToLine className="h-5 w-5" />
+      </Button>
     </>
   );
 };
