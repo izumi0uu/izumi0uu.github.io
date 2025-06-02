@@ -34,5 +34,5 @@
 
 /* 主题切换动画 */
 .mode-theme-switch {
-  @apply transition-colors duration-3500;
+  @apply transition-colors duration-500;
 }
