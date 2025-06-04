@@ -1,5 +1,5 @@
 import { Button } from "../radix-ui/Button";
-import logo from "/public/images/favicons/favicon-96x96.png";
+import logo from "@/assets/images/logo.png";
 
 const Logo = () => {
   return (
@@ -12,7 +12,6 @@ const Logo = () => {
         loading="eager"
         decoding="async"
         className="h-8 w-8"
-        fetchPriority="high"
         style={{ aspectRatio: "1/1" }}
         onError={(e) => {
           e.currentTarget.style.display = "none";

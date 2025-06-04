@@ -1,13 +1,13 @@
 ---
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import footerImage from "/public/images/default/footer-default.png";
+import footerImage from "@/assets/images/footer-default.png";
 
 import Link from "@/components/Link.astro";
 import { ROUTES } from "@/constants/routes";
 import { CONFIG_CLIENT } from "@/config/client";
 
-import { Logo } from "./react/ui/Logo";
+import { Logo } from "@/components/react/ui/Logo";
 
 import { getLatestCommitInfo } from "@/libs/git";
 import { shortDate } from "@/utils/data/datetime";
