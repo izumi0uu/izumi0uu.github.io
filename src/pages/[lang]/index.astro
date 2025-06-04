@@ -31,7 +31,11 @@ const fallingText = m["pages.home.falling_text"]();
       aria-label="hero-page"
       class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4 min-h-[60vh] items-center"
     >
-      <div id="hero-page-content" aria-label="hero-page-content" class="flex-col-layout">
+      <div
+        id="hero-page-content"
+        aria-label="hero-page-content"
+        class="flex flex-col gap-6 justify-center max-w-2xl mx-auto lg:mx-0"
+      >
         <div class="flex-col-layout items-baseline">
           <SplitText
             text={"Hello."}
@@ -95,7 +99,7 @@ const fallingText = m["pages.home.falling_text"]();
       <div
         id="hero-page-image"
         aria-label="hero-page-image"
-        class="flex-row-layout w-full h-full max-w-[340px] max-h-[450px]"
+        class="hidden lg:flex items-center justify-center w-full h-full max-w-md max-h-[500px] mx-auto"
       >
         <img src="/images/default/hero-default.png" alt="hero-page-image" />
       </div>
