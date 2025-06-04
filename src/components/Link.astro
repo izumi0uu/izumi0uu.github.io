@@ -18,17 +18,62 @@ const linkVariants = cva("link-default", {
   // compoundVariants: [],
 });
 
-export interface Props extends HTMLAttributes<"a">, VariantProps<typeof linkVariants> {}
+export interface Props extends HTMLAttributes<"a">, VariantProps<typeof linkVariants> {
+  /**
+   * 是否在新标签页打开链接
+   * @default false
+   */
+  external?: boolean;
+  /**
+   * 自定义target行为
+   * 如果设置了external=true，此属性会被忽略
+   */
+  target?: string;
+  /**
+   * 自定义rel属性
+   * 如果设置了external=true且没有提供rel，会自动添加"noopener noreferrer"
+   */
+  rel?: string;
+}
 
-const { class: className, variant = "link", disabled, ...props } = Astro.props;
+const {
+  class: className,
+  variant = "link",
+  disabled,
+  external = false,
+  target,
+  rel,
+  href,
+  ...props
+} = Astro.props;
 
 const Element = disabled ? "span" : "a";
 
-// props target="_blank" etc
+// 处理跳转行为
+const linkTarget = external ? "_blank" : target;
+const linkRel = external ? rel || "noopener noreferrer" : rel;
+
+// 自动检测外部链接（如果href以http开头且不是当前域名）
+const isExternalUrl =
+  href &&
+  (String(href).startsWith("http://") ||
+    String(href).startsWith("https://") ||
+    String(href).startsWith("mailto:") ||
+    String(href).startsWith("tel:"));
+
+// 最终的target和rel属性
+const finalTarget = external || (isExternalUrl && !target) ? "_blank" : target;
+const finalRel = external || isExternalUrl ? rel || "noopener noreferrer" : rel;
 ---
 
-<Element class={linkVariants({ variant, disabled, className })} {...props}>
+<Element
+  class={linkVariants({ variant, disabled, className })}
+  href={href}
+  target={finalTarget}
+  rel={finalRel}
+  {...props}
+>
   <slot>
-    {props.href}
+    {href}
   </slot>
 </Element>
