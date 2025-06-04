@@ -9,6 +9,7 @@ import { SUPPORTED_LOCALES } from "@/config/i18n";
 import { CONFIG_CLIENT } from "@/config/client";
 import { ROUTES } from "@/constants/routes";
 import heroImage from "/public/images/default/hero-default.png";
+import { Mail, Github, Twitter, Linkedin } from "lucide-react";
 
 import Centered from "@/layouts/Centered.astro";
 import Link from "@/components/Link.astro";
@@ -38,15 +39,6 @@ const quickLinks = [
   { name: "Projects", href: ROUTES.PROJECTS, icon: "↗" },
   { name: "About", href: ROUTES.ABOUT, icon: "↗" },
   { name: "Contact", href: ROUTES.CONTACT, icon: "↗" },
-];
-
-// Contact links
-const contactLinks = [
-  { name: "Email", href: `mailto:${CONFIG_CLIENT.AUTHOR_EMAIL}` },
-  { name: "GitHub", href: CONFIG_CLIENT.AUTHOR_GITHUB },
-  { name: "Twitter", href: CONFIG_CLIENT.AUTHOR_TWITTER },
-  { name: "LinkedIn", href: CONFIG_CLIENT.AUTHOR_LINKEDIN },
-  { name: "Bilibili", href: CONFIG_CLIENT.AUTHOR_BILIBILI },
 ];
 ---
 
@@ -131,15 +123,26 @@ const contactLinks = [
 
         <!-- contact links -->
         <div class="flex flex-wrap gap-2">
-          {
-            contactLinks.map((link) => (
-              <Link href={link.href} variant="no-underline">
-                <Button variant="outline" size="sm" client:load>
-                  <span>{link.name}</span>
-                </Button>
-              </Link>
-            ))
-          }
+          <Link href={`mailto:${CONFIG_CLIENT.AUTHOR_EMAIL}`} variant="no-underline">
+            <Button variant="outline" size="sm" client:load>
+              <Mail className="w-4 h-4" />
+            </Button>
+          </Link>
+          <Link href={CONFIG_CLIENT.AUTHOR_GITHUB} variant="no-underline">
+            <Button variant="outline" size="sm" client:load>
+              <Github className="w-4 h-4" />
+            </Button>
+          </Link>
+          <Link href={CONFIG_CLIENT.AUTHOR_TWITTER} variant="no-underline">
+            <Button variant="outline" size="sm" client:load>
+              <Twitter className="w-4 h-4" />
+            </Button>
+          </Link>
+          <Link href={CONFIG_CLIENT.AUTHOR_LINKEDIN} variant="no-underline">
+            <Button variant="outline" size="sm" client:load>
+              <Linkedin className="w-4 h-4" />
+            </Button>
+          </Link>
         </div>
       </div>
       <div
