@@ -27,7 +27,7 @@ const trimmedMessage = limitString(message, messageLength);
 // footer is full width for border, div has max-w
 ---
 
-<footer class="border-t border-base-300 py-8 px-4">
+<footer class="border-t border-outline py-8 px-4">
   <div class="max-w-6xl md:mx-auto flex justify-center md:justify-start">
     <div class="flex justify-between gap-4 flex-col-reverse md:flex-row md:w-full">
       <!-- left column -->
@@ -51,7 +51,8 @@ const trimmedMessage = limitString(message, messageLength);
             class="flex items-center gap-2 text-base xs:text-lg"
             variant="nav"
           >
-            <Icon name="mdi:github" class="h-6 w-6 fill-current" />
+            <!-- <Icon name="mdi:github" class="h-6 w-6 fill-current" /> -->
+            <span class="icon-[mdi-light--home] bg-surfaceqdcf"></span>
             <span>Github</span>
           </Link>
         </li>
@@ -64,7 +65,7 @@ const trimmedMessage = limitString(message, messageLength);
             class="flex items-center gap-2 text-base xs:text-lg"
             variant="nav"
           >
-            <Icon name="mdi:linkedin" class="h-6 w-6 fill-current" />
+            <!-- <Icon name="mdi:linkedin" class="h-6 w-6 fill-current" /> -->
             <span>LinkedIn</span>
           </Link>
         </li>
@@ -75,7 +76,7 @@ const trimmedMessage = limitString(message, messageLength);
             class="flex items-center gap-2 text-base xs:text-lg"
             variant="nav"
           >
-            <Icon name="mdi:rss" class="h-6 w-6 fill-current" />
+            <!-- <Icon name="mdi:rss" class="h-6 w-6 fill-current" /> -->
             <span>RSS Feed</span>
           </Link>
         </li>
