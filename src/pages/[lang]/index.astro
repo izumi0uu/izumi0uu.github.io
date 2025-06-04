@@ -28,11 +28,11 @@ const fallingText = m["pages.home.falling_text"]();
 ---
 
 <Centered {metadata}>
-  <section class={cn("flex-col-layout bg-surface-container mode-theme-switch")}>
+  <section id="hero-page" aria-label="hero-page" class={cn("flex-col-layout mode-theme-switch")}>
     <div
       id="hero-page"
       aria-label="hero-page"
-      class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4 min-h-[60vh] items-center"
+      class="grid grid-cols-1 bg-surface-container lg:grid-cols-2 gap-8 p-4 min-h-[60vh] items-center"
     >
       <div
         id="hero-page-content"
@@ -116,18 +116,28 @@ const fallingText = m["pages.home.falling_text"]();
       </div>
     </div>
   </section>
-</Centered>
 
-<section class="mb-12 flex justify-center items-center h-[30vh] w-full">
-  <FallingText
-    text={m["pages.home.falling_text"]()}
-    highlightWords={["ideas", "share"]}
-    highlightClass="highlighted"
-    trigger="hover"
-    wireframes={false}
-    gravity={0.3}
-    fontSize="2rem"
-    mouseConstraintStiffness={0.9}
-    client:load
-  />
-</section>
+  <section
+    id="quick-links"
+    aria-label="quick-links"
+    class={cn("flex-col-layout mode-theme-switch")}
+  >
+  </section>
+  <section
+    id="falling-text"
+    aria-label="falling-text"
+    class={cn("flex justify-center items-center h-[30vh] w-full")}
+  >
+    <FallingText
+      text={m["pages.home.falling_text"]()}
+      highlightWords={["ideas", "share"]}
+      highlightClass="highlighted"
+      trigger="hover"
+      wireframes={false}
+      gravity={0.3}
+      fontSize="2rem"
+      mouseConstraintStiffness={0.9}
+      client:load
+    />
+  </section>
+</Centered>
