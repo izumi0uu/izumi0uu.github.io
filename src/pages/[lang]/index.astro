@@ -39,11 +39,15 @@ const quickLinks = [
 
 <Centered {metadata} className="flex-col-layout gap-16 first:gap-0">
   <!-- Hero Page Section -->
-  <section id="hero-page" aria-label="hero-page" class={cn("flex-col-layout mode-theme-switch")}>
+  <section
+    id="hero-page"
+    aria-label="hero-page"
+    class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
+  >
     <div
       id="hero-page"
       aria-label="hero-page"
-      class="grid grid-cols-1 bg-surface-container lg:grid-cols-2 gap-8 p-4 min-h-[60vh] items-center"
+      class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4 min-h-[60vh] items-center"
     >
       <div
         id="hero-page-content"
@@ -132,7 +136,7 @@ const quickLinks = [
   <section
     id="quick-links"
     aria-label="quick-links"
-    class={cn("flex-col-layout mode-theme-switch bg-surface")}
+    class={cn("flex-col-layout mode-theme-switch ")}
   >
     <div class="max-w-6xl w-full mx-auto">
       <!-- Section Title -->
@@ -165,7 +169,7 @@ const quickLinks = [
   <section
     id="projects"
     aria-label="projects"
-    class={cn("flex-col-layout mode-theme-switch py-16 bg-surface")}
+    class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
   >
   </section>
 
