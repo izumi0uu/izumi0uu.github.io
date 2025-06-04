@@ -26,7 +26,11 @@ const fallingText = m["pages.home.falling_text"]();
 
 <Centered {metadata}>
   <section class={cn("flex-col-layout bg-surface-container mode-theme-switch")}>
-    <div id="hero-page" aria-label="hero-page" class="flex-row-layout p-4">
+    <div
+      id="hero-page"
+      aria-label="hero-page"
+      class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4 min-h-[60vh] items-center"
+    >
       <div id="hero-page-content" aria-label="hero-page-content" class="flex-col-layout">
         <div class="flex-col-layout items-baseline">
           <SplitText
@@ -65,7 +69,7 @@ const fallingText = m["pages.home.falling_text"]();
           <RotatingText
             texts={["Frontend Developer!", "Web Developer!", "Web3 Enthusiast!"]}
             mainClassName={cn(
-              "text-primary overflow-hidden items-center justify-center rounded-lg text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+              "text-primary overflow-hidden items-center justify-center rounded-lg text-2xl md:text-3xl lg:text-4xl xl:text-5xl border-b border-outline"
             )}
             staggerFrom={"last"}
             initial={{ y: "100%" }}
@@ -88,7 +92,11 @@ const fallingText = m["pages.home.falling_text"]();
           </a>
         </Button>
       </div>
-      <div class="flex-row-layout w-full h-full max-w-[340px] max-h-[450px]">
+      <div
+        id="hero-page-image"
+        aria-label="hero-page-image"
+        class="flex-row-layout w-full h-full max-w-[340px] max-h-[450px]"
+      >
         <img src="/images/default/hero-default.png" alt="hero-page-image" />
       </div>
     </div>
