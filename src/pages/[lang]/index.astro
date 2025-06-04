@@ -66,7 +66,7 @@ const fallingText = m["pages.home.falling_text"]();
         </div>
         <div class="inline-flex">
           <h1
-            class="text-2xl md:text-4xl lg:text-5xl font-bold text-on-surface leading-relaxed lg:leading-snug text-center mx-auto"
+            class="text-2xl md:text-3xl lg:text-4xl font-bold text-on-surface leading-relaxed lg:leading-snug"
           >
             I'm a&nbsp;
           </h1>
@@ -86,11 +86,11 @@ const fallingText = m["pages.home.falling_text"]();
             client:only="react"
           />
         </div>
-        <p class="text-on-surface-variant mx-auto">
-          Happy to see you here! In this place, you can find some of interesting ideas and
-          projects.Enjoy your time here!
+        <p class="text-on-surface-variant md:text-lg leading-relaxed max-w-lg">
+          Happy to see you here! In this place, you can find some of interesting ideas and projects.
+          Enjoy your time here!
         </p>
-        <Button variant="brutal" className="p-4">
+        <Button variant="brutal">
           <a href="/blog">
             <span>To See My Blogs</span>
           </a>
@@ -101,7 +101,11 @@ const fallingText = m["pages.home.falling_text"]();
         aria-label="hero-page-image"
         class="hidden lg:flex items-center justify-center w-full h-full max-w-md max-h-[500px] mx-auto"
       >
-        <img src="/images/default/hero-default.png" alt="hero-page-image" />
+        <img
+          src="/images/default/hero-default.png"
+          alt="hero-page-image"
+          class="w-full h-auto object-contain rounded-lg shadow-lg"
+        />
       </div>
     </div>
   </section>
