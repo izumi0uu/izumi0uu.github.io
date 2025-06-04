@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { getPageMetadata } from "@/utils/content/metadata";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
 import { SplitText } from "@/components/react/ui/SpiltText";
@@ -88,7 +89,7 @@ const fallingText = m["pages.home.falling_text"]();
         </div>
         <p class="text-on-surface-variant md:text-lg leading-relaxed max-w-lg">
           Happy to see you here! In this place, you can find some of interesting ideas and projects.
-          Enjoy your time here!
+          Enjoy your time!
         </p>
         <Button variant="brutal">
           <a href="/blog">
@@ -101,7 +102,7 @@ const fallingText = m["pages.home.falling_text"]();
         aria-label="hero-page-image"
         class="hidden lg:flex items-center justify-center w-full h-full max-w-md max-h-[500px] mx-auto"
       >
-        <img
+        <Image
           src="/images/default/hero-default.png"
           alt="hero-page-image"
           class="w-full h-auto object-contain rounded-lg shadow-lg"
