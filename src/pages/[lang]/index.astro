@@ -1,19 +1,23 @@
 ---
 import { Image } from "astro:assets";
+
 import { getPageMetadata } from "@/utils/content/metadata";
-import { SUPPORTED_LOCALES } from "@/config/i18n";
-import { SplitText } from "@/components/react/ui/SpiltText";
-import { FallingText } from "@/components/react/ui/FallingText";
-import RotatingText from "@/components/react/ui/RotatingText";
-import { Button } from "@/components/react/radix-ui/Button";
-import { Separator } from "@/components/react/radix-ui/Separator";
 import { cn } from "@/utils/ui/styles";
 import * as m from "@/paraglide/messages";
+
+import { SUPPORTED_LOCALES } from "@/config/i18n";
+import { CONFIG_CLIENT } from "@/config/client";
 import { ROUTES } from "@/constants/routes";
+import heroImage from "/public/images/default/hero-default.png";
 
 import Centered from "@/layouts/Centered.astro";
+import Link from "@/components/Link.astro";
 
-import heroImage from "/public/images/default/hero-default.png";
+import { SplitText } from "@/components/react/ui/SpiltText";
+import { FallingText } from "@/components/react/ui/FallingText";
+import { RotatingText } from "@/components/react/ui/RotatingText";
+import { Button } from "@/components/react/radix-ui/Button";
+import { Separator } from "@/components/react/radix-ui/Separator";
 
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
@@ -34,6 +38,15 @@ const quickLinks = [
   { name: "Projects", href: ROUTES.PROJECTS, icon: "↗" },
   { name: "About", href: ROUTES.ABOUT, icon: "↗" },
   { name: "Contact", href: ROUTES.CONTACT, icon: "↗" },
+];
+
+// Contact links
+const contactLinks = [
+  { name: "Email", href: `mailto:${CONFIG_CLIENT.AUTHOR_EMAIL}` },
+  { name: "GitHub", href: CONFIG_CLIENT.AUTHOR_GITHUB },
+  { name: "Twitter", href: CONFIG_CLIENT.AUTHOR_TWITTER },
+  { name: "LinkedIn", href: CONFIG_CLIENT.AUTHOR_LINKEDIN },
+  { name: "Bilibili", href: CONFIG_CLIENT.AUTHOR_BILIBILI },
 ];
 ---
 
@@ -113,6 +126,13 @@ const quickLinks = [
             <span>To See My Blogs</span>
           </a>
         </Button>
+        <div class="flex-row-layout">
+          <Button variant="brutal" client:load>
+            <a href={ROUTES.BLOG}>
+              <span>To See My Blogs</span>
+            </a>
+          </Button>
+        </div>
       </div>
       <div
         id="hero-page-image"
@@ -165,19 +185,11 @@ const quickLinks = [
     </div>
   </section>
 
-  <!-- Projects Section -->
-  <section
-    id="projects"
-    aria-label="projects"
-    class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
-  >
-  </section>
-
   <!-- Falling Text Section -->
   <section
     id="falling-text"
     aria-label="falling-text"
-    class={cn("flex justify-center items-center h-[30vh] w-full bg-surface-container")}
+    class={cn("flex justify-center items-center h-[30vh] w-full")}
   >
     <FallingText
       text={m["pages.home.falling_text"]()}
@@ -190,5 +202,21 @@ const quickLinks = [
       mouseConstraintStiffness={0.9}
       client:load
     />
+  </section>
+
+  <!-- Blogs Section -->
+  <section
+    id="blogs-preview"
+    aria-label="blogs-preview"
+    class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
+  >
+  </section>
+
+  <!-- Projects Section -->
+  <section
+    id="projects-preview"
+    aria-label="projects-preview"
+    class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
+  >
   </section>
 </Centered>
