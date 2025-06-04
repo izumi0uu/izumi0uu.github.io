@@ -14,6 +14,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @plugin "tailwindcss-animate";
+@plugin "@iconify/tailwind4";
 
 /* === 设计令牌层 === */
 /* 基础原子颜色定义 */

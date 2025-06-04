@@ -75,6 +75,8 @@
   },
   "devDependencies": {
     "@fec/remark-a11y-emoji": "^4.0.2",
+    "@iconify-json/mdi": "^1.2.3",
+    "@iconify/tailwind4": "^1.0.6",
     "@inlang/cli": "^3.0.0",
     "@inlang/paraglide-js": "2.0.12",
     "@stagewise/toolbar-react": "^0.1.2",
