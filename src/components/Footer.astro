@@ -1,12 +1,13 @@
 ---
 import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
 import footerImage from "/public/images/default/footer-default.png";
 
 import Link from "@/components/Link.astro";
 import { ROUTES } from "@/constants/routes";
 import { CONFIG_CLIENT } from "@/config/client";
 
-import { Button } from "./react/radix-ui/Button";
+import { Logo } from "./react/ui/Logo";
 
 import { getLatestCommitInfo } from "@/libs/git";
 import { shortDate } from "@/utils/data/datetime";
@@ -46,7 +47,7 @@ const trimmedMessage = limitString(message, messageLength);
             href={AUTHOR_GITHUB}
             target="_blank"
             rel="me noreferrer noopener"
-            title="@nemanjam on Github"
+            title="@izumii0uu on Github"
             class="flex items-center gap-2 text-base xs:text-lg"
             variant="nav"
           >
@@ -59,7 +60,7 @@ const trimmedMessage = limitString(message, messageLength);
             href={AUTHOR_LINKEDIN}
             target="_blank"
             rel="me noreferrer noopener"
-            title="Nemanja on LinkedIn"
+            title="izumii0uu on LinkedIn"
             class="flex items-center gap-2 text-base xs:text-lg"
             variant="nav"
           >
