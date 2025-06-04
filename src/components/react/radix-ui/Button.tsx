@@ -14,11 +14,11 @@ const buttonVariants = cva(
         destructive:
           "bg-error text-on-error hover:bg-error-container hover:text-on-error-container",
         outline:
-          "border-outline bg-surface text-content hover:bg-surface-container hover:text-primary border",
+          "border border-outline bg-surface text-content hover:bg-surface-container hover:text-primary",
         secondary:
           "bg-secondary text-on-secondary hover:bg-secondary-container hover:text-on-secondary-container",
         ghost: "text-content hover:bg-surface-container hover:text-primary",
-        link: "text-link hover:text-link-hover underline-offset-4 hover:underline",
+        link: "text-link underline-offset-4 hover:text-link-hover hover:underline",
         success: "bg-success text-on-success hover:bg-success/90",
         warning: "bg-warning text-on-warning hover:bg-warning/90",
         info: "bg-info text-on-info hover:bg-info/90",
@@ -33,14 +33,14 @@ const buttonVariants = cva(
           "bg-warning-container text-on-warning-container hover:bg-warning-container/80",
         "info-container": "bg-info-container text-on-info-container hover:bg-info-container/80",
         brutal:
-          "border-outline bg-primary text-on-primary rounded-sm border-2 px-8 py-4 shadow-[4px_4px_0_0_var(--color-outline)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none",
+          "rounded-sm border-2 border-outline bg-primary px-8 py-4 text-on-primary shadow-[4px_4px_0_0_var(--color-outline)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none",
         "brutal-normal":
-          "border-outline bg-surface text-content rounded-sm border-2 px-8 py-4 shadow-[4px_4px_0_0_var(--color-outline)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none",
+          "rounded-sm border-2 border-outline bg-surface px-8 py-4 text-content shadow-[4px_4px_0_0_var(--color-outline)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none",
       },
       size: {
         default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
+        sm: "h-9 px-3",
+        lg: "h-11 px-8",
         icon: "h-10 w-10",
       },
     },
