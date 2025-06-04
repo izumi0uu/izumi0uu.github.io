@@ -11,6 +11,8 @@ import * as m from "@/paraglide/messages";
 
 import Centered from "@/layouts/Centered.astro";
 
+import heroImage from "/public/images/default/hero-default.png";
+
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
     params: { lang },
@@ -103,9 +105,13 @@ const fallingText = m["pages.home.falling_text"]();
         class="hidden lg:flex items-center justify-center w-full h-full max-w-md max-h-[500px] mx-auto"
       >
         <Image
-          src="/images/default/hero-default.png"
-          alt="hero-page-image"
+          src={heroImage}
+          alt="Hero page illustration"
+          width={400}
+          height={500}
           class="w-full h-auto object-contain rounded-lg shadow-lg"
+          loading="eager"
+          decoding="async"
         />
       </div>
     </div>
