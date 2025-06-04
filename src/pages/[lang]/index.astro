@@ -6,8 +6,10 @@ import { SplitText } from "@/components/react/ui/SpiltText";
 import { FallingText } from "@/components/react/ui/FallingText";
 import RotatingText from "@/components/react/ui/RotatingText";
 import { Button } from "@/components/react/radix-ui/Button";
+import { Separator } from "@/components/react/radix-ui/Separator";
 import { cn } from "@/utils/ui/styles";
 import * as m from "@/paraglide/messages";
+import { ROUTES } from "@/constants/routes";
 
 import Centered from "@/layouts/Centered.astro";
 
@@ -25,6 +27,14 @@ const { lang } = Astro.params;
 const metadata = getPageMetadata("");
 
 const fallingText = m["pages.home.falling_text"]();
+
+// Quick links 数据
+const quickLinks = [
+  { name: "Blog", href: ROUTES.BLOG, icon: "↗" },
+  { name: "Projects", href: ROUTES.PROJECTS, icon: "↗" },
+  { name: "About", href: ROUTES.ABOUT, icon: "↗" },
+  { name: "Contact", href: ROUTES.CONTACT, icon: "↗" },
+];
 ---
 
 <Centered {metadata}>
@@ -93,8 +103,8 @@ const fallingText = m["pages.home.falling_text"]();
           Happy to see you here! In this place, you can find some of interesting ideas and projects.
           Enjoy your time!
         </p>
-        <Button variant="brutal">
-          <a href="/blog">
+        <Button variant="brutal" client:load>
+          <a href={ROUTES.BLOG}>
             <span>To See My Blogs</span>
           </a>
         </Button>
@@ -117,16 +127,44 @@ const fallingText = m["pages.home.falling_text"]();
     </div>
   </section>
 
+  <!-- Quick Links Section -->
   <section
     id="quick-links"
     aria-label="quick-links"
-    class={cn("flex-col-layout mode-theme-switch")}
+    class={cn("flex-col-layout mode-theme-switch py-16 bg-surface")}
   >
+    <div class="max-w-6xl mx-auto px-4 w-full">
+      <!-- Section Title -->
+      <h2 class="text-2xl md:text-3xl font-bold text-headings mb-8 text-center">Quick links</h2>
+
+      <!-- Links Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        {
+          quickLinks.map((link) => (
+            <Button variant="brutal" client:load>
+              <a href={link.href} class="flex items-center justify-between w-full">
+                <span class="text-lg font-medium">{link.name}</span>
+                <span class="text-xl group-hover:translate-x-1 transition-transform">
+                  {link.icon}
+                </span>
+              </a>
+            </Button>
+          ))
+        }
+      </div>
+
+      <!-- Optional Separator -->
+      <div class="mx-auto">
+        <Separator className="bg-outline" client:load />
+      </div>
+    </div>
   </section>
+
+  <!-- Falling Text Section -->
   <section
     id="falling-text"
     aria-label="falling-text"
-    class={cn("flex justify-center items-center h-[30vh] w-full")}
+    class={cn("flex justify-center items-center h-[30vh] w-full bg-surface-container")}
   >
     <FallingText
       text={m["pages.home.falling_text"]()}
