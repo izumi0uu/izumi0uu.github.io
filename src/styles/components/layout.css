@@ -15,21 +15,21 @@
 }
 
 /* Flex 列布局 - 填充父容器高度 */
-.flex-col-1-layout {
-  @apply flex flex-1 flex-col;
+.flex-col-layout {
+  @apply flex flex-col;
 }
 
-.flex-col-1-layout-center {
-  @apply flex flex-1 flex-col items-center justify-center;
+.flex-col-layout-center {
+  @apply flex flex-col items-center justify-center;
 }
 
 /* Flex 行布局 - 填充父容器高度 */
-.flex-row-1-layout {
-  @apply flex flex-1 flex-row;
+.flex-row-layout {
+  @apply flex flex-row;
 }
 
-.flex-row-1-layout-center {
-  @apply flex flex-1 flex-row items-center justify-center;
+.flex-row-layout-center {
+  @apply flex flex-row items-center justify-center;
 }
 
 /* 主题切换动画 */
