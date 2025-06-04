@@ -14,7 +14,7 @@ const buttonVariants = cva(
         destructive:
           "bg-error text-on-error hover:bg-error-container hover:text-on-error-container",
         outline:
-          "border border-outline bg-surface text-content hover:bg-surface-container hover:text-primary",
+          "rounded-sm border border-outline bg-surface text-content hover:bg-surface-container hover:text-primary",
         secondary:
           "bg-secondary text-on-secondary hover:bg-secondary-container hover:text-on-secondary-container",
         ghost: "text-content hover:bg-surface-container hover:text-primary",
