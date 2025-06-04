@@ -27,7 +27,7 @@ const fallingText = m["pages.home.falling_text"]();
 <Centered {metadata}>
   <section class={cn("flex-col-layout bg-surface-container mode-theme-switch")}>
     <div id="hero-page" aria-label="hero-page" class="flex-row-layout p-4">
-      <div class="flex-col-layout">
+      <div id="hero-page-content" aria-label="hero-page-content" class="flex-col-layout">
         <div class="flex-col-layout items-baseline">
           <SplitText
             text={"Hello."}
@@ -56,7 +56,7 @@ const fallingText = m["pages.home.falling_text"]();
             client:only="react"
           />
         </div>
-        <div class="inline-flex items-center justify-center">
+        <div class="inline-flex">
           <h1
             class="text-2xl md:text-4xl lg:text-5xl font-bold text-on-surface leading-relaxed lg:leading-snug text-center mx-auto"
           >
