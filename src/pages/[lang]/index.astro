@@ -121,19 +121,23 @@ const contactLinks = [
           Happy to see you here! In this place, you can find some of interesting ideas and projects.
           Enjoy your time!
         </p>
-        <Button variant="brutal" client:load>
-          <a href={ROUTES.BLOG}>
+
+        <!-- main action button -->
+        <Link href={ROUTES.BLOG} variant="no-underline">
+          <Button variant="brutal" client:load>
             <span>To See My Blogs</span>
-          </a>
-        </Button>
-        <div class="flex-row-layout justify-between">
+          </Button>
+        </Link>
+
+        <!-- contact links -->
+        <div class="flex flex-wrap gap-2">
           {
             contactLinks.map((link) => (
-              <Button variant="brutal" client:load>
-                <Link href={link.href}>
+              <Link href={link.href} variant="no-underline">
+                <Button variant="outline" size="sm" client:load>
                   <span>{link.name}</span>
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             ))
           }
         </div>
@@ -167,17 +171,21 @@ const contactLinks = [
       <h2 class="text-2xl md:text-3xl font-bold text-headings mb-8">Quick links</h2>
 
       <!-- Links Grid -->
-      <div class="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
         {
           quickLinks.map((link) => (
-            <Button variant="brutal" client:load>
-              <a href={link.href} class="flex items-center justify-between w-full">
+            <Link href={link.href} variant="no-underline" class="block">
+              <Button
+                variant="outline"
+                className="w-full flex items-center justify-between "
+                client:load
+              >
                 <span class="text-lg font-medium">{link.name}</span>
                 <span class="text-xl group-hover:translate-x-1 transition-transform">
                   {link.icon}
                 </span>
-              </a>
-            </Button>
+              </Button>
+            </Link>
           ))
         }
       </div>
