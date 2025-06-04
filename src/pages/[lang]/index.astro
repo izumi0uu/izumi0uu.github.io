@@ -126,12 +126,16 @@ const contactLinks = [
             <span>To See My Blogs</span>
           </a>
         </Button>
-        <div class="flex-row-layout">
-          <Button variant="brutal" client:load>
-            <a href={ROUTES.BLOG}>
-              <span>To See My Blogs</span>
-            </a>
-          </Button>
+        <div class="flex-row-layout justify-between">
+          {
+            contactLinks.map((link) => (
+              <Button variant="brutal" client:load>
+                <Link href={link.href}>
+                  <span>{link.name}</span>
+                </Link>
+              </Button>
+            ))
+          }
         </div>
       </div>
       <div
