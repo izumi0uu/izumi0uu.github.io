@@ -24,7 +24,7 @@ const lang = Astro.currentLocale;
   <body class={cn("relative flex flex-col min-h-screen min-w-80 bg-base mode-theme-switch")}>
     <Header />
     <slot />
-    <Footer />
+    <!-- <Footer /> -->
     {import.meta.env.DEV && <StagewiseDevToolbar client:only="react" />}
     <!-- {import.meta.env.DEV && <I18nDevToolbar client:only="react" />} -->
     <!-- {import.meta.env.DEV && <ThemeDevToolbar client:only="react" />} -->

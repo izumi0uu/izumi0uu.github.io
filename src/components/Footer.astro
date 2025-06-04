@@ -1,11 +1,12 @@
 ---
-import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import footerImage from "/public/images/default/footer-default.png";
 
 import Link from "@/components/Link.astro";
 import { ROUTES } from "@/constants/routes";
 import { CONFIG_CLIENT } from "@/config/client";
+
+import { Button } from "./react/radix-ui/Button";
 
 import { getLatestCommitInfo } from "@/libs/git";
 import { shortDate } from "@/utils/data/datetime";
@@ -35,10 +36,6 @@ const trimmedMessage = limitString(message, messageLength);
           <Link href={commitUrl} title={shortDateStr} target="_blank">
             {trimmedMessage}
           </Link>
-        </div>
-        <div class="flex items-center gap-2">
-          <label class="font-bold">Design system:</label>
-          <Link href={`${ROUTES.DESIGN}`} title="Design system">link</Link>
         </div>
       </div>
 

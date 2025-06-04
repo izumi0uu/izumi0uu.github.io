@@ -1,16 +1,19 @@
 "use client";
 
 import { useState } from "react";
+
 import { Button } from "@/components/react/radix-ui/Button";
 import { SearchBox } from "@/components/react/ui/SearchBox";
+import { MobileNavIcon, MobileNavigationBar } from "@/components/react/ui/MoblieNavigationBar";
+import { ModeToggleButton } from "@/components/react/ui/ModeToggleButton";
+import { ThemePopoverList } from "@/components/react/ui/ThemePopoverList";
+import { I18nToggleButton } from "@/components/react/ui/I18nToggleButton";
+
+import logo from "/public/images/favicons/favicon-96x96.png";
 
 import { CONFIG_CLIENT } from "@/config/client";
 import { ROUTES } from "@/constants/routes";
 import * as m from "@/paraglide/messages";
-import { ModeToggleButton } from "@/components/react/ui/ModeToggleButton";
-import { ThemePopoverList } from "@/components/react/ui/ThemePopoverList";
-import { I18nToggleButton } from "@/components/react/ui/I18nToggleButton";
-import { MobileNavIcon, MobileNavigationBar } from "@/components/react/ui/MoblieNavigationBar";
 import { cn } from "@/utils/ui/styles";
 
 const NavigationBar = () => {
@@ -24,10 +27,23 @@ const NavigationBar = () => {
     <div className="container flex h-14 max-w-screen-2xl items-center px-8">
       <div className="flex gap-6 md:gap-10">
         <a className="hidden items-center justify-center space-x-2 lg:flex" href="/">
-          <Button variant="brutal-normal" className="text-2xl">
-            {CONFIG_CLIENT.AUTHOR_NAME.charAt(1).toUpperCase()}
+          <Button variant="brutal-normal" className="p-2">
+            <img
+              src={logo.src}
+              alt="logo"
+              width={24}
+              height={24}
+              loading="eager"
+              decoding="async"
+              className="h-8 w-8"
+              fetchPriority="high"
+              style={{ aspectRatio: "1/1" }}
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
+            />
           </Button>
-          <span className="text-content hidden text-2xl font-black tracking-tighter uppercase sm:inline-block">
+          <span className="hidden text-2xl font-black tracking-tighter text-content uppercase sm:inline-block">
             {CONFIG_CLIENT.AUTHOR_NAME}
           </span>
         </a>
