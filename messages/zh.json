@@ -67,8 +67,31 @@
       }
     },
     "footer": {
-      "copyright_text": "© {year} Izumi0uu. 保留所有权利。",
-      "privacy_policy_link": "隐私政策"
+      "copyright_text": "© {year} {author}. 保留所有权利。",
+      "privacy_policy_link": "隐私政策",
+      "brand_description": "一个分享想法和创意的地方。在这里记录技术思考、项目经验和生活感悟。",
+      "latest_commit": "最新提交",
+      "back_to_top": "返回首页",
+      "sections": {
+        "resources": "内容导航",
+        "quick_info": "快速链接",
+        "social": "社交媒体"
+      },
+      "links": {
+        "blog": "博客",
+        "projects": "项目",
+        "about": "关于",
+        "contact": "联系",
+        "rss_feed": "RSS订阅",
+        "sitemap": "网站地图",
+        "github": "GitHub",
+        "linkedin": "LinkedIn"
+      },
+      "meta": {
+        "domain_label": "站点域名",
+        "built_with": "使用 Astro 构建",
+        "follow_on": "在 {platform} 上关注我"
+      }
     },
     "search_box": {
       "placeholder": "搜索文章...",

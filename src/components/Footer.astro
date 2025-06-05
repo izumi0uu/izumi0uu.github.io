@@ -23,21 +23,21 @@ const commitUrl = `${REPO_URL}/commit/${fullHash}`;
 const shortDateStr = shortDate(new Date(time));
 const trimmedMessage = limitString(message, messageLength);
 
-// 导航链接配置
+// 导航链接配置 - 使用国际化文案
 const footerNavigation = {
   resources: [
-    { name: "Blog", href: ROUTES.BLOG },
-    { name: "Projects", href: ROUTES.PROJECTS },
-    { name: "About", href: ROUTES.ABOUT },
+    { name: m["components.footer.links.blog"](), href: ROUTES.BLOG },
+    { name: m["components.footer.links.projects"](), href: ROUTES.PROJECTS },
+    { name: m["components.footer.links.about"](), href: ROUTES.ABOUT },
   ],
   quickInfo: [
-    { name: "Contact", href: ROUTES.CONTACT },
-    { name: "RSS Feed", href: ROUTES.API.FEED_RSS },
-    { name: "Sitemap", href: "/sitemap.xml" },
+    { name: m["components.footer.links.contact"](), href: ROUTES.CONTACT },
+    { name: m["components.footer.links.rss_feed"](), href: ROUTES.API.FEED_RSS },
+    { name: m["components.footer.links.sitemap"](), href: "/sitemap.xml" },
   ],
   social: [
-    { name: "GitHub", href: AUTHOR_GITHUB, icon: "mdi:github" },
-    { name: "LinkedIn", href: AUTHOR_LINKEDIN, icon: "mdi:linkedin" },
+    { name: m["components.footer.links.github"](), href: AUTHOR_GITHUB, icon: "mdi:github" },
+    { name: m["components.footer.links.linkedin"](), href: AUTHOR_LINKEDIN, icon: "mdi:linkedin" },
   ]
 };
 ---
@@ -48,7 +48,7 @@ const footerNavigation = {
     "py-12 px-4 mt-auto"
   )}
   role="contentinfo"
-  aria-label="网站页脚"
+  aria-label="Footer"
 >
   <div class="max-w-7xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
@@ -64,7 +64,7 @@ const footerNavigation = {
               "inline-flex items-center gap-3",
               "text-content hover:text-primary transition-colors"
             )}
-            aria-label="返回首页"
+            aria-label={m["components.footer.back_to_top"]()}
           >
             <Logo />
             <span class="text-xl font-bold tracking-tight">
@@ -77,13 +77,13 @@ const footerNavigation = {
             "text-content leading-relaxed max-w-md",
             "text-sm"
           )}>
-            一个分享想法和创意的地方。在这里记录技术思考、项目经验和生活感悟。
+            {m["components.footer.brand_description"]()}
           </p>
           
           <!-- Latest Commit Info -->
           <div class="flex items-center gap-2 text-xs text-content">
             <Icon name="mdi:github" class="h-4 w-4 fill-current" />
-            <span class="font-medium">最新提交:</span>
+            <span class="font-medium">{m["components.footer.latest_commit"]()}:</span>
             <Link 
               href={commitUrl} 
               title={`${shortDateStr} - ${message}`}
@@ -109,7 +109,7 @@ const footerNavigation = {
                 "text-sm"
               )}
             >
-              内容导航
+              {m["components.footer.sections.resources"]()}
             </h3>
             <ul class="space-y-3" role="list">
               {footerNavigation.resources.map((item) => (
@@ -138,7 +138,7 @@ const footerNavigation = {
                 "text-sm"
               )}
             >
-              快速链接
+              {m["components.footer.sections.quick_info"]()}
             </h3>
             <ul class="space-y-3" role="list">
               {footerNavigation.quickInfo.map((item) => (
@@ -167,7 +167,7 @@ const footerNavigation = {
                 "text-sm"
               )}
             >
-              社交媒体
+              {m["components.footer.sections.social"]()}
             </h3>
             <ul class="flex flex-wrap gap-3 lg:flex-col lg:space-y-3" role="list">
               {footerNavigation.social.map((item) => (
@@ -178,14 +178,14 @@ const footerNavigation = {
                     rel="me noreferrer noopener"
                     class={cn(
                       "inline-flex items-center gap-2",
-                        "text-content hover:text-primary",
+                      "text-content hover:text-primary",
                       "transition-colors text-sm"
                     )}
-                    aria-label={`在 ${item.name} 上关注我`}
+                    aria-label={m["components.footer.meta.follow_on"]({ platform: item.name })}
                   >
                     <!-- 临时使用emoji，直到配置astro-icon -->
                     <span class="text-base" aria-hidden="true">
-                      {item.name === "GitHub" ? "📁" : "💼"}
+                      {item.name === m["components.footer.links.github"]() ? "📁" : "💼"}
                     </span>
                     <span>{item.name}</span>
                   </Link>
@@ -209,7 +209,10 @@ const footerNavigation = {
         "text-content text-xs lg:text-sm",
         "text-center md:text-left"
       )}>
-        © {new Date().getFullYear()} {AUTHOR_NAME}. 保留所有权利
+        {m["components.footer.copyright_text"]({ 
+          year: new Date().getFullYear().toString(), 
+          author: AUTHOR_NAME 
+        })}
       </p>
       
       <!-- Additional Meta Info -->
@@ -217,9 +220,9 @@ const footerNavigation = {
         "text-content text-xs",
         "flex items-center gap-4"
       )}>
-        <span>站点域名: {domain}</span>
+        <span>{m["components.footer.meta.domain_label"]()}: {domain}</span>
         <span>•</span>
-        <span>使用 Astro 构建</span>
+        <span>{m["components.footer.meta.built_with"]()}</span>
       </div>
     </section>
   </div>

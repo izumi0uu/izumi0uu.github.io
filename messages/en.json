@@ -67,8 +67,31 @@
       }
     },
     "footer": {
-      "copyright_text": "© {year} Izumi0uu. All rights reserved.",
-      "privacy_policy_link": "Privacy Policy"
+      "copyright_text": "© {year} {author}. All rights reserved.",
+      "privacy_policy_link": "Privacy Policy",
+      "brand_description": "A place to share ideas and creativity. Here I record technical thoughts, project experiences and life insights.",
+      "latest_commit": "Latest commit",
+      "back_to_top": "Back to Home",
+      "sections": {
+        "resources": "Resources",
+        "quick_info": "Quick Links",
+        "social": "Social Media"
+      },
+      "links": {
+        "blog": "Blog",
+        "projects": "Projects",
+        "about": "About",
+        "contact": "Contact",
+        "rss_feed": "RSS Feed",
+        "sitemap": "Sitemap",
+        "github": "GitHub",
+        "linkedin": "LinkedIn"
+      },
+      "meta": {
+        "domain_label": "Site Domain",
+        "built_with": "Built with Astro",
+        "follow_on": "Follow me on {platform}"
+      }
     },
     "search_box": {
       "placeholder": "Search articles...",
