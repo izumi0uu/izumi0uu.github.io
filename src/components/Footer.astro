@@ -27,7 +27,6 @@ const commitUrl = `${REPO_URL}/commit/${fullHash}`;
 const shortDateStr = shortDate(new Date(time));
 const trimmedMessage = limitString(message, messageLength);
 
-// 导航链接配置 - 使用国际化文案
 const footerNavigation = {
   resources: [
     { name: m["components.footer.links.blog"](), href: ROUTES.BLOG, icon: "mdi:blog" },
