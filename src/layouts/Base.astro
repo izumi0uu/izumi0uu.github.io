@@ -5,7 +5,7 @@ import StagewiseDevToolbar from "@/components/react/dev/StagewiseDevToolbar.tsx"
 // import I18nDevToolbar from "@/components/react/dev/I18nDevToolbar.tsx";
 // import ThemeDevToolbar from "@/components/react/dev/ThemeDevToolbar.tsx";
 import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
+import { Footer } from "@/components/react/ui/Footer";
 import { Toaster } from "@/components/react/radix-ui/Toaster";
 import type { BaseHeadProps } from "@/components/BaseHead.astro";
 import { cn } from "@/utils/ui/styles";
@@ -24,7 +24,7 @@ const lang = Astro.currentLocale;
   <body class={cn("relative flex flex-col min-h-screen min-w-80 bg-base mode-theme-switch")}>
     <Header />
     <slot />
-    <Footer />
+    <Footer client:load />
     <!-- {import.meta.env.DEV && <StagewiseDevToolbar client:only="react" />} -->
     <!-- {import.meta.env.DEV && <I18nDevToolbar client:only="react" />} -->
     <!-- {import.meta.env.DEV && <ThemeDevToolbar client:only="react" />} -->
