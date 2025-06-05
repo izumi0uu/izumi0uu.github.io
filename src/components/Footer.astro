@@ -1,7 +1,5 @@
 ---
-import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import footerImage from "@/assets/images/footer-default.png";
 
 import Link from "@/components/Link.astro";
 import { ROUTES } from "@/constants/routes";
@@ -12,80 +10,217 @@ import { Logo } from "@/components/react/ui/Logo";
 import { getLatestCommitInfo } from "@/libs/git";
 import { shortDate } from "@/utils/data/datetime";
 import { limitString, trimHttpProtocol } from "@/utils/data/strings";
+import { cn } from "@/utils/ui/styles";
+import * as m from "@/paraglide/messages";
 
-const { SITE_URL, AUTHOR_LINKEDIN, AUTHOR_GITHUB, REPO_URL } = CONFIG_CLIENT;
+const { SITE_URL, AUTHOR_LINKEDIN, AUTHOR_GITHUB, REPO_URL, AUTHOR_NAME } = CONFIG_CLIENT;
 const domain = trimHttpProtocol(SITE_URL);
 const messageLength = 15 as const;
 
 const { time, fullHash, message } = getLatestCommitInfo();
 
 const commitUrl = `${REPO_URL}/commit/${fullHash}`;
-
 const shortDateStr = shortDate(new Date(time));
 const trimmedMessage = limitString(message, messageLength);
 
-// footer is full width for border, div has max-w
+// 导航链接配置
+const footerNavigation = {
+  resources: [
+    { name: "Blog", href: ROUTES.BLOG },
+    { name: "Projects", href: ROUTES.PROJECTS },
+    { name: "About", href: ROUTES.ABOUT },
+  ],
+  quickInfo: [
+    { name: "Contact", href: ROUTES.CONTACT },
+    { name: "RSS Feed", href: ROUTES.API.FEED_RSS },
+    { name: "Sitemap", href: "/sitemap.xml" },
+  ],
+  social: [
+    { name: "GitHub", href: AUTHOR_GITHUB, icon: "mdi:github" },
+    { name: "LinkedIn", href: AUTHOR_LINKEDIN, icon: "mdi:linkedin" },
+  ]
+};
 ---
 
-<footer class="border-t border-outline py-8 px-4">
-  <div class="max-w-6xl md:mx-auto flex justify-center md:justify-start">
-    <div class="max-w-7xl container">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Logo and Description -->
-        <div class="text-left">
-          <a href="/" class="navbar-brand block">
-            <div
-              class="font-primary font-medium text-2xl flex gap-2 items-center
-          text-white"
+<footer 
+  class={cn(
+    "border-t border-outline bg-surface-container",
+    "py-12 px-4 mt-auto"
+  )}
+  role="contentinfo"
+  aria-label="网站页脚"
+>
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
+      
+      <!-- Brand Section -->
+      <section class="md:col-span-5 lg:col-span-4" aria-labelledby="brand-heading">
+        <div class="space-y-4">
+          <!-- Brand Logo and Name -->
+          <Link 
+            href="/" 
+            variant="no-underline"
+            class={cn(
+              "inline-flex items-center gap-3",
+              "text-content hover:text-primary transition-colors"
+            )}
+            aria-label="返回首页"
+          >
+            <Logo />
+            <span class="text-xl font-bold tracking-tight">
+              {AUTHOR_NAME}
+            </span>
+          </Link>
+          
+          <!-- Brand Description -->
+          <p class={cn(
+            "text-content leading-relaxed max-w-md",
+            "text-sm"
+          )}>
+            一个分享想法和创意的地方。在这里记录技术思考、项目经验和生活感悟。
+          </p>
+          
+          <!-- Latest Commit Info -->
+          <div class="flex items-center gap-2 text-xs text-content">
+            <Icon name="mdi:github" class="h-4 w-4 fill-current" />
+            <span class="font-medium">最新提交:</span>
+            <Link 
+              href={commitUrl} 
+              title={`${shortDateStr} - ${message}`}
+              target="_blank"
+              class="hover:text-primary transition-colors"
             >
-              <Logo />
-              <span> IZUMI0UU </span>
-            </div>
-          </a>
-          <p class="text-white/75 my-4">A website for sharing my thoughts and ideas.</p>
-        </div>
-        <div class="grid grid-cols-2 gap-8">
-          <!-- Resources Menu -->
-          <div class="text-left">
-            <h3 class="text-white mb-4 text-lg">Resources</h3>
-            <ul class="space-y-3">
-              <li>
-                <a href="/#features" class="text-white/75 hover:text-white transition-all"
-                  >Features</a
-                >
-              </li><li>
-                <a href="/#pricing" class="text-white/75 hover:text-white transition-all">Pricing</a
-                >
-              </li><li>
-                <a href="/roadmap" class="text-white/75 hover:text-white transition-all"
-                  >Product Roadmap</a
-                >
-              </li>
-            </ul>
-          </div>
-          <!-- Quick Info Menu -->
-          <div class="text-left">
-            <h3 class="text-white mb-4 text-lg">Quick Info</h3>
-            <ul class="space-y-3">
-              <li>
-                <a href="/terms" class="text-white/75 hover:text-white transition-all">Terms</a>
-              </li><li>
-                <a href="/privacy" class="text-white/75 hover:text-white transition-all">Privacy</a>
-              </li><li>
-                <a href="/refund-policy" class="text-white/75 hover:text-white transition-all"
-                  >Refund Policy</a
-                >
-              </li>
-            </ul>
+              {trimmedMessage}
+            </Link>
           </div>
         </div>
-      </div>
-      <!-- Social Icons and Copyright -->
-      <div
-        class="mt-12 flex flex-col md:flex-row justify-center items-center border-t border-white/10 pt-8"
-      >
-        <p class="text-white/75">Copyright © 2025 IZUMI0UU. All Rights Reserved</p>
-      </div>
+      </section>
+
+      <!-- Navigation Section -->
+      <nav class="md:col-span-7 lg:col-span-6" aria-label="页脚导航">
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <!-- Resources Links -->
+          <section aria-labelledby="resources-heading">
+            <h3 
+              id="resources-heading"
+              class={cn(
+                "text-content font-semibold mb-4",
+                "text-sm"
+              )}
+            >
+              内容导航
+            </h3>
+            <ul class="space-y-3" role="list">
+              {footerNavigation.resources.map((item) => (
+                <li>
+                  <Link
+                    href={item.href}
+                    class={cn(
+                      "text-content hover:text-primary",
+                      "transition-colors text-sm",
+                      "inline-flex items-center gap-1"
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <!-- Quick Info Links -->
+          <section aria-labelledby="info-heading">
+            <h3 
+              id="info-heading"
+              class={cn(
+                "text-content font-semibold mb-4",
+                "text-sm"
+              )}
+            >
+              快速链接
+            </h3>
+            <ul class="space-y-3" role="list">
+              {footerNavigation.quickInfo.map((item) => (
+                <li>
+                  <Link
+                    href={item.href}
+                    class={cn(
+                      "text-content hover:text-primary",
+                      "transition-colors text-sm",
+                      "inline-flex items-center gap-1"
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <!-- Social Links -->
+          <section aria-labelledby="social-heading" class="col-span-2 lg:col-span-1">
+            <h3 
+              id="social-heading"
+              class={cn(
+                "text-content font-semibold mb-4",
+                "text-sm"
+              )}
+            >
+              社交媒体
+            </h3>
+            <ul class="flex flex-wrap gap-3 lg:flex-col lg:space-y-3" role="list">
+              {footerNavigation.social.map((item) => (
+                <li>
+                  <Link
+                    href={item.href}
+                    target="_blank"
+                    rel="me noreferrer noopener"
+                    class={cn(
+                      "inline-flex items-center gap-2",
+                        "text-content hover:text-primary",
+                      "transition-colors text-sm"
+                    )}
+                    aria-label={`在 ${item.name} 上关注我`}
+                  >
+                    <!-- 临时使用emoji，直到配置astro-icon -->
+                    <span class="text-base" aria-hidden="true">
+                      {item.name === "GitHub" ? "📁" : "💼"}
+                    </span>
+                    <span>{item.name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+      </nav>
     </div>
+
+    <!-- Copyright Section -->
+    <section 
+      class={cn(
+        "mt-12 pt-8 border-t border-outline-variant",
+        "flex flex-col md:flex-row justify-between items-center gap-4"
+      )}
+      aria-label="版权信息"
+    >
+      <p class={cn(
+        "text-content text-xs lg:text-sm",
+        "text-center md:text-left"
+      )}>
+        © {new Date().getFullYear()} {AUTHOR_NAME}. 保留所有权利
+      </p>
+      
+      <!-- Additional Meta Info -->
+      <div class={cn(
+        "text-content text-xs",
+        "flex items-center gap-4"
+      )}>
+        <span>站点域名: {domain}</span>
+        <span>•</span>
+        <span>使用 Astro 构建</span>
+      </div>
+    </section>
   </div>
 </footer>
