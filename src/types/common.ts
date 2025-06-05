@@ -1,11 +1,12 @@
-// import type { COLLECTIONS } from "@/constants/collections"; // Commented out due to missing export
+import type { COLLECTIONS } from "@/constants/collections";
+
 import type { Page } from "astro";
 import type { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import type { ComponentProps } from "astro/types";
 
-// type CollectionType = (typeof COLLECTIONS)[keyof typeof COLLECTIONS]; // Depends on COLLECTIONS
-// type AnyCollection = CollectionEntry<CollectionType>; // Depends on CollectionType
+type CollectionType = (typeof COLLECTIONS)[keyof typeof COLLECTIONS];
+type AnyCollection = CollectionEntry<CollectionType>;
 
 interface Metadata {
   greeting?: string;
@@ -23,6 +24,4 @@ interface PaginationProps
 
 type AstroImageProps = ComponentProps<typeof Image>;
 
-// export type { CollectionType, AnyCollection, Metadata, PaginationProps, AstroImageProps };
-// Adjusted export without CollectionType and AnyCollection due to missing COLLECTIONS definition
-export type { Metadata, PaginationProps, AstroImageProps };
+export type { CollectionType, AnyCollection, Metadata, PaginationProps, AstroImageProps };
