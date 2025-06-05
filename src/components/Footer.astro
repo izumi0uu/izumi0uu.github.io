@@ -30,14 +30,14 @@ const trimmedMessage = limitString(message, messageLength);
 // 导航链接配置 - 使用国际化文案
 const footerNavigation = {
   resources: [
-    { name: m["components.footer.links.blog"](), href: ROUTES.BLOG },
-    { name: m["components.footer.links.projects"](), href: ROUTES.PROJECTS },
-    { name: m["components.footer.links.about"](), href: ROUTES.ABOUT },
+    { name: m["components.footer.links.blog"](), href: ROUTES.BLOG, icon: "mdi:blog" },
+    { name: m["components.footer.links.projects"](), href: ROUTES.PROJECTS, icon: "mdi:briefcase" },
+    { name: m["components.footer.links.about"](), href: ROUTES.ABOUT, icon: "mdi:alien-outline" },
   ],
   quickInfo: [
-    { name: m["components.footer.links.contact"](), href: ROUTES.CONTACT },
-    { name: m["components.footer.links.rss_feed"](), href: ROUTES.API.FEED_RSS },
-    { name: m["components.footer.links.sitemap"](), href: "/sitemap.xml" },
+    { name: m["components.footer.links.contact"](), href: ROUTES.CONTACT, icon: "mdi:contact" },
+    { name: m["components.footer.links.rss_feed"](), href: ROUTES.API.FEED_RSS, icon: "mdi:rss" },
+    { name: m["components.footer.links.sitemap"](), href: "/sitemap.xml", icon: "mdi:sitemap" },
   ],
   social: [
     { name: m["components.footer.links.github"](), href: AUTHOR_GITHUB, icon: "mdi:github" },
@@ -115,6 +115,7 @@ const footerNavigation = {
                         "inline-flex items-center gap-1"
                       )}
                     >
+                      <Icon name={item.icon} class="h-6 w-6 fill-current" />
                       {item.name}
                     </Link>
                   </li>
@@ -141,6 +142,7 @@ const footerNavigation = {
                         "inline-flex items-center gap-1"
                       )}
                     >
+                      <Icon name={item.icon} class="h-6 w-6 fill-current" />
                       {item.name}
                     </Link>
                   </li>
@@ -170,10 +172,7 @@ const footerNavigation = {
                       )}
                       aria-label={m["components.footer.meta.follow_on"]({ platform: item.name })}
                     >
-                      {/* 临时使用emoji，直到配置astro-icon */}
-                      <span class="text-base" aria-hidden="true">
-                        {item.name === m["components.footer.links.github"]() ? "📁" : "💼"}
-                      </span>
+                      <Icon name={item.icon} class="h-6 w-6 fill-current" />
                       <span>{item.name}</span>
                     </Link>
                   </li>
