@@ -24,29 +24,29 @@
 
   /* --- 主要颜色调整 --- */
   --color-primary: var(--color-brand-sky-400);
-  --color-on-primary: var(--color-neutral-900);
+  --color-on-primary: var(--color-neutral-950);
   --color-primary-container: var(--color-brand-sky-900);
   --color-on-primary-container: var(--color-brand-sky-100);
 
   /* --- 次要颜色调整 --- */
   --color-secondary: var(--color-neutral-400);
-  --color-on-secondary: var(--color-neutral-900);
+  --color-on-secondary: var(--color-neutral-950);
   --color-secondary-container: var(--color-neutral-800);
   --color-on-secondary-container: var(--color-neutral-200);
 
   /* --- 第三颜色调整 --- */
   --color-tertiary: var(--color-brand-sky-300);
-  --color-on-tertiary: var(--color-neutral-900);
+  --color-on-tertiary: var(--color-neutral-950);
   --color-tertiary-container: var(--color-brand-sky-800);
   --color-on-tertiary-container: var(--color-brand-sky-200);
 
   /* --- 表面色系调整 --- */
-  --color-background: var(--color-neutral-900);
+  --color-background: var(--color-neutral-800);
   --color-on-background: var(--color-neutral-100);
 
-  --color-surface: var(--color-neutral-800);
+  --color-surface: var(--color-neutral-700);
   --color-on-surface: var(--color-neutral-200);
-  --color-surface-variant: var(--color-neutral-700);
+  --color-surface-variant: var(--color-neutral-600);
   --color-on-surface-variant: var(--color-neutral-300);
 
   /* --- 容器系统调整 --- */
@@ -56,8 +56,8 @@
   --color-surface-container-high: var(--color-neutral-700);
   --color-surface-container-highest: var(--color-neutral-600);
 
-  --color-surface-dim: var(--color-neutral-950);
-  --color-surface-bright: var(--color-neutral-700);
+  --color-surface-dim: var(--color-neutral-900);
+  --color-surface-bright: var(--color-neutral-600);
 
   /* --- 轮廓色系调整 --- */
   --color-outline: var(--color-neutral-600);

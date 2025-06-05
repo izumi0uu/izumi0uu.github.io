@@ -211,28 +211,28 @@
   --color-on-info-container: var(--color-functional-info-700);
 
   /* --- 表面色系 (Surface) --- */
-  --color-background: var(--color-neutral-0);
+  --color-background: var(--color-neutral-200);
   --color-on-background: var(--color-neutral-900);
 
-  --color-surface: var(--color-neutral-50);
+  --color-surface: var(--color-neutral-300);
   --color-on-surface: var(--color-neutral-900);
-  --color-surface-variant: var(--color-neutral-100);
+  --color-surface-variant: var(--color-neutral-400);
   --color-on-surface-variant: var(--color-neutral-600);
 
   /* --- 容器系统 --- */
-  --color-surface-container-lowest: var(--color-neutral-0);
-  --color-surface-container-low: var(--color-neutral-50);
-  --color-surface-container: var(--color-neutral-100);
-  --color-surface-container-high: var(--color-neutral-200);
-  --color-surface-container-highest: var(--color-neutral-300);
+  --color-surface-container-lowest: var(--color-neutral-200);
+  --color-surface-container-low: var(--color-neutral-300);
+  --color-surface-container: var(--color-neutral-400);
+  --color-surface-container-high: var(--color-neutral-500);
+  --color-surface-container-highest: var(--color-neutral-600);
 
-  --color-surface-dim: var(--color-neutral-100);
-  --color-surface-bright: var(--color-neutral-0);
+  --color-surface-dim: var(--color-neutral-400);
+  --color-surface-bright: var(--color-neutral-200);
   --color-surface-tint: var(--color-primary);
 
   /* --- 轮廓色系 (Outline) --- */
-  --color-outline: var(--color-neutral-300);
-  --color-outline-variant: var(--color-neutral-200);
+  --color-outline: var(--color-neutral-500);
+  --color-outline-variant: var(--color-neutral-400);
 
   /* --- 语义化别名 (Semantic Aliases) --- */
   --color-content: var(--color-on-surface);
