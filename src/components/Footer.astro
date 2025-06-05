@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
 
 import footerImage from "@/assets/images/footer-default.png";
 
@@ -51,6 +52,7 @@ const footerNavigation = {
   aria-label="Footer"
 >
   <div class="max-w-7xl mx-auto">
+    <!-- Main Content Section -->
     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
       <!-- Brand Section -->
       <section class="md:col-span-5 lg:col-span-4" aria-labelledby="brand-heading">
@@ -93,7 +95,7 @@ const footerNavigation = {
       </section>
 
       <!-- Navigation Section -->
-      <nav class="md:col-span-7 lg:col-span-6" aria-label="页脚导航">
+      <nav class="md:col-span-7 lg:col-span-6" aria-label="footer-navigation">
         <div class="grid grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Resources Links -->
           <section aria-labelledby="resources-heading">
@@ -175,6 +177,11 @@ const footerNavigation = {
                 ))
               }
             </ul>
+          </section>
+
+          <!-- Footer Image -->
+          <section aria-labelledby="footer-image" class="col-span-2 lg:col-span-1">
+            <Image src={footerImage} alt="Footer Image" class="w-full h-full object-cover" />
           </section>
         </div>
       </nav>
