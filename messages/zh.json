@@ -85,7 +85,8 @@
         "rss_feed": "RSS订阅",
         "sitemap": "网站地图",
         "github": "GitHub",
-        "linkedin": "LinkedIn"
+        "linkedin": "LinkedIn",
+        "email": "邮箱"
       },
       "meta": {
         "domain_label": "站点域名",

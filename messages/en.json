@@ -85,7 +85,8 @@
         "rss_feed": "RSS Feed",
         "sitemap": "Sitemap",
         "github": "GitHub",
-        "linkedin": "LinkedIn"
+        "linkedin": "LinkedIn",
+        "email": "Email"
       },
       "meta": {
         "domain_label": "Site Domain",

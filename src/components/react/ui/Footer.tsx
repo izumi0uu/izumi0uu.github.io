@@ -7,7 +7,8 @@ import { Github, Linkedin, Mail, Globe, FileText, User, Briefcase, Rss } from "l
 import { CONFIG_CLIENT } from "@/config/client";
 import { ROUTES } from "@/constants/routes";
 
-const { SITE_URL, AUTHOR_LINKEDIN, AUTHOR_GITHUB, REPO_URL, AUTHOR_NAME } = CONFIG_CLIENT;
+const { SITE_URL, AUTHOR_LINKEDIN, AUTHOR_GITHUB, AUTHOR_EMAIL, REPO_URL, AUTHOR_NAME } =
+  CONFIG_CLIENT;
 
 export const Footer = () => {
   const domain = SITE_URL.replace(/^https?:\/\//, "");
@@ -45,6 +46,7 @@ export const Footer = () => {
         href: AUTHOR_LINKEDIN,
         icon: Linkedin,
       },
+      { name: m["components.footer.links.email"](), href: AUTHOR_EMAIL, icon: Mail },
     ],
   };
 
@@ -166,7 +168,7 @@ export const Footer = () => {
                 >
                   {m["components.footer.sections.social"]()}
                 </h3>
-                <ul className="flex flex-wrap gap-3 lg:flex-col lg:space-y-3" role="list">
+                <ul className="flex flex-wrap gap-3 lg:flex-col lg:gap-0 lg:space-y-3" role="list">
                   {footerNavigation.social.map((item) => {
                     const IconComponent = item.icon;
                     return (
