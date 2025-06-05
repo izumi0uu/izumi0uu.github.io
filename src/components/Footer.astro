@@ -1,12 +1,14 @@
 ---
 import { Icon } from "astro-icon/components";
 
+import footerImage from "@/assets/images/footer-default.png";
+
 import Link from "@/components/Link.astro";
+import FullWidth from "@/layouts/FullWidth.astro";
 import { ROUTES } from "@/constants/routes";
 import { CONFIG_CLIENT } from "@/config/client";
 
 import { Logo } from "@/components/react/ui/Logo";
-import { Button } from "@/components/react/radix-ui/Button";
 
 import { getLatestCommitInfo } from "@/libs/git";
 import { shortDate } from "@/utils/data/datetime";
@@ -184,7 +186,7 @@ const footerNavigation = {
         "mt-12 pt-8 border-t border-outline-variant",
         "flex flex-col md:flex-row justify-between items-center gap-4"
       )}
-      aria-label="版权信息"
+      aria-label="copyright"
     >
       <p class={cn("text-content text-xs lg:text-sm", "text-center md:text-left")}>
         {
