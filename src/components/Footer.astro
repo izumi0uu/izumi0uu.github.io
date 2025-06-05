@@ -60,7 +60,7 @@ const footerNavigation = {
           <!-- Brand Logo and Name -->
           <Link
             href="/"
-            variant="underline"
+            variant="link"
             class={cn(
               "inline-flex items-center gap-3",
               "text-content hover:text-primary transition-colors"
@@ -108,6 +108,7 @@ const footerNavigation = {
                   <li>
                     <Link
                       href={item.href}
+                      variant="underline"
                       class={cn(
                         "text-content hover:text-primary",
                         "transition-colors text-sm",
@@ -133,6 +134,7 @@ const footerNavigation = {
                   <li>
                     <Link
                       href={item.href}
+                      variant="underline"
                       class={cn(
                         "text-content hover:text-primary",
                         "transition-colors text-sm",
@@ -158,6 +160,7 @@ const footerNavigation = {
                   <li>
                     <Link
                       href={item.href}
+                      variant="underline"
                       target="_blank"
                       rel="me noreferrer noopener"
                       class={cn(
