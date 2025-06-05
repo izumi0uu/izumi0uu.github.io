@@ -1,5 +1,7 @@
 import footerImage from "@/assets/images/footer-default.png";
 
+import { Link } from "@/components/react/ui/Link";
+
 import { cn } from "@/utils/ui/styles";
 import * as m from "@/paraglide/messages";
 import { Github, Linkedin, Mail, Globe, FileText, User, Briefcase, Rss } from "lucide-react";
@@ -63,8 +65,9 @@ export const Footer = () => {
           <section className="md:col-span-5 lg:col-span-4" aria-labelledby="brand-heading">
             <div className="space-y-4">
               {/* Brand Logo and Name */}
-              <a
+              <Link
                 href="/"
+                variant="heading"
                 className={cn(
                   "inline-flex items-center gap-3",
                   "text-content transition-colors hover:text-primary"
@@ -75,7 +78,7 @@ export const Footer = () => {
                   <span className="text-sm font-bold text-on-primary">I</span>
                 </div>
                 <span className="text-xl font-bold tracking-tight">{AUTHOR_NAME}</span>
-              </a>
+              </Link>
 
               {/* Brand Description */}
               <p className={cn("max-w-md leading-relaxed text-content", "text-sm")}>
@@ -86,14 +89,15 @@ export const Footer = () => {
               <div className="flex items-center gap-2 text-xs text-content">
                 <Github className="h-4 w-4" />
                 <span className="font-medium">{m["components.footer.latest_commit"]()}:</span>
-                <a
+                <Link
                   href={commitUrl}
+                  external={true}
+                  variant="link"
                   title={`${shortDateStr} - ${commitInfo.message}`}
-                  target="_blank"
                   className="transition-colors hover:text-primary"
                 >
                   {trimmedMessage}
-                </a>
+                </Link>
               </div>
             </div>
           </section>
@@ -114,18 +118,18 @@ export const Footer = () => {
                     const IconComponent = item.icon;
                     return (
                       <li key={item.href}>
-                        <a
+                        <Link
                           href={item.href}
+                          variant="underline"
                           className={cn(
                             "text-content hover:text-primary",
                             "text-sm transition-colors",
-                            "inline-flex items-center gap-1",
-                            "relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+                            "inline-flex items-center gap-1"
                           )}
                         >
                           <IconComponent className="h-4 w-4" />
                           {item.name}
-                        </a>
+                        </Link>
                       </li>
                     );
                   })}
@@ -142,18 +146,18 @@ export const Footer = () => {
                     const IconComponent = item.icon;
                     return (
                       <li key={item.href}>
-                        <a
+                        <Link
                           href={item.href}
+                          variant="underline"
                           className={cn(
                             "text-content hover:text-primary",
                             "text-sm transition-colors",
-                            "inline-flex items-center gap-1",
-                            "relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+                            "inline-flex items-center gap-1"
                           )}
                         >
                           <IconComponent className="h-4 w-4" />
                           {item.name}
-                        </a>
+                        </Link>
                       </li>
                     );
                   })}
@@ -173,15 +177,14 @@ export const Footer = () => {
                     const IconComponent = item.icon;
                     return (
                       <li key={item.href}>
-                        <a
+                        <Link
                           href={item.href}
-                          target="_blank"
-                          rel="me noreferrer noopener"
+                          external={true}
+                          variant="underline"
                           className={cn(
                             "inline-flex items-center gap-2",
                             "text-content hover:text-primary",
-                            "text-sm transition-colors",
-                            "relative after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+                            "text-sm transition-colors"
                           )}
                           aria-label={m["components.footer.meta.follow_on"]({
                             platform: item.name,
@@ -189,7 +192,7 @@ export const Footer = () => {
                         >
                           <IconComponent className="h-4 w-4" />
                           <span>{item.name}</span>
-                        </a>
+                        </Link>
                       </li>
                     );
                   })}
