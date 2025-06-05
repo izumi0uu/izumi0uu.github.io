@@ -29,58 +29,63 @@ const trimmedMessage = limitString(message, messageLength);
 
 <footer class="border-t border-outline py-8 px-4">
   <div class="max-w-6xl md:mx-auto flex justify-center md:justify-start">
-    <div class="flex justify-between gap-4 flex-col-reverse md:flex-row md:w-full">
-      <!-- left column -->
-      <div class="flex items-center gap-2 flex-wrap text-sm text-content whitespace-nowrap">
-        <div class="flex items-center gap-2">
-          <label class="font-bold">Latest commit:</label>
-          <Link href={commitUrl} title={shortDateStr} target="_blank">
-            {trimmedMessage}
-          </Link>
+    <div class="max-w-7xl container">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Logo and Description -->
+        <div class="text-left">
+          <a href="/" class="navbar-brand block">
+            <div
+              class="font-primary font-medium text-2xl flex gap-2 items-center
+          text-white"
+            >
+              <Logo />
+              <span> IZUMI0UU </span>
+            </div>
+          </a>
+          <p class="text-white/75 my-4">A website for sharing my thoughts and ideas.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-8">
+          <!-- Resources Menu -->
+          <div class="text-left">
+            <h3 class="text-white mb-4 text-lg">Resources</h3>
+            <ul class="space-y-3">
+              <li>
+                <a href="/#features" class="text-white/75 hover:text-white transition-all"
+                  >Features</a
+                >
+              </li><li>
+                <a href="/#pricing" class="text-white/75 hover:text-white transition-all">Pricing</a
+                >
+              </li><li>
+                <a href="/roadmap" class="text-white/75 hover:text-white transition-all"
+                  >Product Roadmap</a
+                >
+              </li>
+            </ul>
+          </div>
+          <!-- Quick Info Menu -->
+          <div class="text-left">
+            <h3 class="text-white mb-4 text-lg">Quick Info</h3>
+            <ul class="space-y-3">
+              <li>
+                <a href="/terms" class="text-white/75 hover:text-white transition-all">Terms</a>
+              </li><li>
+                <a href="/privacy" class="text-white/75 hover:text-white transition-all">Privacy</a>
+              </li><li>
+                <a href="/refund-policy" class="text-white/75 hover:text-white transition-all"
+                  >Refund Policy</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-
-      <!-- right column -->
-      <ul class="flex gap-2 flex-wrap xs:flex-nowrap lg:items-center">
-        <li>
-          <Link
-            href={AUTHOR_GITHUB}
-            target="_blank"
-            rel="me noreferrer noopener"
-            title="@izumii0uu on Github"
-            class="flex items-center gap-2 text-base xs:text-lg"
-            variant="nav"
-          >
-            <!-- <Icon name="mdi:github" class="h-6 w-6 fill-current" /> -->
-            <span class="icon-[mdi-light--home] bg-surfaceqdcf"></span>
-            <span>Github</span>
-          </Link>
-        </li>
-        <li>
-          <Link
-            href={AUTHOR_LINKEDIN}
-            target="_blank"
-            rel="me noreferrer noopener"
-            title="izumii0uu on LinkedIn"
-            class="flex items-center gap-2 text-base xs:text-lg"
-            variant="nav"
-          >
-            <!-- <Icon name="mdi:linkedin" class="h-6 w-6 fill-current" /> -->
-            <span>LinkedIn</span>
-          </Link>
-        </li>
-        <li>
-          <Link
-            href={ROUTES.API.FEED_RSS}
-            title={`RSS feed for ${domain}`}
-            class="flex items-center gap-2 text-base xs:text-lg"
-            variant="nav"
-          >
-            <!-- <Icon name="mdi:rss" class="h-6 w-6 fill-current" /> -->
-            <span>RSS Feed</span>
-          </Link>
-        </li>
-      </ul>
+      <!-- Social Icons and Copyright -->
+      <div
+        class="mt-12 flex flex-col md:flex-row justify-center items-center border-t border-white/10 pt-8"
+      >
+        <p class="text-white/75">Copyright © 2025 IZUMI0UU. All Rights Reserved</p>
+      </div>
     </div>
   </div>
 </footer>
