@@ -20,10 +20,14 @@ export const TAGS = [
   "node.js",
   "javascript",
   "css",
+  "ethereum",
+  "solidity",
+  "solana",
   "python",
-  "devops",
   "docker",
   "self-hosting",
+  "web-development",
+  "web-design",
 ] as const;
 
 /** adjust this later */
