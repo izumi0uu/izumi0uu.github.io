@@ -28,6 +28,42 @@ const {
   class: className,
   ...props
 } = Astro.props;
+
+const { prev: prevUrl, current: currentUrl, next: nextUrl } = url;
+
+const getFirstUrl = (url: string) => url.replace(/\/\d+$/, "/");
+
+const firstUrl = getFirstUrl(currentUrl);
+
+const getPageUrl = (pageNum: number) => (pageNum === 1 ? firstUrl : `${firstUrl}${pageNum}`);
+
+const lastUrl = getPageUrl(lastPage);
+
+const hasMoreThanOnePage = lastPage > 1;
+
+const pageNumbers = (length: number) => Array.from({ length }, (_, i) => i + 1);
+
+const threePageNumbers = (currentPage: number, lastPage: number): number[] => {
+  let pages: number[] = [];
+
+  if (lastPage <= 3) {
+    // if total pages are 3 or less, show all pages
+    pages = pageNumbers(lastPage);
+  } else {
+    if (currentPage === 1) {
+      // if beginning
+      pages = [1, 2, 3];
+    } else if (currentPage === lastPage) {
+      // if end
+      pages = [lastPage - 2, lastPage - 1, lastPage];
+    } else {
+      // if middle
+      pages = [currentPage - 1, currentPage, currentPage + 1];
+    }
+  }
+
+  return pages;
+};
 ---
 
 <ReactPagination>
