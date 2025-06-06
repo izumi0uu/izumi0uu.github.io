@@ -1,0 +1,54 @@
+---
+import {
+  Pagination as ReactPagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/react/ui/Pagination";
+
+import { cn } from "@/utils/ui/styles";
+
+import type { PaginationProps } from "@/types/common";
+
+export interface Props extends PaginationProps, astroHTML.JSX.HTMLAttributes {
+  showIfOnePage?: boolean;
+}
+
+const {
+  showIfOnePage = false,
+  url,
+  currentPage,
+  lastPage,
+  start,
+  end,
+  total,
+  class: className,
+  ...props
+} = Astro.props;
+---
+
+<ReactPagination>
+  <PaginationContent>
+    <PaginationItem>
+      <PaginationPrevious href="#" />
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="#">1</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="#" isActive> 2 </PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="#">3</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationEllipsis />
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationNext href="#" />
+    </PaginationItem>
+  </PaginationContent>
+</ReactPagination>

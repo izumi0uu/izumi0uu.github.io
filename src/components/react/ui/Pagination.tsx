@@ -34,14 +34,10 @@ const PaginationLink = React.forwardRef<
   <a
     aria-current={isActive ? "page" : undefined}
     className={cn(
-      "inline-flex h-10 w-10 items-center justify-center border-2 border-black bg-white text-sm font-bold transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none dark:hover:shadow-none",
+      "inline-flex h-10 w-10 items-center justify-center border-2 border-outline text-sm font-bold transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none",
       isActive
-        ? "bg-blue-500 text-white shadow-[2px_2px_0_0_#000]"
-        : "text-gray-500 shadow-[2px_2px_0_0_#000] hover:bg-gray-100",
-      "dark:border-white dark:bg-zinc-800 dark:text-white",
-      isActive
-        ? "dark:bg-blue-500 dark:shadow-[2px_2px_0_0_#fff]"
-        : "dark:text-gray-400 dark:shadow-[2px_2px_0_0_#fff] dark:hover:bg-zinc-700",
+        ? "bg-primary text-on-primary shadow-[2px_2px_0_0_var(--color-outline)]"
+        : "bg-surface text-content-secondary shadow-[2px_2px_0_0_var(--color-outline)] hover:bg-surface-container",
       className
     )}
     {...props}
@@ -57,8 +53,7 @@ const PaginationPrevious = React.forwardRef<
     aria-label="Go to previous page"
     className={cn(
       "mr-2 flex h-10 w-auto px-4 py-2",
-      "border-2 border-black bg-white font-bold text-black shadow-[2px_2px_0_0_#000] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none dark:hover:shadow-none",
-      "dark:border-white dark:bg-zinc-800 dark:text-white dark:shadow-[2px_2px_0_0_#fff]",
+      "border-2 border-outline bg-surface font-bold text-content shadow-[2px_2px_0_0_var(--color-outline)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none",
       className
     )}
     {...props}
@@ -77,8 +72,7 @@ const PaginationNext = React.forwardRef<
     aria-label="Go to next page"
     className={cn(
       "ml-2 flex h-10 w-auto px-4 py-2",
-      "border-2 border-black bg-white font-bold text-black shadow-[2px_2px_0_0_#000] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none dark:hover:shadow-none",
-      "dark:border-white dark:bg-zinc-800 dark:text-white dark:shadow-[2px_2px_0_0_#fff]",
+      "border-2 border-outline bg-surface font-bold text-content shadow-[2px_2px_0_0_var(--color-outline)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none",
       className
     )}
     {...props}
@@ -90,7 +84,11 @@ const PaginationNext = React.forwardRef<
 PaginationNext.displayName = "PaginationNext";
 
 const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<"span">) => (
-  <span aria-hidden className={cn("flex size-9 items-center justify-center", className)} {...props}>
+  <span
+    aria-hidden
+    className={cn("flex size-9 items-center justify-center text-content-secondary", className)}
+    {...props}
+  >
     <MoreHorizontal className="size-4" />
     <span className="sr-only">More pages</span>
   </span>

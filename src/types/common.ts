@@ -6,6 +6,7 @@ import type { CollectionEntry } from "astro:content";
 import type { ComponentProps } from "astro/types";
 
 type CollectionType = (typeof COLLECTIONS)[keyof typeof COLLECTIONS];
+
 type AnyCollection = CollectionEntry<CollectionType>;
 
 interface Metadata {
@@ -18,7 +19,7 @@ interface Metadata {
 
 interface PaginationProps
   extends Pick<
-    Page<CollectionEntry<string>>, // Fallback to CollectionEntry<string> if AnyCollection is not available
+    Page<AnyCollection>,
     "url" | "currentPage" | "lastPage" | "start" | "end" | "total"
   > {}
 
