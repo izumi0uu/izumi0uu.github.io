@@ -1,6 +1,7 @@
 import footerImage from "@/assets/images/footer-default.png";
 
 import { Link } from "@/components/react/ui/Link";
+import { Logo } from "@/components/react/ui/Logo";
 
 import { cn } from "@/utils/ui/styles";
 import * as m from "@/paraglide/messages";
@@ -74,9 +75,7 @@ export const Footer = () => {
                 )}
                 aria-label={m["components.footer.back_to_top"]()}
               >
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
-                  <span className="text-sm font-bold text-on-primary">I</span>
-                </div>
+                <Logo />
                 <span className="text-xl font-bold tracking-tight">{AUTHOR_NAME}</span>
               </Link>
 
