@@ -51,7 +51,8 @@
       "blog_link": "博客",
       "projects_link": "项目",
       "experience_link": "经历",
-      "links_link": "链接"
+      "links_link": "链接",
+      "explore_link": "探索"
     },
     "theme_switcher": {
       "label": "切换主题",
