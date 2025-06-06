@@ -39,7 +39,7 @@ const getPageUrl = (pageNum: number) => (pageNum === 1 ? firstUrl : `${firstUrl}
 
 const lastUrl = getPageUrl(lastPage);
 
-const hasMoreThanOnePage = lastPage > 1;
+const hasMoreThanOnePage = () => lastPage > 1;
 
 const pageNumbers = (length: number) => Array.from({ length }, (_, i) => i + 1);
 
@@ -66,25 +66,32 @@ const threePageNumbers = (currentPage: number, lastPage: number): number[] => {
 };
 ---
 
-<ReactPagination>
-  <PaginationContent>
-    <PaginationItem>
-      <PaginationPrevious href="#" />
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationLink href="#">1</PaginationLink>
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationLink href="#" isActive> 2 </PaginationLink>
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationLink href="#">3</PaginationLink>
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationEllipsis />
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationNext href="#" />
-    </PaginationItem>
-  </PaginationContent>
-</ReactPagination>
+{
+  hasMoreThanOnePage() || showIfOnePage ? (
+    <ReactPagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious href="#" />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">1</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#" isActive>
+            {" "}
+            2{" "}
+          </PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">3</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationEllipsis />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationNext href="#" />
+        </PaginationItem>
+      </PaginationContent>
+    </ReactPagination>
+  ) : null
+}
