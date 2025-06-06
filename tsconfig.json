@@ -13,6 +13,7 @@
     "paths": {
       "@/assets/*": ["assets/*"],
       "@/components/*": ["components/*"],
+      "@/modules/*": ["modules/*"],
       "@/constants/*": ["constants/*"],
       "@/content/*": ["content/*"],
       "@/layouts/*": ["layouts/*"],
