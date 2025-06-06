@@ -68,7 +68,7 @@ const threePageNumbers = (currentPage: number, lastPage: number): number[] => {
 
 {
   hasMoreThanOnePage() || showIfOnePage ? (
-    <ReactPagination>
+    <ReactPagination client:load>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious href="#" />
