@@ -51,7 +51,8 @@
       "blog_link": "Blog",
       "projects_link": "Project",
       "experience_link": "Experience",
-      "links_link": "Links"
+      "links_link": "Links",
+      "explore_link": "Explore"
     },
     "theme_switcher": {
       "label": "Switch Theme",

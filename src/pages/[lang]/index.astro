@@ -33,9 +33,9 @@ const metadata = getPageMetadata("");
 
 const fallingText = m["pages.home.falling_text"]();
 
-// Quick links 数据
 const quickLinks = [
   { name: "Blog", href: ROUTES.BLOG, icon: "↗" },
+  { name: "Explore", href: ROUTES.EXPLORE, icon: "↗" },
   { name: "Projects", href: ROUTES.PROJECTS, icon: "↗" },
   { name: "About", href: ROUTES.ABOUT, icon: "↗" },
   { name: "Contact", href: ROUTES.CONTACT, icon: "↗" },
@@ -175,7 +175,7 @@ const quickLinks = [
       <h2 class="text-2xl md:text-3xl font-bold text-headings mb-8">Quick links</h2>
 
       <!-- Links Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
         {
           quickLinks.map((link) => (
             <Link href={link.href} variant="no-underline" class="block">

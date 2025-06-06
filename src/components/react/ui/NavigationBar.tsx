@@ -33,6 +33,7 @@ const NavigationBar = () => {
         </a>
         <nav className="hidden gap-4 lg:flex">
           <Button variant="brutal">{m["components.navigation_menu.blog_link"]()}</Button>
+          <Button variant="brutal">{m["components.navigation_menu.explore_link"]()}</Button>
           <Button variant="brutal">{m["components.navigation_menu.projects_link"]()}</Button>
           <Button variant="brutal">{m["components.navigation_menu.experience_link"]()}</Button>
           <Button variant="brutal">{m["components.navigation_menu.links_link"]()}</Button>
