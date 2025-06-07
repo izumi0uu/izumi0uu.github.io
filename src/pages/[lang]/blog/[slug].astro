@@ -42,7 +42,6 @@ const { post, routeLocale } = Astro.props;
 const { data, slug } = post;
 const { title, description } = data;
 
-// 忽略文章可能包含的lang属性，使用路由的locale
 // 基本元数据
 const metadata = { title, description };
 ---
