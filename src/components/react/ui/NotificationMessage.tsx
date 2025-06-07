@@ -39,14 +39,11 @@ const NotificationMessage: React.FC<NotificationMessageProps> = ({
         >
           <div
             className={clsx("mx-auto flex w-full max-w-md", {
-              // 调整了 max-w 和一些布局
               "justify-end pr-4": position === "bottom-right",
               "justify-center": position === "top-center",
             })}
           >
             <div className="pointer-events-auto relative rounded-lg bg-[var(--color-surface-container-high)] p-4 pr-10 text-[var(--color-on-surface)] shadow-lg">
-              {" "}
-              {/* 使用了你的 CSS 变量 */}
               {onDismiss && (
                 <button
                   aria-label="dismiss message"
