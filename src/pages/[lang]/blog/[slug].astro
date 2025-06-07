@@ -5,17 +5,26 @@ import Base from "@/layouts/Base.astro";
 
 export async function getStaticPaths() {
   const posts = await getAllPostsWithReadingTime();
+  console.log(`生成动态路由，文章数量: ${posts.length}`);
 
   // 为每种语言创建路径
-  return posts.flatMap((post) =>
-    SUPPORTED_LOCALES.map((lang) => ({
-      params: {
-        lang,
-        slug: post.slug,
-      },
-      props: { post },
-    }))
+  const paths = posts.flatMap((post) =>
+    SUPPORTED_LOCALES.map((lang) => {
+      // 确保slug格式正确，移除可能的后缀
+      const cleanSlug = post.slug.replace(/\.mdx$/, "");
+      console.log(`为文章 ${cleanSlug} 创建 ${lang} 语言路由`);
+      return {
+        params: {
+          lang,
+          slug: cleanSlug,
+        },
+        props: { post, lang },
+      };
+    })
   );
+
+  console.log(`总共生成 ${paths.length} 条路由`);
+  return paths;
 }
 
 // 从props中获取文章数据

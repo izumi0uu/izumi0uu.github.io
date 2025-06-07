@@ -34,5 +34,8 @@ export const getPostsWithReadingTimeFromPosts = async (
  * From this point Post[](getAllPostsWithReadingTime) instead of CollectionEntry<'post'>[](getAllPosts).
  * custom type like slug, readingTime added, etc.
  */
-export const getAllPostsWithReadingTime = async (): Promise<Post[]> =>
-  getPostsWithReadingTimeFromPosts(await getAllPosts());
+export const getAllPostsWithReadingTime = async (): Promise<Post[]> => {
+  const posts = await getPostsWithReadingTimeFromPosts(await getAllPosts());
+  console.log(`获取到 ${posts.length} 篇文章`);
+  return posts;
+};
