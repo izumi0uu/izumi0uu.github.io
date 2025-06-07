@@ -1,0 +1,40 @@
+---
+import { getAllPostsWithReadingTime } from "@/modules/post/common";
+import { SUPPORTED_LOCALES } from "@/config/i18n";
+import Base from "@/layouts/Base.astro";
+
+export async function getStaticPaths() {
+  const posts = await getAllPostsWithReadingTime();
+
+  // 为每种语言创建路径
+  return posts.flatMap((post) =>
+    SUPPORTED_LOCALES.map((lang) => ({
+      params: {
+        lang,
+        slug: post.slug,
+      },
+      props: { post },
+    }))
+  );
+}
+
+// 从props中获取文章数据
+const { post } = Astro.props;
+const { data, slug } = post;
+const { title, description } = data;
+
+// 基本元数据
+const metadata = { title, description };
+---
+
+<Base {metadata}>
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-4">{title}</h1>
+    {description && <p class="text-lg mb-8">{description}</p>}
+
+    <div class="prose max-w-none">
+      <!-- 内容将在后续实现 -->
+      <p>文章内容将在后续实现...</p>
+    </div>
+  </div>
+</Base>

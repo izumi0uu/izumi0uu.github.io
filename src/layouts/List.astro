@@ -16,7 +16,9 @@ const { title, description } = metadata;
 <Centered {metadata}>
   <article class="flex flex-col">
     <slot name="heading">
-      <h1 class="b-h1 b-button-heading">{title}</h1>
+      <div>
+        <h1 class="b-h1 b-button-heading">{title.toUpperCase()}</h1>
+      </div>
       {description && <p class="b-p mb-5">{description}</p>}
     </slot>
     <section class="flex-grow flex flex-col">
