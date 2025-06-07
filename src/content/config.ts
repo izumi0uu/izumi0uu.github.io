@@ -7,6 +7,7 @@ import { BASE_FOLDERS } from "@/constants/collections";
 
 const { POST, PROJECT } = BASE_FOLDERS;
 
+// TODO: glob() replaced with getCollection(), getEntry()
 type GenerateIdFn = Parameters<typeof glob>[0]["generateId"];
 
 /**

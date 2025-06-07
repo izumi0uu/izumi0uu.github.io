@@ -10,11 +10,11 @@ export interface Props extends BaseProps {
 }
 
 const { paginationProps, metadata } = Astro.props;
-const { title, description } = metadata;
+const { title, description, author } = metadata;
 ---
 
 <Centered {metadata}>
-  <article class="flex flex-col">
+  <article class="flex flex-col max-w-4xl mx-auto">
     <slot name="heading">
       <div>
         <h1 class="b-h1 b-button-heading">{title.toUpperCase()}</h1>

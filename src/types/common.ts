@@ -15,6 +15,7 @@ interface Metadata {
   description?: string;
   /** Must be url. */
   image?: string;
+  author?: string;
 }
 
 interface PaginationProps

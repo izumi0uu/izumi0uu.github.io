@@ -13,6 +13,10 @@ import { setTransitionSlug, TRANSITION_ELEMENT_IDS } from "@/constants/transitio
 import { formatDate, formatDateIso } from "@/utils/data/datetime";
 import { cn } from "@/utils/ui/styles";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/react/radix-ui/Avatar";
+import { SpringElement } from "@/components/react/ui/SpringElement";
+import avatar from "@/assets/images/avatar.jpg";
+
 import type { Post } from "@/types/post";
 
 export interface Props {
@@ -48,7 +52,7 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
   class={cn(
     "flex flex-col md:flex-row gap-4 lg:gap-6",
     "not-first:pt-4 not-last:pb-4 md:not-first:pt-6 md:not-last:pb-6",
-    "not-last:border-b border-base-300"
+    "not-last:border-b border-base-300 w-full"
   )}
 >
   {/* left column */}
@@ -140,5 +144,11 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
         <Icon name="mdi:arrow-right" class="w-4 h-4" />
       </Link>
     </div>
+    <SpringElement>
+      <Avatar className="size-20">
+        <AvatarImage draggable={false} src={avatar.src} />
+        <AvatarFallback>AK </AvatarFallback>
+      </Avatar>
+    </SpringElement>
   </div>
 </article>

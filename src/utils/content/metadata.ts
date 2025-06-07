@@ -40,6 +40,7 @@ const getPageMetadata = (path: PageMetadataKey): Metadata => {
     title,
     description,
     image,
+    author: AUTHOR_NAME,
   };
 
   if (greeting !== undefined) {
