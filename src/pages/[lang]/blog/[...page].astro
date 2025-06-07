@@ -10,21 +10,20 @@ import { SUPPORTED_LOCALES } from "@/config/i18n";
 import type { Post } from "@/types/post";
 import type { GetStaticPathsOptions } from "astro";
 
-// TODO: i18n
 // [page].astro and getStaticPaths because of pagination
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const allPosts: Post[] = await getAllPostsWithReadingTime();
   const pageSize = CONFIG_CLIENT.PAGE_SIZE_POST_CARD;
 
-  // 创建所有语言的分页路由
+  // create all language pagination routes
   const paths = SUPPORTED_LOCALES.flatMap((lang) => {
-    // 为每种语言创建分页
+    // create pagination for each language
     const paginatedPaths = paginate(allPosts, {
       pageSize,
       params: { lang },
     });
 
-    // 为第一页添加额外路由 (如 /zh/blog/1/)
+    // add extra route for the first page (like /zh/blog/1/)
     paginatedPaths.push({
       params: { lang, page: "1" },
       props: paginatedPaths[0].props,
