@@ -28,7 +28,6 @@ export function PageLoadingIndicator() {
       const customEvent = event as CustomEvent<{ to?: string; from?: string }>;
       setPendingPath(customEvent.detail?.to || "");
       setIsLoading(true);
-      console.log("Navigation started:", customEvent.detail);
     };
 
     const handlePageLoadEnd = () => {
