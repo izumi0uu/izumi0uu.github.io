@@ -15,6 +15,7 @@ import { CONFIG_CLIENT } from "@/config/client";
 import { ROUTES } from "@/constants/routes";
 import * as m from "@/paraglide/messages";
 import { cn } from "@/utils/ui/styles";
+import { getPathWithLocale } from "@/utils/routing/paths";
 
 const NavigationBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,26 +27,29 @@ const NavigationBar = () => {
   return (
     <div className="container flex h-14 max-w-screen-2xl items-center px-8">
       <div className="flex gap-6 md:gap-10">
-        <a className="hidden items-center justify-center space-x-2 lg:flex" href="/">
+        <a
+          className="hidden items-center justify-center space-x-2 lg:flex"
+          href={getPathWithLocale(ROUTES.HOME)}
+        >
           <Logo />
           <span className="hidden text-2xl font-black tracking-tighter text-content uppercase sm:inline-block">
             {CONFIG_CLIENT.AUTHOR_NAME}
           </span>
         </a>
         <nav className="hidden gap-4 lg:flex">
-          <Link href={ROUTES.BLOG}>
+          <Link href={getPathWithLocale(ROUTES.BLOG)}>
             <Button variant="brutal">{m["components.navigation_menu.blog_link"]()}</Button>
           </Link>
-          <Link href={ROUTES.EXPLORE}>
+          <Link href={getPathWithLocale(ROUTES.EXPLORE)}>
             <Button variant="brutal">{m["components.navigation_menu.explore_link"]()}</Button>
           </Link>
-          <Link href={ROUTES.PROJECTS}>
+          <Link href={getPathWithLocale(ROUTES.PROJECTS)}>
             <Button variant="brutal">{m["components.navigation_menu.projects_link"]()}</Button>
           </Link>
-          <Link href={ROUTES.EXPERIENCE}>
+          <Link href={getPathWithLocale(ROUTES.EXPERIENCE)}>
             <Button variant="brutal">{m["components.navigation_menu.experience_link"]()}</Button>
           </Link>
-          <Link href={ROUTES.LINKS}>
+          <Link href={getPathWithLocale(ROUTES.LINKS)}>
             <Button variant="brutal">{m["components.navigation_menu.links_link"]()}</Button>
           </Link>
         </nav>
