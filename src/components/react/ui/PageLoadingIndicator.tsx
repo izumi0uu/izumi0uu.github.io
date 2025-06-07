@@ -41,23 +41,11 @@ const PageLoadingIndicator = () => {
 
       const displayPath = targetUrl ? new URL(targetUrl).pathname : "即将跳转...";
 
-      console.log("Navigation started:", {
-        from: navEvent.from,
-        to: navEvent.to,
-        direction: navEvent.direction,
-        navigationType: navEvent.navigationType,
-      });
-
       setPendingPath(displayPath);
       setIsLoading(true);
     };
 
-    const handlePageLoadEnd = () => {
-      setIsLoading(false);
-      console.log("Navigation ended:", {
-        currentPath: window.location.pathname,
-      });
-    };
+    const handlePageLoadEnd = () => setIsLoading(false);
 
     // 监听Astro视图过渡事件
     document.addEventListener("astro:before-preparation", handlePageLoadStart);
@@ -87,7 +75,7 @@ const PageLoadingIndicator = () => {
   const action = words[0];
 
   return (
-    <NotificationMessage position="bottom-right" visible={showLoader || true}>
+    <NotificationMessage visible={showLoader}>
       <div className="flex w-56 items-center">
         <motion.div
           transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
