@@ -11,7 +11,7 @@ const BlogAvatar: React.FC<BlogAvatarProps> = ({ avatarSrc, fallbackText = "ZD" 
   return (
     <SpringElement>
       <Avatar>
-        <AvatarImage src={avatarSrc} />
+        <AvatarImage draggable={false} src={avatarSrc} />
         <AvatarFallback>{fallbackText}</AvatarFallback>
       </Avatar>
     </SpringElement>
