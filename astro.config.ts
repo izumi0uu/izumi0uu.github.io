@@ -59,6 +59,10 @@ export default defineConfig({
   compressHTML: true,
   server: { port: 4321 },
   devToolbar: { enabled: true },
+
+  // 启用视图过渡动画
+  viewTransitions: true,
+
   integrations: [
     react(),
     icon({ iconDir: "./src/assets/icons" }),

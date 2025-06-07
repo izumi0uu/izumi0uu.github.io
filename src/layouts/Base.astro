@@ -10,6 +10,7 @@ import { Toaster } from "@/components/react/radix-ui/Toaster";
 import type { BaseHeadProps } from "@/components/BaseHead.astro";
 import { cn } from "@/utils/ui/styles";
 import { ToTopScroll } from "@/components/react/ui/ToTopScroll";
+import { PageLoadingIndicator } from "@/components/react/ui/PageLoadingIndicator";
 
 export interface BaseProps extends BaseHeadProps {}
 
@@ -31,5 +32,6 @@ const lang = Astro.currentLocale;
     <!-- {import.meta.env.DEV && <ThemeDevToolbar client:only="react" />} -->
     <Toaster />
     <ToTopScroll client:only="react" />
+    <PageLoadingIndicator client:load />
   </body>
 </html>

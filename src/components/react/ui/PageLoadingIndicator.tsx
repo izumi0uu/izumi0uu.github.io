@@ -3,89 +3,93 @@ import { useSpinDelay } from "spin-delay";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { NotificationMessage } from "./NotificationMessage";
+import { TeamCircle } from "./TeamCircle";
 
-const LOADER_WORDS = [
-  "loading",
-  "checking cdn",
-  "checking cache",
-  "fetching from db",
-  "compiling mdx",
-  "updating cache",
-  "transfer",
-];
+const LOADER_WORDS = ["加载中...", "正在连接...", "编译内容...", "即将呈现..."];
 
-const ACTION_WORDS = [
-  "packaging",
-  "zapping",
-  "validating",
-  "processing",
-  "calculating",
-  "computing",
-  "computering",
-];
-
-const PageLoadingMessage = () => {
-  //   const navigation = useNavigation();
-  const [words, setWords] = useState<Array<string>>([]);
+export function PageLoadingIndicator() {
+  // isLoading 状态用于跟踪 Astro 是否正在进行页面导航
+  const [isLoading, setIsLoading] = useState(false);
+  // words 状态用于存储当前轮播的文字列表
+  const [words, setWords] = useState<Array<string>>(LOADER_WORDS);
+  // pendingPath 状态用于存储即将导航到的路径
   const [pendingPath, setPendingPath] = useState("");
-  const showLoader = useSpinDelay(Boolean(navigation.state !== "idle"), {
+
+  // useSpinDelay Hook：只有当 isLoading 状态持续超过 400ms 时，
+  // showLoader 才会变为 true，避免在快速导航时出现不必要的闪烁。
+  const showLoader = useSpinDelay(isLoading, {
     delay: 400,
     minDuration: 1000,
   });
 
-  React.useEffect(() => {
-    if (firstRender) return;
-    if (navigation.state === "idle") return;
-    if (navigation.state === "loading") setWords(LOADER_WORDS);
-    if (navigation.state === "submitting") setWords(ACTION_WORDS);
+  //  监听 Astro 的页面导航事件
+  useEffect(() => {
+    const handlePageLoadStart = (event: Event) => {
+      const customEvent = event as CustomEvent<{ to?: string; from?: string }>;
+      setPendingPath(customEvent.detail?.to || "");
+      setIsLoading(true);
+      console.log("Navigation started:", customEvent.detail);
+    };
+
+    const handlePageLoadEnd = () => {
+      setIsLoading(false);
+      console.log("Navigation ended");
+    };
+
+    // 监听Astro视图过渡事件
+    document.addEventListener("astro:before-preparation", handlePageLoadStart);
+    document.addEventListener("astro:page-load", handlePageLoadEnd);
+
+    // 兼容性处理，同时监听旧版事件
+    document.addEventListener("astro:after-swap", handlePageLoadEnd);
+
+    return () => {
+      document.removeEventListener("astro:before-preparation", handlePageLoadStart);
+      document.removeEventListener("astro:page-load", handlePageLoadEnd);
+      document.removeEventListener("astro:after-swap", handlePageLoadEnd);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!showLoader) return;
 
     const interval = setInterval(() => {
-      setWords(([first, ...rest]) => [...rest, first] as Array<string>);
+      // 将数组的第一个元素移动到末尾，实现轮播
+      setWords(([first, ...rest]) => [...rest, first]);
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [pendingPath, navigation.state]);
-
-  React.useEffect(() => {
-    if (firstRender) return;
-    if (navigation.state === "idle") return;
-    setPendingPath(navigation.location.pathname);
-  }, [navigation]);
-
-  React.useEffect(() => {
-    firstRender = false;
-  }, []);
+  }, [showLoader]);
 
   const action = words[0];
 
   return (
     <NotificationMessage position="bottom-right" visible={showLoader}>
-      <div className="flex w-64 items-center">
+      <div className="flex w-56 items-center">
         <motion.div
           transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
           animate={{ rotate: 360 }}
         >
-          <TeamCircle size={48} team="UNKNOWN" />
+          <TeamCircle size={40} team="UNKNOWN" />
         </motion.div>
         <div className="ml-4 inline-grid">
           <AnimatePresence>
             <div className="col-start-1 row-start-1 flex overflow-hidden">
               <motion.span
                 key={action}
-                initial={{ y: 15, opacity: 0 }}
+                initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -15, opacity: 0 }}
-                transition={{ duration: 0.25 }}
-                // @ts-expect-error framer-motion + latest typescript types has issues
-                className="flex-none"
+                exit={{ y: -10, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="flex-none text-sm font-semibold text-content"
               >
                 {action}
               </motion.span>
             </div>
           </AnimatePresence>
-          <span className="truncate text-secondary">path: {pendingPath}</span>
+          <span className="text-content-secondary] truncate text-xs">路径: {pendingPath}</span>
         </div>
       </div>
     </NotificationMessage>
   );
-};
+}
