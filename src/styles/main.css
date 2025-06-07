@@ -28,7 +28,7 @@
 @import "./base/index.css";
 
 /* 组件样式 (使用语义化变量) */
-@import "./components/layout.css";
+@import "./components/index.css";
 
 /* 自定义工具类 */
 @import "./utilities/index.css";

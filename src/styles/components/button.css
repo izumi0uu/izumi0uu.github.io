@@ -1,0 +1,56 @@
+@layer components {
+  .button {
+    @apply inline-flex cursor-pointer items-center justify-center rounded-md text-sm font-medium whitespace-nowrap transition-colors disabled:opacity-50;
+  }
+  .button-default {
+    @apply button bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container;
+  }
+  .button-destructive {
+    @apply button bg-error text-on-error hover:bg-error-container hover:text-on-error-container;
+  }
+  .button-outline {
+    @apply button rounded-sm border border-outline bg-surface text-content hover:bg-surface-container hover:text-primary;
+  }
+  .button-secondary {
+    @apply button bg-secondary text-on-secondary hover:bg-secondary-container hover:text-on-secondary-container;
+  }
+  .button-ghost {
+    @apply button text-content hover:bg-surface-container hover:text-primary;
+  }
+  .button-link {
+    @apply button text-link underline-offset-4 hover:text-link-hover hover:underline;
+  }
+  .button-success {
+    @apply button bg-success text-on-success hover:bg-success/90;
+  }
+  .button-warning {
+    @apply button bg-warning text-on-warning hover:bg-warning/90;
+  }
+  .button-info {
+    @apply button bg-info text-on-info hover:bg-info/90;
+  }
+  .button-primary-container {
+    @apply button bg-primary-container text-on-primary-container hover:bg-primary-container/80;
+  }
+  .button-secondary-container {
+    @apply button bg-secondary-container text-on-secondary-container hover:bg-secondary-container/80;
+  }
+  .button-success-container {
+    @apply button bg-success-container text-on-success-container hover:bg-success-container/80;
+  }
+  .button-error-container {
+    @apply button bg-error-container text-on-error-container hover:bg-error-container/80;
+  }
+  .button-warning-container {
+    @apply button bg-warning-container text-on-warning-container hover:bg-warning-container/80;
+  }
+  .button-info-container {
+    @apply button bg-info-container text-on-info-container hover:bg-info-container/80;
+  }
+  .button-brutal {
+    @apply button rounded-sm border-2 border-outline bg-primary px-8 py-4 text-on-primary shadow-[4px_4px_0_0_var(--color-outline)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none;
+  }
+  .button-brutal-normal {
+    @apply button rounded-sm border-2 border-outline bg-surface px-8 py-4 text-content shadow-[4px_4px_0_0_var(--color-outline)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none;
+  }
+}
