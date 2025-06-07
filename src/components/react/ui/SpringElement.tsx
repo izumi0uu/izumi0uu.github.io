@@ -100,15 +100,18 @@ type SpringAvatarProps = {
 } & HTMLMotionProps<"div">;
 
 const SpringElement = React.forwardRef<HTMLDivElement, SpringAvatarProps>(
-  ({
-    children,
-    className,
-    springClassName,
-    dragElastic = 0.2,
-    springConfig = { stiffness: 200, damping: 16 },
-    springPathConfig = {},
-    ...props
-  }: SpringAvatarProps) => {
+  (
+    {
+      children,
+      className,
+      springClassName,
+      dragElastic = 0.2,
+      springConfig = { stiffness: 200, damping: 16 },
+      springPathConfig = {},
+      ...props
+    }: SpringAvatarProps,
+    ref: React.ForwardedRef<HTMLDivElement>
+  ) => {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
