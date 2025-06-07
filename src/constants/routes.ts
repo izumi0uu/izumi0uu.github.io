@@ -6,6 +6,8 @@ const ROUTES = {
   EXPLORE_TAGS: "/blog/explore/tags/",
   EXPLORE_CATEGORIES: "/blog/explore/categories/",
   CATEGORIES: "/blog/categories/",
+  EXPERIENCE: "/experience/",
+  LINKS: "/links/",
   ABOUT: "/about/",
   CONTACT: "/contact/",
   FABORITE: "/favorite/",

@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { Button } from "@/components/react/radix-ui/Button";
+import { Link } from "@/components/react/ui/Link";
 import { Logo } from "@/components/react/ui/Logo";
 import { SearchBox } from "@/components/react/ui/SearchBox";
 import { MobileNavIcon, MobileNavigationBar } from "@/components/react/ui/MoblieNavigationBar";
@@ -32,11 +33,21 @@ const NavigationBar = () => {
           </span>
         </a>
         <nav className="hidden gap-4 lg:flex">
-          <Button variant="brutal">{m["components.navigation_menu.blog_link"]()}</Button>
-          <Button variant="brutal">{m["components.navigation_menu.explore_link"]()}</Button>
-          <Button variant="brutal">{m["components.navigation_menu.projects_link"]()}</Button>
-          <Button variant="brutal">{m["components.navigation_menu.experience_link"]()}</Button>
-          <Button variant="brutal">{m["components.navigation_menu.links_link"]()}</Button>
+          <Link href={ROUTES.BLOG}>
+            <Button variant="brutal">{m["components.navigation_menu.blog_link"]()}</Button>
+          </Link>
+          <Link href={ROUTES.EXPLORE}>
+            <Button variant="brutal">{m["components.navigation_menu.explore_link"]()}</Button>
+          </Link>
+          <Link href={ROUTES.PROJECTS}>
+            <Button variant="brutal">{m["components.navigation_menu.projects_link"]()}</Button>
+          </Link>
+          <Link href={ROUTES.EXPERIENCE}>
+            <Button variant="brutal">{m["components.navigation_menu.experience_link"]()}</Button>
+          </Link>
+          <Link href={ROUTES.LINKS}>
+            <Button variant="brutal">{m["components.navigation_menu.links_link"]()}</Button>
+          </Link>
         </nav>
       </div>
       <div className="flex flex-1 items-center justify-between md:justify-end">
