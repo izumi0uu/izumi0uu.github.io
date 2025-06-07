@@ -1,13 +1,16 @@
 ---
 import PostCard from "@/components/blog/PostCard.astro";
+import { SUPPORTED_LOCALES } from "@/config/i18n";
 
 import type { Post } from "@/types/post";
+import type { LocaleValues } from "@/types/config";
 
 export interface Props {
   posts: Post[];
+  lang: LocaleValues;
 }
 
-const { posts } = Astro.props;
+const { posts, lang } = Astro.props;
 ---
 
 <div class="flex-col-layout-center">
