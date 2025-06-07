@@ -4,18 +4,73 @@ import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils/ui/styles";
 
-const linkVariants = cva("link-default", {
+export const linkVariants = cva("transition-colors", {
   variants: {
     variant: {
-      link: "link",
-      "no-underline": "link-no-underline",
-      heading: "link-heading",
-      nav: "link-nav",
-      markdown: "link link-markdown",
+      default: [
+        "text-link no-underline",
+        "hover:text-link-hover hover:underline",
+        "focus:text-link-hover focus:underline",
+        "active:text-link-hover active:underline",
+      ].join(" "),
+
+      markdown: [
+        "truncate text-headings underline",
+        "hover:text-link-hover",
+        "focus:text-link-hover",
+        "active:text-link-hover",
+      ].join(" "),
+
+      base: [
+        "hover:text-link-hover hover:underline",
+        "focus:text-link-hover focus:underline",
+        "active:text-link-hover active:underline",
+      ].join(" "),
+
+      noUnderline: [
+        "hover:text-link-hover",
+        "focus:text-link-hover",
+        "active:text-link-hover",
+        "!no-underline",
+      ].join(" "),
+
+      heading: [
+        "text-headings",
+        "hover:text-link-hover",
+        "focus:text-link-hover",
+        "active:text-link-hover",
+      ].join(" "),
+
+      nav: [
+        "text-lg whitespace-nowrap text-headings underline-offset-4",
+        "hover:text-link-hover",
+        "focus:text-link-hover focus:underline",
+        "active:text-link-hover",
+      ].join(" "),
+
       underline:
         "relative inline-flex items-center gap-1 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full",
+
+      disabled: "cursor-not-allowed text-content no-underline hover:text-content",
     },
-    disabled: { true: "link-disabled" },
+    size: {
+      default: "text-base",
+      sm: "text-sm",
+      lg: "text-lg",
+    },
+    underlineOffset: {
+      default: "underline-offset-2",
+      md: "underline-offset-4",
+      lg: "underline-offset-8",
+    },
+    isDisabled: {
+      true: "cursor-not-allowed text-content-secondary no-underline hover:text-content-secondary",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+    size: "default",
+    underlineOffset: "default",
   },
 });
 
@@ -38,6 +93,11 @@ export interface LinkProps
    */
   rel?: string;
   /**
+   * 链接是否禁用
+   * @default false
+   */
+  disabled?: boolean;
+  /**
    * 子元素
    */
   children?: React.ReactNode;
@@ -47,7 +107,9 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   (
     {
       className,
-      variant = "link",
+      variant = "default",
+      size,
+      underlineOffset,
       disabled,
       external = false,
       target,
@@ -74,7 +136,10 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     if (disabled) {
       return (
         <span
-          className={linkVariants({ variant, disabled, className })}
+          className={cn(
+            linkVariants({ variant, size, underlineOffset, isDisabled: true }),
+            className
+          )}
           {...(props as any)}
           ref={ref as any}
         >
@@ -86,7 +151,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     return (
       <a
         ref={ref}
-        className={linkVariants({ variant, disabled, className })}
+        className={cn(linkVariants({ variant, size, underlineOffset }), className)}
         href={href}
         target={finalTarget}
         rel={finalRel}
