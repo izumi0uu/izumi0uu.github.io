@@ -14,6 +14,7 @@ import { formatDate, formatDateIso } from "@/utils/data/datetime";
 import { cn } from "@/utils/ui/styles";
 
 import { BlogAvatar } from "@/components/react/ui/BlogAvatar";
+import { Card3d } from "@/components/react/ui/Card3d";
 import avatar from "@/assets/images/avatar.jpg";
 
 import type { Post } from "@/types/post";
@@ -147,3 +148,5 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
     </div>
   </div>
 </article>
+
+<Card3d heading="探索更多" text="点击了解更多关于这篇博客的精彩内容" client:visible />
