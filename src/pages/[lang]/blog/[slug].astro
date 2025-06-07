@@ -8,30 +8,41 @@ export async function getStaticPaths() {
   console.log(`生成动态路由，文章数量: ${posts.length}`);
 
   // 为每种语言创建路径
-  const paths = posts.flatMap((post) =>
-    SUPPORTED_LOCALES.map((lang) => {
-      // 确保slug格式正确，移除可能的后缀
-      const cleanSlug = post.slug.replace(/\.mdx$/, "");
-      console.log(`为文章 ${cleanSlug} 创建 ${lang} 语言路由`);
-      return {
+  const paths = [];
+
+  // 遍历所有文章
+  for (const post of posts) {
+    // 处理slug，确保格式正确
+    const cleanSlug = post.slug.replace(/\.mdx$/, "");
+
+    // 为每种支持的语言创建路径
+    for (const locale of SUPPORTED_LOCALES) {
+      console.log(`为文章 ${cleanSlug} 创建 ${locale} 语言路由`);
+
+      // 将路径添加到数组
+      paths.push({
         params: {
-          lang,
+          lang: locale,
           slug: cleanSlug,
         },
-        props: { post, lang },
-      };
-    })
-  );
+        props: {
+          post,
+          routeLocale: locale,
+        },
+      });
+    }
+  }
 
   console.log(`总共生成 ${paths.length} 条路由`);
   return paths;
 }
 
 // 从props中获取文章数据
-const { post } = Astro.props;
+const { post, routeLocale } = Astro.props;
 const { data, slug } = post;
 const { title, description } = data;
 
+// 忽略文章可能包含的lang属性，使用路由的locale
 // 基本元数据
 const metadata = { title, description };
 ---

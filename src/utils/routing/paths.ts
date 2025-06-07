@@ -22,13 +22,19 @@ const getPathWithLocale = (path: string): string => {
     const locale = getLocale();
 
     // 确保路径格式正确
-    const cleanPath = path.startsWith("/") ? path : `/${path}`;
+    let cleanPath = path;
+    if (!cleanPath.startsWith("/")) cleanPath = `/${cleanPath}`;
 
-    // 返回带有语言标签的路径
-    return `/${locale}${cleanPath}`;
+    // 移除可能存在的多余斜杠
+    cleanPath = removeLeadingSlash(cleanPath);
+
+    // 构建最终路径
+    return `/${locale}/${cleanPath}`;
   } catch (error) {
+    console.error("Error in getPathWithLocale:", error);
     // 如果无法获取当前语言，使用默认语言
-    return `/${DEFAULT_LOCALE}${path.startsWith("/") ? path : `/${path}`}`;
+    const cleanPath = removeLeadingSlash(path);
+    return `/${DEFAULT_LOCALE}/${cleanPath}`;
   }
 };
 

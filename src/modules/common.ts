@@ -66,10 +66,20 @@ const getPublishedOrUpdatedDate = ({ publishDate, updatedDate }: EntryDates): En
 
 /*------------------------- for content layer -----------------------*/
 
-const idToSlug = <T extends { id: unknown }>(item: T): T & { slug: T["id"] } => ({
-  ...item,
-  slug: item.id,
-});
+/**
+ * 将ID转换为slug
+ * @param item 包含id属性的对象
+ * @returns 添加了slug属性的对象
+ */
+const idToSlug = <T extends { id: string }>(item: T): T & { slug: string } => {
+  // 移除.mdx后缀并进行其他清理
+  const cleanSlug = item.id.replace(/\.mdx$/, "");
+
+  return {
+    ...item,
+    slug: cleanSlug,
+  };
+};
 
 export {
   getAllEntries,

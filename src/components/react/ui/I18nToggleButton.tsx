@@ -42,6 +42,8 @@ const I18nToggleButton: React.FC<I18nToggleButtonProps> = ({ className }) => {
     if (newLocale === currentLocale) return;
 
     try {
+      console.log(`正在切换语言: ${currentLocale} -> ${newLocale}`);
+
       // ParaglideJS 2.0 的 setLocale 默认会重新加载页面
       setLocale(newLocale);
 
@@ -50,6 +52,9 @@ const I18nToggleButton: React.FC<I18nToggleButtonProps> = ({ className }) => {
         detail: { locale: newLocale, previousLocale: currentLocale },
       });
       document.dispatchEvent(event);
+
+      // 手动刷新页面以确保正确加载
+      // window.location.reload();
     } catch (error) {
       console.error("Failed to change locale:", error);
     }

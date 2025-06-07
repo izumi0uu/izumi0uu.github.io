@@ -15,9 +15,26 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE, BROWSER_LANG_REDIRECT_DONE_KEY } fro
   }}
 >
   console.log("I18nScript.astro: Session management executing...");
+  console.log("Current URL:", window.location.href);
+  console.log("Current pathname:", window.location.pathname);
 
   const baseLocale = defaultLocale;
   const locales = supportedLocales;
+
+  /**
+   * 从URL路径中提取语言标识
+   */
+  const getLocaleFromPath = (path) => {
+    const segments = path.split("/").filter(Boolean);
+    if (segments.length > 0 && locales.includes(segments[0])) {
+      return segments[0];
+    }
+    return null;
+  };
+
+  // 检测当前URL中的语言
+  const currentLocale = getLocaleFromPath(window.location.pathname);
+  console.log("检测到的当前语言:", currentLocale || "未检测到");
 
   /**
    * Check if redirect has been attempted in current session
@@ -61,6 +78,11 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE, BROWSER_LANG_REDIRECT_DONE_KEY } fro
       "i18nScript: Session management initialized. ParaglideJS will handle language detection."
     );
   };
+
+  // 监听语言变化事件
+  document.addEventListener("localeChange", (event) => {
+    console.log("Locale change event detected:", event);
+  });
 
   // Execute session management initialization
   if (document.readyState === "loading") {
