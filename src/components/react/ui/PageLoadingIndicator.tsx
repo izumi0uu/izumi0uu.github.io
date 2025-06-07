@@ -7,7 +7,15 @@ import { TeamCircle } from "./TeamCircle";
 
 const LOADER_WORDS = ["加载中...", "正在连接...", "编译内容...", "即将呈现..."];
 
-export function PageLoadingIndicator() {
+interface AstroNavigationEvent extends Event {
+  from?: string;
+  to?: string;
+  direction?: "forward" | "back";
+  navigationType?: "push" | "replace";
+  sourceElement?: HTMLElement;
+}
+
+const PageLoadingIndicator = () => {
   // isLoading 状态用于跟踪 Astro 是否正在进行页面导航
   const [isLoading, setIsLoading] = useState(false);
   // words 状态用于存储当前轮播的文字列表
@@ -25,14 +33,30 @@ export function PageLoadingIndicator() {
   //  监听 Astro 的页面导航事件
   useEffect(() => {
     const handlePageLoadStart = (event: Event) => {
-      const customEvent = event as CustomEvent<{ to?: string; from?: string }>;
-      setPendingPath(customEvent.detail?.to || "");
+      // 直接访问事件对象的属性
+      const navEvent = event as AstroNavigationEvent;
+
+      // 提取目标URL
+      const targetUrl = navEvent.to || "";
+
+      const displayPath = targetUrl ? new URL(targetUrl).pathname : "即将跳转...";
+
+      console.log("Navigation started:", {
+        from: navEvent.from,
+        to: navEvent.to,
+        direction: navEvent.direction,
+        navigationType: navEvent.navigationType,
+      });
+
+      setPendingPath(displayPath);
       setIsLoading(true);
     };
 
     const handlePageLoadEnd = () => {
       setIsLoading(false);
-      console.log("Navigation ended");
+      console.log("Navigation ended:", {
+        currentPath: window.location.pathname,
+      });
     };
 
     // 监听Astro视图过渡事件
@@ -86,9 +110,11 @@ export function PageLoadingIndicator() {
               </motion.span>
             </div>
           </AnimatePresence>
-          <span className="text-content-secondary] truncate text-xs">路径: {pendingPath}</span>
+          <span className="truncate text-xs text-content-secondary">路径: {pendingPath}</span>
         </div>
       </div>
     </NotificationMessage>
   );
-}
+};
+
+export { PageLoadingIndicator };
