@@ -12,6 +12,8 @@ interface Props {
   style?: React.CSSProperties;
   width?: number;
   height?: number;
+  href?: string;
+  onClick?: () => void;
 }
 
 // Transitions
@@ -53,8 +55,10 @@ const Card3d: React.FC<Props> = ({
   variant = "Default",
   className = "",
   style = {},
-  width = 600, // Increased from 369
-  height = 150, // Increased from 71
+  width = 600,
+  height = 150,
+  href,
+  onClick,
   ...restProps
 }) => {
   const [currentVariant, setCurrentVariant] = useState<"Default" | "Hover">(variant);
@@ -75,11 +79,20 @@ const Card3d: React.FC<Props> = ({
     setCurrentVariant("Default");
   };
 
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    } else if (href) {
+      window.location.href = href;
+    }
+  };
+
   const cubeSliceVariants = {
     zEwHlJ7zp: {
       "--border-color": "var(--color-primary)",
     },
   };
+
   const titleVariants = {
     default: {
       "--fill-width": "0%",
@@ -129,6 +142,7 @@ const Card3d: React.FC<Props> = ({
               ref={refBinding}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={currentVariant === "Hover" ? handleMouseLeave : undefined}
+              onClick={handleClick}
               style={{
                 backgroundColor: "var(--color-surface)",
                 alignContent: "center",
@@ -145,6 +159,12 @@ const Card3d: React.FC<Props> = ({
                 width: "min-content",
                 borderRadius: "12px", // Added border radius
                 border: "1px solid var(--color-outline-variant)",
+                boxShadow: isHoverVariant
+                  ? "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+                  : "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                transition: "box-shadow 0.3s ease, transform 0.3s ease",
+                transform: isHoverVariant ? "translateY(-4px)" : "translateY(0)",
+                cursor: "pointer",
                 ...style,
               }}
             >
@@ -944,6 +964,7 @@ const Card3d: React.FC<Props> = ({
                     lineHeight: "1.5em", // Improved line height
                     color: "var(--color-content-secondary)",
                     userSelect: "none",
+                    marginTop: "8px",
                   }}
                 >
                   {text}
