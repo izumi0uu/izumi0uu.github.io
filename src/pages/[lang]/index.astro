@@ -4,6 +4,7 @@ import { Image } from "astro:assets";
 import { getPageMetadata } from "@/utils/content/metadata";
 import { cn } from "@/utils/ui/styles";
 import * as m from "@/paraglide/messages";
+import { getPathWithLocale } from "@/utils/routing/paths";
 
 import { SUPPORTED_LOCALES } from "@/config/i18n";
 import { CONFIG_CLIENT } from "@/config/client";
@@ -19,7 +20,6 @@ import { SplitText } from "@/components/react/ui/SpiltText";
 import { FallingText } from "@/components/react/ui/FallingText";
 import { Button } from "@/components/react/radix-ui/Button";
 import { Separator } from "@/components/react/radix-ui/Separator";
-
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
     params: { lang },
@@ -116,7 +116,7 @@ const quickLinks = [
         </p>
 
         <!-- main action button -->
-        <Link href={ROUTES.BLOG} variant="no-underline">
+        <Link href={getPathWithLocale(ROUTES.BLOG)} variant="no-underline">
           <Button variant="brutal" size="lg" client:load>
             <span>To See My Blogs</span>
           </Button>
