@@ -130,7 +130,15 @@ const Card3d: React.FC<Props> = ({
   };
 
   return (
-    <div style={{ width, height }}>
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <LayoutGroup id={defaultLayoutId}>
         <Variants animate={variants} initial={false}>
           <Transition value={transition1}>
@@ -150,14 +158,12 @@ const Card3d: React.FC<Props> = ({
                 display: "flex",
                 flexDirection: "row",
                 flexWrap: "nowrap",
-                gap: "40px", // Increased gap
-                height: "min-content",
+                gap: "40px",
                 justifyContent: "center",
                 overflow: "visible",
-                padding: "20px", // Added padding
+                padding: "20px",
                 position: "relative",
-                width: "min-content",
-                borderRadius: "12px", // Added border radius
+                borderRadius: "12px",
                 border: "1px solid var(--color-outline-variant)",
                 boxShadow: isHoverVariant
                   ? "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
@@ -165,6 +171,9 @@ const Card3d: React.FC<Props> = ({
                 transition: "box-shadow 0.3s ease, transform 0.3s ease",
                 transform: isHoverVariant ? "translateY(-4px)" : "translateY(0)",
                 cursor: "pointer",
+                width: width || "auto",
+                height: height || "auto",
+                maxWidth: "100%",
                 ...style,
               }}
             >
@@ -837,17 +846,18 @@ const Card3d: React.FC<Props> = ({
                   alignContent: "flex-start",
                   alignItems: "flex-start",
                   display: "flex",
-                  flex: "none",
+                  flex: "1",
                   flexDirection: "column",
                   flexWrap: "nowrap",
-                  gap: "12px", // Increased gap
+                  gap: "12px",
                   height: "min-content",
                   justifyContent: "center",
-                  maxWidth: "400px", // Increased max width
                   overflow: "hidden",
                   padding: "0px",
                   position: "relative",
-                  width: "min-content",
+                  width: "auto",
+                  minWidth: "200px",
+                  maxWidth: width ? `calc(${width}px - 160px)` : "400px",
                 }}
               >
                 {/* Text Container */}
@@ -955,7 +965,7 @@ const Card3d: React.FC<Props> = ({
                     height: "auto",
                     position: "relative",
                     whiteSpace: "pre-wrap",
-                    width: "400px", // Increased width
+                    width: "100%",
                     wordBreak: "break-word",
                     wordWrap: "break-word",
                     fontFamily: '"Inter", "Inter Placeholder", sans-serif',
