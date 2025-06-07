@@ -1,7 +1,6 @@
 ---
 import Centered from "./Centered.astro";
 import Pagination from "@/components/Pagination.astro";
-import { Button } from "@/components/react/radix-ui/Button";
 
 import type { BaseProps } from "@/layouts/Base.astro";
 import type { PaginationProps } from "@/types/common";
@@ -17,9 +16,14 @@ const { title, description } = metadata;
 <Centered {metadata}>
   <article class="flex flex-col">
     <slot name="heading">
-      <Button variant="brutal" size="sm" client:load>
-        {title}
-      </Button>
+      <h1 class="b-h1">{title}</h1>
+      {description && <p class="b-p mb-5">{description}</p>}
     </slot>
+    <section class="flex-grow flex flex-col">
+      <slot />
+      <div class="mt-auto">
+        {paginationProps && <Pagination {...paginationProps} class="mt-6" />}
+      </div>
+    </section>
   </article>
 </Centered>
