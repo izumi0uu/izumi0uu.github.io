@@ -5,7 +5,6 @@ import React, { useEffect, useRef, useState } from "react";
 
 interface NotificationMessageProps {
   children?: React.ReactNode;
-  position?: "bottom-right" | "top-center";
   visible: boolean;
   onDismiss?: () => void;
   className?: string;
@@ -13,42 +12,27 @@ interface NotificationMessageProps {
 
 const NotificationMessage: React.FC<NotificationMessageProps> = ({
   children,
-  position = "bottom-right",
   visible,
   onDismiss,
   className,
 }) => {
-  const initialY = position.includes("bottom") ? 50 : -50;
-
   return (
     <AnimatePresence>
       {visible ? (
         <motion.div
-          initial={{ y: initialY, opacity: 0 }}
+          initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: initialY, opacity: 0 }}
+          exit={{ y: 50, opacity: 0 }}
           transition={{ ease: "easeInOut", duration: 0.3 }}
-          className={clsx(
-            "pointer-events-none fixed right-0 left-0 z-50",
-            {
-              "bottom-8": position === "bottom-right",
-              "top-8": position === "top-center",
-            },
-            className
-          )}
+          className={clsx("pointer-events-none fixed right-0 bottom-8 left-0 z-50", className)}
         >
-          <div
-            className={clsx("mx-auto flex w-full max-w-md", {
-              "justify-end pr-4": position === "bottom-right",
-              "justify-center": position === "top-center",
-            })}
-          >
-            <div className="pointer-events-auto relative rounded-lg bg-[var(--color-surface-container-high)] p-4 pr-10 text-[var(--color-on-surface)] shadow-lg">
+          <div className="mx-auto flex w-full justify-end pr-4">
+            <div className="text-content-primary pointer-events-auto relative rounded-lg bg-surface-container-high p-4 pr-10 shadow-lg">
               {onDismiss && (
                 <button
                   aria-label="dismiss message"
                   onClick={onDismiss}
-                  className="absolute top-2 right-2 rotate-45 transform hover:text-[var(--color-primary)] focus:text-[var(--color-primary)]"
+                  className="absolute top-2 right-2 rotate-45 transform hover:text-primary focus:text-primary"
                 >
                   <PlusIcon className="size-5" />
                 </button>

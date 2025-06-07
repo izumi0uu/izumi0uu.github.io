@@ -87,7 +87,7 @@ const PageLoadingIndicator = () => {
   const action = words[0];
 
   return (
-    <NotificationMessage position="bottom-right" visible={showLoader}>
+    <NotificationMessage position="bottom-right" visible={showLoader || true}>
       <div className="flex w-56 items-center">
         <motion.div
           transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
