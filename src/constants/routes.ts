@@ -5,6 +5,7 @@ const ROUTES = {
   EXPLORE: "/blog/explore/",
   EXPLORE_TAGS: "/blog/explore/tags/",
   EXPLORE_CATEGORIES: "/blog/explore/categories/",
+  CATEGORIES: "/blog/categories/",
   ABOUT: "/about/",
   CONTACT: "/contact/",
   FABORITE: "/favorite/",

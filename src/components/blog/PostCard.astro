@@ -5,7 +5,7 @@ import { Image } from "astro:assets";
 import { getPublishedOrUpdatedDate } from "@/modules/common";
 import { getCategoryProps } from "@/modules/post/category";
 import Link from "@/components/Link.astro";
-import TagList from "@/components/TagList.astro";
+// import TagList from "@/components/TagList.astro";
 import { DRAFT_TEXT } from "@/constants/data";
 import { IMAGE_SIZES } from "@/constants/image";
 import { ROUTES } from "@/constants/routes";
@@ -129,7 +129,7 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
           <Icon name="mdi:book-open-blank-variant-outline" class="w-4 h-4" />
           <span class="text-nowrap">{`${Math.round(readingTime)} minutes`}</span>
         </span>
-        <TagList tags={tags.slice(0, 2)} size="sm" variant="text" class="hidden xs:inline-flex" />
+        <!-- <TagList tags={tags.slice(0, 2)} size="sm" variant="text" class="hidden xs:inline-flex" /> -->
       </div>
 
       <Link

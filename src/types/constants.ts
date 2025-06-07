@@ -4,7 +4,7 @@ import type { OG_IMAGE_PREFIXES, PAGE_METADATA } from "@/constants/metadata";
 import type { ValueUnion } from "@/types/utils";
 // import type { NAVIGATION_ITEMS } from "@/constants/navigation"; // Temporarily comment out due to linter error
 import type { TW_WIDTHS } from "@/constants/image";
-// import type { CATEGORIES } from "@/constants/collections"; // Temporarily comment out due to linter error
+import type { CATEGORIES } from "@/constants/collections";
 
 /**
  * @description type for navigation item
@@ -14,7 +14,7 @@ import type { TW_WIDTHS } from "@/constants/image";
 /**
  * @description type for category
  */
-// type CategoryType = (typeof CATEGORIES)[number]; // Temporarily comment out
+type CategoryType = (typeof CATEGORIES)[number];
 
 /**
  * @description type for theme
@@ -78,6 +78,6 @@ export type {
   ChangeThemeCustomEvent,
   Breakpoint,
   // NavigationItem, // Temporarily comment out
-  // CategoryType, // Temporarily comment out
+  CategoryType,
   OgImagePrefixType,
 };
