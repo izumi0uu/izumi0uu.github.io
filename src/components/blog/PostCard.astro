@@ -115,7 +115,7 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
     {
       description && (
         <p
-          class="text-base mb-4 line-clamp-2"
+          class="text-content mb-4 line-clamp-2"
           transition:name={getTransitionNameFromElementId({
             elementId: TRANSITION_ELEMENT_IDS.POST_CARD.DESCRIPTION,
           })}
@@ -142,8 +142,8 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
         <span class="text-nowrap">Read more</span>
         <Icon name="mdi:arrow-right" class="w-4 h-4" />
       </Link>
-    </div>
 
-    <BlogAvatar avatarSrc={avatar.src} client:idle />
+      <BlogAvatar avatarSrc={avatar.src} client:idle />
+    </div>
   </div>
 </article>
