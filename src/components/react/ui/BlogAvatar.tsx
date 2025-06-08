@@ -9,12 +9,12 @@ interface BlogAvatarProps {
 
 const BlogAvatar: React.FC<BlogAvatarProps> = ({ avatarSrc, fallbackText = "ZD" }) => {
   return (
-    <SpringElement>
-      <Avatar>
-        <AvatarImage draggable={false} src={avatarSrc} />
-        <AvatarFallback>{fallbackText}</AvatarFallback>
-      </Avatar>
-    </SpringElement>
+    // <SpringElement>
+    <Avatar>
+      <AvatarImage draggable={false} src={avatarSrc} />
+      <AvatarFallback>{fallbackText}</AvatarFallback>
+    </Avatar>
+    // </SpringElement>
   );
 };
 

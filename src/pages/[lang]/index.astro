@@ -177,12 +177,13 @@ const quickLinks = [
       <!-- Links Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
         {
-          quickLinks.map((link) => (
+          quickLinks.map((link, index) => (
             <Link href={link.href} variant="no-underline" class="block">
               <Button
                 variant="outline"
-                className="w-full flex items-center justify-between "
-                client:load
+                className="w-full flex items-center justify-between"
+                client:visible
+                key={`quick-link-${link.name}-${index}`}
               >
                 <span class="text-lg font-medium">{link.name}</span>
                 <span class="text-xl group-hover:translate-x-1 transition-transform">
