@@ -14,7 +14,6 @@ import { formatDate, formatDateIso } from "@/utils/data/datetime";
 import { cn } from "@/utils/ui/styles";
 
 import { BlogAvatar } from "@/components/react/ui/BlogAvatar";
-import { Card3d } from "@/components/react/ui/Card3d";
 import avatar from "@/assets/images/avatar.jpg";
 
 import type { Post } from "@/types/post";
@@ -146,30 +145,5 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
 
       <BlogAvatar avatarSrc={avatar.src} client:idle />
     </div>
-  </div>
-</article>
-
-<article
-  class={cn(
-    "flex flex-col gap-4 lg:gap-6",
-    "not-first:pt-4 not-last:pb-4 md:not-first:pt-6 md:not-last:pb-6",
-    "not-last:border-b border-base-300 w-full"
-  )}
->
-  <div class="flex flex-col w-full items-center">
-    <div class="flex items-center justify-between w-full mb-4">
-      <h3 class="text-xl font-semibold text-headings">推荐内容</h3>
-      <Link href={`${ROUTES.BLOG}`} class="text-sm text-primary inline-flex items-center gap-1">
-        <span>查看全部</span>
-        <Icon name="mdi:arrow-right" class="w-4 h-4" />
-      </Link>
-    </div>
-    <Card3d
-      heading="探索更多"
-      text="点击了解更多关于这篇博客的精彩内容"
-      client:visible
-      className="w-full max-w-2xl transition-all"
-      href={`${ROUTES.BLOG}`}
-    />
   </div>
 </article>

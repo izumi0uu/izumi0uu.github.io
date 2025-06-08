@@ -158,12 +158,10 @@ const Card3d: React.FC<Props> = ({
                 position: "relative",
                 width: "min-content",
                 borderRadius: "12px", // Added border radius
-                border: "1px solid var(--color-outline-variant)",
-                boxShadow: isHoverVariant
-                  ? "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
-                  : "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                border: "2px solid var(--color-outline-variant)",
+                boxShadow: isHoverVariant ? "none" : "4px 4px 0 0 var(--color-outline)",
                 transition: "box-shadow 0.3s ease, transform 0.3s ease",
-                transform: isHoverVariant ? "translateY(-4px)" : "translateY(0)",
+                transform: isHoverVariant ? "translate(3px, 3px)" : "translate(0, 0)",
                 cursor: "pointer",
                 ...style,
               }}

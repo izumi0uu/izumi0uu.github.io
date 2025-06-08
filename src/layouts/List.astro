@@ -1,6 +1,10 @@
 ---
 import Centered from "./Centered.astro";
 import Pagination from "@/components/Pagination.astro";
+import { Card3d } from "@/components/react/ui/Card3d";
+
+import { ROUTES } from "@/constants/routes";
+import { getPathWithLocale } from "@/utils/routing/paths";
 
 import type { BaseProps } from "@/layouts/Base.astro";
 import type { PaginationProps } from "@/types/common";
@@ -17,7 +21,7 @@ const { title, description, author } = metadata;
   <article class="flex flex-col max-w-4xl mx-auto">
     <slot name="heading">
       <div>
-        <h1 class="b-h1 b-button-heading">{title.toUpperCase()}</h1>
+        <!-- <Card3d heading={title.toUpperCase()} client:visible /> -->
       </div>
       {description && <p class="b-p mb-5">{description}</p>}
     </slot>
