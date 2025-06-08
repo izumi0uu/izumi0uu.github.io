@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, MotionConfigContext, LayoutGroup } from "framer-motion";
 
 // Types
@@ -14,6 +14,10 @@ interface Props {
   height?: number;
   href?: string;
   onClick?: () => void;
+  primaryColor?: string;
+  children?: React.ReactNode;
+  scale?: number;
+  responsive?: boolean;
 }
 
 // Transitions
@@ -59,12 +63,53 @@ const Card3d: React.FC<Props> = ({
   height = 150,
   href,
   onClick,
+  primaryColor,
+  children,
+  scale = 1,
+  responsive = true,
   ...restProps
 }) => {
   const [currentVariant, setCurrentVariant] = useState<"Default" | "Hover">(variant);
   const [gestureState, setGestureState] = useState({ isHovered: false });
+  const [isMobile, setIsMobile] = useState(false);
+  const [screenScale, setScreenScale] = useState(1);
   const refBinding = useRef<HTMLDivElement>(null);
   const defaultLayoutId = React.useId();
+
+  useEffect(() => {
+    if (!responsive) return;
+
+    const calculateScale = () => {
+      const screenWidth = window.innerWidth;
+      let newScale = 1;
+
+      if (screenWidth < 640) {
+        newScale = 0.6;
+      } else if (screenWidth < 768) {
+        newScale = 0.75;
+      } else if (screenWidth < 1024) {
+        newScale = 0.9;
+      } else if (screenWidth < 1280) {
+        newScale = 1;
+      } else if (screenWidth < 1536) {
+        newScale = 1.1;
+      } else {
+        newScale = 1.2;
+      }
+
+      setScreenScale(newScale);
+      setIsMobile(screenWidth < 768);
+    };
+
+    calculateScale();
+    window.addEventListener("resize", calculateScale);
+
+    return () => {
+      window.removeEventListener("resize", calculateScale);
+    };
+  }, [responsive]);
+
+  const finalScale = scale * screenScale;
 
   const isHoverVariant = currentVariant === "Hover";
   const variants = [currentVariant === "Default" ? "GPnJri30y" : "zEwHlJ7zp"];
@@ -87,9 +132,11 @@ const Card3d: React.FC<Props> = ({
     }
   };
 
+  const borderColor = primaryColor || "var(--color-primary)";
+
   const cubeSliceVariants = {
     zEwHlJ7zp: {
-      "--border-color": "var(--color-primary)",
+      "--border-color": borderColor,
     },
   };
 
@@ -137,8 +184,12 @@ const Card3d: React.FC<Props> = ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        position: "relative",
       }}
     >
+      {/* 渲染所有children，使得可以在卡片外部添加元素 */}
+      {children}
+
       <LayoutGroup id={defaultLayoutId}>
         <Variants animate={variants} initial={false}>
           <Transition value={transition1}>
@@ -156,28 +207,149 @@ const Card3d: React.FC<Props> = ({
                 alignContent: "center",
                 alignItems: "center",
                 display: "flex",
-                flexDirection: "row",
+                flexDirection: isMobile ? "column" : "row",
                 flexWrap: "nowrap",
-                gap: "40px",
+                gap: `${16 * finalScale}px`,
                 justifyContent: "center",
                 overflow: "visible",
-                padding: "20px",
+                padding: `${16 * finalScale}px`,
                 position: "relative",
-                borderRadius: "12px",
-                border: "1px solid var(--color-outline-variant)",
+                borderRadius: `${12 * finalScale}px`,
+                border: `${1 * finalScale}px solid var(--color-outline-variant)`,
                 boxShadow: isHoverVariant
-                  ? "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
-                  : "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                  ? `0 ${10 * finalScale}px ${15 * finalScale}px -${3 * finalScale}px rgba(0, 0, 0, 0.1), 0 ${4 * finalScale}px ${6 * finalScale}px -${2 * finalScale}px rgba(0, 0, 0, 0.05)`
+                  : `0 ${4 * finalScale}px ${6 * finalScale}px -${1 * finalScale}px rgba(0, 0, 0, 0.1), 0 ${2 * finalScale}px ${4 * finalScale}px -${1 * finalScale}px rgba(0, 0, 0, 0.06)`,
                 transition: "box-shadow 0.3s ease, transform 0.3s ease",
-                transform: isHoverVariant ? "translateY(-4px)" : "translateY(0)",
+                transform: isHoverVariant ? `translateY(-${4 * finalScale}px)` : "translateY(0)",
                 cursor: "pointer",
-                width: width || "auto",
-                height: height || "auto",
+                width: width ? width * finalScale : "auto",
+                height: height ? height * finalScale : "auto",
                 maxWidth: "100%",
                 ...style,
               }}
             >
-              {/* Icon Container */}
+              <motion.div
+                className="content"
+                data-framer-name="Content"
+                style={{
+                  alignContent: "flex-start",
+                  alignItems: "flex-start",
+                  display: "flex",
+                  flex: "1",
+                  flexDirection: "column",
+                  flexWrap: "nowrap",
+                  gap: `${12 * finalScale}px`,
+                  height: "auto",
+                  justifyContent: "center",
+                  overflow: "hidden",
+                  padding: "0px",
+                  position: "relative",
+                  width: "100%",
+                  minWidth: isMobile ? "auto" : `${200 * finalScale}px`,
+                  maxWidth: isMobile
+                    ? "100%"
+                    : width
+                      ? `calc(${width * finalScale}px - ${160 * finalScale}px)`
+                      : `${400 * finalScale}px`,
+                  order: isMobile ? 2 : 1,
+                }}
+              >
+                <motion.div
+                  className="text-container"
+                  data-framer-name="Text"
+                  style={{
+                    alignContent: "flex-start",
+                    alignItems: "flex-start",
+                    display: "flex",
+                    flex: "none",
+                    flexDirection: "row",
+                    flexWrap: "nowrap",
+                    gap: `${10 * finalScale}px`,
+                    height: "auto",
+                    minHeight: `${32 * finalScale}px`,
+                    justifyContent: "flex-start",
+                    overflow: "visible",
+                    padding: "0px",
+                    position: "relative",
+                    width: "100%",
+                    textAlign: isMobile ? "center" : "left",
+                  }}
+                >
+                  <motion.div
+                    style={{
+                      flex: "none",
+                      height: "auto",
+                      position: "relative",
+                      whiteSpace: "normal",
+                      width: "100%",
+                      fontFamily: '"Inter", "Inter Placeholder", sans-serif',
+                      fontWeight: "600",
+                      fontSize: isMobile ? `${18 * finalScale}px` : `${20 * finalScale}px`,
+                      lineHeight: "1.4",
+                      color: "var(--color-headings)",
+                      userSelect: "none",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "flex-start",
+                      justifyContent: isMobile ? "center" : "flex-start",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {/* 背景文本 */}
+                    <span
+                      className={isMobile ? "text-center" : "text-left"}
+                      style={{ position: "relative", zIndex: 1, width: "100%" }}
+                    >
+                      {heading}
+                    </span>
+
+                    {/* 悬停效果背景 */}
+                    <motion.div
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        backgroundColor: "var(--color-primary)",
+                        transformOrigin: "left center",
+                        scaleX: 0,
+                        zIndex: 0,
+                        opacity: 0.1,
+                      }}
+                      animate={{
+                        scaleX: isHoverVariant ? 1 : 0,
+                      }}
+                      transition={titleTransition}
+                    />
+                  </motion.div>
+                </motion.div>
+
+                {/* 描述文本 */}
+                <motion.div
+                  style={{
+                    flex: "none",
+                    height: "auto",
+                    position: "relative",
+                    whiteSpace: "pre-wrap",
+                    width: "100%",
+                    wordBreak: "break-word",
+                    wordWrap: "break-word",
+                    fontFamily: '"Inter", "Inter Placeholder", sans-serif',
+                    fontWeight: "400",
+                    fontSize: isMobile ? `${14 * finalScale}px` : `${16 * finalScale}px`,
+                    lineHeight: "1.5em",
+                    color: "var(--color-content-secondary)",
+                    userSelect: "none",
+                    marginTop: `${8 * finalScale}px`,
+                    textAlign: isMobile ? "center" : "left",
+                  }}
+                >
+                  {text}
+                </motion.div>
+              </motion.div>
+
+              {/* 右侧图标部分 - 在移动设备上排在第一位 */}
               <motion.div
                 className="icon-container"
                 data-framer-name="Icon"
@@ -188,14 +360,18 @@ const Card3d: React.FC<Props> = ({
                   flex: "none",
                   flexDirection: "row",
                   flexWrap: "nowrap",
-                  gap: "10px",
-                  height: "100px", // Increased from 64px
+                  gap: `${8 * finalScale}px`,
+                  height: isMobile ? `${60 * finalScale}px` : `${80 * finalScale}px`,
+                  width: isMobile ? `${60 * finalScale}px` : `${80 * finalScale}px`,
                   justifyContent: "center",
                   overflow: "visible",
                   padding: "0px",
                   position: "relative",
-                  width: "100px", // Increased from 64px                  zIndex: 1,
-                  border: "1px solid var(--color-outline)",
+                  border: `${1 * finalScale}px solid ${isHoverVariant ? "var(--color-primary)" : "var(--color-outline)"}`,
+                  transition: "border-color 0.3s ease",
+                  borderRadius: `${8 * finalScale}px`,
+                  order: isMobile ? 1 : 2,
+                  transform: `scale(${finalScale})`,
                 }}
               >
                 {/* BG Container */}
@@ -209,10 +385,9 @@ const Card3d: React.FC<Props> = ({
                     position: "relative",
                     width: "348px",
                     zIndex: 2,
-                    scale: 0.3, // Increased from 0.2
+                    scale: 0.25,
                   }}
                 >
-                  {/* Slice Cube */}
                   <motion.div
                     className="slice-cube"
                     data-framer-name="Slice Cube"
@@ -223,7 +398,7 @@ const Card3d: React.FC<Props> = ({
                       flex: "none",
                       flexDirection: "column",
                       flexWrap: "nowrap",
-                      gap: "28px",
+                      gap: `${28 * finalScale}px`,
                       height: "min-content",
                       justifyContent: "center",
                       left: "50%",
@@ -237,8 +412,8 @@ const Card3d: React.FC<Props> = ({
                       rotate: 49,
                       rotateX: 23,
                       rotateY: 33,
-                      scale: 0.7,
-                      transformPerspective: 1200,
+                      scale: 0.7 * finalScale,
+                      transformPerspective: 1200 * finalScale,
                     }}
                     transformTemplate={transformTemplate1}
                     variants={sliceCubeVariants}
@@ -835,149 +1010,6 @@ const Card3d: React.FC<Props> = ({
                     variants={cornerScaleVariants}
                     animate={isHoverVariant ? "zEwHlJ7zp" : "default"}
                   />
-                </motion.div>
-              </motion.div>
-
-              {/* Content */}
-              <motion.div
-                className="content"
-                data-framer-name="Content"
-                style={{
-                  alignContent: "flex-start",
-                  alignItems: "flex-start",
-                  display: "flex",
-                  flex: "1",
-                  flexDirection: "column",
-                  flexWrap: "nowrap",
-                  gap: "12px",
-                  height: "min-content",
-                  justifyContent: "center",
-                  overflow: "hidden",
-                  padding: "0px",
-                  position: "relative",
-                  width: "auto",
-                  minWidth: "200px",
-                  maxWidth: width ? `calc(${width}px - 160px)` : "400px",
-                }}
-              >
-                {/* Text Container */}
-                <motion.div
-                  className="text-container"
-                  data-framer-name="Text"
-                  style={{
-                    alignContent: "center",
-                    alignItems: "center",
-                    display: "flex",
-                    flex: "none",
-                    flexDirection: "row",
-                    flexWrap: "nowrap",
-                    gap: "10px",
-                    height: "32px", // Increased height
-                    justifyContent: "center",
-                    overflow: "visible",
-                    padding: "0px",
-                    position: "relative",
-                  }}
-                >
-                  {/* BG Fill - Hidden for clean black/white effect */}
-                  <motion.div
-                    className="bg-fill"
-                    data-framer-name="BG Fill"
-                    style={{
-                      flex: "none",
-                      height: "32px", // Increased height
-                      left: "0px",
-                      overflow: "hidden",
-                      position: "absolute",
-                      top: "calc(50% - 16px)", // Adjusted for new height
-                      width: "1px", // Keep minimal
-                      zIndex: 0,
-                      backgroundColor: "transparent", // Made transparent
-                      opacity: 0, // Always hidden
-                    }}
-                  />{" "}
-                  {/* Heading Text with hover effect */}
-                  <motion.div
-                    style={{
-                      flex: "none",
-                      height: "32px", // Increased height
-                      position: "relative",
-                      whiteSpace: "pre",
-                      width: "auto",
-                      fontFamily: '"Inter", "Inter Placeholder", sans-serif',
-                      fontWeight: "600",
-                      fontSize: "18px", // Increased font size
-                      color: "var(--color-headings)",
-                      userSelect: "none",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      overflow: "hidden",
-                    }}
-                  >
-                    {/* Background text (white) */}
-                    <span className="mx-1 text-center" style={{ position: "relative", zIndex: 1 }}>
-                      {heading}
-                    </span>{" "}
-                    {/* Animated overlay text (black) */}
-                    <motion.span
-                      className="mx-1 mt-0.5 text-center"
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        color: "var(--color-surface)",
-                        clipPath: `inset(0 ${isHoverVariant ? "0%" : "100%"} 0 0)`,
-                        zIndex: 2,
-                      }}
-                      animate={{
-                        clipPath: `inset(0 ${isHoverVariant ? "0%" : "100%"} 0 0)`,
-                      }}
-                      transition={titleTransition}
-                    >
-                      {heading}
-                    </motion.span>
-                    {/* White background fill that moves from left to right */}
-                    <motion.div
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "var(--color-primary)",
-                        transformOrigin: "left center",
-                        scaleX: 0,
-                        zIndex: 1,
-                      }}
-                      animate={{
-                        scaleX: isHoverVariant ? 1 : 0,
-                      }}
-                      transition={titleTransition}
-                    />
-                  </motion.div>
-                </motion.div>
-
-                {/* Description Text */}
-                <motion.div
-                  style={{
-                    flex: "none",
-                    height: "auto",
-                    position: "relative",
-                    whiteSpace: "pre-wrap",
-                    width: "100%",
-                    wordBreak: "break-word",
-                    wordWrap: "break-word",
-                    fontFamily: '"Inter", "Inter Placeholder", sans-serif',
-                    fontWeight: "400", // Reduced weight for better readability
-                    fontSize: "16px", // Increased font size
-                    lineHeight: "1.5em", // Improved line height
-                    color: "var(--color-content-secondary)",
-                    userSelect: "none",
-                    marginTop: "8px",
-                  }}
-                >
-                  {text}
                 </motion.div>
               </motion.div>
             </motion.div>
