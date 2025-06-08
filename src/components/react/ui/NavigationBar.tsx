@@ -31,26 +31,36 @@ const NavigationBar = () => {
           className="hidden items-center justify-center space-x-2 lg:flex"
           href={getPathWithLocale(ROUTES.HOME)}
         >
-          <Logo />
+          {/* <Logo /> */}
           <span className="hidden text-2xl font-black tracking-tighter text-content uppercase sm:inline-block">
             {CONFIG_CLIENT.AUTHOR_NAME}
           </span>
         </a>
         <nav className="hidden gap-4 lg:flex">
-          <Link href={getPathWithLocale(ROUTES.BLOG)}>
-            <Button variant="brutal">{m["components.navigation_menu.blog_link"]()}</Button>
+          <Link href={getPathWithLocale(ROUTES.BLOG)} reload={true}>
+            <Button variant="brutal" key="nav-blog-button" client:visible>
+              {m["components.navigation_menu.blog_link"]()}
+            </Button>
           </Link>
-          <Link href={getPathWithLocale(ROUTES.EXPLORE)}>
-            <Button variant="brutal">{m["components.navigation_menu.explore_link"]()}</Button>
+          <Link href={getPathWithLocale(ROUTES.EXPLORE)} reload={true}>
+            <Button variant="brutal" key="nav-explore-button" client:visible>
+              {m["components.navigation_menu.explore_link"]()}
+            </Button>
           </Link>
-          <Link href={getPathWithLocale(ROUTES.PROJECTS)}>
-            <Button variant="brutal">{m["components.navigation_menu.projects_link"]()}</Button>
+          <Link href={getPathWithLocale(ROUTES.PROJECTS)} reload={true}>
+            <Button variant="brutal" key="nav-projects-button" client:visible>
+              {m["components.navigation_menu.projects_link"]()}
+            </Button>
           </Link>
-          <Link href={getPathWithLocale(ROUTES.EXPERIENCE)}>
-            <Button variant="brutal">{m["components.navigation_menu.experience_link"]()}</Button>
+          <Link href={getPathWithLocale(ROUTES.EXPERIENCE)} reload={true}>
+            <Button variant="brutal" key="nav-experience-button" client:visible>
+              {m["components.navigation_menu.experience_link"]()}
+            </Button>
           </Link>
           <Link href={getPathWithLocale(ROUTES.LINKS)}>
-            <Button variant="brutal">{m["components.navigation_menu.links_link"]()}</Button>
+            <Button variant="brutal" key="nav-links-button" client:visible>
+              {m["components.navigation_menu.links_link"]()}
+            </Button>
           </Link>
         </nav>
       </div>

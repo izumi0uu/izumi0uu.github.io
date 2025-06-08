@@ -13,9 +13,6 @@ const Logo = () => {
         decoding="async"
         className="h-8 w-8"
         style={{ aspectRatio: "1/1" }}
-        onError={(e) => {
-          e.currentTarget.style.display = "none";
-        }}
       />
     </Button>
   );
