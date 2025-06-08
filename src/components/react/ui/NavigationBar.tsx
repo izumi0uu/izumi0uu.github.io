@@ -37,28 +37,28 @@ const NavigationBar = () => {
           </span>
         </a>
         <nav className="hidden gap-4 lg:flex">
-          <Link href={getPathWithLocale(ROUTES.BLOG)} reload={true}>
-            <Button variant="brutal" key="nav-blog-button" client:visible>
+          <Link href={getPathWithLocale(ROUTES.BLOG)}>
+            <Button variant="brutal" key="nav-blog-button">
               {m["components.navigation_menu.blog_link"]()}
             </Button>
           </Link>
-          <Link href={getPathWithLocale(ROUTES.EXPLORE)} reload={true}>
-            <Button variant="brutal" key="nav-explore-button" client:visible>
+          <Link href={getPathWithLocale(ROUTES.EXPLORE)}>
+            <Button variant="brutal" key="nav-explore-button">
               {m["components.navigation_menu.explore_link"]()}
             </Button>
           </Link>
-          <Link href={getPathWithLocale(ROUTES.PROJECTS)} reload={true}>
-            <Button variant="brutal" key="nav-projects-button" client:visible>
+          <Link href={getPathWithLocale(ROUTES.PROJECTS)}>
+            <Button variant="brutal" key="nav-projects-button">
               {m["components.navigation_menu.projects_link"]()}
             </Button>
           </Link>
-          <Link href={getPathWithLocale(ROUTES.EXPERIENCE)} reload={true}>
-            <Button variant="brutal" key="nav-experience-button" client:visible>
+          <Link href={getPathWithLocale(ROUTES.EXPERIENCE)}>
+            <Button variant="brutal" key="nav-experience-button">
               {m["components.navigation_menu.experience_link"]()}
             </Button>
           </Link>
           <Link href={getPathWithLocale(ROUTES.LINKS)}>
-            <Button variant="brutal" key="nav-links-button" client:visible>
+            <Button variant="brutal" key="nav-links-button">
               {m["components.navigation_menu.links_link"]()}
             </Button>
           </Link>
