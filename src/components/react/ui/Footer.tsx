@@ -120,10 +120,7 @@ export const Footer = () => {
               <Link
                 href="/"
                 variant="heading"
-                className={cn(
-                  "inline-flex items-center gap-3",
-                  "text-content transition-colors hover:text-primary"
-                )}
+                className={cn("inline-flex items-center gap-3")}
                 aria-label={localizedTexts.backToTop}
               >
                 <Logo />
@@ -168,15 +165,7 @@ export const Footer = () => {
                     const IconComponent = item.icon;
                     return (
                       <li key={item.href}>
-                        <Link
-                          href={item.href}
-                          variant="underline"
-                          className={cn(
-                            "text-content hover:text-primary",
-                            "text-sm transition-colors",
-                            "inline-flex items-center gap-1"
-                          )}
-                        >
+                        <Link href={item.href} variant="underline">
                           <IconComponent className="h-4 w-4" />
                           {item.name}
                         </Link>
@@ -196,15 +185,7 @@ export const Footer = () => {
                     const IconComponent = item.icon;
                     return (
                       <li key={item.href}>
-                        <Link
-                          href={item.href}
-                          variant="underline"
-                          className={cn(
-                            "text-content hover:text-primary",
-                            "text-sm transition-colors",
-                            "inline-flex items-center gap-1"
-                          )}
-                        >
+                        <Link href={item.href} variant="underline">
                           <IconComponent className="h-4 w-4" />
                           {item.name}
                         </Link>
@@ -234,11 +215,6 @@ export const Footer = () => {
                           href={item.href}
                           external={true}
                           variant="underline"
-                          className={cn(
-                            "inline-flex items-center gap-2",
-                            "text-content hover:text-primary",
-                            "text-sm transition-colors"
-                          )}
                           aria-label={followText}
                         >
                           <IconComponent className="h-4 w-4" />
