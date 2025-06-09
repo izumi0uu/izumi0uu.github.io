@@ -22,7 +22,6 @@ interface NavButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
-// 创建一个记忆化的导航按钮组件，避免不必要的重新渲染
 const NavButton = React.memo(({ children, ...props }: NavButtonProps) => {
   return (
     <Button variant="brutal" {...props}>
@@ -49,7 +48,6 @@ const NavigationBar = () => {
     };
   }, []);
 
-  // 使用useCallback避免不必要的函数重新创建
   const renderNavLink = useCallback((route: string, text: string, keyName: string) => {
     return (
       <Link href={getPathWithLocale(route)} reload={true} key={`nav-link-${keyName}`}>
