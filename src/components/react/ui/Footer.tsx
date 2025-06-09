@@ -1,3 +1,4 @@
+import React, { useMemo, useRef, useEffect } from "react";
 import footerImage from "@/assets/images/footer-default.png";
 
 import { Link } from "@/components/react/ui/Link";
@@ -16,6 +17,52 @@ const { SITE_URL, AUTHOR_LINKEDIN, AUTHOR_GITHUB, AUTHOR_EMAIL, REPO_URL, AUTHOR
 export const Footer = () => {
   const domain = SITE_URL.replace(/^https?:\/\//, "");
 
+  const footerRef = useRef<HTMLElement | null>(null);
+  const copyrightSectionRef = useRef<HTMLElement | null>(null);
+  const copyrightTextRef = useRef<HTMLParagraphElement | null>(null);
+
+  const localizedTexts = useMemo(() => {
+    return {
+      backToTop: m["components.footer.back_to_top"](),
+      brandDescription: m["components.footer.brand_description"](),
+      latestCommit: m["components.footer.latest_commit"](),
+      resources: m["components.footer.sections.resources"](),
+      quickInfo: m["components.footer.sections.quick_info"](),
+      social: m["components.footer.sections.social"](),
+      copyright: m["components.footer.copyright_text"]({
+        year: new Date().getFullYear().toString(),
+        author: AUTHOR_NAME,
+      }),
+      domainLabel: m["components.footer.meta.domain_label"](),
+      builtWith: m["components.footer.meta.built_with"](),
+    };
+  }, []);
+
+  const cleanupElement = (element: HTMLElement | null) => {
+    if (!element) return;
+
+    const el = element as any;
+    if (el.__reactProps$) el.__reactProps$ = undefined;
+    if (el.__reactFiber$) el.__reactFiber$ = undefined;
+    if (el._reactEvents) el._reactEvents = undefined;
+
+    if (el.style && typeof el.style.cssText === "string") {
+      el.style.cssText = "";
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      cleanupElement(footerRef.current);
+      cleanupElement(copyrightSectionRef.current);
+      cleanupElement(copyrightTextRef.current);
+
+      footerRef.current = null;
+      copyrightSectionRef.current = null;
+      copyrightTextRef.current = null;
+    };
+  }, []);
+
   // 在客户端动态获取git信息 - 这需要从props传入或使用其他方式
   const commitInfo = {
     time: new Date().toISOString(),
@@ -27,34 +74,38 @@ export const Footer = () => {
   const shortDateStr = new Date(commitInfo.time).toLocaleDateString();
   const trimmedMessage = commitInfo.message.substring(0, 15);
 
-  const footerNavigation = {
-    resources: [
-      { name: m["components.footer.links.blog"](), href: ROUTES.BLOG, icon: FileText },
-      {
-        name: m["components.footer.links.projects"](),
-        href: ROUTES.PROJECTS,
-        icon: Briefcase,
-      },
-      { name: m["components.footer.links.about"](), href: ROUTES.ABOUT, icon: User },
-    ],
-    quickInfo: [
-      { name: m["components.footer.links.contact"](), href: ROUTES.CONTACT, icon: Mail },
-      { name: m["components.footer.links.rss_feed"](), href: ROUTES.API.FEED_RSS, icon: Rss },
-      { name: m["components.footer.links.sitemap"](), href: "/sitemap.xml", icon: Globe },
-    ],
-    social: [
-      { name: m["components.footer.links.github"](), href: AUTHOR_GITHUB, icon: Github },
-      {
-        name: m["components.footer.links.linkedin"](),
-        href: AUTHOR_LINKEDIN,
-        icon: Linkedin,
-      },
-      { name: m["components.footer.links.email"](), href: AUTHOR_EMAIL, icon: Mail },
-    ],
-  };
+  const footerNavigation = useMemo(
+    () => ({
+      resources: [
+        { name: m["components.footer.links.blog"](), href: ROUTES.BLOG, icon: FileText },
+        {
+          name: m["components.footer.links.projects"](),
+          href: ROUTES.PROJECTS,
+          icon: Briefcase,
+        },
+        { name: m["components.footer.links.about"](), href: ROUTES.ABOUT, icon: User },
+      ],
+      quickInfo: [
+        { name: m["components.footer.links.contact"](), href: ROUTES.CONTACT, icon: Mail },
+        { name: m["components.footer.links.rss_feed"](), href: ROUTES.API.FEED_RSS, icon: Rss },
+        { name: m["components.footer.links.sitemap"](), href: "/sitemap.xml", icon: Globe },
+      ],
+      social: [
+        { name: m["components.footer.links.github"](), href: AUTHOR_GITHUB, icon: Github },
+        {
+          name: m["components.footer.links.linkedin"](),
+          href: AUTHOR_LINKEDIN,
+          icon: Linkedin,
+        },
+        { name: m["components.footer.links.email"](), href: AUTHOR_EMAIL, icon: Mail },
+      ],
+    }),
+    []
+  );
 
   return (
     <footer
+      ref={footerRef}
       className={cn("border-t border-outline bg-surface-container", "mt-auto px-4 py-12")}
       role="contentinfo"
       aria-label="Footer"
@@ -73,7 +124,7 @@ export const Footer = () => {
                   "inline-flex items-center gap-3",
                   "text-content transition-colors hover:text-primary"
                 )}
-                aria-label={m["components.footer.back_to_top"]()}
+                aria-label={localizedTexts.backToTop}
               >
                 <Logo />
                 <span className="text-xl font-bold tracking-tight">{AUTHOR_NAME}</span>
@@ -81,19 +132,19 @@ export const Footer = () => {
 
               {/* Brand Description */}
               <p className={cn("max-w-md leading-relaxed text-content", "text-sm")}>
-                {m["components.footer.brand_description"]()}
+                {localizedTexts.brandDescription}
               </p>
 
               {/* Latest Commit Info */}
               <div className="flex items-center gap-2 text-xs text-content">
                 <Github className="h-4 w-4" />
-                <span className="font-medium">{m["components.footer.latest_commit"]()}:</span>
+                <span className="font-medium">{localizedTexts.latestCommit}:</span>
                 <Link
                   href={commitUrl}
                   external={true}
-                  variant="link"
+                  variant="outline"
+                  className="px-1"
                   title={`${shortDateStr} - ${commitInfo.message}`}
-                  className="transition-colors hover:text-primary"
                 >
                   {trimmedMessage}
                 </Link>
@@ -110,7 +161,7 @@ export const Footer = () => {
                   id="resources-heading"
                   className={cn("mb-4 font-semibold text-content", "text-sm")}
                 >
-                  {m["components.footer.sections.resources"]()}
+                  {localizedTexts.resources}
                 </h3>
                 <ul className="space-y-3" role="list">
                   {footerNavigation.resources.map((item) => {
@@ -138,7 +189,7 @@ export const Footer = () => {
               {/* Quick Info Links */}
               <section aria-labelledby="info-heading">
                 <h3 id="info-heading" className={cn("mb-4 font-semibold text-content", "text-sm")}>
-                  {m["components.footer.sections.quick_info"]()}
+                  {localizedTexts.quickInfo}
                 </h3>
                 <ul className="space-y-3" role="list">
                   {footerNavigation.quickInfo.map((item) => {
@@ -169,11 +220,14 @@ export const Footer = () => {
                   id="social-heading"
                   className={cn("mb-4 font-semibold text-content", "text-sm")}
                 >
-                  {m["components.footer.sections.social"]()}
+                  {localizedTexts.social}
                 </h3>
                 <ul className="flex flex-wrap gap-3 lg:flex-col lg:gap-0 lg:space-y-3" role="list">
                   {footerNavigation.social.map((item) => {
                     const IconComponent = item.icon;
+                    const followText = m["components.footer.meta.follow_on"]({
+                      platform: item.name,
+                    });
                     return (
                       <li key={item.href}>
                         <Link
@@ -185,9 +239,7 @@ export const Footer = () => {
                             "text-content hover:text-primary",
                             "text-sm transition-colors"
                           )}
-                          aria-label={m["components.footer.meta.follow_on"]({
-                            platform: item.name,
-                          })}
+                          aria-label={followText}
                         >
                           <IconComponent className="h-4 w-4" />
                           <span>{item.name}</span>
@@ -209,28 +261,29 @@ export const Footer = () => {
           </nav>
         </div>
 
-        {/* Copyright Section */}
+        {/* Copyright Section - 添加ref以跟踪并打破循环引用 */}
         <section
+          ref={copyrightSectionRef}
           className={cn(
             "mt-12 border-t border-outline-variant pt-8",
             "flex flex-col items-center justify-between gap-4 md:flex-row"
           )}
           aria-label="copyright"
         >
-          <p className={cn("text-xs text-content lg:text-sm", "text-center md:text-left")}>
-            {m["components.footer.copyright_text"]({
-              year: new Date().getFullYear().toString(),
-              author: AUTHOR_NAME,
-            })}
+          <p
+            ref={copyrightTextRef}
+            className={cn("text-xs text-content lg:text-sm", "text-center md:text-left")}
+          >
+            {localizedTexts.copyright}
           </p>
 
           {/* Additional Meta Info */}
           <div className={cn("text-xs text-content", "flex items-center gap-4")}>
             <span>
-              {m["components.footer.meta.domain_label"]()}: {domain}
+              {localizedTexts.domainLabel}: {domain}
             </span>
             <span>•</span>
-            <span>{m["components.footer.meta.built_with"]()}</span>
+            <span>{localizedTexts.builtWith}</span>
           </div>
         </section>
       </div>

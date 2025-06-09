@@ -36,6 +36,8 @@ const buttonVariants = cva(
           "rounded-sm border-2 border-outline bg-primary px-8 py-4 text-on-primary shadow-[4px_4px_0_0_var(--color-outline)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none",
         "brutal-normal":
           "rounded-sm border-2 border-outline bg-surface px-8 py-4 text-content shadow-[4px_4px_0_0_var(--color-outline)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none",
+        underline:
+          "relative inline-flex items-center gap-1 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -79,28 +81,14 @@ interface ButtonProps
   children?: React.ReactNode;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>;
-  onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
-  onMouseDown?: React.MouseEventHandler<HTMLButtonElement>;
-  onMouseUp?: React.MouseEventHandler<HTMLButtonElement>;
-  onMouseMove?: React.MouseEventHandler<HTMLButtonElement>;
-  onMouseOver?: React.MouseEventHandler<HTMLButtonElement>;
-  onMouseOut?: React.MouseEventHandler<HTMLButtonElement>;
-  onMouseClick?: React.MouseEventHandler<HTMLButtonElement>;
-  onMouseDoubleClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, onClick, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
+
     return (
-      <Comp
-        onClick={onClick}
-        className={cn(buttonVariants({ variant, size }), className)}
-        ref={ref}
-        {...props}
-      />
+      <Comp className={cn(buttonVariants({ variant, size }), className)} ref={ref} {...props} />
     );
   }
 );

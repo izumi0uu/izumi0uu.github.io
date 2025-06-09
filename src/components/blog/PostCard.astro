@@ -14,17 +14,15 @@ import { formatDate, formatDateIso } from "@/utils/data/datetime";
 import { cn } from "@/utils/ui/styles";
 
 import { BlogAvatar } from "@/components/react/ui/BlogAvatar";
-import { Card3d } from "@/components/react/ui/Card3d";
 import avatar from "@/assets/images/avatar.jpg";
 
 import type { Post } from "@/types/post";
 
 export interface Props {
   post: Post;
-  cardSize?: "sm" | "md" | "lg";
 }
 
-const { post, cardSize = "lg" } = Astro.props;
+const { post } = Astro.props;
 const { data, slug, readingTime } = post;
 
 const {
@@ -47,79 +45,99 @@ const { lastAccessDate, isUpdatedDate } = getPublishedOrUpdatedDate({
 });
 
 const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
-
-// 格式化文章信息为Card3d文本
-const articleHeading = title + (draft ? ` (${DRAFT_TEXT})` : "");
-const articleDescription = description || "点击查看文章详情";
-
-// 根据卡片尺寸设置高度
-const cardHeight = {
-  sm: 150,
-  md: 180,
-  lg: 220,
-}[cardSize];
-
-// 根据卡片尺寸调整头像大小
-const avatarSize = {
-  sm: "sm",
-  md: "sm",
-  lg: "md",
-} as const;
 ---
 
-<div
+<article
   class={cn(
-    "w-full",
+    "flex flex-col md:flex-row gap-4 lg:gap-6",
     "not-first:pt-4 not-last:pb-4 md:not-first:pt-6 md:not-last:pb-6",
-    "not-last:border-b border-base-300"
+    "not-last:border-b border-base-300 w-full"
   )}
 >
-  <div class="flex items-start justify-between mb-3 text-sm">
-    {/* 分类和日期信息 */}
-    <Link
-      href={`${ROUTES.CATEGORIES}${category}`}
-      class="inline-flex items-center gap-1.5 bg-primary-base-200 font-medium px-2 py-0.5 rounded-button"
+  {/* left column */}
+  {
+    !noHero && (
+      <div class="md:basis-1/3 md:shrink-0">
+        <Image
+          {...IMAGE_SIZES.RESPONSIVE.POST_CARD}
+          src={heroImage}
+          alt={heroAlt}
+          itemprop="image"
+          class="w-full h-[168px] xs:h-[250px] md:h-[168px] md:max-w-[298px] object-cover rounded-box shadow shadow-base-300"
+          transition:name={getTransitionNameFromElementId({
+            elementId: TRANSITION_ELEMENT_IDS.POST_CARD.HERO_IMAGE,
+          })}
+        />
+      </div>
+    )
+  }
+
+  {/* right column */}
+  <div class={cn("flex flex-col", { "md:basis-2/3": !noHero })}>
+    {/* category and publishDate row*/}
+    <div
+      class="flex items-start justify-between mb-4 text-sm leading-none"
+      transition:name={getTransitionNameFromElementId({
+        elementId: TRANSITION_ELEMENT_IDS.POST_CARD.META,
+      })}
     >
-      <Icon name={categoryIcon} class="w-4 h-4" />
-      <span class="pb-0.5 hidden xs:inline-block">{category}</span>
-    </Link>
+      <Link href={`${ROUTES.CATEGORIES}${category}`} variant="underline">
+        <Icon name={categoryIcon} class="w-4 h-4" />
+        <span class="pb-0.5">
+          {category}
+        </span>
+      </Link>
 
-    <span class="inline-flex items-center gap-1.5 text-captions">
-      <Icon name={isUpdatedDate ? "mdi:edit-outline" : "mdi:access-time"} class="w-4 h-4" />
-      <time datetime={formatDateIso(lastAccessDate)} class="hidden xs:inline-block"
-        >{formatDate(lastAccessDate)}</time
-      >
-    </span>
-  </div>
+      <span class="inline-flex items-center gap-2 text-captions">
+        <Icon name={isUpdatedDate ? "mdi:edit-outline" : "mdi:access-time"} class="w-4 h-4" />
+        <time itemprop="datePublished" datetime={formatDateIso(lastAccessDate)}>
+          {formatDate(lastAccessDate)}
+        </time>
+      </span>
+    </div>
 
-  {/* 3D卡片代替整个文章 */}
-  <div class="w-full">
-    <div class="relative">
-      <Card3d
-        heading={articleHeading}
-        text={articleDescription}
-        client:visible
-        href={`${ROUTES.BLOG}${slug}`}
-        className="w-full"
-        width={1000}
-        height={cardHeight}
-        scale={1.2}
-        responsive={true}
-      />
+    {/* title */}
+    <h2
+      class="text-2xl font-bold break-words md:line-clamp-2 mt-0 mb-2"
+      transition:name={getTransitionNameFromElementId({
+        elementId: TRANSITION_ELEMENT_IDS.POST_CARD.TITLE,
+      })}
+    >
+      <Link href={`${ROUTES.BLOG}${slug}`} variant="heading">
+        {title}
+        {draft && <sup class="text-sm text-red-500 ml-1">{DRAFT_TEXT}</sup>}
+      </Link>
+    </h2>
 
-      {/* 头像定位在右下角 */}
-      <div class="absolute -bottom-4 -right-4 z-10">
-        <BlogAvatar avatarSrc={avatar.src} size={avatarSize[cardSize]} client:idle />
+    {
+      description && (
+        <p
+          class="text-content mb-4 line-clamp-2"
+          transition:name={getTransitionNameFromElementId({
+            elementId: TRANSITION_ELEMENT_IDS.POST_CARD.DESCRIPTION,
+          })}
+        >
+          {description}
+        </p>
+      )
+    }
+
+    {/* reading time and read more link */}
+    <div class="flex items-center xs:items-end justify-between">
+      <div class="flex items-center gap-4">
+        <span class="inline-flex items-center gap-2 text-sm text-captions">
+          <Icon name="mdi:book-open-blank-variant-outline" class="w-4 h-4" />
+          <span class="text-nowrap">{`${Math.round(readingTime)} minutes`}</span>
+        </span>
+        <!-- <TagList tags={tags.slice(0, 2)} size="sm" variant="text" class="hidden xs:inline-flex" /> -->
       </div>
 
-      {/* 阅读时间定位在左下角 */}
-      <div
-        class="absolute bottom-4 left-4 z-5 inline-flex items-center gap-2 text-sm text-captions"
-        slot="reading-time"
-      >
-        <Icon name="mdi:book-open-blank-variant-outline" class="w-4 h-4" />
-        <span class="text-nowrap">{`${Math.round(readingTime)} minutes`}</span>
-      </div>
+      <Link href={`${ROUTES.BLOG}${slug}`} variant="underline">
+        <span class="text-nowrap">Read more</span>
+        <Icon name="mdi:arrow-right" class="w-4 h-4" />
+      </Link>
+
+      <BlogAvatar avatarSrc={avatar.src} client:idle />
     </div>
   </div>
-</div>
+</article>

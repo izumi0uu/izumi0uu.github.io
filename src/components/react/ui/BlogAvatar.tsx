@@ -17,12 +17,12 @@ const BlogAvatar: React.FC<BlogAvatarProps> = ({ avatarSrc, fallbackText = "ZD",
   }[size];
 
   return (
-    <SpringElement>
-      <Avatar className={avatarSizeClass}>
-        <AvatarImage src={avatarSrc} />
-        <AvatarFallback>{fallbackText}</AvatarFallback>
-      </Avatar>
-    </SpringElement>
+    // <SpringElement>
+    <Avatar>
+      <AvatarImage draggable={false} src={avatarSrc} />
+      <AvatarFallback>{fallbackText}</AvatarFallback>
+    </Avatar>
+    // </SpringElement>
   );
 };
 

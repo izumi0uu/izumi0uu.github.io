@@ -80,6 +80,7 @@ const PageLoadingIndicator = () => {
         <motion.div
           transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
           animate={{ rotate: 360 }}
+          key={`infinite-rotation-${action}`}
         >
           <TeamCircle size={40} team="UNKNOWN" />
         </motion.div>

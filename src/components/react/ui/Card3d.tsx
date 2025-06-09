@@ -214,13 +214,12 @@ const Card3d: React.FC<Props> = ({
                 overflow: "visible",
                 padding: `${16 * finalScale}px`,
                 position: "relative",
-                borderRadius: `${12 * finalScale}px`,
-                border: `${1 * finalScale}px solid var(--color-outline-variant)`,
-                boxShadow: isHoverVariant
-                  ? `0 ${10 * finalScale}px ${15 * finalScale}px -${3 * finalScale}px rgba(0, 0, 0, 0.1), 0 ${4 * finalScale}px ${6 * finalScale}px -${2 * finalScale}px rgba(0, 0, 0, 0.05)`
-                  : `0 ${4 * finalScale}px ${6 * finalScale}px -${1 * finalScale}px rgba(0, 0, 0, 0.1), 0 ${2 * finalScale}px ${4 * finalScale}px -${1 * finalScale}px rgba(0, 0, 0, 0.06)`,
+                width: "min-content",
+                borderRadius: "12px", // Added border radius
+                border: "2px solid var(--color-outline-variant)",
+                boxShadow: isHoverVariant ? "none" : "4px 4px 0 0 var(--color-outline)",
                 transition: "box-shadow 0.3s ease, transform 0.3s ease",
-                transform: isHoverVariant ? `translateY(-${4 * finalScale}px)` : "translateY(0)",
+                transform: isHoverVariant ? "translate(3px, 3px)" : "translate(0, 0)",
                 cursor: "pointer",
                 width: width ? width * finalScale : "auto",
                 height: height ? height * finalScale : "auto",
