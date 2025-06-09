@@ -46,7 +46,7 @@ const quickLinks = [
 <Centered {metadata} className="flex-col-layout gap-16 first:gap-0">
   <!-- Hero Page Section -->
   <section
-    id="hero-page"
+    id="hero-page-section"
     aria-label="hero-page"
     class={cn("flex-col-layout mode-theme-switch bg-surface-container rounded-sm")}
   >
@@ -116,33 +116,28 @@ const quickLinks = [
         </p>
 
         <!-- main action button -->
-        <Link href={getPathWithLocale(ROUTES.BLOG)} variant="no-underline">
-          <Button variant="brutal" size="lg" client:load>
-            <span>To See My Blogs</span>
-          </Button>
+        <Link
+          href={getPathWithLocale(ROUTES.BLOG)}
+          variant="no-underline"
+          variant="brutal"
+          size="lg"
+        >
+          To See My Blogs
         </Link>
 
         <!-- contact links -->
         <div class="flex flex-wrap gap-2">
-          <Link href={`mailto:${CONFIG_CLIENT.AUTHOR_EMAIL}`} variant="no-underline">
-            <Button variant="outline" size="sm" client:load>
-              <Mail className="w-4 h-4" />
-            </Button>
+          <Link href={`mailto:${CONFIG_CLIENT.AUTHOR_EMAIL}`} variant="outline" size="sm">
+            <Mail className="w-4 h-4" />
           </Link>
-          <Link href={CONFIG_CLIENT.AUTHOR_GITHUB} variant="no-underline">
-            <Button variant="outline" size="sm" client:load>
-              <Github className="w-4 h-4" />
-            </Button>
+          <Link href={CONFIG_CLIENT.AUTHOR_GITHUB} variant="outline" size="sm">
+            <Github className="w-4 h-4" />
           </Link>
-          <Link href={CONFIG_CLIENT.AUTHOR_TWITTER} variant="no-underline">
-            <Button variant="outline" size="sm" client:load>
-              <Twitter className="w-4 h-4" />
-            </Button>
+          <Link href={CONFIG_CLIENT.AUTHOR_TWITTER} variant="outline" size="sm">
+            <Twitter className="w-4 h-4" />
           </Link>
-          <Link href={CONFIG_CLIENT.AUTHOR_LINKEDIN} variant="no-underline">
-            <Button variant="outline" size="sm" client:load>
-              <Linkedin className="w-4 h-4" />
-            </Button>
+          <Link href={CONFIG_CLIENT.AUTHOR_LINKEDIN} variant="outline" size="sm">
+            <Linkedin className="w-4 h-4" />
           </Link>
         </div>
       </div>
@@ -178,18 +173,15 @@ const quickLinks = [
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
         {
           quickLinks.map((link, index) => (
-            <Link href={link.href} variant="no-underline" class="block">
-              <Button
-                variant="outline"
-                className="w-full flex items-center justify-between"
-                client:visible
-                key={`quick-link-${link.name}-${index}`}
-              >
-                <span class="text-lg font-medium">{link.name}</span>
-                <span class="text-xl group-hover:translate-x-1 transition-transform">
-                  {link.icon}
-                </span>
-              </Button>
+            <Link
+              href={link.href}
+              variant="outline"
+              class="w-full flex items-center justify-between"
+            >
+              <span class="text-lg font-medium">{link.name}</span>
+              <span class="text-xl group-hover:translate-x-1 transition-transform">
+                {link.icon}
+              </span>
             </Link>
           ))
         }

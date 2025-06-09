@@ -61,7 +61,7 @@ export default defineConfig({
   devToolbar: { enabled: true },
 
   // 启用视图过渡动画
-  viewTransitions: true,
+  viewTransitions: false,
 
   integrations: [
     react(),
