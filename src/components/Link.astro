@@ -5,7 +5,7 @@ import type { HTMLAttributes } from "astro/types";
 import type { VariantProps } from "class-variance-authority";
 
 const linkVariants = cva(
-  "inline-flex cursor-pointer items-center justify-center rounded-md text-sm font-medium whitespace-nowrap transition-colors disabled:opacity-50",
+  "inline-flex cursor-pointer items-center rounded-md text-sm font-medium whitespace-nowrap transition-colors disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -126,7 +126,7 @@ const finalRel = external || isExternalUrl ? rel || "noopener noreferrer" : rel;
 ---
 
 <Element
-  class={linkVariants({ variant, disabled, size, className })}
+  class={`${linkVariants({ variant, disabled, size })} ${className || ""}`}
   href={href}
   target={finalTarget}
   rel={finalRel}
