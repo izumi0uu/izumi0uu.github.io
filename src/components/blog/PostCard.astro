@@ -81,10 +81,7 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
         elementId: TRANSITION_ELEMENT_IDS.POST_CARD.META,
       })}
     >
-      <Link
-        href={`${ROUTES.CATEGORIES}${category}`}
-        class="inline-flex items-center gap-2 bg-primary-base-200 font-medium px-2 py-0.5 rounded-button"
-      >
+      <Link href={`${ROUTES.CATEGORIES}${category}`} variant="underline">
         <Icon name={categoryIcon} class="w-4 h-4" />
         <span class="pb-0.5">
           {category}
@@ -135,10 +132,7 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
         <!-- <TagList tags={tags.slice(0, 2)} size="sm" variant="text" class="hidden xs:inline-flex" /> -->
       </div>
 
-      <Link
-        href={`${ROUTES.BLOG}${slug}`}
-        class="inline-flex items-center gap-1 text-content font-medium"
-      >
+      <Link href={`${ROUTES.BLOG}${slug}`} variant="underline">
         <span class="text-nowrap">Read more</span>
         <Icon name="mdi:arrow-right" class="w-4 h-4" />
       </Link>

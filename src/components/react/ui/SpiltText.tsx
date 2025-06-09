@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText as GSAPSplitText } from "gsap/SplitText";
@@ -35,33 +35,36 @@ const SplitText: React.FC<SplitTextProps> = ({
   onLetterAnimationComplete,
 }) => {
   const ref = useRef<HTMLParagraphElement>(null);
+  const [isActive, setIsActive] = useState(true);
 
   useEffect(() => {
+    if (!isActive) return;
+
     const el = ref.current;
     if (!el) return;
 
     const absoluteLines = splitType === "lines";
     if (absoluteLines) el.style.position = "relative";
 
-    const splitter = new GSAPSplitText(el, {
+    let splitter: GSAPSplitText | null = new GSAPSplitText(el, {
       type: splitType,
       absolute: absoluteLines,
       linesClass: "split-line",
     });
 
-    let targets: Element[];
+    let targets: Element[] = [];
     switch (splitType) {
       case "lines":
-        targets = splitter.lines;
+        targets = [...splitter.lines];
         break;
       case "words":
-        targets = splitter.words;
+        targets = [...splitter.words];
         break;
       case "words, chars":
         targets = [...splitter.words, ...splitter.chars];
         break;
       default:
-        targets = splitter.chars;
+        targets = [...splitter.chars];
     }
 
     targets.forEach((t) => {
@@ -74,16 +77,21 @@ const SplitText: React.FC<SplitTextProps> = ({
     const sign = raw < 0 ? `-=${Math.abs(raw)}px` : `+=${raw}px`;
     const start = `top ${startPct}%${sign}`;
 
-    // 5) Timeline with smoothChildTiming
+    // Create ScrollTrigger instance
+    const scrollTrigger = ScrollTrigger.create({
+      trigger: el,
+      start,
+      toggleActions: "play none none none",
+      once: true,
+    });
+
+    // Create timeline
     const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: el,
-        start,
-        toggleActions: "play none none none",
-        once: true,
-      },
+      scrollTrigger,
       smoothChildTiming: true,
-      onComplete: onLetterAnimationComplete,
+      onComplete: () => {
+        if (onLetterAnimationComplete) onLetterAnimationComplete();
+      },
     });
 
     tl.set(targets, { ...from, immediateRender: false, force3D: true });
@@ -96,10 +104,38 @@ const SplitText: React.FC<SplitTextProps> = ({
     });
 
     return () => {
-      tl.kill();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-      gsap.killTweensOf(targets);
-      splitter.revert();
+      // 清理所有资源
+      setIsActive(false);
+
+      // 清理动画
+      if (tl) {
+        tl.kill();
+        tl.clear();
+      }
+
+      // 清理滚动触发器
+      if (scrollTrigger) {
+        scrollTrigger.kill();
+      }
+
+      // 清理GSAP动画
+      if (targets.length) {
+        gsap.killTweensOf(targets);
+        targets = [];
+      }
+
+      // 还原分割
+      if (splitter) {
+        splitter.revert();
+        splitter = null;
+      }
+
+      // 清理DOM引用
+      if (el) {
+        // 移除任何可能的内联样式
+        el.style.position = "";
+        el.style.willChange = "";
+      }
     };
   }, [
     text,
@@ -112,7 +148,15 @@ const SplitText: React.FC<SplitTextProps> = ({
     threshold,
     rootMargin,
     onLetterAnimationComplete,
+    isActive,
   ]);
+
+  // 组件卸载时确保清理
+  useEffect(() => {
+    return () => {
+      setIsActive(false);
+    };
+  }, []);
 
   return (
     <p
