@@ -1,5 +1,5 @@
+import React, { useMemo, useRef, useEffect } from "react";
 import footerImage from "@/assets/images/footer-default.png";
-import { useMemo, useRef, useEffect } from "react";
 
 import { Link } from "@/components/react/ui/Link";
 import { Logo } from "@/components/react/ui/Logo";
@@ -17,43 +17,10 @@ const { SITE_URL, AUTHOR_LINKEDIN, AUTHOR_GITHUB, AUTHOR_EMAIL, REPO_URL, AUTHOR
 export const Footer = () => {
   const domain = SITE_URL.replace(/^https?:\/\//, "");
 
-  // 添加引用以跟踪关键DOM元素
   const footerRef = useRef<HTMLElement | null>(null);
-  const navRef = useRef<HTMLElement | null>(null);
+  const copyrightSectionRef = useRef<HTMLElement | null>(null);
+  const copyrightTextRef = useRef<HTMLParagraphElement | null>(null);
 
-  // 清理逻辑
-  useEffect(() => {
-    return () => {
-      // 清理主容器引用
-      if (footerRef.current) {
-        const element = footerRef.current as any;
-        if (element.__reactProps$) element.__reactProps$ = undefined;
-        if (element.__reactFiber$) element.__reactFiber$ = undefined;
-        footerRef.current = null;
-      }
-
-      // 清理导航引用
-      if (navRef.current) {
-        const element = navRef.current as any;
-        if (element.__reactProps$) element.__reactProps$ = undefined;
-        if (element.__reactFiber$) element.__reactFiber$ = undefined;
-        navRef.current = null;
-      }
-    };
-  }, []);
-
-  // 在客户端动态获取git信息 - 这需要从props传入或使用其他方式
-  const commitInfo = {
-    time: new Date().toISOString(),
-    fullHash: "latest",
-    message: "Latest commit",
-  };
-
-  const commitUrl = `${REPO_URL}/commit/${commitInfo.fullHash}`;
-  const shortDateStr = new Date(commitInfo.time).toLocaleDateString();
-  const trimmedMessage = commitInfo.message.substring(0, 15);
-
-  // 使用useMemo预先计算所有国际化文本，避免重复调用
   const localizedTexts = useMemo(() => {
     return {
       backToTop: m["components.footer.back_to_top"](),
@@ -71,9 +38,44 @@ export const Footer = () => {
     };
   }, []);
 
-  // 预先计算导航项目的国际化文本
-  const footerNavigation = useMemo(() => {
-    return {
+  const cleanupElement = (element: HTMLElement | null) => {
+    if (!element) return;
+
+    const el = element as any;
+    if (el.__reactProps$) el.__reactProps$ = undefined;
+    if (el.__reactFiber$) el.__reactFiber$ = undefined;
+    if (el._reactEvents) el._reactEvents = undefined;
+
+    if (el.style && typeof el.style.cssText === "string") {
+      el.style.cssText = "";
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      cleanupElement(footerRef.current);
+      cleanupElement(copyrightSectionRef.current);
+      cleanupElement(copyrightTextRef.current);
+
+      footerRef.current = null;
+      copyrightSectionRef.current = null;
+      copyrightTextRef.current = null;
+    };
+  }, []);
+
+  // 在客户端动态获取git信息 - 这需要从props传入或使用其他方式
+  const commitInfo = {
+    time: new Date().toISOString(),
+    fullHash: "latest",
+    message: "Latest commit",
+  };
+
+  const commitUrl = `${REPO_URL}/commit/${commitInfo.fullHash}`;
+  const shortDateStr = new Date(commitInfo.time).toLocaleDateString();
+  const trimmedMessage = commitInfo.message.substring(0, 15);
+
+  const footerNavigation = useMemo(
+    () => ({
       resources: [
         { name: m["components.footer.links.blog"](), href: ROUTES.BLOG, icon: FileText },
         {
@@ -97,19 +99,9 @@ export const Footer = () => {
         },
         { name: m["components.footer.links.email"](), href: AUTHOR_EMAIL, icon: Mail },
       ],
-    };
-  }, []);
-
-  // 预计算每个社交平台的跟随文本
-  const getFollowText = useMemo(() => {
-    const texts: Record<string, string> = {};
-    footerNavigation.social.forEach((item) => {
-      texts[item.href] = m["components.footer.meta.follow_on"]({
-        platform: item.name,
-      });
-    });
-    return texts;
-  }, [footerNavigation.social]);
+    }),
+    []
+  );
 
   return (
     <footer
@@ -161,7 +153,7 @@ export const Footer = () => {
           </section>
 
           {/* Navigation Section */}
-          <nav ref={navRef} className="md:col-span-7 lg:col-span-8" aria-label="footer-navigation">
+          <nav className="md:col-span-7 lg:col-span-8" aria-label="footer-navigation">
             <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
               {/* Resources Links */}
               <section aria-labelledby="resources-heading">
@@ -233,6 +225,9 @@ export const Footer = () => {
                 <ul className="flex flex-wrap gap-3 lg:flex-col lg:gap-0 lg:space-y-3" role="list">
                   {footerNavigation.social.map((item) => {
                     const IconComponent = item.icon;
+                    const followText = m["components.footer.meta.follow_on"]({
+                      platform: item.name,
+                    });
                     return (
                       <li key={item.href}>
                         <Link
@@ -244,7 +239,7 @@ export const Footer = () => {
                             "text-content hover:text-primary",
                             "text-sm transition-colors"
                           )}
-                          aria-label={getFollowText[item.href]}
+                          aria-label={followText}
                         >
                           <IconComponent className="h-4 w-4" />
                           <span>{item.name}</span>
@@ -266,15 +261,19 @@ export const Footer = () => {
           </nav>
         </div>
 
-        {/* Copyright Section */}
+        {/* Copyright Section - 添加ref以跟踪并打破循环引用 */}
         <section
+          ref={copyrightSectionRef}
           className={cn(
             "mt-12 border-t border-outline-variant pt-8",
             "flex flex-col items-center justify-between gap-4 md:flex-row"
           )}
           aria-label="copyright"
         >
-          <p className={cn("text-xs text-content lg:text-sm", "text-center md:text-left")}>
+          <p
+            ref={copyrightTextRef}
+            className={cn("text-xs text-content lg:text-sm", "text-center md:text-left")}
+          >
             {localizedTexts.copyright}
           </p>
 
