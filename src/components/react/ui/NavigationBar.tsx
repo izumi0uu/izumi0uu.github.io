@@ -73,7 +73,7 @@ const NavigationBar = () => {
 
   const renderNavLink = useCallback((route: string, text: string, keyName: string) => {
     return (
-      <Link href={getPathWithLocale(route)} reload={true} key={`nav-link-${keyName}`}>
+      <Link href={getPathWithLocale(route)} key={`nav-link-${keyName}`}>
         <NavButton key={`nav-${keyName}-button`}>{text}</NavButton>
       </Link>
     );
