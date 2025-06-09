@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import React from "react";
 
 import { Button } from "@/components/react/radix-ui/Button";
@@ -23,15 +23,38 @@ interface NavButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const NavButton = React.memo(({ children, ...props }: NavButtonProps) => {
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (buttonRef.current) {
+        const element = buttonRef.current as any;
+
+        if (element.__reactProps$) {
+          element.__reactProps$ = undefined;
+        }
+        if (element.__reactFiber$) {
+          element.__reactFiber$ = undefined;
+        }
+
+        buttonRef.current = null;
+      }
+    };
+  }, []);
+
   return (
-    <Button variant="brutal" {...props}>
+    <Button variant="brutal" ref={buttonRef} {...props}>
       {children}
     </Button>
   );
 });
+
 NavButton.displayName = "NavButton";
 
 const NavigationBar = () => {
+  const navRef = useRef<HTMLDivElement | null>(null);
+  const navLinksRef = useRef<HTMLElement | null>(null);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = useCallback(() => {
@@ -56,8 +79,34 @@ const NavigationBar = () => {
     );
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (navRef.current) {
+        const element = navRef.current as any;
+        if (element.__reactProps$) {
+          element.__reactProps$ = undefined;
+        }
+        if (element.__reactFiber$) {
+          element.__reactFiber$ = undefined;
+        }
+        navRef.current = null;
+      }
+
+      if (navLinksRef.current) {
+        const element = navLinksRef.current as any;
+        if (element.__reactProps$) {
+          element.__reactProps$ = undefined;
+        }
+        if (element.__reactFiber$) {
+          element.__reactFiber$ = undefined;
+        }
+        navLinksRef.current = null;
+      }
+    };
+  }, []);
+
   return (
-    <div className="container flex h-14 max-w-screen-2xl items-center px-8">
+    <div className="container flex h-14 max-w-screen-2xl items-center px-8" ref={navRef}>
       <div className="flex gap-6 md:gap-10">
         <a
           className="hidden items-center justify-center space-x-2 lg:flex"
@@ -69,7 +118,7 @@ const NavigationBar = () => {
             {CONFIG_CLIENT.AUTHOR_NAME}
           </span>
         </a>
-        <nav className="hidden gap-4 lg:flex">
+        <nav className="hidden gap-4 lg:flex" ref={navLinksRef}>
           {renderNavLink(ROUTES.BLOG, localizedTexts.blog, "blog")}
           {renderNavLink(ROUTES.EXPLORE, localizedTexts.explore, "explore")}
           {renderNavLink(ROUTES.PROJECTS, localizedTexts.projects, "projects")}
