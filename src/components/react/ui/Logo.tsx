@@ -1,9 +1,16 @@
-import { Button } from "../radix-ui/Button";
+import { Link } from "./Link";
 import logo from "@/assets/images/logo.png";
+import { ROUTES } from "@/constants/routes";
+import { getPathWithLocale } from "@/utils/routing/paths";
 
 const Logo = () => {
   return (
-    <Button variant="brutal-normal" className="p-2">
+    <Link
+      href={getPathWithLocale(ROUTES.HOME)}
+      variant="brutal-normal"
+      size="md"
+      className="inline-flex items-center justify-center p-2"
+    >
       <img
         src={logo.src}
         alt="logo"
@@ -14,7 +21,7 @@ const Logo = () => {
         className="h-8 w-8"
         style={{ aspectRatio: "1/1" }}
       />
-    </Button>
+    </Link>
   );
 };
 

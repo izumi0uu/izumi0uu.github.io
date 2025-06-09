@@ -49,16 +49,12 @@ const NavigationBar = () => {
   return (
     <div className="container flex h-14 max-w-screen-2xl items-center px-8">
       <div className="flex gap-6 md:gap-10">
-        <a
-          className="hidden items-center justify-center space-x-2 lg:flex"
-          href={getPathWithLocale(ROUTES.HOME)}
-          data-astro-reload="true"
-        >
-          {/* <Logo /> */}
+        <div className="flex items-center gap-2">
+          <Logo />
           <span className="hidden text-2xl font-black tracking-tighter text-content uppercase sm:inline-block">
             {CONFIG_CLIENT.AUTHOR_NAME}
           </span>
-        </a>
+        </div>
         <nav className="hidden gap-4 lg:flex">
           {renderNavLink(ROUTES.BLOG, localizedTexts.blog, "blog")}
           {renderNavLink(ROUTES.EXPLORE, localizedTexts.explore, "explore")}

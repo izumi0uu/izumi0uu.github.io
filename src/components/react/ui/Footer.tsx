@@ -142,9 +142,9 @@ export const Footer = () => {
                 <Link
                   href={commitUrl}
                   external={true}
-                  variant="default"
+                  variant="outline"
+                  className="px-1"
                   title={`${shortDateStr} - ${commitInfo.message}`}
-                  className="transition-colors hover:text-primary"
                 >
                   {trimmedMessage}
                 </Link>

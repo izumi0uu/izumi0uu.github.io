@@ -48,10 +48,11 @@ export const linkVariants = cva(
         disabled: "cursor-not-allowed text-content no-underline hover:text-content",
       },
       size: {
-        default: "h-10 px-4 py-2",
+        default: "",
         sm: "h-8 px-3",
         lg: "h-11 px-8",
         icon: "h-10 w-10",
+        md: "h-10 px-4 py-2",
       },
       underlineOffset: {
         default: "underline-offset-2",
