@@ -60,40 +60,6 @@ interface TeamCircleProps {
 }
 
 const TeamCircle: React.FC<TeamCircleProps> = React.memo(({ size, width = 2, team }) => {
-  // 使用ref跟踪SVG元素
-  const svgRef = React.useRef<SVGSVGElement | null>(null);
-
-  // 在组件卸载时清理
-  React.useEffect(() => {
-    return () => {
-      // 清理SVG引用
-      if (svgRef.current) {
-        // 清理可能的React内部属性
-        const svgElement = svgRef.current as any;
-        if (svgElement.__reactProps$) {
-          svgElement.__reactProps$ = undefined;
-        }
-        if (svgElement.__reactFiber$) {
-          svgElement.__reactFiber$ = undefined;
-        }
-
-        // 清理子path元素
-        const pathElements = svgRef.current.querySelectorAll("path");
-        pathElements.forEach((path: any) => {
-          if (path.__reactProps$) {
-            path.__reactProps$ = undefined;
-          }
-          if (path.__reactFiber$) {
-            path.__reactFiber$ = undefined;
-          }
-        });
-
-        // 清理引用
-        svgRef.current = null;
-      }
-    };
-  }, []);
-
   // 预计算路径以减少重新渲染时的计算
   const renderTeamCircle = React.useMemo(() => {
     let options = { size, width, margin: 0.05, segments: 3 };
@@ -145,7 +111,7 @@ const TeamCircle: React.FC<TeamCircleProps> = React.memo(({ size, width = 2, tea
   }, [size, width, team]);
 
   return (
-    <svg height={size} width={size} viewBox={`0 0 ${size} ${size}`} ref={svgRef}>
+    <svg height={size} width={size} viewBox={`0 0 ${size} ${size}`}>
       {renderTeamCircle}
     </svg>
   );
