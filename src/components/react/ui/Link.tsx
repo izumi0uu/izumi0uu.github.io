@@ -128,56 +128,67 @@ export interface LinkProps
     | "disabled";
 }
 
-export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
-  ({
-    className,
-    variant = "default",
-    size,
-    underlineOffset,
-    disabled,
-    external = false,
-    target,
-    rel,
-    href,
-    children,
-    ...props
-  }) => {
-    // 自动检测外部链接（如果href以http开头且不是当前域名）
-    const isExternalUrl =
-      href &&
-      (href.startsWith("http://") ||
-        href.startsWith("https://") ||
-        href.startsWith("mailto:") ||
-        href.startsWith("tel:"));
+// 使用React.memo包装组件以减少不必要的重渲染
+export const Link = React.memo(
+  React.forwardRef<HTMLAnchorElement, LinkProps>(
+    (
+      {
+        className,
+        variant = "default",
+        size,
+        underlineOffset,
+        disabled,
+        external = false,
+        target,
+        rel,
+        href,
+        children,
+        ...props
+      },
+      ref
+    ) => {
+      // 自动检测外部链接（如果href以http开头且不是当前域名）
+      const isExternalUrl =
+        href &&
+        (href.startsWith("http://") ||
+          href.startsWith("https://") ||
+          href.startsWith("mailto:") ||
+          href.startsWith("tel:"));
 
-    // 最终的target和rel属性
-    const finalTarget = external || (isExternalUrl && !target) ? "_blank" : target;
-    const finalRel = external || isExternalUrl ? rel || "noopener noreferrer" : rel;
+      // 最终的target和rel属性
+      const finalTarget = external || (isExternalUrl && !target) ? "_blank" : target;
+      const finalRel = external || isExternalUrl ? rel || "noopener noreferrer" : rel;
 
-    // 如果disabled，渲染span而不是a
-    if (disabled) {
+      // 如果disabled，渲染span而不是a
+      if (disabled) {
+        return (
+          <span
+            ref={ref as React.Ref<HTMLSpanElement>}
+            className={cn(
+              linkVariants({ variant, size, underlineOffset, isDisabled: true }),
+              className
+            )}
+            {...(props as any)}
+          >
+            {children || href}
+          </span>
+        );
+      }
+
       return (
-        <span
-          className={`${cn(linkVariants({ variant, size, underlineOffset, isDisabled: true }))} ${className || ""}`}
-          {...(props as any)}
+        <a
+          ref={ref}
+          className={cn(linkVariants({ variant, size, underlineOffset }), className)}
+          href={href}
+          target={finalTarget}
+          rel={finalRel}
+          {...props}
         >
           {children || href}
-        </span>
+        </a>
       );
     }
-
-    return (
-      <a
-        className={`${cn(linkVariants({ variant, size, underlineOffset }))} ${className || ""}`}
-        href={href}
-        target={finalTarget}
-        rel={finalRel}
-        {...props}
-      >
-        {children || href}
-      </a>
-    );
-  }
+  )
 );
 
 Link.displayName = "Link";

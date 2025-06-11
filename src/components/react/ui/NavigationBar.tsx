@@ -16,7 +16,8 @@ import { ROUTES } from "@/constants/routes";
 import * as m from "@/paraglide/messages";
 import { getPathWithLocale } from "@/utils/routing/paths";
 
-const NavigationBar = () => {
+// 使用React.memo来避免不必要的渲染
+const NavigationBar = React.memo(() => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = useCallback(() => {
@@ -33,18 +34,27 @@ const NavigationBar = () => {
     };
   }, []);
 
-  const renderNavLink = useCallback((route: string, text: string, keyName: string) => {
-    return (
+  // 预先创建导航链接列表以避免重复渲染
+  const navLinks = useMemo(() => {
+    const links = [
+      { route: ROUTES.BLOG, text: localizedTexts.blog, key: "blog" },
+      { route: ROUTES.EXPLORE, text: localizedTexts.explore, key: "explore" },
+      { route: ROUTES.PROJECTS, text: localizedTexts.projects, key: "projects" },
+      { route: ROUTES.EXPERIENCE, text: localizedTexts.experience, key: "experience" },
+      { route: ROUTES.LINKS, text: localizedTexts.links, key: "links" },
+    ];
+
+    return links.map(({ route, text, key }) => (
       <Link
         href={getPathWithLocale(route)}
-        key={`nav-link-${keyName}`}
+        key={`nav-link-${key}`}
         variant="brutal"
         className="h-10 px-4 py-2"
       >
         {text}
       </Link>
-    );
-  }, []);
+    ));
+  }, [localizedTexts]);
 
   return (
     <div className="container flex h-14 max-w-screen-2xl items-center px-8">
@@ -55,13 +65,7 @@ const NavigationBar = () => {
             {CONFIG_CLIENT.AUTHOR_NAME}
           </span>
         </div>
-        <nav className="hidden gap-4 lg:flex">
-          {renderNavLink(ROUTES.BLOG, localizedTexts.blog, "blog")}
-          {renderNavLink(ROUTES.EXPLORE, localizedTexts.explore, "explore")}
-          {renderNavLink(ROUTES.PROJECTS, localizedTexts.projects, "projects")}
-          {renderNavLink(ROUTES.EXPERIENCE, localizedTexts.experience, "experience")}
-          {renderNavLink(ROUTES.LINKS, localizedTexts.links, "links")}
-        </nav>
+        <nav className="hidden gap-4 lg:flex">{navLinks}</nav>
       </div>
       <div className="flex flex-1 items-center justify-between md:justify-end">
         <SearchBox />
@@ -74,6 +78,9 @@ const NavigationBar = () => {
       </div>
     </div>
   );
-};
+});
+
+// 设置组件显示名称以便调试
+NavigationBar.displayName = "NavigationBar";
 
 export { NavigationBar };

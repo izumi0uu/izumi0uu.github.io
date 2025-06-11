@@ -58,13 +58,16 @@ export default defineConfig({
   env: astroEnvSchema,
   compressHTML: true,
   server: { port: 4321 },
-  devToolbar: { enabled: true },
+  devToolbar: { enabled: false },
 
   // 启用视图过渡动画
   viewTransitions: false,
 
   integrations: [
-    react(),
+    react({
+      // 配置React集成，使用外部模式减少客户端JS体积
+      include: ["**/*.tsx"],
+    }),
     icon({ iconDir: "./src/assets/icons" }),
     partytown({ config: { forward: ["dataLayer.push"] } }),
     expressiveCodeIntegration(),
