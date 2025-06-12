@@ -100,7 +100,7 @@ const socialLinks = {
             variant="outline"
             size="sm"
             className="w-full flex items-center justify-between"
-            client:visible
+            client:only="react"
           >
             <span class="text-lg font-medium">{link.name}</span>
             <span class="text-xl group-hover:translate-x-1 transition-transform">{link.icon}</span>
@@ -111,7 +111,7 @@ const socialLinks = {
 
     <!-- Optional Separator -->
     <div class="mx-auto">
-      <Separator className="bg-outline" client:visible />
+      <Separator className="bg-outline" client:only="react" />
     </div>
   </div>
 </section>
