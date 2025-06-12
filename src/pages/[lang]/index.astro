@@ -14,11 +14,11 @@ import heroImage from "@/assets/images/hero-default.png";
 
 import Centered from "@/layouts/Centered.astro";
 
-import { RotatingText } from "@/components/react/ui/RotatingText";
-import { SplitText } from "@/components/react/ui/SpiltText";
 import { FallingText } from "@/components/react/ui/FallingText";
 import { Link } from "@/components/react/ui/Link";
 import { Separator } from "@/components/react/radix-ui/Separator";
+import { HeroLinks } from "@/components/react/app/home/HeroLinks";
+import { HeroBanner } from "@/components/react/app/home/HeroBanner";
 
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
@@ -33,13 +33,22 @@ const metadata = getPageMetadata("");
 
 const fallingText = m["pages.home.falling_text"]();
 
+const blogPath = getPathWithLocale(ROUTES.BLOG);
+
 const quickLinks = [
-  { name: "Blog", href: ROUTES.BLOG, icon: "↗" },
-  { name: "Explore", href: ROUTES.EXPLORE, icon: "↗" },
-  { name: "Projects", href: ROUTES.PROJECTS, icon: "↗" },
-  { name: "About", href: ROUTES.ABOUT, icon: "↗" },
-  { name: "Contact", href: ROUTES.CONTACT, icon: "↗" },
+  { name: "Blog", href: getPathWithLocale(ROUTES.BLOG), icon: "↗" },
+  { name: "Explore", href: getPathWithLocale(ROUTES.EXPLORE), icon: "↗" },
+  { name: "Projects", href: getPathWithLocale(ROUTES.PROJECTS), icon: "↗" },
+  { name: "About", href: getPathWithLocale(ROUTES.ABOUT), icon: "↗" },
+  { name: "Contact", href: getPathWithLocale(ROUTES.CONTACT), icon: "↗" },
 ];
+
+const socialLinks = {
+  email: CONFIG_CLIENT.AUTHOR_EMAIL,
+  github: CONFIG_CLIENT.AUTHOR_GITHUB,
+  twitter: CONFIG_CLIENT.AUTHOR_TWITTER,
+  linkedin: CONFIG_CLIENT.AUTHOR_LINKEDIN,
+};
 ---
 
 <!-- TODO: FIX i18n -->
@@ -48,182 +57,99 @@ const quickLinks = [
   <section
     id="hero-page-section"
     aria-label="hero-page"
-    class={cn("flex-col-layout mode-theme-switch bg-surface-container rounded-sm")}
+    class="flex-col-layout mode-theme-switch bg-surface-container rounded-sm"
   >
     <div
       id="hero-page"
       aria-label="hero-page"
       class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4 min-h-[60vh] items-center"
     >
-      <div
-        id="hero-page-content"
-        aria-label="hero-page-content"
-        class="flex flex-col gap-6 justify-center max-w-2xl mx-auto lg:mx-0"
-      >
-        <div class="flex flex-col items-baseline">
-          <SplitText
-            text={"Hey. I'm Izumi0uu."}
-            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold text-center text-headings  overflow-visible"
-            duration={0.6}
-            ease="power3.out"
-            splitType="chars"
-            from={{ opacity: 0, y: 40 }}
-            to={{ opacity: 1, y: 0 }}
-            threshold={0.1}
-            rootMargin="-100px"
-            textAlign="center"
-            client:only="react"
-          />
-        </div>
-        <div class="inline-flex">
-          <h1
-            class="text-2xl md:text-3xl lg:text-4xl font-bold text-on-surface leading-relaxed lg:leading-snug"
-          >
-            I'm a&nbsp;
-          </h1>
-          <RotatingText
-            texts={["Frontend Developer!", "Web Developer!", "Web3 Enthusiast!"]}
-            mainClassName={cn(
-              "text-primary overflow-hidden items-center justify-center text-2xl md:text-3xl lg:text-4xl xl:text-5xl border-b border-outline"
-            )}
-            staggerFrom={"last"}
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "-120%" }}
-            staggerDuration={0.025}
-            splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
-            transition={{ type: "spring", damping: 30, stiffness: 400 }}
-            rotationInterval={2000}
-            client:only="react"
-          />
-        </div>
-        <p class="text-on-surface-variant md:text-lg leading-relaxed max-w-lg">
-          Happy to see you here! In this place, you can find some of interesting ideas and projects.
-          Enjoy your time!
-        </p>
-
-        <!-- main action button -->
-        <Link
-          href={getPathWithLocale(ROUTES.BLOG)}
-          variant="no-underline"
-          variant="brutal"
-          size="lg"
-          className="justify-center"
-          client:load
-        >
-          To See My Blogs
-        </Link>
-
-        <!-- contact links -->
-        <div class="flex flex-wrap gap-2">
-          <Link
-            href={`mailto:${CONFIG_CLIENT.AUTHOR_EMAIL}`}
-            variant="outline"
-            size="sm"
-            client:idle
-          >
-            <Mail className="w-4 h-4" />
-          </Link>
-          <Link href={CONFIG_CLIENT.AUTHOR_GITHUB} variant="outline" size="sm" client:idle>
-            <Github className="w-4 h-4" />
-          </Link>
-          <Link href={CONFIG_CLIENT.AUTHOR_TWITTER} variant="outline" size="sm" client:idle>
-            <Twitter className="w-4 h-4" />
-          </Link>
-          <Link href={CONFIG_CLIENT.AUTHOR_LINKEDIN} variant="outline" size="sm" client:idle>
-            <Linkedin className="w-4 h-4" />
-          </Link>
-        </div>
-      </div>
-      <div
-        id="hero-page-image"
-        aria-label="hero-page-image"
-        class="hidden lg:flex items-center justify-center w-full h-full max-w-md max-h-[500px] mx-auto"
-      >
-        <Image
-          src={heroImage}
-          alt="Hero page illustration"
-          width={400}
-          height={500}
-          class="w-full h-auto object-contain rounded-lg shadow-lg"
-          loading="eager"
-          decoding="async"
-        />
-      </div>
+      <HeroBanner client:only="react" />
+      <!-- 统一Hero区域中所有链接的hydration策略 -->
+      <HeroLinks blogPath={blogPath} socialLinks={socialLinks} client:only="react" />
     </div>
-  </section>
-
-  <!-- Quick Links Section -->
-  <section
-    id="quick-links"
-    aria-label="quick-links"
-    class={cn("flex-col-layout mode-theme-switch ")}
-  >
-    <div class="max-w-6xl w-full mx-auto">
-      <!-- Section Title -->
-      <h2 class="text-2xl md:text-3xl font-bold text-headings mb-8">Quick links</h2>
-
-      <!-- Links Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
-        {
-          quickLinks.map((link, index) => (
-            <Link
-              href={link.href}
-              variant="outline"
-              size="sm"
-              className="w-full flex items-center justify-between"
-              client:visible
-            >
-              <span class="text-lg font-medium">{link.name}</span>
-              <span class="text-xl group-hover:translate-x-1 transition-transform">
-                {link.icon}
-              </span>
-            </Link>
-          ))
-        }
-      </div>
-
-      <!-- Optional Separator -->
-      <div class="mx-auto">
-        <Separator className="bg-outline" client:load />
-      </div>
+    <div
+      id="hero-page-image"
+      aria-label="hero-page-image"
+      class="hidden lg:flex items-center justify-center w-full h-full max-w-md max-h-[500px] mx-auto"
+    >
+      <Image
+        src={heroImage}
+        alt="Hero page illustration"
+        width={400}
+        height={500}
+        class="w-full h-auto object-contain rounded-lg shadow-lg"
+        loading="eager"
+        decoding="async"
+      />
     </div>
-  </section>
-
-  <!-- Falling Text Section -->
-  <section
-    id="falling-text"
-    aria-label="falling-text"
-    class={cn("flex justify-center items-center h-[30vh] w-full")}
-  >
-    <FallingText
-      text={m["pages.home.falling_text"]()}
-      highlightWords={["ideas", "share"]}
-      highlightClass="highlighted"
-      trigger="hover"
-      wireframes={false}
-      gravity={0.3}
-      fontSize="2rem"
-      mouseConstraintStiffness={0.9}
-      client:load
-    />
-  </section>
-
-  <!-- TODO: Blog Preview Section -->
-  <!-- Blogs Section -->
-  <section
-    id="blogs-preview"
-    aria-label="blogs-preview"
-    class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
-  >
-  </section>
-
-  <!-- TODO: Projects Preview Section -->
-  <!-- Projects Section -->
-  <section
-    id="projects-preview"
-    aria-label="projects-preview"
-    class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
-  >
   </section>
 </Centered>
+
+<!-- Quick Links Section -->
+<section id="quick-links" aria-label="quick-links" class={cn("flex-col-layout mode-theme-switch ")}>
+  <div class="max-w-6xl w-full mx-auto">
+    <!-- Section Title -->
+    <h2 class="text-2xl md:text-3xl font-bold text-headings mb-8">Quick links</h2>
+
+    <!-- Links Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
+      {
+        quickLinks.map((link, index) => (
+          <Link
+            href={link.href}
+            variant="outline"
+            size="sm"
+            className="w-full flex items-center justify-between"
+            client:visible
+          >
+            <span class="text-lg font-medium">{link.name}</span>
+            <span class="text-xl group-hover:translate-x-1 transition-transform">{link.icon}</span>
+          </Link>
+        ))
+      }
+    </div>
+
+    <!-- Optional Separator -->
+    <div class="mx-auto">
+      <Separator className="bg-outline" client:visible />
+    </div>
+  </div>
+</section>
+
+<!-- Falling Text Section -->
+<section
+  id="falling-text"
+  aria-label="falling-text"
+  class={cn("flex justify-center items-center h-[30vh] w-full")}
+>
+  <FallingText
+    text={m["pages.home.falling_text"]()}
+    highlightWords={["ideas", "share"]}
+    highlightClass="highlighted"
+    trigger="hover"
+    wireframes={false}
+    gravity={0.3}
+    fontSize="2rem"
+    mouseConstraintStiffness={0.9}
+    client:only="react"
+  />
+</section>
+
+<!-- TODO: Blog Preview Section -->
+<!-- Blogs Section -->
+<section
+  id="blogs-preview"
+  aria-label="blogs-preview"
+  class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
+>
+</section>
+
+<!-- TODO: Projects Preview Section -->
+<!-- Projects Section -->
+<section
+  id="projects-preview"
+  aria-label="projects-preview"
+  class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
+>
+</section>
