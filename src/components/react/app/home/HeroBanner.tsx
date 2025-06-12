@@ -1,7 +1,8 @@
+import React from "react";
 import { RotatingText } from "@/components/react/ui/RotatingText";
 import { SplitText } from "@/components/react/ui/SpiltText";
 
-const HeroBanner = () => {
+const HeroBanner = React.memo(() => {
   return (
     <div
       id="hero-page-content"
@@ -45,6 +46,6 @@ const HeroBanner = () => {
       </p>
     </div>
   );
-};
+});
 
 export { HeroBanner };
