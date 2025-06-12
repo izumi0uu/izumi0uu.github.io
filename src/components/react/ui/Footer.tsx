@@ -234,5 +234,4 @@ export const Footer = React.memo(() => {
   );
 });
 
-// 添加组件显示名称
 Footer.displayName = "Footer";

@@ -13,13 +13,13 @@ import { Mail, Github, Twitter, Linkedin } from "lucide-react";
 import heroImage from "@/assets/images/hero-default.png";
 
 import Centered from "@/layouts/Centered.astro";
-import Link from "@/components/Link.astro";
 
 import { RotatingText } from "@/components/react/ui/RotatingText";
 import { SplitText } from "@/components/react/ui/SpiltText";
 import { FallingText } from "@/components/react/ui/FallingText";
-import { Button } from "@/components/react/radix-ui/Button";
+import { Link } from "@/components/react/ui/Link";
 import { Separator } from "@/components/react/radix-ui/Separator";
+
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
     params: { lang },
@@ -108,23 +108,29 @@ const quickLinks = [
           variant="no-underline"
           variant="brutal"
           size="lg"
-          class="justify-center"
+          className="justify-center"
+          client:load
         >
           To See My Blogs
         </Link>
 
         <!-- contact links -->
         <div class="flex flex-wrap gap-2">
-          <Link href={`mailto:${CONFIG_CLIENT.AUTHOR_EMAIL}`} variant="outline" size="sm">
+          <Link
+            href={`mailto:${CONFIG_CLIENT.AUTHOR_EMAIL}`}
+            variant="outline"
+            size="sm"
+            client:idle
+          >
             <Mail className="w-4 h-4" />
           </Link>
-          <Link href={CONFIG_CLIENT.AUTHOR_GITHUB} variant="outline" size="sm">
+          <Link href={CONFIG_CLIENT.AUTHOR_GITHUB} variant="outline" size="sm" client:idle>
             <Github className="w-4 h-4" />
           </Link>
-          <Link href={CONFIG_CLIENT.AUTHOR_TWITTER} variant="outline" size="sm">
+          <Link href={CONFIG_CLIENT.AUTHOR_TWITTER} variant="outline" size="sm" client:idle>
             <Twitter className="w-4 h-4" />
           </Link>
-          <Link href={CONFIG_CLIENT.AUTHOR_LINKEDIN} variant="outline" size="sm">
+          <Link href={CONFIG_CLIENT.AUTHOR_LINKEDIN} variant="outline" size="sm" client:idle>
             <Linkedin className="w-4 h-4" />
           </Link>
         </div>
@@ -165,7 +171,8 @@ const quickLinks = [
               href={link.href}
               variant="outline"
               size="sm"
-              class="w-full flex items-center justify-between"
+              className="w-full flex items-center justify-between"
+              client:visible
             >
               <span class="text-lg font-medium">{link.name}</span>
               <span class="text-xl group-hover:translate-x-1 transition-transform">

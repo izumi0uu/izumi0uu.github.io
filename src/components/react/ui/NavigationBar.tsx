@@ -80,7 +80,6 @@ const NavigationBar = React.memo(() => {
   );
 });
 
-// 设置组件显示名称以便调试
 NavigationBar.displayName = "NavigationBar";
 
 export { NavigationBar };
