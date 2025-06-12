@@ -59,6 +59,7 @@ interface TeamCircleProps {
   team: OptionalTeam;
 }
 
+// 使用React.memo包装组件以减少重渲染
 const TeamCircle: React.FC<TeamCircleProps> = React.memo(({ size, width = 2, team }) => {
   // 预计算路径以减少重新渲染时的计算
   const renderTeamCircle = React.useMemo(() => {

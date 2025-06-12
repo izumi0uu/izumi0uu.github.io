@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSpinDelay } from "spin-delay";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -15,7 +15,8 @@ interface AstroNavigationEvent extends Event {
   sourceElement?: HTMLElement;
 }
 
-const PageLoadingIndicator = () => {
+// 使用React.memo包装组件减少重渲染
+const PageLoadingIndicator = React.memo(() => {
   // isLoading 状态用于跟踪 Astro 是否正在进行页面导航
   const [isLoading, setIsLoading] = useState(false);
   // words 状态用于存储当前轮播的文字列表
@@ -30,23 +31,24 @@ const PageLoadingIndicator = () => {
     minDuration: 1000,
   });
 
+  // 使用useCallback缓存事件处理函数
+  const handlePageLoadStart = useCallback((event: Event) => {
+    // 直接访问事件对象的属性
+    const navEvent = event as AstroNavigationEvent;
+
+    // 提取目标URL
+    const targetUrl = navEvent.to || "";
+
+    const displayPath = targetUrl ? new URL(targetUrl).pathname : "即将跳转...";
+
+    setPendingPath(displayPath);
+    setIsLoading(true);
+  }, []);
+
+  const handlePageLoadEnd = useCallback(() => setIsLoading(false), []);
+
   //  监听 Astro 的页面导航事件
   useEffect(() => {
-    const handlePageLoadStart = (event: Event) => {
-      // 直接访问事件对象的属性
-      const navEvent = event as AstroNavigationEvent;
-
-      // 提取目标URL
-      const targetUrl = navEvent.to || "";
-
-      const displayPath = targetUrl ? new URL(targetUrl).pathname : "即将跳转...";
-
-      setPendingPath(displayPath);
-      setIsLoading(true);
-    };
-
-    const handlePageLoadEnd = () => setIsLoading(false);
-
     // 监听Astro视图过渡事件
     document.addEventListener("astro:before-preparation", handlePageLoadStart);
     document.addEventListener("astro:page-load", handlePageLoadEnd);
@@ -59,8 +61,9 @@ const PageLoadingIndicator = () => {
       document.removeEventListener("astro:page-load", handlePageLoadEnd);
       document.removeEventListener("astro:after-swap", handlePageLoadEnd);
     };
-  }, []);
+  }, [handlePageLoadStart, handlePageLoadEnd]); // 添加依赖项，确保事件处理函数更新时重新绑定
 
+  // 仅在showLoader变化且为true时启动轮播计时器
   useEffect(() => {
     if (!showLoader) return;
 
@@ -72,20 +75,24 @@ const PageLoadingIndicator = () => {
     return () => clearInterval(interval);
   }, [showLoader]);
 
+  // 如果不显示加载器，提前返回null避免不必要的渲染
+  if (!showLoader) return null;
+
   const action = words[0];
 
   return (
-    <NotificationMessage visible={showLoader}>
+    <NotificationMessage visible={true}>
       <div className="flex w-56 items-center">
         <motion.div
           transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
           animate={{ rotate: 360 }}
-          key={`infinite-rotation-${action}`}
+          // 添加唯一key以避免重用导致的动画问题
+          key={`loader-animation-${isLoading ? "active" : "inactive"}`}
         >
           <TeamCircle size={40} team="UNKNOWN" />
         </motion.div>
         <div className="ml-4 inline-grid">
-          <AnimatePresence>
+          <AnimatePresence mode="wait">
             <div className="col-start-1 row-start-1 flex overflow-hidden">
               <motion.span
                 key={action}
@@ -104,6 +111,8 @@ const PageLoadingIndicator = () => {
       </div>
     </NotificationMessage>
   );
-};
+});
+
+PageLoadingIndicator.displayName = "PageLoadingIndicator";
 
 export { PageLoadingIndicator };

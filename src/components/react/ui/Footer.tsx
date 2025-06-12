@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useEffect } from "react";
+import React, { useMemo } from "react";
 import footerImage from "@/assets/images/footer-default.png";
 
 import { Link } from "@/components/react/ui/Link";
@@ -14,12 +14,9 @@ import { ROUTES } from "@/constants/routes";
 const { SITE_URL, AUTHOR_LINKEDIN, AUTHOR_GITHUB, AUTHOR_EMAIL, REPO_URL, AUTHOR_NAME } =
   CONFIG_CLIENT;
 
-export const Footer = () => {
+// 使用React.memo包装组件以减少重渲染
+export const Footer = React.memo(() => {
   const domain = SITE_URL.replace(/^https?:\/\//, "");
-
-  const footerRef = useRef<HTMLElement | null>(null);
-  const copyrightSectionRef = useRef<HTMLElement | null>(null);
-  const copyrightTextRef = useRef<HTMLParagraphElement | null>(null);
 
   const localizedTexts = useMemo(() => {
     return {
@@ -35,31 +32,6 @@ export const Footer = () => {
       }),
       domainLabel: m["components.footer.meta.domain_label"](),
       builtWith: m["components.footer.meta.built_with"](),
-    };
-  }, []);
-
-  const cleanupElement = (element: HTMLElement | null) => {
-    if (!element) return;
-
-    const el = element as any;
-    if (el.__reactProps$) el.__reactProps$ = undefined;
-    if (el.__reactFiber$) el.__reactFiber$ = undefined;
-    if (el._reactEvents) el._reactEvents = undefined;
-
-    if (el.style && typeof el.style.cssText === "string") {
-      el.style.cssText = "";
-    }
-  };
-
-  useEffect(() => {
-    return () => {
-      cleanupElement(footerRef.current);
-      cleanupElement(copyrightSectionRef.current);
-      cleanupElement(copyrightTextRef.current);
-
-      footerRef.current = null;
-      copyrightSectionRef.current = null;
-      copyrightTextRef.current = null;
     };
   }, []);
 
@@ -105,7 +77,6 @@ export const Footer = () => {
 
   return (
     <footer
-      ref={footerRef}
       className={cn("border-t border-outline bg-surface-container", "mt-auto px-4 py-12")}
       role="contentinfo"
       aria-label="Footer"
@@ -237,19 +208,15 @@ export const Footer = () => {
           </nav>
         </div>
 
-        {/* Copyright Section - 添加ref以跟踪并打破循环引用 */}
+        {/* Copyright Section - 移除多余的ref */}
         <section
-          ref={copyrightSectionRef}
           className={cn(
             "mt-12 border-t border-outline-variant pt-8",
             "flex flex-col items-center justify-between gap-4 md:flex-row"
           )}
           aria-label="copyright"
         >
-          <p
-            ref={copyrightTextRef}
-            className={cn("text-xs text-content lg:text-sm", "text-center md:text-left")}
-          >
+          <p className={cn("text-xs text-content lg:text-sm", "text-center md:text-left")}>
             {localizedTexts.copyright}
           </p>
 
@@ -265,4 +232,7 @@ export const Footer = () => {
       </div>
     </footer>
   );
-};
+});
+
+// 添加组件显示名称
+Footer.displayName = "Footer";
