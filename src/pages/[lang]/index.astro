@@ -64,8 +64,10 @@ const socialLinks = {
       aria-label="hero-page"
       class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4 min-h-[60vh] items-center"
     >
-      <!-- <HeroBanner blogPath={blogPath} client:load /> -->
-      <HeroContactLinks blogPath={blogPath} socialLinks={socialLinks} client:load />
+      <div id="hero-page-content" class="flex flex-col gap-4">
+        <HeroBanner blogPath={blogPath} client:only="react" />
+        <HeroContactLinks blogPath={blogPath} socialLinks={socialLinks} client:load />
+      </div>
       <div
         id="hero-page-image"
         aria-label="hero-page-image"
