@@ -1,5 +1,5 @@
 "use client";
-import React, { forwardRef, useEffect, useRef } from "react";
+import React, { forwardRef } from "react";
 import { cn } from "@/utils/ui/styles";
 
 interface MobileNavIconProps {
@@ -21,42 +21,7 @@ interface MobileNavIconProps {
  * - 响应式设计
  */
 const MobileNavIcon = forwardRef<HTMLButtonElement, MobileNavIconProps>(
-  ({ className, isActive, style, onClick, variant = "primary", ...rest }, ref) => {
-    // 创建内部引用来跟踪按钮元素
-    const buttonRef = useRef<HTMLButtonElement | null>(null);
-
-    // 组合外部ref和内部ref
-    const handleRef = (element: HTMLButtonElement | null) => {
-      buttonRef.current = element;
-
-      // 转发ref
-      if (typeof ref === "function") {
-        ref(element);
-      } else if (ref) {
-        ref.current = element;
-      }
-    };
-
-    // 在组件卸载时清理引用
-    useEffect(() => {
-      return () => {
-        if (buttonRef.current) {
-          const element = buttonRef.current as any;
-
-          // 清理React内部属性
-          if (element.__reactProps$) {
-            element.__reactProps$ = undefined;
-          }
-          if (element.__reactFiber$) {
-            element.__reactFiber$ = undefined;
-          }
-
-          // 清理引用
-          buttonRef.current = null;
-        }
-      };
-    }, []);
-
+  ({ className, isActive, style, onClick, variant = "primary", ...rest }) => {
     // 根据变体选择颜色主题
     const variantStyles = {
       primary: {
@@ -78,7 +43,6 @@ const MobileNavIcon = forwardRef<HTMLButtonElement, MobileNavIconProps>(
 
     return (
       <button
-        ref={handleRef}
         className={cn(
           // 基础布局和交互
           "group relative flex h-10 min-h-10 w-10 min-w-10 items-center justify-center",
@@ -154,29 +118,6 @@ const MobileNavigationBar: React.FC<MobileNavigationBarProps> = ({
   className,
   position = "top",
 }) => {
-  // 使用ref跟踪导航栏元素
-  const navRef = useRef<HTMLElement | null>(null);
-
-  // 在组件卸载时清理引用
-  useEffect(() => {
-    return () => {
-      if (navRef.current) {
-        const element = navRef.current as any;
-
-        // 清理React内部属性
-        if (element.__reactProps$) {
-          element.__reactProps$ = undefined;
-        }
-        if (element.__reactFiber$) {
-          element.__reactFiber$ = undefined;
-        }
-
-        // 清理引用
-        navRef.current = null;
-      }
-    };
-  }, []);
-
   const positionStyles = {
     top: "top-0 border-b border-outline/10",
     bottom: "bottom-0 border-t border-outline/10",
@@ -184,7 +125,6 @@ const MobileNavigationBar: React.FC<MobileNavigationBarProps> = ({
 
   return (
     <nav
-      ref={navRef}
       className={cn(
         // 基础定位和布局
         "fixed right-0 left-0 z-50",
@@ -229,34 +169,10 @@ const MobileNavMenuItem: React.FC<MobileNavMenuItemProps> = ({
   isActive = false,
   className,
 }) => {
-  // 使用ref跟踪菜单项元素
-  const itemRef = useRef<HTMLAnchorElement | HTMLButtonElement | null>(null);
-
-  // 在组件卸载时清理引用
-  useEffect(() => {
-    return () => {
-      if (itemRef.current) {
-        const element = itemRef.current as any;
-
-        // 清理React内部属性
-        if (element.__reactProps$) {
-          element.__reactProps$ = undefined;
-        }
-        if (element.__reactFiber$) {
-          element.__reactFiber$ = undefined;
-        }
-
-        // 清理引用
-        itemRef.current = null;
-      }
-    };
-  }, []);
-
   const Component = href ? "a" : "button";
 
   return (
     <Component
-      ref={itemRef as any}
       href={href}
       onClick={onClick}
       className={cn(
@@ -293,32 +209,8 @@ interface MobileNavMenuProps {
 }
 
 const MobileNavMenu: React.FC<MobileNavMenuProps> = ({ isOpen, children, className }) => {
-  // 使用ref跟踪菜单元素
-  const menuRef = useRef<HTMLDivElement | null>(null);
-
-  // 在组件卸载时清理引用
-  useEffect(() => {
-    return () => {
-      if (menuRef.current) {
-        const element = menuRef.current as any;
-
-        // 清理React内部属性
-        if (element.__reactProps$) {
-          element.__reactProps$ = undefined;
-        }
-        if (element.__reactFiber$) {
-          element.__reactFiber$ = undefined;
-        }
-
-        // 清理引用
-        menuRef.current = null;
-      }
-    };
-  }, []);
-
   return (
     <div
-      ref={menuRef}
       className={cn(
         // 基础布局
         "fixed top-16 right-0 left-0 z-40",
