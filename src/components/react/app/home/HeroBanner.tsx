@@ -10,8 +10,8 @@ interface HeroBannerProps {
 const HeroBanner = React.memo(({ blogPath }: HeroBannerProps) => {
   return (
     <div
-      id="hero-page-content"
-      aria-label="hero-page-content"
+      id="hero-page-banner"
+      aria-label="hero-page-banner"
       className="mx-auto flex max-w-2xl flex-col justify-center gap-6 lg:mx-0"
     >
       <div className="flex flex-col items-baseline">

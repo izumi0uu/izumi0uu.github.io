@@ -20,7 +20,7 @@ const HeroContactLinks = React.memo(({ blogPath, socialLinks }: HeroContactLinks
   return (
     <>
       {/* Social media links */}
-      <div className="flex flex-wrap gap-2">
+      <div id="hero-page-contact-links" className="flex flex-wrap gap-2">
         <Link href={`mailto:${socialLinks.email}`} variant="outline" size="sm">
           <Mail className="h-4 w-4" />
         </Link>
