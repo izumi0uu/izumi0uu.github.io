@@ -3,7 +3,6 @@ import { Link } from "@/components/react/ui/Link";
 import { Mail, Github, Twitter, Linkedin } from "lucide-react";
 
 interface HeroContactLinksProps {
-  blogPath: string;
   socialLinks: {
     email: string;
     github: string;
@@ -16,7 +15,7 @@ interface HeroContactLinksProps {
  * HeroLinks组件 - 封装首页中的主要按钮和社交媒体链接
  * 将多个链接组合为一个组件，减少hydration数量
  */
-const HeroContactLinks = React.memo(({ blogPath, socialLinks }: HeroContactLinksProps) => {
+const HeroContactLinks = React.memo(({ socialLinks }: HeroContactLinksProps) => {
   return (
     <>
       {/* Social media links */}
