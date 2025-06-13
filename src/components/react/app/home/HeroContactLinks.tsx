@@ -38,6 +38,6 @@ const HeroContactLinks = React.memo(({ blogPath, socialLinks }: HeroContactLinks
   );
 });
 
-HeroLinks.displayName = "HeroLinks";
+HeroContactLinks.displayName = "HeroContactLinks";
 
 export { HeroContactLinks };

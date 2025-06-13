@@ -17,7 +17,7 @@ import Centered from "@/layouts/Centered.astro";
 import { FallingText } from "@/components/react/ui/FallingText";
 import { Link } from "@/components/react/ui/Link";
 import { Separator } from "@/components/react/radix-ui/Separator";
-import { HeroLinks } from "@/components/react/app/home/HeroContactLinks";
+import { HeroContactLinks } from "@/components/react/app/home/HeroContactLinks";
 import { HeroBanner } from "@/components/react/app/home/HeroBanner";
 
 export async function getStaticPaths() {
@@ -64,8 +64,8 @@ const socialLinks = {
       aria-label="hero-page"
       class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4 min-h-[60vh] items-center"
     >
-      <HeroBanner client:only="react" />
-      <HeroLinks blogPath={blogPath} socialLinks={socialLinks} client:only="react" />
+      <!-- <HeroBanner blogPath={blogPath} client:load /> -->
+      <HeroContactLinks blogPath={blogPath} socialLinks={socialLinks} client:load />
       <div
         id="hero-page-image"
         aria-label="hero-page-image"

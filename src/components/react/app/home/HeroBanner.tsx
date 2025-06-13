@@ -1,8 +1,13 @@
 import React from "react";
 import { RotatingText } from "@/components/react/ui/RotatingText";
 import { SplitText } from "@/components/react/ui/SpiltText";
+import { Link } from "@/components/react/ui/Link";
 
-const HeroBanner = React.memo(() => {
+interface HeroBannerProps {
+  blogPath: string;
+}
+
+const HeroBanner = React.memo(({ blogPath }: HeroBannerProps) => {
   return (
     <div
       id="hero-page-content"
