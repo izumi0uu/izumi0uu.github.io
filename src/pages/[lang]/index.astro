@@ -17,7 +17,7 @@ import Centered from "@/layouts/Centered.astro";
 import { FallingText } from "@/components/react/ui/FallingText";
 import { Link } from "@/components/react/ui/Link";
 import { Separator } from "@/components/react/radix-ui/Separator";
-import { HeroLinks } from "@/components/react/app/home/HeroLinks";
+import { HeroLinks } from "@/components/react/app/home/HeroContactLinks";
 import { HeroBanner } from "@/components/react/app/home/HeroBanner";
 
 export async function getStaticPaths() {
@@ -66,89 +66,95 @@ const socialLinks = {
     >
       <HeroBanner client:only="react" />
       <HeroLinks blogPath={blogPath} socialLinks={socialLinks} client:only="react" />
-    </div>
-    <div
-      id="hero-page-image"
-      aria-label="hero-page-image"
-      class="hidden lg:flex items-center justify-center w-full h-full max-w-md max-h-[500px] mx-auto"
-    >
-      <Image
-        src={heroImage}
-        alt="Hero page illustration"
-        width={400}
-        height={500}
-        class="w-full h-auto object-contain rounded-lg shadow-lg"
-        loading="eager"
-        decoding="async"
-      />
+      <div
+        id="hero-page-image"
+        aria-label="hero-page-image"
+        class="hidden lg:flex items-center justify-center w-full h-full max-w-md max-h-[500px] mx-auto"
+      >
+        <Image
+          src={heroImage}
+          alt="Hero page illustration"
+          width={400}
+          height={500}
+          class="w-full h-auto object-contain rounded-lg shadow-lg"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
     </div>
   </section>
+
+  <!-- Quick Links Section -->
+  <section
+    id="quick-links"
+    aria-label="quick-links"
+    class={cn("flex-col-layout mode-theme-switch ")}
+  >
+    <div class="max-w-6xl w-full mx-auto">
+      <!-- Section Title -->
+      <h2 class="text-2xl md:text-3xl font-bold text-headings mb-8">Quick links</h2>
+
+      <!-- Links Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
+        {
+          quickLinks.map((link, index) => (
+            <Link
+              href={link.href}
+              variant="outline"
+              size="sm"
+              className="w-full flex items-center justify-between"
+              client:only="react"
+            >
+              <span class="text-lg font-medium">{link.name}</span>
+              <span class="text-xl group-hover:translate-x-1 transition-transform">
+                {link.icon}
+              </span>
+            </Link>
+          ))
+        }
+      </div>
+
+      <!-- Optional Separator -->
+      <div class="mx-auto">
+        <Separator className="bg-outline" client:only="react" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Falling Text Section -->
+  <section
+    id="falling-text"
+    aria-label="falling-text"
+    class={cn("flex justify-center items-center h-[30vh] w-full")}
+  >
+    <FallingText
+      text={m["pages.home.falling_text"]()}
+      highlightWords={["ideas", "share"]}
+      highlightClass="highlighted"
+      trigger="hover"
+      wireframes={false}
+      gravity={0.3}
+      fontSize="2rem"
+      mouseConstraintStiffness={0.9}
+      client:only="react"
+    />
+  </section>
+
+  <!-- TODO: Blog Preview Section -->
+  <!-- Blogs Section -->
+  <section
+    id="blogs-preview"
+    aria-label="blogs-preview"
+    class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
+  >
+  </section>
+
+  <!-- TODO: Projects Preview Section -->
+  <!-- Projects Section -->
+  <section
+    id="projects-preview"
+    aria-label="projects-preview"
+    class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
+  >
+  </section>
 </Centered>
-
-<!-- Quick Links Section -->
-<section id="quick-links" aria-label="quick-links" class={cn("flex-col-layout mode-theme-switch ")}>
-  <div class="max-w-6xl w-full mx-auto">
-    <!-- Section Title -->
-    <h2 class="text-2xl md:text-3xl font-bold text-headings mb-8">Quick links</h2>
-
-    <!-- Links Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
-      {
-        quickLinks.map((link, index) => (
-          <Link
-            href={link.href}
-            variant="outline"
-            size="sm"
-            className="w-full flex items-center justify-between"
-            client:only="react"
-          >
-            <span class="text-lg font-medium">{link.name}</span>
-            <span class="text-xl group-hover:translate-x-1 transition-transform">{link.icon}</span>
-          </Link>
-        ))
-      }
-    </div>
-
-    <!-- Optional Separator -->
-    <div class="mx-auto">
-      <Separator className="bg-outline" client:only="react" />
-    </div>
-  </div>
-</section>
-
-<!-- Falling Text Section -->
-<section
-  id="falling-text"
-  aria-label="falling-text"
-  class={cn("flex justify-center items-center h-[30vh] w-full")}
->
-  <FallingText
-    text={m["pages.home.falling_text"]()}
-    highlightWords={["ideas", "share"]}
-    highlightClass="highlighted"
-    trigger="hover"
-    wireframes={false}
-    gravity={0.3}
-    fontSize="2rem"
-    mouseConstraintStiffness={0.9}
-    client:only="react"
-  />
-</section>
-
-<!-- TODO: Blog Preview Section -->
-<!-- Blogs Section -->
-<section
-  id="blogs-preview"
-  aria-label="blogs-preview"
-  class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
->
-</section>
-
-<!-- TODO: Projects Preview Section -->
-<!-- Projects Section -->
-<section
-  id="projects-preview"
-  aria-label="projects-preview"
-  class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
->
-</section>

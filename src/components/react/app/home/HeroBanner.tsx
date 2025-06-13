@@ -44,6 +44,9 @@ const HeroBanner = React.memo(() => {
         Happy to see you here! In this place, you can find some of interesting ideas and projects.
         Enjoy your time!
       </p>
+      <Link href={blogPath} variant="brutal" size="lg" className="justify-center">
+        To See My Blogs
+      </Link>
     </div>
   );
 });

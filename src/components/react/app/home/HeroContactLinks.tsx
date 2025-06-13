@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "@/components/react/ui/Link";
 import { Mail, Github, Twitter, Linkedin } from "lucide-react";
 
-interface HeroLinksProps {
+interface HeroContactLinksProps {
   blogPath: string;
   socialLinks: {
     email: string;
@@ -16,14 +16,9 @@ interface HeroLinksProps {
  * HeroLinks组件 - 封装首页中的主要按钮和社交媒体链接
  * 将多个链接组合为一个组件，减少hydration数量
  */
-const HeroLinks = React.memo(({ blogPath, socialLinks }: HeroLinksProps) => {
+const HeroContactLinks = React.memo(({ blogPath, socialLinks }: HeroContactLinksProps) => {
   return (
     <>
-      {/* Main action button */}
-      <Link href={blogPath} variant="brutal" size="lg" className="justify-center">
-        To See My Blogs
-      </Link>
-
       {/* Social media links */}
       <div className="flex flex-wrap gap-2">
         <Link href={`mailto:${socialLinks.email}`} variant="outline" size="sm">
@@ -45,4 +40,4 @@ const HeroLinks = React.memo(({ blogPath, socialLinks }: HeroLinksProps) => {
 
 HeroLinks.displayName = "HeroLinks";
 
-export { HeroLinks };
+export { HeroContactLinks };
