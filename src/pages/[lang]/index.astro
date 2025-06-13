@@ -57,12 +57,12 @@ const socialLinks = {
   <!-- Hero Page Section -->
   <section
     id="hero-page-section"
-    aria-label="hero-page"
+    aria-label="hero-page-section"
     class="flex-col-layout mode-theme-switch bg-surface-container rounded-sm"
   >
     <div
-      id="hero-page"
-      aria-label="hero-page"
+      id="hero-page-wrapper"
+      aria-label="hero-page-wrapper"
       class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4 min-h-[60vh] items-center"
     >
       <div id="hero-page-content" class="flex flex-col gap-4">
@@ -96,7 +96,7 @@ const socialLinks = {
     aria-label="falling-text"
     class={cn("flex justify-center items-center h-[30vh] w-full")}
   >
-    <FallingText
+    <!-- <FallingText
       text={m["pages.home.falling_text"]()}
       highlightWords={["ideas", "share"]}
       highlightClass="highlighted"
@@ -106,7 +106,7 @@ const socialLinks = {
       fontSize="2rem"
       mouseConstraintStiffness={0.9}
       client:only="react"
-    />
+    /> -->
   </section>
 
   <!-- TODO: Blog Preview Section -->
