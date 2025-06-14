@@ -21,6 +21,7 @@ const lang = Astro.currentLocale;
 
 <!doctype html>
 <html lang={lang}>
+  <!-- TODO: LITTLE MEMORY LEAK -->
   <BaseHead {metadata} />
   <body class={cn("relative flex flex-col min-h-screen min-w-80 bg-base mode-theme-switch")}>
     <Header />
