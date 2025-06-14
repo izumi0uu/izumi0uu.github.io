@@ -4,7 +4,6 @@ import footerImage from "@/assets/images/footer-default.png";
 import { Link } from "@/components/react/ui/Link";
 import { Logo } from "@/components/react/ui/Logo";
 
-import { cn } from "@/utils/ui/styles";
 import * as m from "@/paraglide/messages";
 import { Github, Linkedin, Mail, Globe, FileText, User, Briefcase, Rss } from "lucide-react";
 
@@ -77,7 +76,7 @@ export const Footer = React.memo(() => {
 
   return (
     <footer
-      className={cn("border-t border-outline bg-surface-container", "mt-auto px-4 py-12")}
+      className="mt-auto border-t border-outline bg-surface-container px-4 py-12"
       role="contentinfo"
       aria-label="Footer"
     >
@@ -91,7 +90,7 @@ export const Footer = React.memo(() => {
               <Link
                 href="/"
                 variant="heading"
-                className={cn("inline-flex items-center gap-3")}
+                className="inline-flex items-center gap-3"
                 aria-label={localizedTexts.backToTop}
               >
                 <Logo />
@@ -99,7 +98,7 @@ export const Footer = React.memo(() => {
               </Link>
 
               {/* Brand Description */}
-              <p className={cn("max-w-md leading-relaxed text-content", "text-sm")}>
+              <p className="max-w-md text-sm leading-relaxed text-content">
                 {localizedTexts.brandDescription}
               </p>
 
@@ -121,14 +120,15 @@ export const Footer = React.memo(() => {
           </section>
 
           {/* Navigation Section */}
-          <nav className="md:col-span-7 lg:col-span-8" aria-label="footer-navigation">
+          <nav
+            id="footer-navigation"
+            aria-label="footer-navigation"
+            className="md:col-span-7 lg:col-span-8"
+          >
             <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
               {/* Resources Links */}
               <section aria-labelledby="resources-heading">
-                <h3
-                  id="resources-heading"
-                  className={cn("mb-4 font-semibold text-content", "text-sm")}
-                >
+                <h3 id="resources-heading" className="mb-4 text-sm font-semibold text-content">
                   {localizedTexts.resources}
                 </h3>
                 <ul className="space-y-3" role="list">
@@ -148,7 +148,7 @@ export const Footer = React.memo(() => {
 
               {/* Quick Info Links */}
               <section aria-labelledby="info-heading">
-                <h3 id="info-heading" className={cn("mb-4 font-semibold text-content", "text-sm")}>
+                <h3 id="info-heading" className="mb-4 text-sm font-semibold text-content">
                   {localizedTexts.quickInfo}
                 </h3>
                 <ul className="space-y-3" role="list">
@@ -168,10 +168,7 @@ export const Footer = React.memo(() => {
 
               {/* Social Links */}
               <section aria-labelledby="social-heading">
-                <h3
-                  id="social-heading"
-                  className={cn("mb-4 font-semibold text-content", "text-sm")}
-                >
+                <h3 id="social-heading" className="mb-4 text-sm font-semibold text-content">
                   {localizedTexts.social}
                 </h3>
                 <ul className="flex flex-wrap gap-3 lg:flex-col lg:gap-0 lg:space-y-3" role="list">
@@ -208,20 +205,17 @@ export const Footer = React.memo(() => {
           </nav>
         </div>
 
-        {/* Copyright Section - 移除多余的ref */}
+        {/* Copyright Section */}
         <section
-          className={cn(
-            "mt-12 border-t border-outline-variant pt-8",
-            "flex flex-col items-center justify-between gap-4 md:flex-row"
-          )}
+          className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-outline-variant pt-8 md:flex-row"
           aria-label="copyright"
         >
-          <p className={cn("text-xs text-content lg:text-sm", "text-center md:text-left")}>
+          <p className="text-center text-xs text-content md:text-left lg:text-sm">
             {localizedTexts.copyright}
           </p>
 
           {/* Additional Meta Info */}
-          <div className={cn("text-xs text-content", "flex items-center gap-4")}>
+          <div className="flex items-center gap-4 text-xs text-content">
             <span>
               {localizedTexts.domainLabel}: {domain}
             </span>

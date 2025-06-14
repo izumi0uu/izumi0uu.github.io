@@ -70,11 +70,12 @@ const NavigationBar = React.memo(() => {
       <div className="flex flex-1 items-center justify-between md:justify-end">
         <SearchBox />
         <ModeToggleButton />
-        <ThemePopoverList />
+        {/* <ThemePopoverList /> */}
         <I18nToggleButton className="mt-1 ml-2" />
-        <MobileNavigationBar position="top">
+        // FIX: MEMO LEAK
+        {/* <MobileNavigationBar position="top">
           <MobileNavIcon isActive={isMenuOpen} onClick={toggleMenu} />
-        </MobileNavigationBar>
+        </MobileNavigationBar> */}
       </div>
     </div>
   );
