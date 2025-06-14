@@ -49,6 +49,16 @@ import { DEFAULT_LOCALE, SUPPORTED_LOCALES, PREFIX_DEFAULT_LOCALE } from "./src/
  * @see https://astro.build/config
  */
 export default defineConfig({
+  server: {
+    port: 4321,
+    // develop mode, disable cache
+    headers: {
+      "Cache-Control": "no-store, max-age=0, must-revalidate",
+      Pragma: "no-cache",
+      Expires: "0",
+    },
+  },
+
   /**
    * @property {string} site - 网站的最终部署 URL。
    * Astro 会用这个 URL 来生成站点地图、规范链接 (canonical URLs) 和其他绝对链接。
@@ -57,7 +67,6 @@ export default defineConfig({
   trailingSlash: "ignore",
   env: astroEnvSchema,
   compressHTML: true,
-  server: { port: 4321 },
   devToolbar: { enabled: false },
 
   // 启用视图过渡动画
@@ -121,6 +130,13 @@ export default defineConfig({
 
     server: {
       allowedHosts: ["localhost", "izumi0uu.com"],
+      // develop mode, hot module replacement
+      hmr: true,
+    },
+
+    // develop mode
+    optimizeDeps: {
+      force: true,
     },
 
     plugins: [

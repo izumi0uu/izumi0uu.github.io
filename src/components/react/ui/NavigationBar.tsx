@@ -72,10 +72,9 @@ const NavigationBar = React.memo(() => {
         <ModeToggleButton />
         <ThemePopoverList />
         <I18nToggleButton className="mt-1 ml-2" />
-        // FIX: MEMO LEAK
-        {/* <MobileNavigationBar position="top">
+        <MobileNavigationBar position="top">
           <MobileNavIcon isActive={isMenuOpen} onClick={toggleMenu} />
-        </MobileNavigationBar> */}
+        </MobileNavigationBar>
       </div>
     </div>
   );
