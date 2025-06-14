@@ -114,5 +114,4 @@ const PageLoadingIndicator = React.memo(() => {
 });
 
 PageLoadingIndicator.displayName = "PageLoadingIndicator";
-
 export { PageLoadingIndicator };
