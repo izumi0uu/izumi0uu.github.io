@@ -1,0 +1,15 @@
+---
+import { SUPPORTED_LOCALES } from "@/config/i18n";
+import DebugLayout from "@/layouts/DebugLayout.astro";
+
+export async function getStaticPaths() {
+  return SUPPORTED_LOCALES.map((lang) => ({
+    params: { lang },
+  }));
+}
+---
+
+<DebugLayout>
+  <h1>This is the Debug Page</h1>
+  <a href="/en/debug">Click to navigate to Debug Page</a>
+</DebugLayout>
