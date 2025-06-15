@@ -9,17 +9,16 @@ import { getPathWithLocale } from "@/utils/routing/paths";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
 import { CONFIG_CLIENT } from "@/config/client";
 import { ROUTES } from "@/constants/routes";
-import { Mail, Github, Twitter, Linkedin } from "lucide-react";
 import heroImage from "@/assets/images/hero-default.png";
 
 import Centered from "@/layouts/Centered.astro";
 
 import { FallingText } from "@/components/react/ui/FallingText";
-import { Link } from "@/components/react/ui/Link";
-import { Separator } from "@/components/react/radix-ui/Separator";
 import { HeroContactLinks } from "@/components/react/app/home/HeroContactLinks";
 import { HeroBanner } from "@/components/react/app/home/HeroBanner";
 import { QuickLinksSection } from "@/components/react/app/home/QuickLinksSection";
+import { Card3d } from "@/components/react/ui/Card3d";
+import { FadeUpAnimation } from "@/components/react/ui/FadeUpAnimation";
 
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
@@ -110,13 +109,15 @@ const socialLinks = {
     />
   </section>
 
-  <!-- TODO: Blog Preview Section -->
-  <!-- Blogs Section -->
+  <!-- Tech Stacks Preview Section -->
   <section
-    id="blogs-preview"
-    aria-label="blogs-preview"
-    class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
+    id="tech-stacks-preview"
+    aria-label="tech-stacks-preview"
+    class={cn("flex-col-layout mode-theme-switch ")}
   >
+    <FadeUpAnimation title="My Tech Stacks" client:visible>
+      <div>123</div>
+    </FadeUpAnimation>
   </section>
 
   <!-- TODO: Projects Preview Section -->
