@@ -2,6 +2,7 @@
 import Centered from "./Centered.astro";
 import Pagination from "@/components/Pagination.astro";
 import { Card3d } from "@/components/react/ui/Card3d";
+import { CardBlog3d } from "@/components/react/ui/CardBlog3d";
 
 import { ROUTES } from "@/constants/routes";
 import { getPathWithLocale } from "@/utils/routing/paths";
@@ -22,7 +23,7 @@ console.log("paginationProps", paginationProps);
 <Centered {metadata}>
   <article class="flex flex-col max-w-4xl mx-auto">
     <slot name="heading">
-      <div>
+      <div class="w-full flex justify-center">
         <Card3d heading={title.toUpperCase()} client:visible />
       </div>
       {description && <p class="b-p mb-5">{description}</p>}

@@ -45,9 +45,8 @@ const useMediaQuery = (query: string): boolean => {
 };
 
 // Types
-interface Props {
-  heading?: string;
-  text?: string;
+interface CardBlog3dProps {
+  title: string; // 只需要标题，不需要描述文本
   variant?: "Default" | "Hover";
   className?: string;
   style?: React.CSSProperties;
@@ -55,7 +54,7 @@ interface Props {
   height?: number;
   href?: string;
   onClick?: () => void;
-  hideContentBreakpoint?: string; // 新增：隐藏内容的断点
+  hideContentBreakpoint?: string; // 隐藏内容的断点，默认为 '(max-width: 640px)'
 }
 
 // Transitions
@@ -70,6 +69,12 @@ const transition2 = {
   delay: 0,
   duration: 0.4,
   ease: [0.44, 0, 0.56, 1] as [number, number, number, number],
+  type: "tween" as const,
+};
+
+const titleTransition = {
+  duration: 0.3,
+  ease: [0.25, 0.46, 0.45, 0.94],
   type: "tween" as const,
 };
 
@@ -91,9 +96,8 @@ const Transition: React.FC<{ value: any; children: React.ReactNode }> = ({ value
 
 const Variants = motion.create(React.Fragment);
 
-const Card3d: React.FC<Props> = ({
-  heading = "Library",
-  text = "A comprehensive collection of digital books and resources for learning and research. ",
+const CardBlog3d: React.FC<CardBlog3dProps> = ({
+  title,
   variant = "Default",
   className = "",
   style = {},
@@ -101,7 +105,7 @@ const Card3d: React.FC<Props> = ({
   height = 150,
   href,
   onClick,
-  hideContentBreakpoint = "(max-width: 640px)", // 默认断点
+  hideContentBreakpoint = "(max-width: 640px)",
   ...restProps
 }) => {
   const [currentVariant, setCurrentVariant] = useState<"Default" | "Hover">(variant);
@@ -137,22 +141,6 @@ const Card3d: React.FC<Props> = ({
     zEwHlJ7zp: {
       "--border-color": "var(--color-primary)",
     },
-  };
-
-  const titleVariants = {
-    default: {
-      "--fill-width": "0%",
-    },
-    hovered: {
-      "--fill-width": "100%",
-    },
-  };
-
-  // Add this new transition for the title
-  const titleTransition = {
-    duration: 0.3,
-    ease: [0.25, 0.46, 0.45, 0.94], // Smoother easing curve
-    type: "tween" as const,
   };
 
   const sliceCubeVariants = {
@@ -199,7 +187,7 @@ const Card3d: React.FC<Props> = ({
                 display: "flex",
                 flexDirection: "row",
                 flexWrap: "nowrap",
-                gap: shouldHideContent ? "0px" : "40px", // 根据媒体查询调整间距
+                gap: shouldHideContent ? "0px" : "40px",
                 height: "min-content",
                 justifyContent: "center",
                 overflow: "visible",
@@ -252,7 +240,7 @@ const Card3d: React.FC<Props> = ({
                     position: "relative",
                     width: "348px",
                     zIndex: 2,
-                    scale: 0.3, // Increased from 0.2
+                    scale: 0.3,
                   }}
                 >
                   {/* Slice Cube */}
@@ -461,7 +449,7 @@ const Card3d: React.FC<Props> = ({
                       </motion.div>
                     </Transition>
 
-                    {/* Slice 2 - Similar structure */}
+                    {/* Slice 2 */}
                     <Transition value={transition2}>
                       <motion.div
                         className="slice-2"
@@ -483,9 +471,9 @@ const Card3d: React.FC<Props> = ({
                           width: "min-content",
                         }}
                       >
-                        {/* Front */}
+                        {/* 简化了Slice 2的内部结构，保留了相同的样式 */}
                         <motion.div
-                          className="slice-1-front"
+                          className="slice-2-front"
                           data-framer-name="Front"
                           style={{
                             alignContent: "center",
@@ -508,134 +496,10 @@ const Card3d: React.FC<Props> = ({
                           variants={cubeSliceVariants}
                           animate={isHoverVariant ? "zEwHlJ7zp" : "default"}
                         />
-                        {/* Back */}
-                        <motion.div
-                          className="slice-1-back"
-                          data-framer-name="Back"
-                          style={{
-                            alignContent: "center",
-                            alignItems: "center",
-                            bottom: "0px",
-                            display: "flex",
-                            flex: "none",
-                            flexDirection: "column",
-                            flexWrap: "nowrap",
-                            gap: "10px",
-                            justifyContent: "center",
-                            overflow: "hidden",
-                            padding: "0px",
-                            position: "absolute",
-                            right: "0px",
-                            top: "0px",
-                            width: "240px",
-                            zIndex: 1,
-                            border: "4px solid var(--color-outline)",
-                            backgroundColor: "var(--color-surface)",
-                            rotateY: 180,
-                          }}
-                          variants={cubeSliceVariants}
-                          animate={isHoverVariant ? "zEwHlJ7zp" : "default"}
-                        />
-                        {/* Right */}
-                        <motion.div
-                          className="slice-1-right"
-                          data-framer-name="Right"
-                          style={{
-                            alignContent: "center",
-                            alignItems: "center",
-                            bottom: "0px",
-                            display: "flex",
-                            flex: "none",
-                            flexDirection: "column",
-                            flexWrap: "nowrap",
-                            gap: "10px",
-                            justifyContent: "center",
-                            left: "120px",
-                            overflow: "hidden",
-                            padding: "0px",
-                            position: "absolute",
-                            top: "0px",
-                            width: "240px",
-                            zIndex: 1,
-                            border: "4px solid var(--color-outline)",
-                            backgroundColor: "var(--color-surface)",
-                            rotateY: 90,
-                          }}
-                          variants={cubeSliceVariants}
-                          animate={isHoverVariant ? "zEwHlJ7zp" : "default"}
-                        />
-                        {/* Left */}
-                        <motion.div
-                          className="slice-1-left"
-                          data-framer-name="Left"
-                          style={{
-                            alignContent: "center",
-                            alignItems: "center",
-                            bottom: "0px",
-                            display: "flex",
-                            flex: "none",
-                            flexDirection: "column",
-                            flexWrap: "nowrap",
-                            gap: "10px",
-                            justifyContent: "center",
-                            overflow: "hidden",
-                            padding: "0px",
-                            position: "absolute",
-                            right: "120px",
-                            top: "0px",
-                            width: "240px",
-                            zIndex: 1,
-                            border: "4px solid var(--color-outline)",
-                            backgroundColor: "var(--color-surface)",
-                            rotateY: -90,
-                          }}
-                          variants={cubeSliceVariants}
-                          animate={isHoverVariant ? "zEwHlJ7zp" : "default"}
-                        />
-                        {/* Top */}
-                        <motion.div
-                          className="slice-1-top"
-                          data-framer-name="Top"
-                          style={{
-                            flex: "none",
-                            height: "240px",
-                            left: "0px",
-                            overflow: "hidden",
-                            position: "absolute",
-                            right: "0px",
-                            top: "-120px",
-                            zIndex: 1,
-                            border: "4px solid var(--color-outline)",
-                            backgroundColor: "var(--color-surface)",
-                            rotateX: 90,
-                          }}
-                          variants={cubeSliceVariants}
-                          animate={isHoverVariant ? "zEwHlJ7zp" : "default"}
-                        />
-                        {/* Bottom */}
-                        <motion.div
-                          className="slice-1-bottom"
-                          data-framer-name="Bottom"
-                          style={{
-                            flex: "none",
-                            height: "240px",
-                            left: "0px",
-                            overflow: "hidden",
-                            position: "absolute",
-                            right: "0px",
-                            top: "-86px",
-                            zIndex: 1,
-                            border: "4px solid var(--color-outline)",
-                            backgroundColor: "var(--color-surface)",
-                            rotateX: 90,
-                          }}
-                          variants={cubeSliceVariants}
-                          animate={isHoverVariant ? "zEwHlJ7zp" : "default"}
-                        />
                       </motion.div>
                     </Transition>
 
-                    {/* Slice 3 - Similar structure */}
+                    {/* Slice 3 */}
                     <Transition value={transition2}>
                       <motion.div
                         className="slice-3"
@@ -657,9 +521,9 @@ const Card3d: React.FC<Props> = ({
                           width: "min-content",
                         }}
                       >
-                        {/* Front */}
+                        {/* 简化了Slice 3的内部结构，保留了相同的样式 */}
                         <motion.div
-                          className="slice-1-front"
+                          className="slice-3-front"
                           data-framer-name="Front"
                           style={{
                             alignContent: "center",
@@ -682,133 +546,10 @@ const Card3d: React.FC<Props> = ({
                           variants={cubeSliceVariants}
                           animate={isHoverVariant ? "zEwHlJ7zp" : "default"}
                         />
-                        {/* Back */}
-                        <motion.div
-                          className="slice-1-back"
-                          data-framer-name="Back"
-                          style={{
-                            alignContent: "center",
-                            alignItems: "center",
-                            bottom: "0px",
-                            display: "flex",
-                            flex: "none",
-                            flexDirection: "column",
-                            flexWrap: "nowrap",
-                            gap: "10px",
-                            justifyContent: "center",
-                            overflow: "hidden",
-                            padding: "0px",
-                            position: "absolute",
-                            right: "0px",
-                            top: "0px",
-                            width: "240px",
-                            zIndex: 1,
-                            border: "4px solid var(--color-outline)",
-                            backgroundColor: "var(--color-surface)",
-                            rotateY: 180,
-                          }}
-                          variants={cubeSliceVariants}
-                          animate={isHoverVariant ? "zEwHlJ7zp" : "default"}
-                        />
-                        {/* Right */}
-                        <motion.div
-                          className="slice-1-right"
-                          data-framer-name="Right"
-                          style={{
-                            alignContent: "center",
-                            alignItems: "center",
-                            bottom: "0px",
-                            display: "flex",
-                            flex: "none",
-                            flexDirection: "column",
-                            flexWrap: "nowrap",
-                            gap: "10px",
-                            justifyContent: "center",
-                            left: "120px",
-                            overflow: "hidden",
-                            padding: "0px",
-                            position: "absolute",
-                            top: "0px",
-                            width: "240px",
-                            zIndex: 1,
-                            border: "4px solid var(--color-outline)",
-                            backgroundColor: "var(--color-surface)",
-                            rotateY: 90,
-                          }}
-                          variants={cubeSliceVariants}
-                          animate={isHoverVariant ? "zEwHlJ7zp" : "default"}
-                        />
-                        {/* Left */}
-                        <motion.div
-                          className="slice-1-left"
-                          data-framer-name="Left"
-                          style={{
-                            alignContent: "center",
-                            alignItems: "center",
-                            bottom: "0px",
-                            display: "flex",
-                            flex: "none",
-                            flexDirection: "column",
-                            flexWrap: "nowrap",
-                            gap: "10px",
-                            justifyContent: "center",
-                            overflow: "hidden",
-                            padding: "0px",
-                            position: "absolute",
-                            right: "120px",
-                            top: "0px",
-                            width: "240px",
-                            zIndex: 1,
-                            border: "4px solid var(--color-outline)",
-                            backgroundColor: "var(--color-surface)",
-                            rotateY: -90,
-                          }}
-                          variants={cubeSliceVariants}
-                          animate={isHoverVariant ? "zEwHlJ7zp" : "default"}
-                        />
-                        {/* Top */}
-                        <motion.div
-                          className="slice-1-top"
-                          data-framer-name="Top"
-                          style={{
-                            flex: "none",
-                            height: "240px",
-                            left: "0px",
-                            overflow: "hidden",
-                            position: "absolute",
-                            right: "0px",
-                            top: "-120px",
-                            zIndex: 1,
-                            border: "4px solid var(--color-outline)",
-                            backgroundColor: "var(--color-surface)",
-                            rotateX: 90,
-                          }}
-                          variants={cubeSliceVariants}
-                          animate={isHoverVariant ? "zEwHlJ7zp" : "default"}
-                        />
-                        {/* Bottom */}
-                        <motion.div
-                          className="slice-1-bottom"
-                          data-framer-name="Bottom"
-                          style={{
-                            flex: "none",
-                            height: "240px",
-                            left: "0px",
-                            overflow: "hidden",
-                            position: "absolute",
-                            right: "0px",
-                            top: "-86px",
-                            zIndex: 1,
-                            border: "4px solid var(--color-outline)",
-                            backgroundColor: "var(--color-surface)",
-                            rotateX: 90,
-                          }}
-                          variants={cubeSliceVariants}
-                          animate={isHoverVariant ? "zEwHlJ7zp" : "default"}
-                        />
                       </motion.div>
                     </Transition>
                   </motion.div>
+
                   {/* Corner elements */}
                   <motion.div
                     style={{
@@ -881,7 +622,7 @@ const Card3d: React.FC<Props> = ({
                 </motion.div>
               </motion.div>
 
-              {/* Content - 使用AnimatePresence实现平滑的显示/隐藏过渡 */}
+              {/* Content - 只在非窄屏幕上显示标题部分 */}
               <AnimatePresence>
                 {!shouldHideContent && (
                   <motion.div
@@ -898,16 +639,15 @@ const Card3d: React.FC<Props> = ({
                       flex: "none",
                       flexDirection: "column",
                       flexWrap: "nowrap",
-                      gap: "12px", // Increased gap
+                      gap: "12px",
                       height: "min-content",
                       justifyContent: "center",
                       overflow: "hidden",
                       padding: "0px",
                       position: "relative",
-                      width: "min-content",
                     }}
                   >
-                    {/* Text Container */}
+                    {/* 只保留标题部分，移除描述文本 */}
                     <motion.div
                       className="text-container"
                       data-framer-name="Text"
@@ -919,7 +659,7 @@ const Card3d: React.FC<Props> = ({
                         flexDirection: "row",
                         flexWrap: "nowrap",
                         gap: "10px",
-                        height: "32px", // Increased height
+                        height: "32px",
                         justifyContent: "center",
                         overflow: "visible",
                         padding: "0px",
@@ -932,28 +672,29 @@ const Card3d: React.FC<Props> = ({
                         data-framer-name="BG Fill"
                         style={{
                           flex: "none",
-                          height: "32px", // Increased height
+                          height: "32px",
                           left: "0px",
                           overflow: "hidden",
                           position: "absolute",
-                          top: "calc(50% - 16px)", // Adjusted for new height
-                          width: "1px", // Keep minimal
+                          top: "calc(50% - 16px)",
+                          width: "1px",
                           zIndex: 0,
-                          backgroundColor: "transparent", // Made transparent
-                          opacity: 0, // Always hidden
+                          backgroundColor: "transparent",
+                          opacity: 0,
                         }}
-                      />{" "}
-                      {/* Heading Text with hover effect */}
+                      />
+
+                      {/* 标题文本带悬停效果 */}
                       <motion.div
                         style={{
                           flex: "none",
-                          height: "32px", // Increased height
+                          height: "32px",
                           position: "relative",
                           whiteSpace: "pre",
                           width: "auto",
                           fontFamily: '"Inter", "Inter Placeholder", sans-serif',
                           fontWeight: "600",
-                          fontSize: "18px", // Increased font size
+                          fontSize: "18px",
                           color: "var(--color-headings)",
                           userSelect: "none",
                           cursor: "pointer",
@@ -962,14 +703,15 @@ const Card3d: React.FC<Props> = ({
                           overflow: "hidden",
                         }}
                       >
-                        {/* Background text (white) */}
+                        {/* 背景文本 */}
                         <span
                           className="mx-1 text-center"
                           style={{ position: "relative", zIndex: 1 }}
                         >
-                          {heading}
-                        </span>{" "}
-                        {/* Animated overlay text (black) */}
+                          {title}
+                        </span>
+
+                        {/* 动画覆盖文本 */}
                         <motion.span
                           className="mx-1 mt-0.5 text-center"
                           style={{
@@ -985,9 +727,10 @@ const Card3d: React.FC<Props> = ({
                           }}
                           transition={titleTransition}
                         >
-                          {heading}
+                          {title}
                         </motion.span>
-                        {/* White background fill that moves from left to right */}
+
+                        {/* 白色背景填充，从左向右移动 */}
                         <motion.div
                           style={{
                             position: "absolute",
@@ -1018,4 +761,4 @@ const Card3d: React.FC<Props> = ({
   );
 };
 
-export { Card3d };
+export { CardBlog3d };
