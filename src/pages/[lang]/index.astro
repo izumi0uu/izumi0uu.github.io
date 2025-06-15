@@ -67,9 +67,9 @@ const socialLinks = {
     >
       <div id="hero-page-content" class="flex flex-col gap-4">
         <HeroBanner blogPath={blogPath} client:only="react" />
-        <!-- <HeroContactLinks socialLinks={socialLinks} client:only="react" /> -->
+        <HeroContactLinks socialLinks={socialLinks} client:only="react" />
       </div>
-      <!-- <div
+      <div
         id="hero-page-image"
         aria-label="hero-page-image"
         class="hidden lg:flex items-center justify-center w-full h-full max-w-md max-h-[500px] mx-auto"
@@ -83,13 +83,13 @@ const socialLinks = {
           loading="eager"
           decoding="async"
         />
-      </div> -->
+      </div>
     </div>
   </section>
 
   <!-- Quick Links Section -->
   <!-- TODO: FIX MEMO LEAK -->
-  <!-- <QuickLinksSection links={quickLinks} client:only="react" /> -->
+  <QuickLinksSection links={quickLinks} client:only="react" />
 
   <!-- Falling Text Section -->
   <section
@@ -97,7 +97,7 @@ const socialLinks = {
     aria-label="falling-text"
     class={cn("flex justify-center items-center h-[30vh] w-full")}
   >
-    <!-- <FallingText
+    <FallingText
       text={m["pages.home.falling_text"]()}
       highlightWords={["ideas", "share"]}
       highlightClass="highlighted"
@@ -107,7 +107,7 @@ const socialLinks = {
       fontSize="2rem"
       mouseConstraintStiffness={0.9}
       client:only="react"
-    /> -->
+    />
   </section>
 
   <!-- TODO: Blog Preview Section -->
