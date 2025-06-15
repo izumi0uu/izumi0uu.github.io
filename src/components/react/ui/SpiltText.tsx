@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText as GSAPSplitText } from "gsap/SplitText";
@@ -34,80 +34,81 @@ const SplitText: React.FC<SplitTextProps> = ({
   textAlign = "center",
   onLetterAnimationComplete,
 }) => {
-  const ref = useRef<HTMLParagraphElement>(null);
-  const animationCompletedRef = useRef(false);
+  const root = useRef<HTMLParagraphElement>(null);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || animationCompletedRef.current) return;
+  useLayoutEffect(() => {
+    // 1. 创建 GSAP 上下文
+    const ctx = gsap.context(() => {
+      // --- 所有 GSAP 相关代码放入此函数内 (这部分逻辑不变) ---
 
-    const absoluteLines = splitType === "lines";
-    if (absoluteLines) el.style.position = "relative";
+      const el = root.current;
+      if (!el) return;
 
-    const splitter = new GSAPSplitText(el, {
-      type: splitType,
-      absolute: absoluteLines,
-      linesClass: "split-line",
-    });
+      const absoluteLines = splitType === "lines";
+      if (absoluteLines) el.style.position = "relative";
 
-    let targets: Element[];
-    switch (splitType) {
-      case "lines":
-        targets = splitter.lines;
-        break;
-      case "words":
-        targets = splitter.words;
-        break;
-      case "words, chars":
-        targets = [...splitter.words, ...splitter.chars];
-        break;
-      default:
-        targets = splitter.chars;
-    }
+      const splitter = new GSAPSplitText(el, {
+        type: splitType,
+        absolute: absoluteLines,
+        linesClass: "split-line",
+      });
 
-    targets.forEach((t) => {
-      (t as HTMLElement).style.willChange = "transform, opacity";
-    });
+      let targets: Element[];
+      switch (splitType) {
+        case "lines":
+          targets = splitter.lines;
+          break;
+        case "words":
+          targets = splitter.words;
+          break;
+        case "words, chars":
+          targets = [...splitter.words, ...splitter.chars];
+          break;
+        default:
+          targets = splitter.chars;
+      }
 
-    const startPct = (1 - threshold) * 100;
-    const m = /^(-?\d+)px$/.exec(rootMargin);
-    const raw = m ? parseInt(m[1], 10) : 0;
-    const sign = raw < 0 ? `-=${Math.abs(raw)}px` : `+=${raw}px`;
-    const start = `top ${startPct}%${sign}`;
+      const startPct = (1 - threshold) * 100;
+      const m = /^(-?\d+)px$/.exec(rootMargin);
+      const raw = m ? parseInt(m[1], 10) : 0;
+      const sign = raw < 0 ? `-=${Math.abs(raw)}px` : `+=${raw}px`;
+      const start = `top ${startPct}%${sign}`;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: el,
-        start,
-        toggleActions: "play none none none",
-        once: true,
-      },
-      smoothChildTiming: true,
-      onComplete: () => {
-        animationCompletedRef.current = true;
-        gsap.set(targets, {
-          ...to,
-          clearProps: "willChange",
-          immediateRender: true,
-        });
-        onLetterAnimationComplete?.();
-      },
-    });
+      gsap.set(targets, from);
 
-    tl.set(targets, { ...from, immediateRender: false, force3D: true });
-    tl.to(targets, {
-      ...to,
-      duration,
-      ease,
-      stagger: delay / 1000,
-      force3D: true,
-    });
+      gsap.to(targets, {
+        ...to,
+        duration,
+        ease,
+        stagger: delay / 1000,
+        scrollTrigger: {
+          trigger: el,
+          start,
+          toggleActions: "play none none none",
+          once: true,
+        },
+        onComplete: onLetterAnimationComplete,
+      });
+    }, root);
 
+    // --- 2. 终极清理方案 ---
+    const cleanup = () => {
+      // 检查 ctx 是否存在且尚未被清理
+      if (ctx && ctx.revert) {
+        console.log("Cleaning up GSAP context for text:", text);
+        ctx.revert();
+      }
+    };
+
+    // 监听 Astro 的页面替换前事件，强制执行清理
+    document.addEventListener("astro:before-swap", cleanup, { once: true });
+
+    // 3. 返回标准的 React 清理函数作为双保险
     return () => {
-      tl.kill();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-      gsap.killTweensOf(targets);
-      splitter.revert();
+      // 移除我们自己添加的监听器，避免在组件因其他原因卸载时重复触发
+      document.removeEventListener("astro:before-swap", cleanup);
+      // 同时，也在这里执行清理，以应对非 Astro 导航导致的卸载
+      cleanup();
     };
   }, [
     text,
@@ -124,7 +125,7 @@ const SplitText: React.FC<SplitTextProps> = ({
 
   return (
     <p
-      ref={ref}
+      ref={root}
       className={`split-parent inline-block overflow-hidden whitespace-normal ${className}`}
       style={{
         textAlign,
