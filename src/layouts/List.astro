@@ -29,7 +29,7 @@ console.log("paginationProps", paginationProps);
     </slot>
     <section class="flex-grow flex flex-col">
       <slot />
-      <div class="mt-auto">
+      <div class="mt-12 ml-auto w-fit">
         {paginationProps && <Pagination {...paginationProps} class="mt-6" />}
       </div>
     </section>

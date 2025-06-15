@@ -12,6 +12,6 @@ export interface Props {
 const { posts, lang } = Astro.props;
 ---
 
-<div class="flex-col-layout-center">
+<div class="flex-col-layout-center gap-2">
   {posts.map((post) => <PostCard post={post} />)}
 </div>

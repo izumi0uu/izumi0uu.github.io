@@ -52,6 +52,7 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
     "flex flex-col md:flex-row gap-4 lg:gap-6",
     "not-first:pt-4 not-last:pb-4 md:not-first:pt-6 md:not-last:pb-6",
     "not-last:border-b border-base-300 w-full",
+    "transition-all duration-200",
     "box-default"
   )}
 >
@@ -64,7 +65,7 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
           src={heroImage}
           alt={heroAlt}
           itemprop="image"
-          class="w-full h-[168px] xs:h-[250px] md:h-[168px] md:max-w-[298px] object-cover rounded-box shadow shadow-base-300"
+          class="w-full h-max-[168px] h-[168px] xs:h-[250px] md:h-[168px] md:max-w-[298px] object-cover rounded-box shadow shadow-base-300"
           transition:name={getTransitionNameFromElementId({
             elementId: TRANSITION_ELEMENT_IDS.POST_CARD.HERO_IMAGE,
           })}
