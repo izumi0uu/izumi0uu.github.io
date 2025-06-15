@@ -29,10 +29,10 @@ const HeroBanner = React.memo(({ blogPath }: HeroBannerProps) => {
         />
       </div>
       <div className="inline-flex">
-        {/* <h1 className="text-2xl leading-relaxed font-bold text-on-surface md:text-3xl lg:text-4xl lg:leading-snug">
+        <h1 className="text-2xl leading-relaxed font-bold text-on-surface md:text-3xl lg:text-4xl lg:leading-snug">
           I'm a&nbsp;
-        </h1> */}
-        {/* <RotatingText
+        </h1>
+        <RotatingText
           texts={["Frontend Developer!", "Web Developer!", "Web3 Enthusiast!"]}
           mainClassName="items-center justify-center overflow-hidden border-b border-outline text-2xl text-primary md:text-3xl lg:text-4xl xl:text-5xl"
           staggerFrom={"last"}
@@ -43,15 +43,15 @@ const HeroBanner = React.memo(({ blogPath }: HeroBannerProps) => {
           splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
           transition={{ type: "spring", damping: 30, stiffness: 400 }}
           rotationInterval={2000}
-        /> */}
+        />
       </div>
-      {/* <p className="max-w-lg leading-relaxed text-on-surface-variant md:text-lg">
+      <p className="max-w-lg leading-relaxed text-on-surface-variant md:text-lg">
         Happy to see you here! In this place, you can find some of interesting ideas and projects.
         Enjoy your time!
-      </p> */}
-      {/* <Link href={blogPath} variant="brutal" size="lg" className="justify-center">
+      </p>
+      <Link href={blogPath} variant="brutal" size="lg" className="justify-center">
         To See My Blogs
-      </Link> */}
+      </Link>
     </div>
   );
 });
