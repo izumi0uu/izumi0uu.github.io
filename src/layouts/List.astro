@@ -15,6 +15,8 @@ export interface Props extends BaseProps {
 
 const { paginationProps, metadata } = Astro.props;
 const { title, description, author } = metadata;
+
+console.log("paginationProps", paginationProps);
 ---
 
 <Centered {metadata}>

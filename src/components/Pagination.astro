@@ -9,8 +9,6 @@ import {
   PaginationPrevious,
 } from "@/components/react/ui/Pagination";
 
-import { cn } from "@/utils/ui/styles";
-
 import type { PaginationProps } from "@/types/common";
 
 export interface Props extends PaginationProps, astroHTML.JSX.HTMLAttributes {
@@ -67,7 +65,7 @@ const threePageNumbers = (currentPage: number, lastPage: number): number[] => {
 ---
 
 {
-  hasMoreThanOnePage() || showIfOnePage ? (
+  true || showIfOnePage ? (
     <ReactPagination client:load>
       <PaginationContent>
         <PaginationItem>
