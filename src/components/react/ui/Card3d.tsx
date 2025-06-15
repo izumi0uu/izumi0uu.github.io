@@ -201,17 +201,16 @@ const Card3d: React.FC<Props> = ({
                 flexWrap: "nowrap",
                 gap: shouldHideContent ? "0px" : "40px", // 根据媒体查询调整间距
                 height: "min-content",
-                justifyContent: "center",
+                justifyContent: "flex-start",
                 overflow: "visible",
                 padding: "20px",
                 position: "relative",
-                width: "min-content",
+                width: "100%",
                 borderRadius: "12px",
                 border: "2px solid var(--color-outline-variant)",
                 boxShadow: isHoverVariant ? "none" : "4px 4px 0 0 var(--color-outline)",
                 transition: "box-shadow 0.3s ease, transform 0.3s ease, width 0.3s ease",
                 transform: isHoverVariant ? "translate(3px, 3px)" : "translate(0, 0)",
-                cursor: "pointer",
                 ...style,
               }}
               animate={{
@@ -881,7 +880,7 @@ const Card3d: React.FC<Props> = ({
                 </motion.div>
               </motion.div>
 
-              {/* Content - 使用AnimatePresence实现平滑的显示/隐藏过渡 */}
+              {/* Content */}
               <AnimatePresence>
                 {!shouldHideContent && (
                   <motion.div
@@ -904,7 +903,7 @@ const Card3d: React.FC<Props> = ({
                       overflow: "hidden",
                       padding: "0px",
                       position: "relative",
-                      width: "min-content",
+                      width: "100%",
                     }}
                   >
                     {/* Text Container */}
@@ -919,7 +918,7 @@ const Card3d: React.FC<Props> = ({
                         flexDirection: "row",
                         flexWrap: "nowrap",
                         gap: "10px",
-                        height: "32px", // Increased height
+                        height: "96px", // Increased height
                         justifyContent: "center",
                         overflow: "visible",
                         padding: "0px",
@@ -932,7 +931,7 @@ const Card3d: React.FC<Props> = ({
                         data-framer-name="BG Fill"
                         style={{
                           flex: "none",
-                          height: "32px", // Increased height
+                          height: "96px", // Increased height
                           left: "0px",
                           overflow: "hidden",
                           position: "absolute",
@@ -947,7 +946,7 @@ const Card3d: React.FC<Props> = ({
                       <motion.div
                         style={{
                           flex: "none",
-                          height: "32px", // Increased height
+                          height: "96px", // Increased height
                           position: "relative",
                           whiteSpace: "pre",
                           width: "auto",
@@ -956,7 +955,6 @@ const Card3d: React.FC<Props> = ({
                           fontSize: "18px", // Increased font size
                           color: "var(--color-headings)",
                           userSelect: "none",
-                          cursor: "pointer",
                           display: "flex",
                           alignItems: "center",
                           overflow: "hidden",
@@ -964,14 +962,14 @@ const Card3d: React.FC<Props> = ({
                       >
                         {/* Background text (white) */}
                         <span
-                          className="mx-1 text-center"
+                          className="mx-1 text-center text-8xl"
                           style={{ position: "relative", zIndex: 1 }}
                         >
                           {heading}
                         </span>{" "}
                         {/* Animated overlay text (black) */}
                         <motion.span
-                          className="mx-1 mt-0.5 text-center"
+                          className="mx-1 mt-0.5 text-center text-8xl"
                           style={{
                             position: "absolute",
                             top: 0,
