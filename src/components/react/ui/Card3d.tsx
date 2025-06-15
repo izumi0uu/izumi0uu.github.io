@@ -97,7 +97,7 @@ const Card3d: React.FC<Props> = ({
   variant = "Default",
   className = "",
   style = {},
-  width = 600,
+  width = "",
   height = 150,
   href,
   onClick,
