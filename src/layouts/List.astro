@@ -21,7 +21,7 @@ const { title, description, author } = metadata;
   <article class="flex flex-col max-w-4xl mx-auto">
     <slot name="heading">
       <div>
-        <!-- <Card3d heading={title.toUpperCase()} client:visible /> -->
+        <Card3d heading={title.toUpperCase()} client:visible />
       </div>
       {description && <p class="b-p mb-5">{description}</p>}
     </slot>
