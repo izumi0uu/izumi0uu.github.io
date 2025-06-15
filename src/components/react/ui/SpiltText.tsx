@@ -1,11 +1,11 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText as GSAPSplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(ScrollTrigger, GSAPSplitText);
 
-interface SplitTextProps {
+export interface SplitTextProps {
   text: string;
   className?: string;
   delay?: number;
@@ -35,62 +35,62 @@ const SplitText: React.FC<SplitTextProps> = ({
   onLetterAnimationComplete,
 }) => {
   const ref = useRef<HTMLParagraphElement>(null);
-  const [isActive, setIsActive] = useState(true);
+  const animationCompletedRef = useRef(false);
 
   useEffect(() => {
-    if (!isActive) return;
-
     const el = ref.current;
-    if (!el) return;
+    if (!el || animationCompletedRef.current) return;
 
     const absoluteLines = splitType === "lines";
     if (absoluteLines) el.style.position = "relative";
 
-    let splitter: GSAPSplitText | null = new GSAPSplitText(el, {
+    const splitter = new GSAPSplitText(el, {
       type: splitType,
       absolute: absoluteLines,
       linesClass: "split-line",
     });
 
-    let targets: Element[] = [];
+    let targets: Element[];
     switch (splitType) {
       case "lines":
-        targets = [...splitter.lines];
+        targets = splitter.lines;
         break;
       case "words":
-        targets = [...splitter.words];
+        targets = splitter.words;
         break;
       case "words, chars":
         targets = [...splitter.words, ...splitter.chars];
         break;
       default:
-        targets = [...splitter.chars];
+        targets = splitter.chars;
     }
 
     targets.forEach((t) => {
       (t as HTMLElement).style.willChange = "transform, opacity";
     });
 
-    const startPct = (1 - threshold) * 100; // e.g. 0.1 -> 90%
+    const startPct = (1 - threshold) * 100;
     const m = /^(-?\d+)px$/.exec(rootMargin);
     const raw = m ? parseInt(m[1], 10) : 0;
     const sign = raw < 0 ? `-=${Math.abs(raw)}px` : `+=${raw}px`;
     const start = `top ${startPct}%${sign}`;
 
-    // Create ScrollTrigger instance
-    const scrollTrigger = ScrollTrigger.create({
-      trigger: el,
-      start,
-      toggleActions: "play none none none",
-      once: true,
-    });
-
-    // Create timeline
     const tl = gsap.timeline({
-      scrollTrigger,
+      scrollTrigger: {
+        trigger: el,
+        start,
+        toggleActions: "play none none none",
+        once: true,
+      },
       smoothChildTiming: true,
       onComplete: () => {
-        if (onLetterAnimationComplete) onLetterAnimationComplete();
+        animationCompletedRef.current = true;
+        gsap.set(targets, {
+          ...to,
+          clearProps: "willChange",
+          immediateRender: true,
+        });
+        onLetterAnimationComplete?.();
       },
     });
 
@@ -104,38 +104,10 @@ const SplitText: React.FC<SplitTextProps> = ({
     });
 
     return () => {
-      // 清理所有资源
-      setIsActive(false);
-
-      // 清理动画
-      if (tl) {
-        tl.kill();
-        tl.clear();
-      }
-
-      // 清理滚动触发器
-      if (scrollTrigger) {
-        scrollTrigger.kill();
-      }
-
-      // 清理GSAP动画
-      if (targets.length) {
-        gsap.killTweensOf(targets);
-        targets = [];
-      }
-
-      // 还原分割
-      if (splitter) {
-        splitter.revert();
-        splitter = null;
-      }
-
-      // 清理DOM引用
-      if (el) {
-        // 移除任何可能的内联样式
-        el.style.position = "";
-        el.style.willChange = "";
-      }
+      tl.kill();
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+      gsap.killTweensOf(targets);
+      splitter.revert();
     };
   }, [
     text,
@@ -148,15 +120,7 @@ const SplitText: React.FC<SplitTextProps> = ({
     threshold,
     rootMargin,
     onLetterAnimationComplete,
-    isActive,
   ]);
-
-  // 组件卸载时确保清理
-  useEffect(() => {
-    return () => {
-      setIsActive(false);
-    };
-  }, []);
 
   return (
     <p
@@ -172,4 +136,4 @@ const SplitText: React.FC<SplitTextProps> = ({
   );
 };
 
-export { SplitText, type SplitTextProps };
+export { SplitText };
