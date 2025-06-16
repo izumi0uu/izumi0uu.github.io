@@ -17,8 +17,8 @@ import { FallingText } from "@/components/react/ui/FallingText";
 import { HeroContactLinks } from "@/components/react/app/home/HeroContactLinks";
 import { HeroBanner } from "@/components/react/app/home/HeroBanner";
 import { QuickLinksSection } from "@/components/react/app/home/QuickLinksSection";
-import { Card3d } from "@/components/react/ui/Card3d";
 import { FadeUpAnimation } from "@/components/react/ui/FadeUpAnimation";
+import { GlassCard } from "@/components/react/ui/GlassCard";
 
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
@@ -116,7 +116,11 @@ const socialLinks = {
     class={cn("flex-col-layout mode-theme-switch ")}
   >
     <FadeUpAnimation title="My Tech Stacks" client:visible>
-      <div>123</div>
+      <GlassCard
+        title="Astro"
+        content="Astro is a static site builder for the modern web. It's fast, flexible, and easy to use."
+        icon="astro"
+      />
     </FadeUpAnimation>
   </section>
 
