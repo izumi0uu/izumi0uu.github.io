@@ -9,17 +9,17 @@ import { getPathWithLocale } from "@/utils/routing/paths";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
 import { CONFIG_CLIENT } from "@/config/client";
 import { ROUTES } from "@/constants/routes";
-import { Mail, Github, Twitter, Linkedin } from "lucide-react";
 import heroImage from "@/assets/images/hero-default.png";
 
 import Centered from "@/layouts/Centered.astro";
-import Link from "@/components/Link.astro";
 
-import { RotatingText } from "@/components/react/ui/RotatingText";
-import { SplitText } from "@/components/react/ui/SpiltText";
 import { FallingText } from "@/components/react/ui/FallingText";
-import { Button } from "@/components/react/radix-ui/Button";
-import { Separator } from "@/components/react/radix-ui/Separator";
+import { HeroContactLinks } from "@/components/react/app/home/HeroContactLinks";
+import { HeroBanner } from "@/components/react/app/home/HeroBanner";
+import { QuickLinksSection } from "@/components/react/app/home/QuickLinksSection";
+import { FadeUpAnimation } from "@/components/react/ui/FadeUpAnimation";
+import { GlassCard } from "@/components/react/ui/GlassCard";
+
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
     params: { lang },
@@ -33,13 +33,22 @@ const metadata = getPageMetadata("");
 
 const fallingText = m["pages.home.falling_text"]();
 
+const blogPath = getPathWithLocale(ROUTES.BLOG);
+
 const quickLinks = [
-  { name: "Blog", href: ROUTES.BLOG, icon: "↗" },
-  { name: "Explore", href: ROUTES.EXPLORE, icon: "↗" },
-  { name: "Projects", href: ROUTES.PROJECTS, icon: "↗" },
-  { name: "About", href: ROUTES.ABOUT, icon: "↗" },
-  { name: "Contact", href: ROUTES.CONTACT, icon: "↗" },
+  { name: "Blog", href: getPathWithLocale(ROUTES.BLOG), icon: "↗" },
+  { name: "Explore", href: getPathWithLocale(ROUTES.EXPLORE), icon: "↗" },
+  { name: "Projects", href: getPathWithLocale(ROUTES.PROJECTS), icon: "↗" },
+  { name: "About", href: getPathWithLocale(ROUTES.ABOUT), icon: "↗" },
+  { name: "Contact", href: getPathWithLocale(ROUTES.CONTACT), icon: "↗" },
 ];
+
+const socialLinks = {
+  email: CONFIG_CLIENT.AUTHOR_EMAIL,
+  github: CONFIG_CLIENT.AUTHOR_GITHUB,
+  twitter: CONFIG_CLIENT.AUTHOR_TWITTER,
+  linkedin: CONFIG_CLIENT.AUTHOR_LINKEDIN,
+};
 ---
 
 <!-- TODO: FIX i18n -->
@@ -47,87 +56,17 @@ const quickLinks = [
   <!-- Hero Page Section -->
   <section
     id="hero-page-section"
-    aria-label="hero-page"
-    class={cn("flex-col-layout mode-theme-switch bg-surface-container rounded-sm")}
+    aria-label="hero-page-section"
+    class="flex-col-layout mode-theme-switch bg-surface-container rounded-sm"
   >
     <div
-      id="hero-page"
-      aria-label="hero-page"
+      id="hero-page-wrapper"
+      aria-label="hero-page-wrapper"
       class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4 min-h-[60vh] items-center"
     >
-      <div
-        id="hero-page-content"
-        aria-label="hero-page-content"
-        class="flex flex-col gap-6 justify-center max-w-2xl mx-auto lg:mx-0"
-      >
-        <div class="flex flex-col items-baseline">
-          <SplitText
-            text={"Hey. I'm Izumi0uu."}
-            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold text-center text-headings  overflow-visible"
-            duration={0.6}
-            ease="power3.out"
-            splitType="chars"
-            from={{ opacity: 0, y: 40 }}
-            to={{ opacity: 1, y: 0 }}
-            threshold={0.1}
-            rootMargin="-100px"
-            textAlign="center"
-            client:only="react"
-          />
-        </div>
-        <div class="inline-flex">
-          <h1
-            class="text-2xl md:text-3xl lg:text-4xl font-bold text-on-surface leading-relaxed lg:leading-snug"
-          >
-            I'm a&nbsp;
-          </h1>
-          <RotatingText
-            texts={["Frontend Developer!", "Web Developer!", "Web3 Enthusiast!"]}
-            mainClassName={cn(
-              "text-primary overflow-hidden items-center justify-center text-2xl md:text-3xl lg:text-4xl xl:text-5xl border-b border-outline"
-            )}
-            staggerFrom={"last"}
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "-120%" }}
-            staggerDuration={0.025}
-            splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
-            transition={{ type: "spring", damping: 30, stiffness: 400 }}
-            rotationInterval={2000}
-            client:only="react"
-          />
-        </div>
-        <p class="text-on-surface-variant md:text-lg leading-relaxed max-w-lg">
-          Happy to see you here! In this place, you can find some of interesting ideas and projects.
-          Enjoy your time!
-        </p>
-
-        <!-- main action button -->
-        <Link
-          href={getPathWithLocale(ROUTES.BLOG)}
-          variant="no-underline"
-          variant="brutal"
-          size="lg"
-          class="justify-center"
-        >
-          To See My Blogs
-        </Link>
-
-        <!-- contact links -->
-        <div class="flex flex-wrap gap-2">
-          <Link href={`mailto:${CONFIG_CLIENT.AUTHOR_EMAIL}`} variant="outline" size="sm">
-            <Mail className="w-4 h-4" />
-          </Link>
-          <Link href={CONFIG_CLIENT.AUTHOR_GITHUB} variant="outline" size="sm">
-            <Github className="w-4 h-4" />
-          </Link>
-          <Link href={CONFIG_CLIENT.AUTHOR_TWITTER} variant="outline" size="sm">
-            <Twitter className="w-4 h-4" />
-          </Link>
-          <Link href={CONFIG_CLIENT.AUTHOR_LINKEDIN} variant="outline" size="sm">
-            <Linkedin className="w-4 h-4" />
-          </Link>
-        </div>
+      <div id="hero-page-content" class="flex flex-col gap-4">
+        <HeroBanner blogPath={blogPath} client:only="react" />
+        <HeroContactLinks socialLinks={socialLinks} client:only="react" />
       </div>
       <div
         id="hero-page-image"
@@ -148,40 +87,8 @@ const quickLinks = [
   </section>
 
   <!-- Quick Links Section -->
-  <section
-    id="quick-links"
-    aria-label="quick-links"
-    class={cn("flex-col-layout mode-theme-switch ")}
-  >
-    <div class="max-w-6xl w-full mx-auto">
-      <!-- Section Title -->
-      <h2 class="text-2xl md:text-3xl font-bold text-headings mb-8">Quick links</h2>
-
-      <!-- Links Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
-        {
-          quickLinks.map((link, index) => (
-            <Link
-              href={link.href}
-              variant="outline"
-              size="sm"
-              class="w-full flex items-center justify-between"
-            >
-              <span class="text-lg font-medium">{link.name}</span>
-              <span class="text-xl group-hover:translate-x-1 transition-transform">
-                {link.icon}
-              </span>
-            </Link>
-          ))
-        }
-      </div>
-
-      <!-- Optional Separator -->
-      <div class="mx-auto">
-        <Separator className="bg-outline" client:load />
-      </div>
-    </div>
-  </section>
+  <!-- TODO: FIX MEMO LEAK -->
+  <QuickLinksSection links={quickLinks} client:only="react" />
 
   <!-- Falling Text Section -->
   <section
@@ -198,17 +105,23 @@ const quickLinks = [
       gravity={0.3}
       fontSize="2rem"
       mouseConstraintStiffness={0.9}
-      client:load
+      client:only="react"
     />
   </section>
 
-  <!-- TODO: Blog Preview Section -->
-  <!-- Blogs Section -->
+  <!-- Tech Stacks Preview Section -->
   <section
-    id="blogs-preview"
-    aria-label="blogs-preview"
-    class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
+    id="tech-stacks-preview"
+    aria-label="tech-stacks-preview"
+    class={cn("flex-col-layout mode-theme-switch ")}
   >
+    <FadeUpAnimation title="My Tech Stacks" client:visible>
+      <GlassCard
+        title="Astro"
+        content="Astro is a static site builder for the modern web. It's fast, flexible, and easy to use."
+        icon="astro"
+      />
+    </FadeUpAnimation>
   </section>
 
   <!-- TODO: Projects Preview Section -->

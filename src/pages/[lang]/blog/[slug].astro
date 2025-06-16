@@ -12,8 +12,10 @@ export async function getStaticPaths() {
 
   // 遍历所有文章
   for (const post of posts) {
-    // 处理slug，确保格式正确
-    const cleanSlug = post.slug.replace(/\.mdx$/, "");
+    const cleanSlug = post.slug
+      .replace(/\.mdx$/, "")
+      .replace(/\s+/g, "-")
+      .replace(/\//g, "--");
 
     // 为每种支持的语言创建路径
     for (const locale of SUPPORTED_LOCALES) {
@@ -28,6 +30,7 @@ export async function getStaticPaths() {
         props: {
           post,
           routeLocale: locale,
+          originalSlug: post.slug,
         },
       });
     }

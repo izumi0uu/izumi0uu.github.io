@@ -41,11 +41,23 @@ const PageLoadingIndicator = () => {
 
       const displayPath = targetUrl ? new URL(targetUrl).pathname : "即将跳转...";
 
+      console.log("Navigation started:", {
+        from: navEvent.from,
+        to: navEvent.to,
+        direction: navEvent.direction,
+        navigationType: navEvent.navigationType,
+      });
+
       setPendingPath(displayPath);
       setIsLoading(true);
     };
 
-    const handlePageLoadEnd = () => setIsLoading(false);
+    const handlePageLoadEnd = () => {
+      setIsLoading(false);
+      console.log("Navigation ended:", {
+        currentPath: window.location.pathname,
+      });
+    };
 
     // 监听Astro视图过渡事件
     document.addEventListener("astro:before-preparation", handlePageLoadStart);
@@ -80,7 +92,6 @@ const PageLoadingIndicator = () => {
         <motion.div
           transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
           animate={{ rotate: 360 }}
-          key={`infinite-rotation-${action}`}
         >
           <TeamCircle size={40} team="UNKNOWN" />
         </motion.div>

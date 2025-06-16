@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-
+import { useEffect, useRef, useState, useCallback } from "react";
 import { ArrowUpToLine } from "lucide-react";
 import { SELECTORS } from "@/constants/dom";
 import { cn } from "@/utils/ui/styles";
-import { Button, type ButtonProps } from "@/components/react/radix-ui/Button";
+import { Button } from "@/components/react/radix-ui/Button";
 
 import type { FC, MouseEvent, RefObject } from "react";
 
@@ -22,23 +21,37 @@ const hideButton = (buttonRef: RefObject<HTMLButtonElement | null>): void => {
   buttonRef.current?.classList.add(...hiddenClasses);
 };
 
-const getHalfViewportHeight = (window: Window) => Math.floor(window.innerHeight / 2);
+const getHalfViewportHeight = () => Math.floor(window.innerHeight / 2);
 
 const ToTopScroll: FC = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const topRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
-  const [height, setHeight] = useState(getHalfViewportHeight(window));
+  const [height, setHeight] = useState(getHalfViewportHeight());
+
+  // 使用useCallback缓存回调函数，避免不必要的重新创建
+  const handleScrollToTop = useCallback((event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    const anchorElement = document.querySelector(SCROLL_TO_TOP_SELECTOR);
+    if (!anchorElement) return;
+
+    anchorElement.scrollIntoView({ block: "start", behavior: "smooth" });
+  }, []);
+
+  // 使用useCallback缓存resize处理函数
+  const handleResize = useCallback(() => {
+    window.requestAnimationFrame(() => setHeight(getHalfViewportHeight()));
+  }, []);
 
   useEffect(() => {
-    // ! track them both independently at same time
-    // ! important: must be in this scope, outside of callback()
+    // 在组件内部创建状态变量，确保每次effect运行时重置状态
     let isAtTop = false;
     let isAtBottom = false;
 
     const callback: IntersectionObserverCallback = (entries) => {
-      // entries.length === 1 || 2, count changes when exits viewport
       entries.forEach((entry) => {
         if (entry.target === topRef.current) {
           isAtTop = entry.isIntersecting;
@@ -49,43 +62,39 @@ const ToTopScroll: FC = () => {
         }
       });
 
+      // 使用最新的引用
       if (buttonRef.current) {
         if (isAtTop || isAtBottom) hideButton(buttonRef);
         else showButton(buttonRef);
       }
     };
 
-    const intersect = new IntersectionObserver(callback, { threshold: 0 });
+    // 保存observer实例到ref中，便于清理
+    observerRef.current = new IntersectionObserver(callback, { threshold: 0 });
 
-    if (topRef.current) intersect.observe(topRef.current);
-    if (bottomRef.current) intersect.observe(bottomRef.current);
+    if (topRef.current) observerRef.current.observe(topRef.current);
+    if (bottomRef.current) observerRef.current.observe(bottomRef.current);
 
-    return () => {
-      intersect.disconnect();
-    };
-  }, []);
-
-  // on resize only, vertical...?
-  useEffect(() => {
-    const handleResize = () => {
-      window.requestAnimationFrame(() => setHeight(getHalfViewportHeight(window)));
-    };
-
+    // 添加resize事件监听器
     window.addEventListener("resize", handleResize);
 
+    // 清理函数
     return () => {
+      // 明确断开observer连接
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+        observerRef.current = null;
+      }
+
+      // 移除事件监听器
       window.removeEventListener("resize", handleResize);
+
+      // 清除DOM引用
+      if (buttonRef.current) {
+        hideButton(buttonRef);
+      }
     };
-  }, []);
-
-  const handleScrollToTop = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
-    const anchorElement = document.querySelector(SCROLL_TO_TOP_SELECTOR);
-    if (!anchorElement) return;
-
-    anchorElement.scrollIntoView({ block: "start", behavior: "smooth" });
-  };
+  }, [handleResize]); // 只依赖于handleResize
 
   return (
     <>
@@ -94,7 +103,6 @@ const ToTopScroll: FC = () => {
         className="pointer-events-none absolute top-0 w-0"
         style={{ height: `${height}px` }}
       />
-      {/* mounted in <body /> in Base layout */}
       <div
         ref={bottomRef}
         className="pointer-events-none absolute bottom-0 w-0"

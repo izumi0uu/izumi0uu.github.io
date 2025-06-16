@@ -1,7 +1,48 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { motion, MotionConfigContext, LayoutGroup } from "framer-motion";
+import { motion, MotionConfigContext, LayoutGroup, AnimatePresence } from "framer-motion";
+
+// 创建响应式媒体查询hook
+const useMediaQuery = (query: string): boolean => {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    // 服务器端渲染检查
+    if (typeof window === "undefined") return;
+
+    // 创建媒体查询
+    const mediaQuery = window.matchMedia(query);
+
+    // 设置初始值
+    setMatches(mediaQuery.matches);
+
+    // 定义事件处理函数
+    const handleChange = (event: MediaQueryListEvent) => {
+      setMatches(event.matches);
+    };
+
+    // 添加事件监听器 - 使用正确的API
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener("change", handleChange);
+    } else {
+      // 旧版浏览器兼容
+      mediaQuery.addListener(handleChange);
+    }
+
+    // 清理函数
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener("change", handleChange);
+      } else {
+        // 旧版浏览器兼容
+        mediaQuery.removeListener(handleChange);
+      }
+    };
+  }, [query]);
+
+  return matches;
+};
 
 // Types
 interface Props {
@@ -14,10 +55,7 @@ interface Props {
   height?: number;
   href?: string;
   onClick?: () => void;
-  primaryColor?: string;
-  children?: React.ReactNode;
-  scale?: number;
-  responsive?: boolean;
+  hideContentBreakpoint?: string; // 新增：隐藏内容的断点
 }
 
 // Transitions
@@ -59,14 +97,11 @@ const Card3d: React.FC<Props> = ({
   variant = "Default",
   className = "",
   style = {},
-  width = 600,
+  width = "",
   height = 150,
   href,
   onClick,
-  primaryColor,
-  children,
-  scale = 1,
-  responsive = true,
+  hideContentBreakpoint = "(max-width: 640px)", // 默认断点
   ...restProps
 }) => {
   const [currentVariant, setCurrentVariant] = useState<"Default" | "Hover">(variant);
@@ -76,40 +111,8 @@ const Card3d: React.FC<Props> = ({
   const refBinding = useRef<HTMLDivElement>(null);
   const defaultLayoutId = React.useId();
 
-  useEffect(() => {
-    if (!responsive) return;
-
-    const calculateScale = () => {
-      const screenWidth = window.innerWidth;
-      let newScale = 1;
-
-      if (screenWidth < 640) {
-        newScale = 0.6;
-      } else if (screenWidth < 768) {
-        newScale = 0.75;
-      } else if (screenWidth < 1024) {
-        newScale = 0.9;
-      } else if (screenWidth < 1280) {
-        newScale = 1;
-      } else if (screenWidth < 1536) {
-        newScale = 1.1;
-      } else {
-        newScale = 1.2;
-      }
-
-      setScreenScale(newScale);
-      setIsMobile(screenWidth < 768);
-    };
-
-    calculateScale();
-    window.addEventListener("resize", calculateScale);
-
-    return () => {
-      window.removeEventListener("resize", calculateScale);
-    };
-  }, [responsive]);
-
-  const finalScale = scale * screenScale;
+  // 使用媒体查询检查是否应该隐藏内容
+  const shouldHideContent = useMediaQuery(hideContentBreakpoint);
 
   const isHoverVariant = currentVariant === "Hover";
   const variants = [currentVariant === "Default" ? "GPnJri30y" : "zEwHlJ7zp"];
@@ -176,20 +179,11 @@ const Card3d: React.FC<Props> = ({
     },
   };
 
-  return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        position: "relative",
-      }}
-    >
-      {/* 渲染所有children，使得可以在卡片外部添加元素 */}
-      {children}
+  // 动态计算容器宽度
+  const containerWidth = shouldHideContent ? 140 : width;
 
+  return (
+    <div style={{ width: containerWidth, height, transition: "width 0.3s ease" }}>
       <LayoutGroup id={defaultLayoutId}>
         <Variants animate={variants} initial={false}>
           <Transition value={transition1}>
@@ -209,146 +203,26 @@ const Card3d: React.FC<Props> = ({
                 display: "flex",
                 flexDirection: isMobile ? "column" : "row",
                 flexWrap: "nowrap",
-                gap: `${16 * finalScale}px`,
-                justifyContent: "center",
+                gap: shouldHideContent ? "0px" : "40px", // 根据媒体查询调整间距
+                height: "min-content",
+                justifyContent: "flex-start",
                 overflow: "visible",
-                padding: `${16 * finalScale}px`,
+                padding: "20px",
                 position: "relative",
-                width: "min-content",
-                borderRadius: "12px", // Added border radius
+                width: "100%",
+                borderRadius: "12px",
                 border: "2px solid var(--color-outline-variant)",
                 boxShadow: isHoverVariant ? "none" : "4px 4px 0 0 var(--color-outline)",
-                transition: "box-shadow 0.3s ease, transform 0.3s ease",
+                transition: "box-shadow 0.3s ease, transform 0.3s ease, width 0.3s ease",
                 transform: isHoverVariant ? "translate(3px, 3px)" : "translate(0, 0)",
-                cursor: "pointer",
-                width: width ? width * finalScale : "auto",
-                height: height ? height * finalScale : "auto",
-                maxWidth: "100%",
                 ...style,
               }}
+              animate={{
+                gap: shouldHideContent ? "0px" : "40px",
+              }}
+              transition={{ duration: 0.3 }}
             >
-              <motion.div
-                className="content"
-                data-framer-name="Content"
-                style={{
-                  alignContent: "flex-start",
-                  alignItems: "flex-start",
-                  display: "flex",
-                  flex: "1",
-                  flexDirection: "column",
-                  flexWrap: "nowrap",
-                  gap: `${12 * finalScale}px`,
-                  height: "auto",
-                  justifyContent: "center",
-                  overflow: "hidden",
-                  padding: "0px",
-                  position: "relative",
-                  width: "100%",
-                  minWidth: isMobile ? "auto" : `${200 * finalScale}px`,
-                  maxWidth: isMobile
-                    ? "100%"
-                    : width
-                      ? `calc(${width * finalScale}px - ${160 * finalScale}px)`
-                      : `${400 * finalScale}px`,
-                  order: isMobile ? 2 : 1,
-                }}
-              >
-                <motion.div
-                  className="text-container"
-                  data-framer-name="Text"
-                  style={{
-                    alignContent: "flex-start",
-                    alignItems: "flex-start",
-                    display: "flex",
-                    flex: "none",
-                    flexDirection: "row",
-                    flexWrap: "nowrap",
-                    gap: `${10 * finalScale}px`,
-                    height: "auto",
-                    minHeight: `${32 * finalScale}px`,
-                    justifyContent: "flex-start",
-                    overflow: "visible",
-                    padding: "0px",
-                    position: "relative",
-                    width: "100%",
-                    textAlign: isMobile ? "center" : "left",
-                  }}
-                >
-                  <motion.div
-                    style={{
-                      flex: "none",
-                      height: "auto",
-                      position: "relative",
-                      whiteSpace: "normal",
-                      width: "100%",
-                      fontFamily: '"Inter", "Inter Placeholder", sans-serif',
-                      fontWeight: "600",
-                      fontSize: isMobile ? `${18 * finalScale}px` : `${20 * finalScale}px`,
-                      lineHeight: "1.4",
-                      color: "var(--color-headings)",
-                      userSelect: "none",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "flex-start",
-                      justifyContent: isMobile ? "center" : "flex-start",
-                      overflow: "hidden",
-                    }}
-                  >
-                    {/* 背景文本 */}
-                    <span
-                      className={isMobile ? "text-center" : "text-left"}
-                      style={{ position: "relative", zIndex: 1, width: "100%" }}
-                    >
-                      {heading}
-                    </span>
-
-                    {/* 悬停效果背景 */}
-                    <motion.div
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "var(--color-primary)",
-                        transformOrigin: "left center",
-                        scaleX: 0,
-                        zIndex: 0,
-                        opacity: 0.1,
-                      }}
-                      animate={{
-                        scaleX: isHoverVariant ? 1 : 0,
-                      }}
-                      transition={titleTransition}
-                    />
-                  </motion.div>
-                </motion.div>
-
-                {/* 描述文本 */}
-                <motion.div
-                  style={{
-                    flex: "none",
-                    height: "auto",
-                    position: "relative",
-                    whiteSpace: "pre-wrap",
-                    width: "100%",
-                    wordBreak: "break-word",
-                    wordWrap: "break-word",
-                    fontFamily: '"Inter", "Inter Placeholder", sans-serif',
-                    fontWeight: "400",
-                    fontSize: isMobile ? `${14 * finalScale}px` : `${16 * finalScale}px`,
-                    lineHeight: "1.5em",
-                    color: "var(--color-content-secondary)",
-                    userSelect: "none",
-                    marginTop: `${8 * finalScale}px`,
-                    textAlign: isMobile ? "center" : "left",
-                  }}
-                >
-                  {text}
-                </motion.div>
-              </motion.div>
-
-              {/* 右侧图标部分 - 在移动设备上排在第一位 */}
+              {/* Icon Container */}
               <motion.div
                 className="icon-container"
                 data-framer-name="Icon"
@@ -359,18 +233,15 @@ const Card3d: React.FC<Props> = ({
                   flex: "none",
                   flexDirection: "row",
                   flexWrap: "nowrap",
-                  gap: `${8 * finalScale}px`,
-                  height: isMobile ? `${60 * finalScale}px` : `${80 * finalScale}px`,
-                  width: isMobile ? `${60 * finalScale}px` : `${80 * finalScale}px`,
+                  gap: "10px",
+                  height: "100px",
                   justifyContent: "center",
                   overflow: "visible",
                   padding: "0px",
                   position: "relative",
-                  border: `${1 * finalScale}px solid ${isHoverVariant ? "var(--color-primary)" : "var(--color-outline)"}`,
-                  transition: "border-color 0.3s ease",
-                  borderRadius: `${8 * finalScale}px`,
-                  order: isMobile ? 1 : 2,
-                  transform: `scale(${finalScale})`,
+                  width: "100px",
+                  border: "1px solid var(--color-outline)",
+                  zIndex: 1,
                 }}
               >
                 {/* BG Container */}
@@ -1011,6 +882,135 @@ const Card3d: React.FC<Props> = ({
                   />
                 </motion.div>
               </motion.div>
+
+              {/* Content */}
+              <AnimatePresence>
+                {!shouldHideContent && (
+                  <motion.div
+                    className="content"
+                    data-framer-name="Content"
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: "auto" }}
+                    exit={{ opacity: 0, width: 0 }}
+                    transition={{ duration: 0.3 }}
+                    style={{
+                      alignContent: "flex-start",
+                      alignItems: "flex-start",
+                      display: "flex",
+                      flex: "none",
+                      flexDirection: "column",
+                      flexWrap: "nowrap",
+                      gap: "12px", // Increased gap
+                      height: "min-content",
+                      justifyContent: "center",
+                      overflow: "hidden",
+                      padding: "0px",
+                      position: "relative",
+                      width: "100%",
+                    }}
+                  >
+                    {/* Text Container */}
+                    <motion.div
+                      className="text-container"
+                      data-framer-name="Text"
+                      style={{
+                        alignContent: "center",
+                        alignItems: "center",
+                        display: "flex",
+                        flex: "none",
+                        flexDirection: "row",
+                        flexWrap: "nowrap",
+                        gap: "10px",
+                        height: "96px", // Increased height
+                        justifyContent: "center",
+                        overflow: "visible",
+                        padding: "0px",
+                        position: "relative",
+                      }}
+                    >
+                      {/* BG Fill - Hidden for clean black/white effect */}
+                      <motion.div
+                        className="bg-fill"
+                        data-framer-name="BG Fill"
+                        style={{
+                          flex: "none",
+                          height: "96px", // Increased height
+                          left: "0px",
+                          overflow: "hidden",
+                          position: "absolute",
+                          top: "calc(50% - 16px)", // Adjusted for new height
+                          width: "1px", // Keep minimal
+                          zIndex: 0,
+                          backgroundColor: "transparent", // Made transparent
+                          opacity: 0, // Always hidden
+                        }}
+                      />{" "}
+                      {/* Heading Text with hover effect */}
+                      <motion.div
+                        style={{
+                          flex: "none",
+                          height: "96px", // Increased height
+                          position: "relative",
+                          whiteSpace: "pre",
+                          width: "auto",
+                          fontFamily: '"Inter", "Inter Placeholder", sans-serif',
+                          fontWeight: "600",
+                          fontSize: "18px", // Increased font size
+                          color: "var(--color-headings)",
+                          userSelect: "none",
+                          display: "flex",
+                          alignItems: "center",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {/* Background text (white) */}
+                        <span
+                          className="mx-1 text-center text-8xl"
+                          style={{ position: "relative", zIndex: 1 }}
+                        >
+                          {heading}
+                        </span>{" "}
+                        {/* Animated overlay text (black) */}
+                        <motion.span
+                          className="mx-1 mt-0.5 text-center text-8xl"
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            color: "var(--color-surface)",
+                            clipPath: `inset(0 ${isHoverVariant ? "0%" : "100%"} 0 0)`,
+                            zIndex: 2,
+                          }}
+                          animate={{
+                            clipPath: `inset(0 ${isHoverVariant ? "0%" : "100%"} 0 0)`,
+                          }}
+                          transition={titleTransition}
+                        >
+                          {heading}
+                        </motion.span>
+                        {/* White background fill that moves from left to right */}
+                        <motion.div
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "var(--color-primary)",
+                            transformOrigin: "left center",
+                            scaleX: 0,
+                            zIndex: 1,
+                          }}
+                          animate={{
+                            scaleX: isHoverVariant ? 1 : 0,
+                          }}
+                          transition={titleTransition}
+                        />
+                      </motion.div>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           </Transition>
         </Variants>

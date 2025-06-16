@@ -183,7 +183,8 @@ const ogImageUrl = new URL(image, url);
   <I18nScript />
 
   {/* turn on the feature of view transitions in Astro */}
-  <ClientRouter fallback="none" />
+  {/* DISABLED FOR NOW, LEAD TO MEMORY LEAK WITH GSAP */}
+  <!-- <ClientRouter fallback="none" /> -->
 
   {/* Load local fonts (Inter + JetBrains Mono) */}
   <FontLoader />

@@ -1,0 +1,213 @@
+---
+import footerImage from "@/assets/images/footer-default.png";
+import { Logo } from "@/components/react/ui/Logo";
+import { Link } from "@/components/react/ui/Link";
+import { CONFIG_CLIENT } from "@/config/client";
+import { ROUTES } from "@/constants/routes";
+import * as m from "@/paraglide/messages";
+import { Github, Linkedin, Mail, Globe, FileText, User, Briefcase, Rss } from "lucide-react";
+
+const { SITE_URL, AUTHOR_LINKEDIN, AUTHOR_GITHUB, AUTHOR_EMAIL, REPO_URL, AUTHOR_NAME } =
+  CONFIG_CLIENT;
+
+// 基础计算
+const domain = SITE_URL.replace(/^https?:\/\//, "");
+const commitInfo = {
+  time: new Date().toISOString(),
+  fullHash: "latest",
+  message: "Latest commit",
+};
+const commitUrl = `${REPO_URL}/commit/${commitInfo.fullHash}`;
+const shortDateStr = new Date(commitInfo.time).toLocaleDateString();
+const trimmedMessage = commitInfo.message.substring(0, 15);
+const currentYear = new Date().getFullYear();
+
+// 导航链接配置
+const footerNavigation = {
+  resources: [
+    { name: m["components.footer.links.blog"](), href: ROUTES.BLOG, icon: FileText },
+    { name: m["components.footer.links.projects"](), href: ROUTES.PROJECTS, icon: Briefcase },
+    { name: m["components.footer.links.about"](), href: ROUTES.ABOUT, icon: User },
+  ],
+  quickInfo: [
+    { name: m["components.footer.links.contact"](), href: ROUTES.CONTACT, icon: Mail },
+    { name: m["components.footer.links.rss_feed"](), href: ROUTES.API.FEED_RSS, icon: Rss },
+    { name: m["components.footer.links.sitemap"](), href: "/sitemap.xml", icon: Globe },
+  ],
+  social: [
+    { name: m["components.footer.links.github"](), href: AUTHOR_GITHUB, icon: Github },
+    { name: m["components.footer.links.linkedin"](), href: AUTHOR_LINKEDIN, icon: Linkedin },
+    { name: m["components.footer.links.email"](), href: AUTHOR_EMAIL, icon: Mail },
+  ],
+};
+
+// 本地化文本
+const localizedTexts = {
+  backToTop: m["components.footer.back_to_top"](),
+  brandDescription: m["components.footer.brand_description"](),
+  latestCommit: m["components.footer.latest_commit"](),
+  resources: m["components.footer.sections.resources"](),
+  quickInfo: m["components.footer.sections.quick_info"](),
+  social: m["components.footer.sections.social"](),
+  copyright: m["components.footer.copyright_text"]({
+    year: currentYear.toString(),
+    author: AUTHOR_NAME,
+  }),
+  domainLabel: m["components.footer.meta.domain_label"](),
+  builtWith: m["components.footer.meta.built_with"](),
+};
+---
+
+<footer
+  class="mt-auto border-t border-outline bg-surface-container px-4 py-12"
+  role="contentinfo"
+  aria-label="Footer"
+>
+  <div class="mx-auto max-w-7xl">
+    {/* Main Content Section */}
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-12 lg:gap-12">
+      {/* Brand Section */}
+      <section class="md:col-span-5 lg:col-span-4" aria-labelledby="brand-heading">
+        <div id="footer-brand" class="space-y-4">
+          {/* Brand Logo and Name */}
+          <a href="/" class="inline-flex items-center gap-3">
+            <Logo />
+            <span class="text-xl font-bold tracking-tight">{AUTHOR_NAME}</span>
+          </a>
+
+          {/* Brand Description */}
+          <p class="max-w-md text-sm leading-relaxed text-content">
+            {localizedTexts.brandDescription}
+          </p>
+
+          {/* Latest Commit Info */}
+          <div class="flex items-center gap-2 text-xs text-content">
+            <Github className="h-4 w-4" />
+            <span class="font-medium">{localizedTexts.latestCommit}:</span>
+            <Link
+              href={commitUrl}
+              target="_blank"
+              rel="noopener"
+              variant="outline"
+              title={`${shortDateStr} - ${commitInfo.message}`}
+            >
+              {trimmedMessage}
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Navigation Section */}
+      <nav
+        id="footer-navigation"
+        aria-label="footer-navigation"
+        class="md:col-span-7 lg:col-span-8"
+      >
+        <div class="grid grid-cols-2 gap-8 lg:grid-cols-4">
+          {/* Resources Links */}
+          <section aria-labelledby="resources-heading">
+            <h3 id="resources-heading" class="mb-4 text-sm font-semibold text-content">
+              {localizedTexts.resources}
+            </h3>
+            <ul class="space-y-3" role="list">
+              {
+                footerNavigation.resources.map((item) => (
+                  <li>
+                    <Link
+                      href={item.href}
+                      variant="underline"
+                      className="inline-flex items-center gap-2 text-content hover:text-primary"
+                    >
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.name}</span>
+                    </Link>
+                  </li>
+                ))
+              }
+            </ul>
+          </section>
+
+          {/* Quick Info Links */}
+          <section aria-labelledby="info-heading">
+            <h3 id="info-heading" class="mb-4 text-sm font-semibold text-content">
+              {localizedTexts.quickInfo}
+            </h3>
+            <ul class="space-y-3" role="list">
+              {
+                footerNavigation.quickInfo.map((item) => (
+                  <li>
+                    <Link
+                      href={item.href}
+                      variant="underline"
+                      className="inline-flex items-center gap-2 text-content hover:text-primary"
+                    >
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.name}</span>
+                    </Link>
+                  </li>
+                ))
+              }
+            </ul>
+          </section>
+
+          {/* Social Links */}
+          <section aria-labelledby="social-heading">
+            <h3 id="social-heading" class="mb-4 text-sm font-semibold text-content">
+              {localizedTexts.social}
+            </h3>
+            <ul class="flex flex-wrap gap-3 lg:flex-col lg:gap-0 lg:space-y-3" role="list">
+              {
+                footerNavigation.social.map((item) => {
+                  const followText = m["components.footer.meta.follow_on"]({
+                    platform: item.name,
+                  });
+                  return (
+                    <li>
+                      <Link
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener"
+                        variant="underline"
+                        aria-label={followText}
+                      >
+                        <item.icon className="h-4 w-4" />
+                        <span>{item.name}</span>
+                      </Link>
+                    </li>
+                  );
+                })
+              }
+            </ul>
+          </section>
+
+          {/* Footer Image */}
+          <section
+            aria-labelledby="footer-image"
+            class="flex items-start justify-center lg:justify-start"
+          >
+            <img src={footerImage.src} alt="Footer Image" class="h-16 w-16 object-cover" />
+          </section>
+        </div>
+      </nav>
+    </div>
+
+    {/* Copyright Section */}
+    <section
+      class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-outline-variant pt-8 md:flex-row"
+      aria-label="copyright"
+    >
+      <p class="text-center text-xs text-content md:text-left lg:text-sm">
+        {localizedTexts.copyright}
+      </p>
+
+      {/* Additional Meta Info */}
+      <div class="flex items-center gap-4 text-xs text-content">
+        <span>
+          {localizedTexts.domainLabel}: {domain}
+        </span>
+        <span>•</span>
+        <span>{localizedTexts.builtWith}</span>
+      </div>
+    </section>
+  </div>
+</footer>

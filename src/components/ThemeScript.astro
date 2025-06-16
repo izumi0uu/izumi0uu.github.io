@@ -25,6 +25,10 @@ const defaultThemes = getDefaultThemes();
   const { MODES, THEMES, THEME_CONFIG } = themeConstants;
   const { DATA_ATTRIBUTE, CHANGE_EVENT, LOCAL_STORAGE_KEY } = THEME_CONFIG;
 
+  const listeners = {
+    timeoutId: null,
+  };
+
   /**
    * @description used for event listener: is user prefer dark mode?
    */
@@ -195,8 +199,16 @@ const defaultThemes = getDefaultThemes();
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTheme));
     }
 
+    if (listeners.timeoutId) {
+      clearTimeout(listeners.timeoutId);
+      listeners.timeoutId = null;
+    }
+
     // must have dealy for bg color to apply
-    setTimeout(() => updateMetaTag(), 1000);
+    listeners.timeoutId = setTimeout(() => {
+      updateMetaTag();
+      listeners.timeoutId = null;
+    }, 1000);
   };
 
   /**
