@@ -20,6 +20,17 @@ import { QuickLinksSection } from "@/components/react/app/home/QuickLinksSection
 import { FadeUpAnimation } from "@/components/react/ui/FadeUpAnimation";
 import { GlassCard } from "@/components/react/ui/GlassCard";
 
+import ReactIcon from "@/assets/icons/reactIcon.astro";
+import TailwindIcon from "@/assets/icons/tailwindIcon.astro";
+import CssIcon from "@/assets/icons/cssIcon.astro";
+import JavascriptIcon from "@/assets/icons/javascriptIcon.astro";
+import TypescriptIcon from "@/assets/icons/typescriptIcon.astro";
+import SolidityIcon from "@/assets/icons/solidityIcon.astro";
+import AntdIcon from "@/assets/icons/antdIcon.astro";
+import NextjsIcon from "@/assets/icons/nextjsIcon.astro";
+import AstroIcon from "@/assets/icons/astroIcon.astro";
+import NodejsIcon from "@/assets/icons/nodejsIcon.astro";
+
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
     params: { lang },
@@ -30,8 +41,6 @@ const { lang } = Astro.params;
 
 // 获取页面metadata（使用空字符串作为首页的key）
 const metadata = getPageMetadata("");
-
-const fallingText = m["pages.home.falling_text"]();
 
 const blogPath = getPathWithLocale(ROUTES.BLOG);
 
@@ -52,7 +61,7 @@ const socialLinks = {
 ---
 
 <!-- TODO: FIX i18n -->
-<Centered {metadata} className="flex-col-layout gap-16 first:gap-0">
+<Centered {metadata} className="flex-col-layout first:gap-0 gap-8 md:gap-16">
   <!-- Hero Page Section -->
   <section
     id="hero-page-section"
@@ -87,11 +96,14 @@ const socialLinks = {
   </section>
 
   <!-- Quick Links Section -->
-  <!-- TODO: FIX MEMO LEAK -->
-  <QuickLinksSection links={quickLinks} client:only="react" />
+  <section id="quick-links" aria-label="quick-links" class="flex-col-layout mode-theme-switch">
+    <FadeUpAnimation title="Quick Links" client:visible>
+      <QuickLinksSection links={quickLinks} client:only="react" />
+    </FadeUpAnimation>
+  </section>
 
   <!-- Falling Text Section -->
-  <section
+  <!-- <section
     id="falling-text"
     aria-label="falling-text"
     class={cn("flex justify-center items-center h-[30vh] w-full")}
@@ -107,29 +119,96 @@ const socialLinks = {
       mouseConstraintStiffness={0.9}
       client:only="react"
     />
-  </section>
+  </section> -->
 
   <!-- Tech Stacks Preview Section -->
   <section
     id="tech-stacks-preview"
     aria-label="tech-stacks-preview"
-    class={cn("flex-col-layout mode-theme-switch ")}
+    class={cn("flex-col-layout mode-theme-switch w-full")}
   >
     <FadeUpAnimation title="My Tech Stacks" client:visible>
-      <GlassCard
-        title="Astro"
-        content="Astro is a static site builder for the modern web. It's fast, flexible, and easy to use."
-        icon="astro"
-      />
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-2 w-full">
+        <GlassCard
+          title="Astro"
+          content="Astro is a static site builder for the modern web. It's fast, flexible, and easy to use."
+          icon="astro"
+        >
+          <AstroIcon />
+        </GlassCard>
+        <GlassCard
+          title="React"
+          content="React is a JavaScript library for building user interfaces. It's fast, flexible, and easy to use."
+          icon="react"
+        >
+          <ReactIcon />
+        </GlassCard>
+        <GlassCard
+          title="Tailwind"
+          content="Tailwind is a utility-first CSS framework for rapidly building custom user interfaces. It's fast, flexible, and easy to use."
+          icon="tailwind"
+        >
+          <TailwindIcon />
+        </GlassCard>
+        <GlassCard
+          title="CSS"
+          content="CSS is a stylesheet language that describes the presentation of a document written in HTML. It's fast, flexible, and easy to use."
+          icon="css"
+        >
+          <CssIcon />
+        </GlassCard>
+        <GlassCard
+          title="JavaScript"
+          content="JavaScript is a programming language that allows you to implement complex features on web pages. It's fast, flexible, and easy to use."
+          icon="javascript"
+        >
+          <JavascriptIcon />
+        </GlassCard>
+        <GlassCard
+          title="TypeScript"
+          content="TypeScript is a superset of JavaScript that adds static typing. It's fast, flexible, and easy to use."
+          icon="typescript"
+        >
+          <TypescriptIcon />
+        </GlassCard>
+        <GlassCard
+          title="Solidity"
+          content="Solidity is a programming language for writing smart contracts. It's fast, flexible, and easy to use."
+          icon="solidity"
+        >
+          <SolidityIcon />
+        </GlassCard>
+        <GlassCard
+          title="Ant Design"
+          content="Ant Design is a design system for React. It's fast, flexible, and easy to use."
+          icon="antd"
+        >
+          <AntdIcon />
+        </GlassCard>
+        <GlassCard
+          title="Next.js"
+          content="Next.js is a React framework for building server-side rendered and static web applications. It's fast, flexible, and easy to use."
+          icon="nextjs"
+        >
+          <NextjsIcon />
+        </GlassCard>
+        <GlassCard
+          title="Node.js"
+          content="Node.js is a runtime environment for executing JavaScript code outside of a browser. It's fast, flexible, and easy to use."
+          icon="nodejs"
+        >
+          <NodejsIcon />
+        </GlassCard>
+      </div>
     </FadeUpAnimation>
   </section>
-
-  <!-- TODO: Projects Preview Section -->
-  <!-- Projects Section -->
-  <section
-    id="projects-preview"
-    aria-label="projects-preview"
-    class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
-  >
-  </section>
 </Centered>
+
+<!-- TODO: Projects Preview Section -->
+<!-- Projects Section -->
+<section
+  id="projects-preview"
+  aria-label="projects-preview"
+  class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
+>
+</section>

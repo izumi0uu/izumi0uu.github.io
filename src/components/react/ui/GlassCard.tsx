@@ -1,13 +1,12 @@
 // component.tsx
 import * as React from "react";
-import AstroIcon from "@/assets/icons/astro.svg";
-import ReactIcon from "@/assets/icons/react.svg";
 import { Instagram, Twitter, Github, ChevronDown } from "lucide-react";
 
 export interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
   content?: string;
   icon?: string;
+  children?: React.ReactNode;
 }
 
 const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
@@ -17,6 +16,7 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
       title = "Monochrome",
       content = "Create, share, and use beautiful custom elements made with CSS.",
       icon = "astro",
+      children,
       ...props
     },
     ref
@@ -81,7 +81,7 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
               className="absolute grid aspect-square w-[50px] [transform:translate3d(0,0,100px)] place-content-center rounded-full bg-white shadow-[rgba(100,100,111,0.2)_-10px_10px_20px_0px] transition-all [transition-delay:1.6s] duration-500 ease-in-out group-hover:[transform:translate3d(0,0,120px)]"
               style={{ top: "30px", right: "30px" }}
             >
-              <AstroIcon className="w-5 fill-black" />
+              {children}
             </div>
           </div>
         </div>

@@ -24,9 +24,6 @@ export const QuickLinksSection = React.memo(({ links }: QuickLinksSectionProps) 
       className="flex-col-layout mode-theme-switch"
     >
       <div className="mx-auto w-full max-w-6xl">
-        {/* Section Title */}
-        <h2 className="mb-8 text-2xl font-bold text-headings md:text-3xl">Quick links</h2>
-
         {/* Links Grid */}
         <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {links.map((link, index) => (
