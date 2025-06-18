@@ -19,8 +19,7 @@ import { HeroBanner } from "@/components/react/app/home/HeroBanner";
 import { QuickLinksSection } from "@/components/react/app/home/QuickLinksSection";
 import { FadeUpAnimation } from "@/components/react/ui/FadeUpAnimation";
 import { GlassCard } from "@/components/react/ui/GlassCard";
-import { ScrollArea, ScrollBar } from "@/components/react/radix-ui/Scroll";
-import { SimpleScrollArea } from "@/components/react/ui/SimpleScrollArea";
+import { ScrollArea } from "@/components/react/radix-ui/Scroll";
 
 import ReactIcon from "@/assets/icons/reactIcon.astro";
 import TailwindIcon from "@/assets/icons/tailwindIcon.astro";
@@ -131,276 +130,168 @@ const socialLinks = {
   >
     <FadeUpAnimation title="My Tech Stacks" client:visible>
       <!-- 小屏幕时使用ScrollArea -->
-      <div class="lg:hidden space-y-4">
-        <!-- Radix UI ScrollArea 测试 -->
-        <div>
-          <h3 style={{ color: "var(--color-on-surface)", marginBottom: "8px" }}>
-            Radix UI ScrollArea:
-          </h3>
-          <ScrollArea style={{ height: "400px", width: "100%" }} scrollbars="vertical">
-            <div class="flex flex-col gap-4 w-full p-4" style={{ minHeight: "1200px" }}>
-              <div
-                style={{
-                  height: "100px",
-                  backgroundColor: "var(--color-primary)",
-                  color: "var(--color-on-primary)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: "8px",
-                }}
-              >
-                Radix UI - 顶部
-              </div>
-              <div
-                style={{
-                  height: "100px",
-                  backgroundColor: "var(--color-secondary)",
-                  color: "var(--color-on-secondary)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: "8px",
-                }}
-              >
-                Radix UI - 中间
-              </div>
-              <div
-                style={{
-                  height: "100px",
-                  backgroundColor: "var(--color-tertiary)",
-                  color: "var(--color-on-tertiary)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: "8px",
-                }}
-              >
-                Radix UI - 底部
-              </div>
-            </div>
-          </ScrollArea>
-        </div>
+      <div class="lg:hidden">
+        <ScrollArea height="400px" scrollbars="vertical">
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full place-items-center p-4"
+            style={{ minHeight: "800px" }}
+          >
+            <GlassCard
+              title="Astro"
+              content="Astro is a static site builder for the modern web. It's fast, flexible, and easy to use."
+              icon="astro"
+            >
+              <AstroIcon />
+            </GlassCard>
+            <GlassCard
+              title="React"
+              content="React is a JavaScript library for building user interfaces. It's fast, flexible, and easy to use."
+              icon="react"
+            >
+              <ReactIcon />
+            </GlassCard>
+            <GlassCard
+              title="Tailwind"
+              content="Tailwind is a utility-first CSS framework for rapidly building custom user interfaces. It's fast, flexible, and easy to use."
+              icon="tailwind"
+            >
+              <TailwindIcon />
+            </GlassCard>
+            <GlassCard
+              title="CSS"
+              content="CSS is a stylesheet language that describes the presentation of a document written in HTML. It's fast, flexible, and easy to use."
+              icon="css"
+            >
+              <CssIcon />
+            </GlassCard>
+            <GlassCard
+              title="JavaScript"
+              content="JavaScript is a programming language that allows you to implement complex features on web pages. It's fast, flexible, and easy to use."
+              icon="javascript"
+            >
+              <JavascriptIcon />
+            </GlassCard>
+            <GlassCard
+              title="TypeScript"
+              content="TypeScript is a superset of JavaScript that adds static typing. It's fast, flexible, and easy to use."
+              icon="typescript"
+            >
+              <TypescriptIcon />
+            </GlassCard>
+            <GlassCard
+              title="Solidity"
+              content="Solidity is a programming language for writing smart contracts. It's fast, flexible, and easy to use."
+              icon="solidity"
+            >
+              <SolidityIcon />
+            </GlassCard>
+            <GlassCard
+              title="Ant Design"
+              content="Ant Design is a design system for React. It's fast, flexible, and easy to use."
+              icon="antd"
+            >
+              <AntdIcon />
+            </GlassCard>
+            <GlassCard
+              title="Next.js"
+              content="Next.js is a React framework for building server-side rendered and static web applications. It's fast, flexible, and easy to use."
+              icon="nextjs"
+            >
+              <NextjsIcon />
+            </GlassCard>
+            <GlassCard
+              title="Node.js"
+              content="Node.js is a runtime environment for executing JavaScript code outside of a browser. It's fast, flexible, and easy to use."
+              icon="nodejs"
+            >
+              <NodejsIcon />
+            </GlassCard>
+          </div>
+        </ScrollArea>
+      </div>
 
-        <!-- Simple ScrollArea 测试 -->
-        <div>
-          <h3 style={{ color: "var(--color-on-surface)", marginBottom: "8px" }}>
-            Simple ScrollArea:
-          </h3>
-          <SimpleScrollArea height="400px" scrollbars="vertical" client:only="react">
-            <div class="flex flex-col gap-4 w-full p-4" style={{ minHeight: "1200px" }}>
-              <div
-                style={{
-                  height: "100px",
-                  backgroundColor: "var(--color-primary)",
-                  color: "var(--color-on-primary)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: "8px",
-                }}
-              >
-                Simple - 顶部
-              </div>
-              <div
-                style={{
-                  height: "100px",
-                  backgroundColor: "var(--color-secondary)",
-                  color: "var(--color-on-secondary)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: "8px",
-                }}
-              >
-                Simple - 中间
-              </div>
-              <div
-                style={{
-                  height: "100px",
-                  backgroundColor: "var(--color-tertiary)",
-                  color: "var(--color-on-tertiary)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: "8px",
-                }}
-              >
-                Simple - 底部
-              </div>
-              <GlassCard
-                title="Astro"
-                content="Astro is a static site builder for the modern web. It's fast, flexible, and easy to use."
-                icon="astro"
-              >
-                <AstroIcon />
-              </GlassCard>
-              <GlassCard
-                title="React"
-                content="React is a JavaScript library for building user interfaces. It's fast, flexible, and easy to use."
-                icon="react"
-              >
-                <ReactIcon />
-              </GlassCard>
-              <GlassCard
-                title="Tailwind"
-                content="Tailwind is a utility-first CSS framework for rapidly building custom user interfaces. It's fast, flexible, and easy to use."
-                icon="tailwind"
-              >
-                <TailwindIcon />
-              </GlassCard>
-              <GlassCard
-                title="CSS"
-                content="CSS is a stylesheet language that describes the presentation of a document written in HTML. It's fast, flexible, and easy to use."
-                icon="css"
-              >
-                <CssIcon />
-              </GlassCard>
-              <GlassCard
-                title="JavaScript"
-                content="JavaScript is a programming language that allows you to implement complex features on web pages. It's fast, flexible, and easy to use."
-                icon="javascript"
-              >
-                <JavascriptIcon />
-              </GlassCard>
-              <GlassCard
-                title="TypeScript"
-                content="TypeScript is a superset of JavaScript that adds static typing. It's fast, flexible, and easy to use."
-                icon="typescript"
-              >
-                <TypescriptIcon />
-              </GlassCard>
-              <GlassCard
-                title="Solidity"
-                content="Solidity is a programming language for writing smart contracts. It's fast, flexible, and easy to use."
-                icon="solidity"
-              >
-                <SolidityIcon />
-              </GlassCard>
-              <GlassCard
-                title="Ant Design"
-                content="Ant Design is a design system for React. It's fast, flexible, and easy to use."
-                icon="antd"
-              >
-                <AntdIcon />
-              </GlassCard>
-              <GlassCard
-                title="Next.js"
-                content="Next.js is a React framework for building server-side rendered and static web applications. It's fast, flexible, and easy to use."
-                icon="nextjs"
-              >
-                <NextjsIcon />
-              </GlassCard>
-              <GlassCard
-                title="Node.js"
-                content="Node.js is a runtime environment for executing JavaScript code outside of a browser. It's fast, flexible, and easy to use."
-                icon="nodejs"
-              >
-                <NodejsIcon />
-              </GlassCard>
-              <!-- 测试滚动内容结束 -->
-              <div
-                style={{
-                  height: "100px",
-                  backgroundColor: "var(--color-secondary)",
-                  color: "var(--color-on-secondary)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: "8px",
-                }}
-              >
-                滚动测试 - 底部
-              </div>
-            </div>
-          </SimpleScrollArea>
-        </div>
-
-        <!-- 大屏幕时使用普通grid -->
-        <div
-          class="hidden lg:grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 w-full place-items-center"
+      <!-- 大屏幕时使用普通grid -->
+      <div class="hidden lg:grid grid-cols-3 xl:grid-cols-4 gap-4 w-full place-items-center">
+        <GlassCard
+          title="Astro"
+          content="Astro is a static site builder for the modern web. It's fast, flexible, and easy to use."
+          icon="astro"
         >
-          <GlassCard
-            title="Astro"
-            content="Astro is a static site builder for the modern web. It's fast, flexible, and easy to use."
-            icon="astro"
-          >
-            <AstroIcon />
-          </GlassCard>
-          <GlassCard
-            title="React"
-            content="React is a JavaScript library for building user interfaces. It's fast, flexible, and easy to use."
-            icon="react"
-          >
-            <ReactIcon />
-          </GlassCard>
-          <GlassCard
-            title="Tailwind"
-            content="Tailwind is a utility-first CSS framework for rapidly building custom user interfaces. It's fast, flexible, and easy to use."
-            icon="tailwind"
-          >
-            <TailwindIcon />
-          </GlassCard>
-          <GlassCard
-            title="CSS"
-            content="CSS is a stylesheet language that describes the presentation of a document written in HTML. It's fast, flexible, and easy to use."
-            icon="css"
-          >
-            <CssIcon />
-          </GlassCard>
-          <GlassCard
-            title="JavaScript"
-            content="JavaScript is a programming language that allows you to implement complex features on web pages. It's fast, flexible, and easy to use."
-            icon="javascript"
-          >
-            <JavascriptIcon />
-          </GlassCard>
-          <GlassCard
-            title="TypeScript"
-            content="TypeScript is a superset of JavaScript that adds static typing. It's fast, flexible, and easy to use."
-            icon="typescript"
-          >
-            <TypescriptIcon />
-          </GlassCard>
-          <GlassCard
-            title="Solidity"
-            content="Solidity is a programming language for writing smart contracts. It's fast, flexible, and easy to use."
-            icon="solidity"
-          >
-            <SolidityIcon />
-          </GlassCard>
-          <GlassCard
-            title="Ant Design"
-            content="Ant Design is a design system for React. It's fast, flexible, and easy to use."
-            icon="antd"
-          >
-            <AntdIcon />
-          </GlassCard>
-          <GlassCard
-            title="Next.js"
-            content="Next.js is a React framework for building server-side rendered and static web applications. It's fast, flexible, and easy to use."
-            icon="nextjs"
-          >
-            <NextjsIcon />
-          </GlassCard>
-          <GlassCard
-            title="Node.js"
-            content="Node.js is a runtime environment for executing JavaScript code outside of a browser. It's fast, flexible, and easy to use."
-            icon="nodejs"
-          >
-            <NodejsIcon />
-          </GlassCard>
-        </div>
+          <AstroIcon />
+        </GlassCard>
+        <GlassCard
+          title="React"
+          content="React is a JavaScript library for building user interfaces. It's fast, flexible, and easy to use."
+          icon="react"
+        >
+          <ReactIcon />
+        </GlassCard>
+        <GlassCard
+          title="Tailwind"
+          content="Tailwind is a utility-first CSS framework for rapidly building custom user interfaces. It's fast, flexible, and easy to use."
+          icon="tailwind"
+        >
+          <TailwindIcon />
+        </GlassCard>
+        <GlassCard
+          title="CSS"
+          content="CSS is a stylesheet language that describes the presentation of a document written in HTML. It's fast, flexible, and easy to use."
+          icon="css"
+        >
+          <CssIcon />
+        </GlassCard>
+        <GlassCard
+          title="JavaScript"
+          content="JavaScript is a programming language that allows you to implement complex features on web pages. It's fast, flexible, and easy to use."
+          icon="javascript"
+        >
+          <JavascriptIcon />
+        </GlassCard>
+        <GlassCard
+          title="TypeScript"
+          content="TypeScript is a superset of JavaScript that adds static typing. It's fast, flexible, and easy to use."
+          icon="typescript"
+        >
+          <TypescriptIcon />
+        </GlassCard>
+        <GlassCard
+          title="Solidity"
+          content="Solidity is a programming language for writing smart contracts. It's fast, flexible, and easy to use."
+          icon="solidity"
+        >
+          <SolidityIcon />
+        </GlassCard>
+        <GlassCard
+          title="Ant Design"
+          content="Ant Design is a design system for React. It's fast, flexible, and easy to use."
+          icon="antd"
+        >
+          <AntdIcon />
+        </GlassCard>
+        <GlassCard
+          title="Next.js"
+          content="Next.js is a React framework for building server-side rendered and static web applications. It's fast, flexible, and easy to use."
+          icon="nextjs"
+        >
+          <NextjsIcon />
+        </GlassCard>
+        <GlassCard
+          title="Node.js"
+          content="Node.js is a runtime environment for executing JavaScript code outside of a browser. It's fast, flexible, and easy to use."
+          icon="nodejs"
+        >
+          <NodejsIcon />
+        </GlassCard>
       </div>
     </FadeUpAnimation>
   </section>
-
-  <!-- TODO: Projects Preview Section -->
-  <!-- Projects Section -->
-  <section
-    id="projects-preview"
-    aria-label="projects-preview"
-    class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
-  >
-  </section>
 </Centered>
+
+<!-- TODO: Projects Preview Section -->
+<!-- Projects Section -->
+<section
+  id="projects-preview"
+  aria-label="projects-preview"
+  class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
+>
+</section>
