@@ -1,0 +1,26 @@
+---
+import type { PaginationProps } from "@/types/common";
+
+export interface Props extends PaginationProps {
+  className?: string;
+}
+
+const { start, end, total, currentPage, lastPage, className = "" } = Astro.props;
+
+// 计算当前页显示的项目范围
+const startItem = start + 1;
+const endItem = end + 1;
+---
+
+<div class={`text-sm text-content-secondary flex items-center gap-4 ${className}`}>
+  <span>
+    显示第 <strong class="text-content">{startItem}</strong>-<strong class="text-content"
+      >{endItem}</strong
+    > 项， 共 <strong class="text-content">{total}</strong> 项
+  </span>
+  <span class="text-xs">
+    第 <strong class="text-content">{currentPage}</strong> 页，共 <strong class="text-content"
+      >{lastPage}</strong
+    > 页
+  </span>
+</div>

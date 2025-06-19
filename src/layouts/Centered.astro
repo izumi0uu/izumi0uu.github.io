@@ -7,11 +7,13 @@ export interface CenteredProps extends BaseProps, astroHTML.JSX.HTMLAttributes {
 
 const props = Astro.props as CenteredProps;
 
+import { cn } from "@/utils/ui/styles";
+
 const { className, ...rest } = Astro.props;
 ---
 
 <Base {...rest}>
-  <main class="flex-col-1-layout centered-px max-w-7xl py-4 lg:py-8" {...rest}>
+  <main class={cn("flex-col-1-layout centered-px max-w-7xl py-4 lg:py-8", className)}>
     <slot />
   </main>
 </Base>

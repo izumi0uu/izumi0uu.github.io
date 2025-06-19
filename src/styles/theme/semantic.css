@@ -14,6 +14,25 @@
   color-scheme: light;
 
   /* 主题变量已在 foundation.css 的 @theme 中设置了默认值 */
+
+  /* --- GlassCard 专用颜色变量 --- */
+  --color-glass-card-background: linear-gradient(
+    135deg,
+    var(--color-surface-container-high),
+    var(--color-surface-container)
+  );
+  --color-glass-card-overlay: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.1)
+  );
+  --color-glass-card-border: var(--color-outline-variant);
+  --color-glass-card-icon-bg: var(--color-surface-bright);
+  --color-glass-card-icon-color: var(--color-on-surface);
+  --color-glass-card-title: var(--color-on-surface);
+  --color-glass-card-content: var(--color-on-surface-variant);
+  --color-glass-card-accent: var(--color-primary);
+  --color-glass-card-accent-text: var(--color-on-primary);
 }
 
 /* ===== 默认主题 (暗色模式) ===== */
@@ -70,6 +89,25 @@
 
   --color-link-hover: var(--color-brand-sky-300);
   --color-link-visited: var(--color-brand-sky-200);
+
+  /* --- GlassCard 暗色模式调整 --- */
+  --color-glass-card-background: linear-gradient(
+    135deg,
+    var(--color-surface-container-high),
+    var(--color-surface-container)
+  );
+  --color-glass-card-overlay: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.05)
+  );
+  --color-glass-card-border: var(--color-outline-variant);
+  --color-glass-card-icon-bg: var(--color-surface-bright);
+  --color-glass-card-icon-color: var(--color-on-surface);
+  --color-glass-card-title: var(--color-on-surface);
+  --color-glass-card-content: var(--color-on-surface-variant);
+  --color-glass-card-accent: var(--color-primary);
+  --color-glass-card-accent-text: var(--color-on-primary);
 }
 
 /* ===== 酒红主题 (亮色模式) ===== */
@@ -127,6 +165,25 @@
   --color-link: var(--color-primary);
   --color-link-hover: var(--color-brand-wine-primary-container-light);
   --color-link-visited: var(--color-brand-wine-secondary-light);
+
+  /* --- GlassCard 酒红亮色模式 --- */
+  --color-glass-card-background: linear-gradient(
+    135deg,
+    var(--color-surface-container-high),
+    var(--color-surface-container)
+  );
+  --color-glass-card-overlay: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.25),
+    rgba(255, 255, 255, 0.08)
+  );
+  --color-glass-card-border: var(--color-outline-variant);
+  --color-glass-card-icon-bg: var(--color-surface-bright);
+  --color-glass-card-icon-color: var(--color-on-surface);
+  --color-glass-card-title: var(--color-on-surface);
+  --color-glass-card-content: var(--color-on-surface-variant);
+  --color-glass-card-accent: var(--color-primary);
+  --color-glass-card-accent-text: var(--color-on-primary);
 }
 
 /* ===== 酒红主题 (暗色模式) ===== */
@@ -185,4 +242,23 @@
   --color-link: var(--color-primary);
   --color-link-hover: var(--color-brand-wine-primary-container-dark);
   --color-link-visited: var(--color-brand-wine-secondary-dark);
+
+  /* --- GlassCard 酒红暗色模式 --- */
+  --color-glass-card-background: linear-gradient(
+    135deg,
+    var(--color-surface-container-high),
+    var(--color-surface-container)
+  );
+  --color-glass-card-overlay: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.04)
+  );
+  --color-glass-card-border: var(--color-outline-variant);
+  --color-glass-card-icon-bg: var(--color-surface-bright);
+  --color-glass-card-icon-color: var(--color-on-surface);
+  --color-glass-card-title: var(--color-on-surface);
+  --color-glass-card-content: var(--color-on-surface-variant);
+  --color-glass-card-accent: var(--color-primary);
+  --color-glass-card-accent-text: var(--color-on-primary);
 }

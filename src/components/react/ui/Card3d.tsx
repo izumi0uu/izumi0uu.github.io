@@ -210,7 +210,7 @@ const Card3d: React.FC<Props> = ({
                 padding: "20px",
                 position: "relative",
                 width: "100%",
-                borderRadius: "12px",
+                borderRadius: "2px",
                 border: "2px solid var(--color-outline-variant)",
                 boxShadow: isHoverVariant ? "none" : "4px 4px 0 0 var(--color-outline)",
                 transition: "box-shadow 0.3s ease, transform 0.3s ease, width 0.3s ease",

@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { cn } from "@/utils/ui/styles";
 
 // 定义组件的属性接口
 interface FadeUpAnimationProps {
@@ -30,11 +29,9 @@ const FadeUpAnimation = ({ className, title = "Show Title", children }: FadeUpAn
   };
 
   return (
-    <div
-      className={cn("relative z-10 mx-auto w-full max-w-3xl px-4 text-center md:px-6", className)}
-    >
+    <div>
       <motion.div custom={0} variants={fadeUpVariants} initial="hidden" animate="visible">
-        <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-6xl md:mb-8 md:text-8xl">
+        <h1 className="mb-6 text-xl font-bold tracking-tight sm:text-3xl md:mb-8 md:text-4xl">
           <span className="text-content">{title}</span>
         </h1>
         <motion.div custom={1} variants={fadeUpVariants} initial="hidden" animate="visible">

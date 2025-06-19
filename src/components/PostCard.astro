@@ -1,20 +1,24 @@
 ---
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
+import avatar from "@/assets/images/avatar.jpg";
 
 import { getPublishedOrUpdatedDate } from "@/modules/common";
 import { getCategoryProps } from "@/modules/post/category";
+
 // import TagList from "@/components/TagList.astro";
+
 import { DRAFT_TEXT } from "@/constants/data";
 import { IMAGE_SIZES } from "@/constants/image";
 import { ROUTES } from "@/constants/routes";
 import { setTransitionSlug, TRANSITION_ELEMENT_IDS } from "@/constants/transitions";
+
 import { formatDate, formatDateIso } from "@/utils/data/datetime";
 import { cn } from "@/utils/ui/styles";
+import { getPathWithLocale } from "@/utils/routing/paths";
 
 import { Link } from "@/components/react/ui/Link";
 import { BlogAvatar } from "@/components/react/ui/BlogAvatar";
-import avatar from "@/assets/images/avatar.jpg";
 
 import type { Post } from "@/types/post";
 
@@ -83,7 +87,11 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
         elementId: TRANSITION_ELEMENT_IDS.POST_CARD.META,
       })}
     >
-      <Link href={`${ROUTES.CATEGORIES}${category}`} variant="underline" client:idle>
+      <Link
+        href={`${getPathWithLocale(ROUTES.CATEGORIES)}${category}`}
+        variant="underline"
+        client:idle
+      >
         <Icon name={categoryIcon} class="w-4 h-4" />
         <span class="pb-0.5">
           {category}
@@ -105,7 +113,7 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
         elementId: TRANSITION_ELEMENT_IDS.POST_CARD.TITLE,
       })}
     >
-      <Link href={`${ROUTES.BLOG}${slug}`} variant="underline" client:idle>
+      <Link href={`${getPathWithLocale(ROUTES.BLOG)}${slug}`} variant="underline" client:idle>
         {title}
         {draft && <sup class="text-sm text-red-500 ml-1">{DRAFT_TEXT}</sup>}
       </Link>
@@ -134,7 +142,7 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
         <!-- <TagList tags={tags.slice(0, 2)} size="sm" variant="text" class="hidden xs:inline-flex" /> -->
       </div>
 
-      <Link href={`${ROUTES.BLOG}${slug}`} variant="underline" client:idle>
+      <Link href={`${getPathWithLocale(ROUTES.BLOG)}${slug}`} variant="underline" client:idle>
         <span class="text-nowrap">Read more</span>
         <Icon name="mdi:arrow-right" class="w-4 h-4" />
       </Link>

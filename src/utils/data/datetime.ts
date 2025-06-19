@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 
-export const dateFormats = {
+const dateFormats = {
   /** Jan 13, 2024 */
   cardDate: "MMM dd, yyyy",
   /** 2024-02-26 */
@@ -9,8 +9,10 @@ export const dateFormats = {
   shortDate: "do MMMM, haaa",
 } as const;
 
-export const formatDate = (date: Date): string => format(date, dateFormats.cardDate);
+const formatDate = (date: Date): string => format(date, dateFormats.cardDate);
 
-export const formatDateIso = (date: Date): string => format(date, dateFormats.isoDate);
+const formatDateIso = (date: Date): string => format(date, dateFormats.isoDate);
 
-export const shortDate = (date: Date): string => format(date, dateFormats.shortDate);
+const shortDate = (date: Date): string => format(date, dateFormats.shortDate);
+
+export { formatDate, formatDateIso, shortDate };
