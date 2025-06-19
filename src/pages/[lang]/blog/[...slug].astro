@@ -5,25 +5,24 @@ import Base from "@/layouts/Base.astro";
 
 export async function getStaticPaths() {
   const posts = await getAllPostsWithReadingTime();
-  console.log(`生成动态路由，文章数量: ${posts.length}`);
+  console.log(`生成博客详情页动态路由，文章数量: ${posts.length}`);
 
-  // 为每种语言创建路径
   const paths = [];
 
   // 遍历所有文章
   for (const post of posts) {
-    // slug 现在已经在 generateId 中处理过了，不需要再次清理
+    // slug 格式如：2024/test-post-copy-4（包含斜杠）
     const cleanSlug = post.slug;
 
     // 为每种支持的语言创建路径
     for (const locale of SUPPORTED_LOCALES) {
       console.log(`为文章 ${cleanSlug} 创建 ${locale} 语言路由`);
 
-      // 将路径添加到数组
+      // 使用Catch-All路由，slug参数会接收完整的路径（包含斜杠）
       paths.push({
         params: {
           lang: locale,
-          slug: cleanSlug,
+          slug: cleanSlug, // 这里slug会是 "2024/test-post-copy-4"
         },
         props: {
           post,
@@ -34,12 +33,12 @@ export async function getStaticPaths() {
     }
   }
 
-  console.log(`总共生成 ${paths.length} 条路由`);
+  console.log(`总共生成 ${paths.length} 条博客详情页路由`);
   return paths;
 }
 
-// 从props中获取文章数据
 const { post, routeLocale } = Astro.props;
+console.log("Astro.props", Astro.props);
 const { data, slug } = post;
 const { title, description } = data;
 
@@ -55,6 +54,8 @@ const metadata = { title, description };
     <div class="prose max-w-none">
       <!-- 内容将在后续实现 -->
       <p>文章内容将在后续实现...</p>
+      <p>当前语言: {routeLocale}</p>
+      <p>原始slug: {slug}</p>
     </div>
   </div>
 </Base>
