@@ -1,8 +1,8 @@
 ---
 import Centered from "./Centered.astro";
 import Pagination from "@/components/Pagination.astro";
+import PaginationInfo from "@/components/PaginationInfo.astro";
 import { Card3d } from "@/components/react/ui/Card3d";
-import { CardBlog3d } from "@/components/react/ui/CardBlog3d";
 
 import { ROUTES } from "@/constants/routes";
 import { getPathWithLocale } from "@/utils/routing/paths";
@@ -16,8 +16,6 @@ export interface Props extends BaseProps {
 
 const { paginationProps, metadata } = Astro.props;
 const { title, description, author } = metadata;
-
-console.log("paginationProps", paginationProps);
 ---
 
 <Centered {metadata}>
@@ -28,11 +26,22 @@ console.log("paginationProps", paginationProps);
       </div>
       {description && <p class="b-p mb-5">{description}</p>}
     </slot>
+    
     <section class="flex-grow flex flex-col">
       <slot />
-      <div class="mt-12 ml-auto w-fit">
-        {paginationProps && <Pagination {...paginationProps} class="mt-6" />}
-      </div>
+      
+      <!-- 分页区域 -->
+      {paginationProps && (
+        <div class="flex flex-col items-center gap-4 mt-12 w-full">
+          <!-- 分页信息 -->
+          <PaginationInfo {...paginationProps} className="order-2 md:order-1" />
+          
+          <!-- 分页导航 -->
+          <div class="order-1 md:order-2">
+            <Pagination {...paginationProps} />
+          </div>
+        </div>
+      )}
     </section>
   </article>
 </Centered>

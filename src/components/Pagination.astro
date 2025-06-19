@@ -29,67 +29,109 @@ const {
 
 const { prev: prevUrl, current: currentUrl, next: nextUrl } = url;
 
+// 获取第一页 URL（移除末尾的页码）
 const getFirstUrl = (url: string) => url.replace(/\/\d+$/, "/");
 
 const firstUrl = getFirstUrl(currentUrl);
 
+// 生成指定页码的 URL
 const getPageUrl = (pageNum: number) => (pageNum === 1 ? firstUrl : `${firstUrl}${pageNum}`);
 
 const lastUrl = getPageUrl(lastPage);
 
+// 检查是否有多页
 const hasMoreThanOnePage = () => lastPage > 1;
 
+// 生成页码数组
 const pageNumbers = (length: number) => Array.from({ length }, (_, i) => i + 1);
 
-const threePageNumbers = (currentPage: number, lastPage: number): number[] => {
+// 智能生成显示的页码（最多显示5个页码）
+const getVisiblePages = (currentPage: number, lastPage: number): number[] => {
   let pages: number[] = [];
 
-  if (lastPage <= 3) {
-    // if total pages are 3 or less, show all pages
+  if (lastPage <= 5) {
+    // 如果总页数不超过5页，显示所有页码
     pages = pageNumbers(lastPage);
   } else {
-    if (currentPage === 1) {
-      // if beginning
-      pages = [1, 2, 3];
-    } else if (currentPage === lastPage) {
-      // if end
-      pages = [lastPage - 2, lastPage - 1, lastPage];
+    // 如果总页数超过5页，智能显示
+    if (currentPage <= 3) {
+      // 当前页在前3页
+      pages = [1, 2, 3, 4, 5];
+    } else if (currentPage >= lastPage - 2) {
+      // 当前页在后3页
+      pages = [lastPage - 4, lastPage - 3, lastPage - 2, lastPage - 1, lastPage];
     } else {
-      // if middle
-      pages = [currentPage - 1, currentPage, currentPage + 1];
+      // 当前页在中间
+      pages = [currentPage - 2, currentPage - 1, currentPage, currentPage + 1, currentPage + 2];
     }
   }
 
   return pages;
 };
+
+const visiblePages = getVisiblePages(currentPage, lastPage);
+const showFirstEllipsis = visiblePages[0] > 1;
+const showLastEllipsis = visiblePages[visiblePages.length - 1] < lastPage;
+
+// 只在有多页或者 showIfOnePage 为 true 时显示分页
+const shouldShowPagination = hasMoreThanOnePage() || showIfOnePage;
 ---
 
 {
-  true || showIfOnePage ? (
-    <ReactPagination client:load>
+  shouldShowPagination && (
+    <ReactPagination className={className} {...props} client:load>
       <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious href="#" />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">1</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" isActive>
-            {" "}
-            2{" "}
-          </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">3</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext href="#" />
-        </PaginationItem>
+        <!-- 上一页按钮 -->
+        {prevUrl && (
+          <PaginationItem>
+            <PaginationPrevious href={prevUrl} />
+          </PaginationItem>
+        )}
+
+        <!-- 第一页（如果不在可见页码中） -->
+        {showFirstEllipsis && (
+          <>
+            <PaginationItem>
+              <PaginationLink href={getPageUrl(1)} isActive={currentPage === 1}>
+                1
+              </PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+          </>
+        )}
+
+        <!-- 可见页码 -->
+        {visiblePages.map((pageNum) => (
+          <PaginationItem key={pageNum}>
+            <PaginationLink href={getPageUrl(pageNum)} isActive={currentPage === pageNum}>
+              {pageNum}
+            </PaginationLink>
+          </PaginationItem>
+        ))}
+
+        <!-- 最后一页（如果不在可见页码中） -->
+        {showLastEllipsis && (
+          <>
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink href={getPageUrl(lastPage)} isActive={currentPage === lastPage}>
+                {lastPage}
+              </PaginationLink>
+            </PaginationItem>
+          </>
+        )}
+
+        <!-- 下一页按钮 -->
+        {nextUrl && (
+          <PaginationItem>
+            <PaginationNext href={nextUrl} />
+          </PaginationItem>
+        )}
       </PaginationContent>
     </ReactPagination>
-  ) : null
+  )
 }
