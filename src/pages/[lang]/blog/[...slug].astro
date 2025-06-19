@@ -115,18 +115,20 @@ const metadata: Metadata = {
     {/* aspect-[16/8] should stay to prevent too tall image */}
     {
       !noHero && (
-        <Image
-          {...IMAGE_SIZES.RESPONSIVE.POST_HERO}
-          src={heroImage}
-          alt={heroAlt}
-          fetchpriority="high"
-          loading="eager"
-          itemprop="image"
-          class="block max-w-full h-auto aspect-[16/8] object-cover border border-base-300"
-          transition:name={getTransitionNameFromElementId({
-            elementId: TRANSITION_ELEMENT_IDS.POST_CARD.HERO_IMAGE,
-          })}
-        />
+        <div class="w-full h-full flex justify-center items-center">
+          <Image
+            {...IMAGE_SIZES.RESPONSIVE.POST_HERO}
+            src={heroImage}
+            alt={heroAlt}
+            fetchpriority="high"
+            loading={IMAGE_SIZES.RESPONSIVE.POST_HERO.loading}
+            itemprop="image"
+            class="block max-w-full h-auto aspect-[16/8] object-cover border border-base-300"
+            transition:name={getTransitionNameFromElementId({
+              elementId: TRANSITION_ELEMENT_IDS.POST_CARD.HERO_IMAGE,
+            })}
+          />
+        </div>
       )
     }
   </Fragment>
