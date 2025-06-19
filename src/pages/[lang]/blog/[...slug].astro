@@ -1,12 +1,31 @@
 ---
+import { Image } from "astro:assets";
 import { render } from "astro:content";
-
-import { CONFIG_CLIENT } from "@/config/client";
-import { SUPPORTED_LOCALES } from "@/config/i18n";
-import Base from "@/layouts/Base.astro";
 
 import { getAllPostsWithReadingTime } from "@/modules/post/common";
 import { getRandomPosts } from "@/modules/post/random";
+// import { getHeadingsForTableOfContents } from '@/modules/post/table-of-contents';
+
+import { default as PostLayout } from "@/layouts/Post.astro";
+// import Giscus from '@/components/Giscus.astro';
+// import PostListMore from '@/components/PostListMore.astro';
+import PostMeta from "@/components/PostMeta.astro";
+// import Share from '@/components/Share.astro';
+// import TableOfContents from '@/components/TableOfContents.astro';
+// import TagList from '@/components/TagList.astro';
+
+import { DRAFT_TEXT } from "@/constants/data";
+import { IMAGE_SIZES } from "@/constants/image";
+import { ROUTES } from "@/constants/routes";
+import { setTransitionSlug, TRANSITION_ELEMENT_IDS } from "@/constants/transitions";
+import { SUPPORTED_LOCALES } from "@/config/i18n";
+
+import { CONFIG_CLIENT } from "@/config/client";
+
+import { getOpenGraphImagePath } from "@/libs/api/open-graph/image-path";
+
+import type { Metadata } from "@/types/common";
+import type { Post } from "@/types/post";
 
 const { SITE_URL } = CONFIG_CLIENT;
 
@@ -44,13 +63,14 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const { data, routeLocale, randomPosts } = Astro.props;
+const { data, readingTime, randomPosts } = Astro.props;
 const {
   draft,
   title,
-  description,
   publishDate,
   updatedDate,
+  description,
+  toc,
   heroImage,
   heroAlt,
   noHero,
@@ -62,21 +82,103 @@ const { slug } = Astro.params;
 const { pathname } = Astro.url;
 
 const { Content, headings: postHeadings } = await render(Astro.props);
+// const headings = getHeadingsForTableOfContents(postHeadings);
 
-// 基本元数据
-const metadata = { title, description };
+const postMetaProps = {
+  category,
+  publishDate,
+  readingTime,
+  updatedDate,
+};
+
+const shareProps = {
+  title,
+  description,
+  url: `${SITE_URL}${ROUTES.BLOG}${slug}`,
+};
+
+const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
+
+// handle all metadata here
+// const image = getOpenGraphImagePath(pathname);
+
+const metadata: Metadata = {
+  title,
+  description,
+  // image
+};
 ---
 
-<Base {metadata}>
-  <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-4">{title}</h1>
-    {description && <p class="text-lg mb-8">{description}</p>}
+<PostLayout {metadata}>
+  <Fragment slot="hero-image">
+    {/* hero image 1280x720 max, 16:9 */}
+    {/* aspect-[16/8] should stay to prevent too tall image */}
+    {
+      !noHero && (
+        <Image
+          {...IMAGE_SIZES.RESPONSIVE.POST_HERO}
+          src={heroImage}
+          alt={heroAlt}
+          fetchpriority="high"
+          loading="eager"
+          itemprop="image"
+          class="block max-w-full h-auto aspect-[16/8] object-cover border border-base-300"
+          transition:name={getTransitionNameFromElementId({
+            elementId: TRANSITION_ELEMENT_IDS.POST_CARD.HERO_IMAGE,
+          })}
+        />
+      )
+    }
+  </Fragment>
 
-    <div class="prose max-w-none">
-      <!-- 内容将在后续实现 -->
-      <p>文章内容将在后续实现...</p>
-      <p>当前语言: {routeLocale}</p>
-      <p>原始slug: {slug}</p>
+  <Fragment slot="hero-text">
+    <h1
+      class="b-h1"
+      transition:name={getTransitionNameFromElementId({
+        elementId: TRANSITION_ELEMENT_IDS.POST_CARD.TITLE,
+      })}
+    >
+      {title}
+      {draft && <sup class="text-red-500 ml-1">{DRAFT_TEXT}</sup>}
+    </h1>
+
+    {
+      description && (
+        <p
+          class="font-normal text-content text-xl md:text-2xl mb-6 md:mb-8"
+          transition:name={getTransitionNameFromElementId({
+            elementId: TRANSITION_ELEMENT_IDS.POST_CARD.DESCRIPTION,
+          })}
+        >
+          {description}
+        </p>
+      )
+    }
+
+    <PostMeta
+      {...postMetaProps}
+      transition:name={getTransitionNameFromElementId({
+        elementId: TRANSITION_ELEMENT_IDS.POST_CARD.META,
+      })}
+    />
+  </Fragment>
+
+  <!-- <Fragment slot="content">
+    {toc && <TableOfContents headings={headings} />}
+
+    <Content />
+  </Fragment> -->
+
+  <!-- <Fragment slot="after-content">
+    <div class="flex justify-between items-start gap-6 flex-col md:flex-row b-h2-mb">
+      <TagList tags={tags} size="md" />
+      <Share {...shareProps} />
     </div>
-  </div>
-</Base>
+
+    <Giscus class="b-h2-mt" />
+  </Fragment>
+
+  <Fragment slot="more-posts">
+    <PostListMore morePosts={randomPosts} />
+  </Fragment> -->
+</PostLayout>
