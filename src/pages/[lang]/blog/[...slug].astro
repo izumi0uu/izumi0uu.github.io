@@ -1,7 +1,14 @@
 ---
-import { getAllPostsWithReadingTime } from "@/modules/post/common";
+import { render } from "astro:content";
+
+import { CONFIG_CLIENT } from "@/config/client";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
 import Base from "@/layouts/Base.astro";
+
+import { getAllPostsWithReadingTime } from "@/modules/post/common";
+import { getRandomPosts } from "@/modules/post/random";
+
+const { SITE_URL } = CONFIG_CLIENT;
 
 export async function getStaticPaths() {
   const posts = await getAllPostsWithReadingTime();
@@ -16,7 +23,7 @@ export async function getStaticPaths() {
 
     // 为每种支持的语言创建路径
     for (const locale of SUPPORTED_LOCALES) {
-      console.log(`为文章 ${cleanSlug} 创建 ${locale} 语言路由`);
+      const randomPosts = getRandomPosts({ posts, excludeSlug: cleanSlug });
 
       // 使用Catch-All路由，slug参数会接收完整的路径（包含斜杠）
       paths.push({
@@ -25,9 +32,9 @@ export async function getStaticPaths() {
           slug: cleanSlug, // 这里slug会是 "2024/test-post-copy-4"
         },
         props: {
-          post,
+          ...post,
           routeLocale: locale,
-          originalSlug: post.slug,
+          randomPosts,
         },
       });
     }
@@ -37,10 +44,24 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const { post, routeLocale } = Astro.props;
-console.log("Astro.props", Astro.props);
-const { data, slug } = post;
-const { title, description } = data;
+const { data, routeLocale, randomPosts } = Astro.props;
+const {
+  draft,
+  title,
+  description,
+  publishDate,
+  updatedDate,
+  heroImage,
+  heroAlt,
+  noHero,
+  category,
+  tags = [],
+} = data;
+
+const { slug } = Astro.params;
+const { pathname } = Astro.url;
+
+const { Content, headings: postHeadings } = await render(Astro.props);
 
 // 基本元数据
 const metadata = { title, description };
