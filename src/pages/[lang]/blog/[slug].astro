@@ -12,10 +12,8 @@ export async function getStaticPaths() {
 
   // 遍历所有文章
   for (const post of posts) {
-    const cleanSlug = post.slug
-      .replace(/\.mdx$/, "")
-      .replace(/\s+/g, "-")
-      .replace(/\//g, "--");
+    // slug 现在已经在 generateId 中处理过了，不需要再次清理
+    const cleanSlug = post.slug;
 
     // 为每种支持的语言创建路径
     for (const locale of SUPPORTED_LOCALES) {
