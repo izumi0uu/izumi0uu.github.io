@@ -37,6 +37,5 @@ export const getPostsWithReadingTimeFromPosts = async (
  */
 export const getAllPostsWithReadingTime = async (): Promise<Post[]> => {
   const posts = await getPostsWithReadingTimeFromPosts(await getAllPosts());
-  console.log(`获取到 ${posts.length} 篇文章`);
   return posts;
 };

@@ -92,8 +92,8 @@ export default defineConfig({
       [...rehypeAutolinkHeadings],
     ],
     remarkPlugins: [
-      // @ts-ignore - 忽略类型错误，插件仍然能够正常工作
-      remarkLint,
+      // @ts-ignore
+      ...remarkLint,
       // @ts-ignore
       unifiedPrettier,
       // @ts-ignore
