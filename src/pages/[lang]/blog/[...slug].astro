@@ -81,7 +81,7 @@ const {
 const { slug } = Astro.params;
 const { pathname } = Astro.url;
 
-const { Content, headings: postHeadings } = await render(Astro.props);
+const { Content, headings: postHeadings, ...rest } = await render(Astro.props);
 // const headings = getHeadingsForTableOfContents(postHeadings);
 
 const postMetaProps = {
