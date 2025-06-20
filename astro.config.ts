@@ -93,7 +93,7 @@ export default defineConfig({
     ],
     remarkPlugins: [
       // @ts-ignore
-      ...remarkLint,
+      remarkLint,
       // @ts-ignore
       unifiedPrettier,
       // @ts-ignore

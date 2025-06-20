@@ -13,15 +13,12 @@ import type { GetStaticPathsOptions } from "astro";
 // [page].astro and getStaticPaths because of pagination
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const allPosts: Post[] = await getAllPostsWithReadingTime();
-  console.log(`博客列表页 - 获取到文章数: ${allPosts.length}`);
   const pageSize = CONFIG_CLIENT.PAGE_SIZE_POST_CARD;
 
   const paths = [];
 
   // 为每种语言创建分页路由
   for (const lang of SUPPORTED_LOCALES) {
-    console.log(`为 ${lang} 语言创建博客列表页`);
-
     // 创建该语言的分页路径
     const paginatedPaths = paginate(allPosts, {
       pageSize,
@@ -38,7 +35,6 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
     paths.push(...paginatedPaths);
   }
 
-  console.log(`博客列表页 - 总共生成 ${paths.length} 条路由`);
   return paths;
 }
 

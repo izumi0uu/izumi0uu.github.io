@@ -31,7 +31,6 @@ const { SITE_URL } = CONFIG_CLIENT;
 
 export async function getStaticPaths() {
   const posts = await getAllPostsWithReadingTime();
-  console.log(`生成博客详情页动态路由，文章数量: ${posts.length}`);
 
   const paths = [];
 
@@ -59,7 +58,6 @@ export async function getStaticPaths() {
     }
   }
 
-  console.log(`总共生成 ${paths.length} 条博客详情页路由`);
   return paths;
 }
 
@@ -82,26 +80,6 @@ const { slug } = Astro.params;
 const { pathname } = Astro.url;
 
 const { Content, headings: postHeadings, ...rest } = await render(Astro.props);
-
-// 详细检查 render 返回值
-console.log("=== RENDER 函数返回值检查 ===");
-console.log("Content:", typeof Content, Content ? "✅ 存在" : "❌ 缺失");
-console.log("headings:", postHeadings?.length || 0, "个标题");
-console.log("rest 对象的所有属性:", Object.keys(rest));
-console.log("remarkPluginFrontmatter:", rest.remarkPluginFrontmatter ? "✅ 存在" : "❌ 缺失");
-
-// 检查特定插件的数据
-if (rest.remarkPluginFrontmatter) {
-  console.log("插件处理后的 frontmatter:", rest.remarkPluginFrontmatter);
-}
-
-// 检查其他可能的插件数据
-Object.keys(rest).forEach((key) => {
-  if (key !== "remarkPluginFrontmatter") {
-    console.log(`额外的插件数据 - ${key}:`, rest[key]);
-  }
-});
-console.log("================================");
 
 // const headings = getHeadingsForTableOfContents(postHeadings);
 

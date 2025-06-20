@@ -1,7 +1,8 @@
 import { DEFAULT_METADATA } from "@/constants/metadata";
 
-import DefaultPostHeroImage from "@/assets/images/post-default.jpg";
-import DefaultProjectHeroImage from "@/assets/images/project-default.jpg";
+// 使用字符串路径而不是导入的图片对象
+// import DefaultPostHeroImage from "@/assets/images/post-default.jpg";
+// import DefaultProjectHeroImage from "@/assets/images/project-default.jpg";
 
 const BASE_FOLDERS = {
   POST: "src/content/post",
@@ -29,6 +30,8 @@ const TAGS = [
   "self-hosting",
   "web-development",
   "web-design",
+  "remark-lint",
+  "plugins",
 ] as const;
 
 /** adjust this later */
@@ -65,12 +68,12 @@ const CATEGORIES = [
   },
 ] as const;
 
-// use imported images here
+// 使用字符串路径作为默认值
 const DEFAULTS_POST = {
   TITLE: DEFAULT_METADATA.title,
   DESCRIPTION: DEFAULT_METADATA.description,
   NO_HERO: false,
-  HERO_IMAGE: DefaultPostHeroImage,
+  HERO_IMAGE: "@/assets/images/post-default.jpg",
   HERO_ALT: "Default post hero image",
   DRAFT: false,
   CATEGORY: CATEGORIES[0].name,
@@ -81,7 +84,7 @@ const DEFAULTS_PROJECT = {
   TITLE: DEFAULT_METADATA.title,
   DESCRIPTION: DEFAULT_METADATA.description,
   NO_HERO: false,
-  HERO_IMAGE: DefaultProjectHeroImage,
+  HERO_IMAGE: "@/assets/images/project-default.jpg",
   HERO_ALT: "Default project hero image",
   DRAFT: false,
   CATEGORY: CATEGORIES[0].name,
