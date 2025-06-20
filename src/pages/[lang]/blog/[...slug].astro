@@ -165,22 +165,45 @@ const metadata: Metadata = {
     />
   </Fragment>
 
-  <!-- <Fragment slot="content">
-    {toc && <TableOfContents headings={headings} />}
-
+  <Fragment slot="content">
     <Content />
-  </Fragment> -->
+  </Fragment>
 
-  <!-- <Fragment slot="after-content">
+  <Fragment slot="after-content">
     <div class="flex justify-between items-start gap-6 flex-col md:flex-row b-h2-mb">
-      <TagList tags={tags} size="md" />
-      <Share {...shareProps} />
+      {
+        tags.length > 0 && (
+          <div class="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <span class="px-3 py-1 text-sm bg-primary-container text-on-primary-container rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )
+      }
     </div>
-
-    <Giscus class="b-h2-mt" />
   </Fragment>
 
   <Fragment slot="more-posts">
-    <PostListMore morePosts={randomPosts} />
-  </Fragment> -->
+    <div class="mt-12">
+      <h2 class="text-2xl font-bold mb-6">More Posts</h2>
+      {
+        randomPosts.length > 0 && (
+          <div class="grid gap-6 md:grid-cols-2">
+            {randomPosts.slice(0, 4).map((post) => (
+              <div class="border border-outline rounded-lg p-4">
+                <h3 class="font-semibold mb-2">
+                  <a href={`${ROUTES.BLOG}${post.slug}`} class="hover:text-primary">
+                    {post.data.title}
+                  </a>
+                </h3>
+                <p class="text-sm text-content opacity-75 line-clamp-2">{post.data.description}</p>
+              </div>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </Fragment>
 </PostLayout>

@@ -33,6 +33,15 @@ const alertTitleVariants = cva("alert__title", {
   },
 });
 
+// 为不同的变体定义对应的MDI图标
+const alertIcons = {
+  note: "mdi:note-outline",
+  info: "mdi:information-outline",
+  tip: "mdi:lightbulb-outline",
+  warning: "mdi:alert-outline",
+  danger: "mdi:alert-circle-outline",
+};
+
 export interface Props extends HTMLAttributes<"aside">, VariantProps<typeof alertVariants> {
   title?: string;
 }
@@ -46,7 +55,7 @@ const title = titleProp ?? capitalizeFirstLetter(variant);
 
 <aside class={alertVariants({ variant, className })} aria-label={title} {...props}>
   <h4 aria-hidden="true" class={cn("b-h4", alertTitleVariants({ variant }))}>
-    <Icon name={variant} class="inline h-6 w-6" />
+    <Icon name={alertIcons[variant]} class="inline h-6 w-6" />
     {title}
   </h4>
 
