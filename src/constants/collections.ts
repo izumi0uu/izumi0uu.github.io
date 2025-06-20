@@ -25,6 +25,7 @@ const TAGS = [
   "solana",
   "python",
   "docker",
+  "devops",
   "self-hosting",
   "web-development",
   "web-design",
