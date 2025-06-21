@@ -17,6 +17,7 @@ import * as m from "@/paraglide/messages";
 import { getPathWithLocale } from "@/utils/routing/paths";
 
 // 使用React.memo来避免不必要的渲染
+// 修复GitHub Pages构建问题
 const NavigationBar = React.memo(() => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
