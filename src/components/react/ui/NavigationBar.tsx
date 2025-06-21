@@ -5,7 +5,7 @@ import React from "react";
 
 import { Link } from "@/components/react/ui/Link";
 import { Logo } from "@/components/react/ui/Logo";
-import { SearchBox } from "@/components/react/ui/SearchBox";
+// import { SearchBox } from "@/components/react/ui/SearchBox";
 import { MobileNavIcon, MobileNavigationBar } from "@/components/react/ui/MoblieNavigationBar";
 import { ModeToggleButton } from "@/components/react/ui/ModeToggleButton";
 import { ThemePopoverList } from "@/components/react/ui/ThemePopoverList";
@@ -68,7 +68,7 @@ const NavigationBar = React.memo(() => {
         <nav className="hidden gap-4 lg:flex">{navLinks}</nav>
       </div>
       <div className="flex flex-1 items-center justify-between md:justify-end">
-        <SearchBox />
+        {/* <SearchBox /> */}
         <ModeToggleButton />
         <ThemePopoverList />
         <I18nToggleButton className="mt-1 ml-2" />
