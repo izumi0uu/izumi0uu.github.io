@@ -142,6 +142,27 @@ export default defineConfig({
       force: true,
     },
 
+    resolve: {
+      alias: {
+        "@/assets": "/src/assets",
+        "@/components": "/src/components",
+        "@/modules": "/src/modules",
+        "@/constants": "/src/constants",
+        "@/content": "/src/content",
+        "@/layouts": "/src/layouts",
+        "@/features": "/src/features",
+        "@/libs": "/src/libs",
+        "@/pages": "/src/pages",
+        "@/schemas": "/src/schemas",
+        "@/styles": "/src/styles",
+        "@/types": "/src/types",
+        "@/utils": "/src/utils",
+        "@/config": "/src/config",
+        "@/paraglide": "/src/paraglide",
+        "@/scripts": "/src/scripts",
+      },
+    },
+
     plugins: [
       tailwindcss(),
       paraglideVitePlugin({
