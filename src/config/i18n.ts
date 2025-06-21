@@ -11,7 +11,7 @@ const i18nData = {
   } as const,
   LOCAL_STORAGE_KEY: "user-preferred-lang",
   BROWSER_LANG_REDIRECT_DONE_KEY: "browser-lang-redirect-done",
-  PREFIX_DEFAULT_LOCALE: true,
+  PREFIX_DEFAULT_LOCALE: false,
 };
 
 export const I18N_CONFIG = validateData(i18nData, i18nSchema);

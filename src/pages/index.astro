@@ -1,8 +1,90 @@
----
-// This page is intentionally almost empty.
-// When prefixDefaultLocale is true, Astro's i18n routing
-// automatically redirects from the root (/) to the default locale's index page (e.g., /en/).
-// This file needs to exist at src/pages/index.astro for that redirect to be set up.
----
+import { Image } from "astro:assets";
 
-<!-- You can leave this empty or add a simple message if accessed directly before redirect -->
+import { getPageMetadata } from "@/utils/content/metadata";
+import { cn } from "@/utils/ui/styles";
+import * as m from "@/paraglide/messages";
+import { getPathWithLocale } from "@/utils/routing/paths";
+
+import { CONFIG_CLIENT } from "@/config/client";
+import { ROUTES } from "@/constants/routes";
+import heroImage from "@/assets/images/hero-default.png";
+
+import Centered from "@/layouts/Centered.astro";
+
+import { FallingText } from "@/components/react/ui/FallingText";
+import { HeroContactLinks } from "@/components/react/app/home/HeroContactLinks";
+import { HeroBanner } from "@/components/react/app/home/HeroBanner";
+import { QuickLinksSection } from "@/components/react/app/home/QuickLinksSection";
+import { FadeUpAnimation } from "@/components/react/ui/FadeUpAnimation";
+import { GlassCard } from "@/components/react/ui/GlassCard";
+import { ScrollArea } from "@/components/react/radix-ui/Scroll";
+
+// 获取页面metadata（使用空字符串作为首页的key）
+const metadata = getPageMetadata("");
+
+const blogPath = getPathWithLocale(ROUTES.BLOG);
+
+const quickLinks = [
+  { name: "Blog", href: getPathWithLocale(ROUTES.BLOG), icon: "↗" },
+  { name: "Explore", href: getPathWithLocale(ROUTES.EXPLORE), icon: "↗" },
+  { name: "Projects", href: getPathWithLocale(ROUTES.PROJECTS), icon: "↗" },
+  { name: "About", href: getPathWithLocale(ROUTES.ABOUT), icon: "↗" },
+  { name: "Contact", href: getPathWithLocale(ROUTES.CONTACT), icon: "↗" },
+];
+
+const socialLinks = {
+  email: CONFIG_CLIENT.AUTHOR_EMAIL,
+  github: CONFIG_CLIENT.AUTHOR_GITHUB,
+  twitter: CONFIG_CLIENT.AUTHOR_TWITTER,
+  linkedin: CONFIG_CLIENT.AUTHOR_LINKEDIN,
+};
+
+<Centered {metadata} className="flex-col-layout first:gap-0 gap-8 md:gap-16">
+  <!-- Hero Page Section -->
+  <section
+    id="hero-page-section"
+    aria-label="hero-page-section"
+    class="flex-col-layout mode-theme-switch bg-surface-container rounded-sm"
+  >
+    <div
+      id="hero-page-wrapper"
+      aria-label="hero-page-wrapper"
+      class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4 min-h-[60vh] items-center"
+    >
+      <div id="hero-page-content" class="flex flex-col gap-4">
+        <HeroBanner blogPath={blogPath} client:only="react" />
+        <HeroContactLinks socialLinks={socialLinks} client:only="react" />
+      </div>
+      <div
+        id="hero-page-image"
+        aria-label="hero-page-image"
+        class="hidden lg:flex items-center justify-center w-full h-full max-w-md max-h-[500px] mx-auto"
+      >
+        <Image
+          src={heroImage}
+          alt="Hero page illustration"
+          width={400}
+          height={500}
+          class="w-full h-auto object-contain rounded-lg shadow-lg"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Links Section -->
+  <section id="quick-links" aria-label="quick-links" class="flex-col-layout mode-theme-switch">
+    <FadeUpAnimation title="Quick Links" client:visible>
+      <QuickLinksSection links={quickLinks} client:only="react" />
+    </FadeUpAnimation>
+  </section>
+
+  <!-- Projects Section -->
+  <section
+    id="projects-preview"
+    aria-label="projects-preview"
+    class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
+  >
+  </section>
+</Centered> 
