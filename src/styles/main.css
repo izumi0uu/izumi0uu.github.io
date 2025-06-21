@@ -30,5 +30,8 @@
 /* 组件样式 (使用语义化变量) */
 @import "./components/index.css";
 
+/* TOC (Table of Contents) 样式 */
+@import "./toc.css";
+
 /* 自定义工具类 */
 @import "./utilities/index.css";

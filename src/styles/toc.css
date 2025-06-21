@@ -1,0 +1,122 @@
+/**
+ * @file toc.css
+ * @description 目录（Table of Contents）的样式
+ */
+
+/* TOC 容器基础样式 */
+.toc-container {
+  @apply my-8 rounded-lg bg-gray-50 p-6 dark:bg-gray-800;
+  @apply border border-gray-200 dark:border-gray-700;
+}
+
+/* TOC 列表样式 */
+.toc-list {
+  @apply m-0 list-none p-0;
+}
+
+/* TOC 列表项 */
+.toc-item {
+  @apply my-2;
+}
+
+/* 一级标题项 */
+.toc-item-0 {
+  @apply text-base font-semibold;
+}
+
+/* 二级标题项 */
+.toc-item-1 {
+  @apply ml-4 text-sm;
+}
+
+/* 三级标题项 */
+.toc-item-2 {
+  @apply ml-8 text-sm opacity-90;
+}
+
+/* 四级及更深层级 */
+.toc-item-3,
+.toc-item-4,
+.toc-item-5 {
+  @apply ml-12 text-xs opacity-80;
+}
+
+/* TOC 链接样式 */
+.toc-link {
+  @apply text-gray-700 no-underline;
+  @apply hover:text-primary;
+  @apply transition-colors duration-200;
+  @apply block py-1;
+}
+
+/* 链接悬停效果 */
+.toc-link:hover {
+  @apply pl-2;
+}
+
+/* 嵌套列表样式 */
+.toc-nested {
+  @apply m-0 list-none p-0;
+}
+
+/* 当前活动的目录项（可选，需要 JavaScript 支持） */
+.toc-link.active {
+  @apply text-primary font-medium;
+  @apply border-outline border-l-2 pl-2;
+}
+
+/* 序号样式（可选） */
+.toc-item {
+  counter-increment: toc-counter;
+}
+
+.toc-item-0 {
+  counter-reset: toc-counter-sub;
+}
+
+.toc-item-0 > .toc-link::before {
+  content: counter(toc-counter) ". ";
+  @apply mr-2 font-mono text-gray-500 dark:text-gray-400;
+}
+
+.toc-item-1 {
+  counter-increment: toc-counter-sub;
+}
+
+.toc-item-1 > .toc-link::before {
+  content: counter(toc-counter) "." counter(toc-counter-sub) " ";
+  @apply mr-2 font-mono text-xs text-gray-400 dark:text-gray-500;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .toc-container {
+    @apply my-6 p-4;
+  }
+
+  .toc-item-1 {
+    @apply ml-3;
+  }
+
+  .toc-item-2 {
+    @apply ml-6;
+  }
+
+  .toc-item-3,
+  .toc-item-4,
+  .toc-item-5 {
+    @apply ml-9;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  .toc-container {
+    @apply border-2 border-gray-300 p-4;
+    page-break-inside: avoid;
+  }
+
+  .toc-link {
+    @apply text-black no-underline;
+  }
+}

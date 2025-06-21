@@ -21,12 +21,14 @@ import oembedTransformer from "@remark-embedder/transformer-oembed";
 // Import other plugins directly or from index
 import rehypeExternalLinks from "./plugins/rehype-external-links.mjs";
 import rehypeAutolinkHeadings from "./plugins/rehype-autolink-headings.mjs";
+import rehypeTocClasses from "./plugins/rehype-toc-classes.mjs";
 // Attempt to use preset directly for linting
 
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
 // 导入验证插件
 import lintVerificationPlugin from "./plugins/lint-verification-plugin.mjs";
+import tocVerificationPlugin from "./plugins/toc-verification-plugin.mjs";
 
 // 直接导入具体的 remark-lint 规则
 import remarkLintMain from "remark-lint";
@@ -37,6 +39,8 @@ import remarkLintNoLiteralUrls from "remark-lint-no-literal-urls";
 import remarkLintNoDuplicateDefinitions from "remark-lint-no-duplicate-definitions";
 import remarkLintNoUndefinedReferences from "remark-lint-no-undefined-references";
 import remarkLintNoUnusedDefinitions from "remark-lint-no-unused-definitions";
+
+import remarkTocPlugin from "remark-toc";
 
 import {
   remarkLint, // Markdown 代码风格检查
@@ -58,7 +62,23 @@ import { DEFAULT_LOCALE, SUPPORTED_LOCALES, PREFIX_DEFAULT_LOCALE } from "./src/
 // 使用展开运算符来扁平化 remarkLint 数组
 const remarkPlugins = [...(remarkLint || []), lintVerificationPlugin, remarkToc];
 // Rehype 插件处理 HTML 抽象语法树 (AST)
-// const rehypePlugins = [rehypeExternalLinks, rehypeAutolinkHeadings];
+const rehypePlugins = [
+  // @ts-ignore
+  ...rehypeExternalLinks,
+  // @ts-ignore
+  ...rehypeAutolinkHeadings,
+  // 为 TOC 添加 CSS 类
+  [
+    rehypeTocClasses,
+    {
+      containerClass: "toc-container",
+      listClass: "toc-list",
+      itemClass: "toc-item",
+      linkClass: "toc-link",
+      nestedListClass: "toc-nested",
+    },
+  ],
+];
 
 /**
  * Astro 配置
@@ -101,7 +121,19 @@ export default defineConfig({
     astroFont(),
   ],
   markdown: {
-    // rehypePlugins,
+    rehypePlugins: [
+      // 直接导入并使用插件，避免类型问题
+      [
+        rehypeTocClasses,
+        {
+          containerClass: "toc-container",
+          listClass: "toc-list",
+          itemClass: "toc-item",
+          linkClass: "toc-link",
+          nestedListClass: "toc-nested",
+        },
+      ],
+    ],
     remarkPlugins: [
       // 首先加载 remark-lint 主插件
       remarkLintMain,
@@ -115,7 +147,8 @@ export default defineConfig({
       remarkLintNoUnusedDefinitions,
       // 最后添加验证插件
       lintVerificationPlugin,
-      remarkToc,
+      [remarkTocPlugin, { heading: "toc|table[ -]of[ -]contents?" }],
+      tocVerificationPlugin,
     ],
   },
   i18n: {
