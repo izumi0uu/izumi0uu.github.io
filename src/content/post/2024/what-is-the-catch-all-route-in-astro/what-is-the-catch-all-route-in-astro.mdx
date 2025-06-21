@@ -90,17 +90,13 @@ const { Content } = await render(post);
 ```
 
 需要注意的是，在 SSR 模式下，对于 [...slug] 这样的剩余参数，Astro.params.slug
-将是一个字符串数组，其中每个元素代表 URL 路径的一个段（不包括开头的 / 和末尾的 /）[This is an
-inference based on typical web frameworks' handling of rest parameters. The source only states const
-{id} = Astro.params; for [id].astro, not explicitly for [...slug].astro as an array. I should make
-it clear this is an external inference or provide an example of Array.isArray(slug) ? slug.join('/')
-: slug;]. 补充说明： 对于 [...slug] 这样的剩余参数，Astro.params.slug
+将是一个字符串数组，其中每个元素代表 URL 路径的一个段（不包括开头的 / 和末尾的 /）。
+
+补充说明： 对于 [...slug] 这样的剩余参数，Astro.params.slug
 将会是一个字符串数组，其中每个元素代表 URL 路径的一个段（不包括开头的 / 和末尾的 /）。例如，对于
 /posts/2023/my-first-post，Astro.params.slug 将是 ["2023",
 "my-first-post"]。因此，在查询内容集合时，你需要将这个数组 join('/') 拼接成完整的 slug 字符串，例如
-slug.join('/') [This is inferred behavior from typical routing, not directly stated for [...slug]
-specifically in Astro.params in the given sources. I will clarify this as information from outside
-the sources.]。 3. 分页 () 中的 Catch-All 路由 paginate() 函数也可以与 catch-all 路由结合使用，例如
+slug.join('/')。 3. 分页 () 中的 Catch-All 路由 paginate() 函数也可以与 catch-all 路由结合使用，例如
 [...page].astro。 • paginate() 假设文件名为 [page].astro 或 [...page].astro。 • [page].astro 将生成
 /posts/1、/posts/2、/posts/3 等 URL。 • [...page].astro 将生成 /posts、/posts/2、/posts/3 等
 URL，这意味着首页 /posts 不包含页码，而后续页面则包含。
