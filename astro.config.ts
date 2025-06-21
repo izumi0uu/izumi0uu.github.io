@@ -43,6 +43,11 @@ import { sitemapIntegration } from "./src/libs/integrations/sitemap";
 import { PROCESS_ENV, astroEnvSchema } from "./src/config/process-env";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES, PREFIX_DEFAULT_LOCALE } from "./src/config/i18n";
 
+// const remarkPlugins = [remarkLint, remarkToc, remarkSmartypants, remarkImages, remarkGfm, remarkDropcap, remarkCapitalizeHeadings, remarkCallout];
+const remarkPlugins = [remarkLint];
+// Rehype 插件处理 HTML 抽象语法树 (AST)
+const rehypePlugins = [rehypeExternalLinks, rehypeAutolinkHeadings];
+
 /**
  * Astro 配置
  * @see https://astro.build/config
@@ -84,34 +89,8 @@ export default defineConfig({
     astroFont(),
   ],
   markdown: {
-    rehypePlugins: [
-      // @ts-ignore - 这些插件已经导出为 [plugin, options] 形式
-      [...rehypeExternalLinks],
-      // @ts-ignore
-      [...rehypeAutolinkHeadings],
-    ],
-    remarkPlugins: [
-      // @ts-ignore
-      remarkLint,
-      // @ts-ignore
-      // remarkPrism,
-      // @ts-ignore
-      // remarkToc,
-      // @ts-ignore
-      // remarkSmartypants,
-      // @ts-ignore
-      // remarkImages,
-      // @ts-ignore
-      // remarkGfm,
-      // @ts-ignore - 处理 CJS/ESM 互操作性问题
-      // [remarkEmbedder.default, { transformers: [oembedTransformer.default] }],
-      // @ts-ignore
-      // remarkDropcap,
-      // @ts-ignore
-      // remarkCapitalizeHeadings,
-      // @ts-ignore
-      // remarkCallout,
-    ],
+    rehypePlugins,
+    remarkPlugins,
   },
   i18n: {
     defaultLocale: DEFAULT_LOCALE,
