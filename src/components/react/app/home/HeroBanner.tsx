@@ -1,6 +1,6 @@
 import React from "react";
 import { RotatingText } from "@/components/react/ui/RotatingText";
-import { SplitText } from "@/components/react/ui/SpiltText";
+import { SplitText } from "@/components/react/ui/SplitText";
 import { Link } from "@/components/react/ui/Link";
 
 interface HeroBannerProps {
