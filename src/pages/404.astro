@@ -1,8 +1,7 @@
 ---
 import Centered from "@/layouts/Centered.astro";
 import _404 from "@/assets/images/404-removebg-preview.png";
+import { getPageMetadata } from "@/utils/content/metadata";
 ---
 
-<Centered>
-  <img src={_404.src} alt="404" />
-</Centered>
+<img src={_404.src} alt="404" />
