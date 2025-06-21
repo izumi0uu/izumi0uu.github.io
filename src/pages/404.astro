@@ -47,28 +47,14 @@ const metadata = getPageMetadata("404");
 </Centered>
 
 <style>
-  /* 整个页面背景主题适配 */
-  .error-page-background {
-    background: linear-gradient(
-      135deg,
-      var(--color-background) 0%,
-      var(--color-surface-container-low) 50%,
-      var(--color-surface-container) 100%
-    );
-    min-height: 100vh;
-  }
-
   /* 透明PNG图片主题适配 */
   .theme-adaptive-image {
-    transition: filter 0.3s ease;
   }
 
-  /* 亮色模式 - 图片保持原色或轻微调整 */
   :root .theme-adaptive-image {
     filter: brightness(1) contrast(1.1) saturate(1.2);
   }
 
-  /* 暗色模式 - 图片反色并调整亮度 */
   :root[data-theme*="dark"] .theme-adaptive-image,
   :root.dark .theme-adaptive-image {
     filter: brightness(0.9) contrast(1.2) saturate(1.1) hue-rotate(10deg);
@@ -81,12 +67,5 @@ const metadata = getPageMetadata("404");
 
   :root[data-theme*="wine"][data-theme*="dark"] .theme-adaptive-image {
     filter: brightness(0.8) contrast(1.3) saturate(1.2) hue-rotate(-15deg);
-  }
-
-  /* 响应式调整 */
-  @media (max-width: 640px) {
-    .error-page-background {
-      padding: 2rem 1rem;
-    }
   }
 </style>
