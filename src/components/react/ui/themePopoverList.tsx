@@ -52,14 +52,21 @@ const ThemePopoverList: React.FC<ThemePopoverListProps> = ({ className }) => {
   const [availableThemes, setAvailableThemes] = useState<string[]>([]);
 
   const updateThemeState = () => {
-    const currentTheme = getCurrentTheme();
-    if (currentTheme) {
-      const prefix = getThemeNamePrefix(currentTheme.name);
-      setCurrentThemePrefix(prefix);
-    }
+    // 安全地处理主题状态，避免 SSR 问题
+    if (typeof window === "undefined") return;
 
-    const themes = getAvailableThemePrefixes();
-    setAvailableThemes(themes);
+    try {
+      const currentTheme = getCurrentTheme();
+      if (currentTheme) {
+        const prefix = getThemeNamePrefix(currentTheme.name);
+        setCurrentThemePrefix(prefix);
+      }
+
+      const themes = getAvailableThemePrefixes();
+      setAvailableThemes(themes);
+    } catch (error) {
+      console.warn("Failed to update theme state:", error);
+    }
   };
 
   useEffect(() => {

@@ -16,9 +16,15 @@ interface I18nToggleButtonProps {
  * localeChange 事件是由 paraglide 派发和命名的
  */
 const I18nToggleButton: React.FC<I18nToggleButtonProps> = ({ className }) => {
-  const [currentLocale, setCurrentLocale] = useState<LocaleValues>(
-    () => getLocale() as LocaleValues
-  );
+  const [currentLocale, setCurrentLocale] = useState<LocaleValues>(() => {
+    // 安全地获取 locale，避免 SSR 问题
+    if (typeof window === "undefined") return "en" as LocaleValues;
+    try {
+      return getLocale() as LocaleValues;
+    } catch {
+      return "en" as LocaleValues;
+    }
+  });
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // 监听语言变化

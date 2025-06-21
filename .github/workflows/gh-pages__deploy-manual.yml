@@ -3,12 +3,12 @@ name: Deploy to GitHub Pages manually
 on:
   push:
     branches:
-      - 'disabled-main'
+      - "disabled-main"
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - "v[0-9]+.[0-9]+.[0-9]+"
   pull_request:
     branches:
-      - 'disabled-main'
+      - "disabled-main"
   workflow_dispatch:
 
 # Allow this job to clone the repo and create a page deployment
@@ -19,9 +19,9 @@ permissions:
 
 # set env vars in Github settings here
 env:
-  SITE_URL: 'https://nemanjam.github.io'
-  PLAUSIBLE_SCRIPT_URL: 'https://plausible.arm1.nemanjamitic.com/js/script.js'
-  PLAUSIBLE_DOMAIN: 'nemanjamitic.com'
+  SITE_URL: "https://izumi0uu.github.io"
+  PLAUSIBLE_SCRIPT_URL: "https://plausible.arm1.izumi0uu.com/js/script.js"
+  PLAUSIBLE_DOMAIN: "izumi0uu.github.io"
 
 jobs:
   build-manual:
@@ -40,13 +40,13 @@ jobs:
       - name: Set up Node.js and Yarn
         uses: actions/setup-node@v4
         with:
-          node-version: '23.11.0'
-          registry-url: 'https://registry.yarnpkg.com'
+          node-version: "23.11.0"
+          registry-url: "https://registry.yarnpkg.com"
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Build nemanjam.github.io
+      - name: Build izumi0uu.github.io
         run: yarn build
 
       - name: Upload artifact

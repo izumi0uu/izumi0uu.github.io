@@ -41,6 +41,11 @@ const SearchBox = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<string>("");
 
+  // 确保只在客户端渲染
+  if (typeof window === "undefined") {
+    return null;
+  }
+
   const handleSelect = (currentValue: string) => {
     setValue(currentValue === value ? "" : currentValue);
     setOpen(false);
