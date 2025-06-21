@@ -40,7 +40,6 @@ import remarkLintNoUnusedDefinitions from "remark-lint-no-unused-definitions";
 
 import {
   remarkLint, // Markdown 代码风格检查
-  // remarkPrism, // 代码高亮
   remarkToc, // 自动目录
   remarkSmartypants, // 智能标点
   remarkImages, // 图片处理
@@ -57,7 +56,7 @@ import { PROCESS_ENV, astroEnvSchema } from "./src/config/process-env";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES, PREFIX_DEFAULT_LOCALE } from "./src/config/i18n";
 
 // 使用展开运算符来扁平化 remarkLint 数组
-const remarkPlugins = [...(remarkLint || []), lintVerificationPlugin];
+const remarkPlugins = [...(remarkLint || []), lintVerificationPlugin, remarkToc];
 // Rehype 插件处理 HTML 抽象语法树 (AST)
 // const rehypePlugins = [rehypeExternalLinks, rehypeAutolinkHeadings];
 
@@ -116,6 +115,7 @@ export default defineConfig({
       remarkLintNoUnusedDefinitions,
       // 最后添加验证插件
       lintVerificationPlugin,
+      remarkToc,
     ],
   },
   i18n: {

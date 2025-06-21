@@ -5,15 +5,15 @@
 
 export default function lintVerificationPlugin() {
   return function transformer(tree, file) {
-    console.log("\n🔍 === LINT 验证插件 ===");
-    console.log(`📄 文件: ${file.path || "unknown"}`);
+    console.log("\n === LINT 验证插件 ===");
+    console.log(` 文件: ${file.path || "unknown"}`);
 
     // 检查 VFile.messages
     const messageCount = file.messages ? file.messages.length : 0;
-    console.log(`📊 VFile.messages 数量: ${messageCount}`);
+    console.log(` VFile.messages 数量: ${messageCount}`);
 
     if (messageCount > 0) {
-      console.log("\n🚨 发现消息:");
+      console.log("\n 发现消息:");
 
       // 统计不同来源的消息
       const messagesBySource = {};
@@ -34,11 +34,11 @@ export default function lintVerificationPlugin() {
 
       // 如果有更多消息，显示摘要
       if (messageCount > 5) {
-        console.log(`\n  ... 还有 ${messageCount - 5} 条消息`);
+        console.log(`\n 还有 ${messageCount - 5} 条消息`);
       }
 
       // 显示消息来源统计
-      console.log("\n📈 消息来源统计:");
+      console.log("\n 消息来源统计:");
       Object.entries(messagesBySource).forEach(([source, count]) => {
         console.log(`  ${source}: ${count} 条`);
       });
@@ -46,18 +46,18 @@ export default function lintVerificationPlugin() {
       // 检查是否有 remark-lint 消息
       const lintMessageCount = messagesBySource["remark-lint"] || 0;
       if (lintMessageCount > 0) {
-        console.log(`\n✅ remark-lint 正在工作! 发现 ${lintMessageCount} 条 lint 警告`);
+        console.log(`\n remark-lint 正在工作! 发现 ${lintMessageCount} 条 lint 警告`);
       } else {
-        console.log("\n❌ 没有发现 remark-lint 消息");
+        console.log("\n 没有发现 remark-lint 消息");
       }
     } else {
-      console.log("\n❌ VFile.messages 为空");
-      console.log("💡 这意味着:");
+      console.log("\n VFile.messages 为空");
+      console.log(" 这意味着:");
       console.log("  1. remark-lint 没有检测到问题");
       console.log("  2. 或者 remark-lint 没有正确运行");
     }
 
-    console.log("\n=== LINT 验证插件结束 ===\n");
+    console.log("\n LINT 验证插件结束\n");
 
     return tree;
   };
