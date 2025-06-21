@@ -85,6 +85,10 @@ const PAGE_METADATA = {
   "lists/links/link": {
     getTitle: () => m["pages.lists.links.link_title"](),
   },
+  "404": {
+    getTitle: () => m["pages.404.title"](),
+    getDescription: () => m["pages.404.description"](),
+  },
 } as const;
 
 const OG_IMAGE_PREFIXES = {

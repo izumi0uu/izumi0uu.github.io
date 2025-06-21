@@ -41,6 +41,12 @@ const getPagePrefix = (path: string): OgImagePrefixType => {
   let prefix = trimmedPath.split("/")[0];
   prefix = removeLeadingAndTrailingSlashes(prefix);
 
+  // Handle special static pages that should use 'pages' prefix
+  const staticPages = ["about", "contact", "404", "500"];
+  if (staticPages.includes(prefix)) {
+    return "pages" as OgImagePrefixType;
+  }
+
   // must not be in global scope
   // reasons: avoid circular dependency risk, module loading order problem, build error
   const prefixes = Object.values(OG_IMAGE_PREFIXES) as string[];
