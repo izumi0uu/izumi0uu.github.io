@@ -5,11 +5,11 @@ import React from "react";
 
 import { Link } from "@/components/react/ui/Link";
 import { Logo } from "@/components/react/ui/Logo";
-import { SearchBox } from "./SearchBox";
+import { SearchBox } from "@/components/react/ui/SearchBox";
 import { MobileNavIcon, MobileNavigationBar } from "@/components/react/ui/MobileNavigationBar";
 import { ModeToggleButton } from "@/components/react/ui/ModeToggleButton";
-import { ThemePopoverList } from "./ThemePopoverList";
-import { I18nToggleButton } from "./I18nToggleButton";
+import { ThemePopoverList } from "@/components/react/ui/ThemePopoverList";
+import { I18nToggleButton } from "@/components/react/ui/I18nToggleButton";
 
 import { CONFIG_CLIENT } from "@/config/client";
 import { ROUTES } from "@/constants/routes";
