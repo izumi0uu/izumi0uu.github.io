@@ -1,0 +1,12 @@
+---
+import Centered from "@/layouts/Centered.astro";
+import { getPageMetadata } from "@/utils/content/metadata";
+
+const metadata = getPageMetadata("about");
+---
+
+<Centered {metadata}>
+  <h1>About</h1>
+  <p>Welcome to the about page. This page provides information about the site and its author.</p>
+</Centered>
+
