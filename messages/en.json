@@ -2,6 +2,10 @@
   "$schema": "https://inlang.com/schema/inlang-message-format",
   "greeting_message": "Hello world, I'm Izumi0uu",
   "pages": {
+    "404": {
+      "title": "404",
+      "description": "Page not found"
+    },
     "home": {
       "title": "Home",
       "description": "Welcome to my space!",
