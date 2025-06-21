@@ -36,7 +36,7 @@ const configClientData: ConfigClientType = {
   AUTHOR_LINKEDIN: "https://www.linkedin.com/in/izumi0uu",
   AUTHOR_TWITTER: "https://x.com/izumi0uu",
   AUTHOR_YOUTUBE: "https://www.youtube.com/@izumi0uu",
-  REPO_URL: "https://github.com/izumi0uu/sakia-blog",
+  REPO_URL: "https://github.com/izumi0uu/izumi0uu.github.io",
   AUTHOR_AVATAR: "https://avatars.githubusercontent.com/u/izumi0uu",
   AUTHOR_DESCRIPTION: "a developer who loves technology and user experience.",
   AUTHOR_FACEBOOK: "https://facebook.com/izumi0uu",
