@@ -53,6 +53,12 @@ export const IMAGE_SIZES = {
       quality: 75,
       loading: "eager",
     },
+    _404_SMALL: {
+      width: TW_SCREENS.SM,
+      height: TW_SCREENS.HEIGHTS.SM,
+      quality: 75,
+      loading: "eager",
+    },
     MDX_XXS: {
       width: TW_SCREENS.XXS,
       height: TW_SCREENS.HEIGHTS.XXS,
@@ -169,6 +175,12 @@ export const IMAGE_SIZES = {
     GALLERY_THUMBNAIL: {
       widths: [TW_SCREENS.XS, TW_SCREENS.SM],
       sizes: `(max-width: ${TW_SCREENS.SM}px) ${TW_SCREENS.SM}px, ${TW_SCREENS.XS}px`,
+    },
+    ERROR_404: {
+      widths: [TW_SCREENS.XS, TW_SCREENS.SM, TW_SCREENS.MD, TW_SCREENS.LG],
+      sizes: `(max-width: ${TW_SCREENS.XS}px) ${TW_SCREENS.XS}px, (max-width: ${TW_SCREENS.SM}px) ${TW_SCREENS.SM}px, (max-width: ${TW_SCREENS.MD}px) ${TW_SCREENS.MD}px, ${TW_SCREENS.LG}px`,
+      quality: 75,
+      loading: "eager",
     },
   },
 } as const satisfies ImageSizes;

@@ -1,11 +1,231 @@
 ---
 import Centered from "@/layouts/Centered.astro";
 import _404 from "@/assets/images/404-removebg-preview.png";
+import { Image } from "astro:assets";
 import { getPageMetadata } from "@/utils/content/metadata";
+import { IMAGE_SIZES } from "@/constants/image";
+import { Link } from "@/components/react/ui/Link";
+import { cn } from "@/utils/ui/styles";
+import * as m from "@/paraglide/messages";
+import { getPathWithLocale } from "@/utils/routing/paths";
+import { ROUTES } from "@/constants/routes";
 
 const metadata = getPageMetadata("404");
+const homeLink = getPathWithLocale(ROUTES.HOME);
 ---
 
 <Centered {metadata}>
-  <img src={_404.src} alt="404" />
+  <div
+    class="min-h-screen flex flex-col items-center justify-center gap-8 px-4 py-8 error-page-background"
+  >
+    <!-- 404图片容器 -->
+    <div class="relative flex items-center justify-center">
+      <!-- 背景光晕效果 -->
+      <div class="absolute inset-0 rounded-full bg-primary/20 blur-3xl scale-150 animate-pulse">
+      </div>
+
+      <!-- 404图片 - 使用CSS滤镜适应主题 -->
+      <Image
+        src={_404}
+        alt="404 Not Found"
+        {...IMAGE_SIZES.RESPONSIVE.ERROR_404}
+        class={cn(
+          "relative z-10 w-full h-auto object-contain",
+          "max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl",
+          "drop-shadow-2xl",
+          // 主题适配滤镜
+          "theme-adaptive-image"
+        )}
+      />
+    </div>
+
+    <!-- 文字内容 -->
+    <div class="text-center space-y-6 max-w-2xl">
+      <h1
+        class={cn(
+          "text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold",
+          "bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text text-transparent",
+          "tracking-tight animate-pulse"
+        )}
+      >
+        404
+      </h1>
+
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-content">
+        {m["pages.404.title"]()}
+      </h2>
+
+      <p
+        class={cn("text-lg sm:text-xl text-content-secondary", "leading-relaxed max-w-lg mx-auto")}
+      >
+        {m["pages.404.description"]()}
+      </p>
+
+      <!-- 操作按钮 -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
+        <Link
+          href={homeLink}
+          variant="brutal"
+          className={cn(
+            "px-8 py-4 text-lg font-medium",
+            "transition-all duration-300 ease-out",
+            "hover:scale-105 hover:shadow-lg active:scale-95",
+            "bg-primary text-on-primary"
+          )}
+        >
+          🏠 Back to Home
+        </Link>
+
+        <button
+          onclick="history.back()"
+          class={cn(
+            "px-8 py-4 text-lg font-medium",
+            "bg-surface-container hover:bg-surface-container-high",
+            "text-content border-2 border-outline-variant hover:border-primary",
+            "rounded-lg transition-all duration-300 ease-out",
+            "hover:scale-105 hover:shadow-lg active:scale-95",
+            "cursor-pointer"
+          )}
+        >
+          ← Go Back
+        </button>
+      </div>
+    </div>
+
+    <!-- 装饰性元素 -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+      <!-- 浮动粒子 -->
+      <div class="floating-particles">
+        <div class="particle particle-1"></div>
+        <div class="particle particle-2"></div>
+        <div class="particle particle-3"></div>
+        <div class="particle particle-4"></div>
+        <div class="particle particle-5"></div>
+      </div>
+    </div>
+  </div>
 </Centered>
+
+<style>
+  /* 整个页面背景主题适配 */
+  .error-page-background {
+    background: linear-gradient(
+      135deg,
+      var(--color-background) 0%,
+      var(--color-surface-container-low) 50%,
+      var(--color-surface-container) 100%
+    );
+    min-height: 100vh;
+  }
+
+  /* 透明PNG图片主题适配 */
+  .theme-adaptive-image {
+    transition: filter 0.3s ease;
+  }
+
+  /* 亮色模式 - 图片保持原色或轻微调整 */
+  :root .theme-adaptive-image {
+    filter: brightness(1) contrast(1.1) saturate(1.2);
+  }
+
+  /* 暗色模式 - 图片反色并调整亮度 */
+  :root[data-theme*="dark"] .theme-adaptive-image,
+  :root.dark .theme-adaptive-image {
+    filter: brightness(0.9) contrast(1.2) saturate(1.1) hue-rotate(10deg);
+  }
+
+  /* 酒红主题特殊处理 */
+  :root[data-theme*="wine"] .theme-adaptive-image {
+    filter: brightness(1.1) contrast(1.1) saturate(1.3) hue-rotate(-10deg);
+  }
+
+  :root[data-theme*="wine"][data-theme*="dark"] .theme-adaptive-image {
+    filter: brightness(0.8) contrast(1.3) saturate(1.2) hue-rotate(-15deg);
+  }
+
+  /* 浮动粒子动画 */
+  .floating-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .particle-1 {
+    top: 20%;
+    left: 10%;
+    width: 8px;
+    height: 8px;
+    background: var(--color-primary);
+    animation-delay: 0s;
+  }
+
+  .particle-2 {
+    top: 60%;
+    right: 15%;
+    width: 6px;
+    height: 6px;
+    background: var(--color-secondary);
+    animation-delay: 2s;
+  }
+
+  .particle-3 {
+    bottom: 30%;
+    left: 20%;
+    width: 4px;
+    height: 4px;
+    background: var(--color-tertiary);
+    animation-delay: 4s;
+  }
+
+  .particle-4 {
+    top: 40%;
+    right: 30%;
+    width: 5px;
+    height: 5px;
+    background: var(--color-primary);
+    animation-delay: 1s;
+  }
+
+  .particle-5 {
+    bottom: 50%;
+    left: 70%;
+    width: 7px;
+    height: 7px;
+    background: var(--color-secondary);
+    animation-delay: 3s;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg);
+      opacity: 0.3;
+    }
+    33% {
+      transform: translateY(-20px) rotate(120deg);
+      opacity: 0.6;
+    }
+    66% {
+      transform: translateY(10px) rotate(240deg);
+      opacity: 0.4;
+    }
+  }
+
+  /* 响应式调整 */
+  @media (max-width: 640px) {
+    .error-page-background {
+      padding: 2rem 1rem;
+    }
+
+    .particle {
+      transform: scale(0.8);
+    }
+  }
+</style>
