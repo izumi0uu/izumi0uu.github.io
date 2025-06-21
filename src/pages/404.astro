@@ -4,7 +4,7 @@ import _404 from "@/assets/images/404-removebg-preview.png";
 import { Image } from "astro:assets";
 import { getPageMetadata } from "@/utils/content/metadata";
 import { IMAGE_SIZES } from "@/constants/image";
-import { Link } from "@/components/react/ui/Link";
+import Button from "@/components/Button.astro";
 import { cn } from "@/utils/ui/styles";
 import * as m from "@/paraglide/messages";
 import { getPathWithLocale } from "@/utils/routing/paths";
@@ -16,7 +16,7 @@ const homeLink = getPathWithLocale(ROUTES.HOME);
 
 <Centered {metadata}>
   <div
-    class="min-h-screen flex flex-col items-center justify-center gap-8 px-4 py-8 error-page-background"
+    class="h-screen flex flex-col items-center justify-center gap-8 px-4 py-8 error-page-background"
   >
     <!-- 404图片容器 -->
     <div class="relative flex items-center justify-center">
@@ -48,47 +48,11 @@ const homeLink = getPathWithLocale(ROUTES.HOME);
           "tracking-tight animate-pulse"
         )}
       >
-        404
+        {m["pages.404.description"]()}
       </h1>
 
-      <h2 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-content">
-        {m["pages.404.title"]()}
-      </h2>
-
-      <p
-        class={cn("text-lg sm:text-xl text-content-secondary", "leading-relaxed max-w-lg mx-auto")}
-      >
-        {m["pages.404.description"]()}
-      </p>
-
-      <!-- 操作按钮 -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
-        <Link
-          href={homeLink}
-          variant="brutal"
-          className={cn(
-            "px-8 py-4 text-lg font-medium",
-            "transition-all duration-300 ease-out",
-            "hover:scale-105 hover:shadow-lg active:scale-95",
-            "bg-primary text-on-primary"
-          )}
-        >
-          🏠 Back to Home
-        </Link>
-
-        <button
-          onclick="history.back()"
-          class={cn(
-            "px-8 py-4 text-lg font-medium",
-            "bg-surface-container hover:bg-surface-container-high",
-            "text-content border-2 border-outline-variant hover:border-primary",
-            "rounded-lg transition-all duration-300 ease-out",
-            "hover:scale-105 hover:shadow-lg active:scale-95",
-            "cursor-pointer"
-          )}
-        >
-          ← Go Back
-        </button>
+        <Button onclick="history.back()" variant="brutal"> Go Back </Button>
       </div>
     </div>
 
