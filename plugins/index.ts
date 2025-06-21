@@ -45,7 +45,6 @@ import rehypeExternalLinks from "./rehype-external-links.mjs";
  */
 export {
   remarkLint,
-  unifiedPrettier,
   remarkPrism,
   remarkToc,
   remarkSmartypants,

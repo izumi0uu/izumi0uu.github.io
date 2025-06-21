@@ -27,7 +27,6 @@ import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
 import {
   remarkLint, // Markdown 代码风格检查
-  unifiedPrettier, // Prettier 格式化
   // remarkPrism, // 代码高亮
   remarkToc, // 自动目录
   remarkSmartypants, // 智能标点
@@ -95,25 +94,23 @@ export default defineConfig({
       // @ts-ignore
       remarkLint,
       // @ts-ignore
-      unifiedPrettier,
-      // @ts-ignore
       // remarkPrism,
       // @ts-ignore
-      remarkToc,
+      // remarkToc,
       // @ts-ignore
-      remarkSmartypants,
+      // remarkSmartypants,
       // @ts-ignore
-      remarkImages,
+      // remarkImages,
       // @ts-ignore
-      remarkGfm,
+      // remarkGfm,
       // @ts-ignore - 处理 CJS/ESM 互操作性问题
-      [remarkEmbedder.default, { transformers: [oembedTransformer.default] }],
+      // [remarkEmbedder.default, { transformers: [oembedTransformer.default] }],
       // @ts-ignore
-      remarkDropcap,
+      // remarkDropcap,
       // @ts-ignore
-      remarkCapitalizeHeadings,
+      // remarkCapitalizeHeadings,
       // @ts-ignore
-      remarkCallout,
+      // remarkCallout,
     ],
   },
   i18n: {
