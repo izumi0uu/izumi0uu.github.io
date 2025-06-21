@@ -21,8 +21,7 @@ const homeLink = getPathWithLocale(ROUTES.HOME);
     <!-- 404图片容器 -->
     <div class="relative flex items-center justify-center">
       <!-- 背景光晕效果 -->
-      <div class="absolute inset-0 rounded-full bg-primary/20 blur-3xl scale-150 animate-pulse">
-      </div>
+      <div class="absolute inset-0 rounded-full bg-primary/20 blur-3xl scale-150"></div>
 
       <!-- 404图片 - 使用CSS滤镜适应主题 -->
       <Image
@@ -45,7 +44,7 @@ const homeLink = getPathWithLocale(ROUTES.HOME);
         class={cn(
           "text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold",
           "bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text text-transparent",
-          "tracking-tight animate-pulse"
+          "tracking-tight"
         )}
       >
         {m["pages.404.description"]()}
@@ -117,8 +116,8 @@ const homeLink = getPathWithLocale(ROUTES.HOME);
   .particle {
     position: absolute;
     border-radius: 50%;
-    opacity: 0.3;
-    animation: float 6s ease-in-out infinite;
+    opacity: 0.4;
+    /* 移除浮动动画，保持稳定状态 */
   }
 
   .particle-1 {
@@ -166,21 +165,7 @@ const homeLink = getPathWithLocale(ROUTES.HOME);
     animation-delay: 3s;
   }
 
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0px) rotate(0deg);
-      opacity: 0.3;
-    }
-    33% {
-      transform: translateY(-20px) rotate(120deg);
-      opacity: 0.6;
-    }
-    66% {
-      transform: translateY(10px) rotate(240deg);
-      opacity: 0.4;
-    }
-  }
+  /* 移除浮动动画关键帧，保持静态效果 */
 
   /* 响应式调整 */
   @media (max-width: 640px) {
