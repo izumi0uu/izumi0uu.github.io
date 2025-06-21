@@ -1,3 +1,4 @@
+---
 import { Image } from "astro:assets";
 
 import { getPageMetadata } from "@/utils/content/metadata";
@@ -38,6 +39,7 @@ const socialLinks = {
   twitter: CONFIG_CLIENT.AUTHOR_TWITTER,
   linkedin: CONFIG_CLIENT.AUTHOR_LINKEDIN,
 };
+---
 
 <Centered {metadata} className="flex-col-layout first:gap-0 gap-8 md:gap-16">
   <!-- Hero Page Section -->
@@ -87,4 +89,5 @@ const socialLinks = {
     class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
   >
   </section>
-</Centered> 
+</Centered>
+
