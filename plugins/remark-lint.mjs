@@ -3,7 +3,6 @@
  * @description Markdown 代码风格检查器，确保 Markdown 内容遵循统一的格式规范。
  */
 
-import remarkLint from "remark-lint";
 import remarkPresetLintRecommended from "remark-preset-lint-recommended";
 
 /**
@@ -15,5 +14,6 @@ const options = {
   // 如需自定义规则，可以在此处添加配置
 };
 
-// 将 lint 插件和推荐规则集一起导出
-export default [remarkLint, remarkPresetLintRecommended];
+// remarkPresetLintRecommended 是一个预设对象，包含 plugins 数组
+// 直接导出其 plugins 数组，其中已经包含了 remarkLint 和所有推荐的规则
+export default remarkPresetLintRecommended.plugins;

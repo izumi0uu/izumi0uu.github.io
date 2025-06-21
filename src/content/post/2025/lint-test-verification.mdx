@@ -1,0 +1,53 @@
+---
+title: "Lint 验证测试文件"
+description: "用于验证 remark-lint 是否在 Astro 中正确工作"
+publishDate: 2025-01-20
+heroImage: "@/assets/images/post-default.jpg"
+heroAlt: "Lint 测试"
+tags: ["remark-lint", "plugins", "astro"]
+category: "tutorials"
+toc: true
+draft: true
+---
+
+# Lint 验证测试
+
+这个文件包含多种 lint 错误，用于验证 remark-lint 是否工作。
+
+## 有序列表标记错误
+
+1. 使用括号（错误）
+2. 继续使用括号
+
+3) 改为点号（不一致）
+
+4. 又是括号
+
+## 列表缩进错误
+
+- 太多空格（4个）
+- 两个空格
+- 三个空格
+
+## 网址没有包裹
+
+这是一个裸露的网址 https://example.com 应该被包裹起来。
+
+## 标题缩进错误
+
+### 多余的空格
+
+## 重复定义
+
+[link]: https://example.com
+[link]: https://example.org
+
+## 未使用的定义
+
+[unused]: https://example.com
+
+## 未定义的引用
+
+这是一个 [未定义的链接]。
+
+没有最终换行符
