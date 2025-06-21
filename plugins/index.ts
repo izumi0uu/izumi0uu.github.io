@@ -6,9 +6,6 @@
 // Markdown 代码风格检查
 import remarkLint from "./remark-lint.mjs";
 
-// 使用 Prettier 格式化 Markdown
-import unifiedPrettier from "./unified-prettier.mjs";
-
 // 使用 Prism.js 为代码块添加语法高亮
 import remarkPrism from "./remark-prism.mjs";
 
@@ -45,7 +42,6 @@ import rehypeExternalLinks from "./rehype-external-links.mjs";
  */
 export {
   remarkLint,
-  unifiedPrettier,
   remarkPrism,
   remarkToc,
   remarkSmartypants,

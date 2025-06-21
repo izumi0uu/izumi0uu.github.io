@@ -7,7 +7,13 @@
     "build": "paraglide-js compile --project ./project.inlang --outdir ./src\\paraglide && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "machine-translate": "inlang machine translate --project project.inlang"
+    "machine-translate": "inlang machine translate --project project.inlang",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "sync": "astro sync",
+    "lint": "eslint --ext .astro,.tsx,.ts,.js,.mdx src",
+    "format": "prettier --write .",
+    "check-types": "tsc --noEmit --pretty"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.5",
@@ -72,6 +78,7 @@
     "tailwindcss": "^4.0.0",
     "typescript": "^5.8.3",
     "unified-prettier": "^2.0.1",
+    "unist-util-visit": "^5.0.0",
     "vaul": "^1.1.2",
     "zod": "^3.24.3"
   },
@@ -85,11 +92,13 @@
     "@tailwindcss/postcss": "^4.1.7",
     "@types/matter-js": "^0.19.8",
     "autoprefixer": "^10.4.21",
+    "gh-pages": "^6.3.0",
     "mdast-util-from-markdown": "^2.0.2",
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "remark-cli": "^12.0.1",
     "tailwindcss-animate": "^1.0.7"
   }
 }

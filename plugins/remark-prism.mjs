@@ -1,17 +1,9 @@
 /**
  * @file remark-prism.mjs
- * @description 使用 Prism.js 为代码块添加语法高亮。
+ * @description 代码高亮插件（暂时导出空函数）
  */
 
-import remarkPrismPlugin from "remark-prism";
-
-/**
- * 配置选项
- * @type {import('remark-prism').Options}
- */
-const options = {
-  plugins: ["line-numbers"], // 启用行号功能
-};
-
-// 导出插件和配置
-export default [remarkPrismPlugin, options];
+// 暂时返回一个空的插件函数
+export default function remarkPrism() {
+  return (tree) => tree;
+}

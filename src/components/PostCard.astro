@@ -122,7 +122,7 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
     {
       description && (
         <p
-          class="text-content mb-4 line-clamp-2"
+          class="text-content mb-4 line-clamp-2 whitespace-pre-wrap"
           transition:name={getTransitionNameFromElementId({
             elementId: TRANSITION_ELEMENT_IDS.POST_CARD.DESCRIPTION,
           })}

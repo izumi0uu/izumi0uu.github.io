@@ -25,10 +25,23 @@ import rehypeAutolinkHeadings from "./plugins/rehype-autolink-headings.mjs";
 
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
+// 导入验证插件
+import lintVerificationPlugin from "./plugins/lint-verification-plugin.mjs";
+
+// 直接导入具体的 remark-lint 规则
+import remarkLintMain from "remark-lint";
+import remarkLintFinalNewline from "remark-lint-final-newline";
+import remarkLintListItemIndent from "remark-lint-list-item-indent";
+import remarkLintOrderedListMarkerStyle from "remark-lint-ordered-list-marker-style";
+import remarkLintNoLiteralUrls from "remark-lint-no-literal-urls";
+import remarkLintNoDuplicateDefinitions from "remark-lint-no-duplicate-definitions";
+import remarkLintNoUndefinedReferences from "remark-lint-no-undefined-references";
+import remarkLintNoUnusedDefinitions from "remark-lint-no-unused-definitions";
+
+import remarkTocPlugin from "remark-toc";
+
 import {
   remarkLint, // Markdown 代码风格检查
-  unifiedPrettier, // Prettier 格式化
-  // remarkPrism, // 代码高亮
   remarkToc, // 自动目录
   remarkSmartypants, // 智能标点
   remarkImages, // 图片处理
@@ -43,6 +56,11 @@ import { sitemapIntegration } from "./src/libs/integrations/sitemap";
 
 import { PROCESS_ENV, astroEnvSchema } from "./src/config/process-env";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES, PREFIX_DEFAULT_LOCALE } from "./src/config/i18n";
+
+// 使用展开运算符来扁平化 remarkLint 数组
+const remarkPlugins = [...(remarkLint || []), lintVerificationPlugin, remarkToc];
+// Rehype 插件处理 HTML 抽象语法树 (AST)
+// const rehypePlugins = [rehypeExternalLinks, rehypeAutolinkHeadings];
 
 /**
  * Astro 配置
@@ -70,7 +88,7 @@ export default defineConfig({
   devToolbar: { enabled: false },
 
   // 启用视图过渡动画
-  viewTransitions: false,
+  // viewTransitions: false,
 
   integrations: [
     react({
@@ -85,35 +103,20 @@ export default defineConfig({
     astroFont(),
   ],
   markdown: {
-    rehypePlugins: [
-      // @ts-ignore - 这些插件已经导出为 [plugin, options] 形式
-      [...rehypeExternalLinks],
-      // @ts-ignore
-      [...rehypeAutolinkHeadings],
-    ],
+    // rehypePlugins,
     remarkPlugins: [
-      // @ts-ignore - 忽略类型错误，插件仍然能够正常工作
-      remarkLint,
-      // @ts-ignore
-      unifiedPrettier,
-      // @ts-ignore
-      // remarkPrism,
-      // @ts-ignore
-      remarkToc,
-      // @ts-ignore
-      remarkSmartypants,
-      // @ts-ignore
-      remarkImages,
-      // @ts-ignore
-      remarkGfm,
-      // @ts-ignore - 处理 CJS/ESM 互操作性问题
-      [remarkEmbedder.default, { transformers: [oembedTransformer.default] }],
-      // @ts-ignore
-      remarkDropcap,
-      // @ts-ignore
-      remarkCapitalizeHeadings,
-      // @ts-ignore
-      remarkCallout,
+      // 首先加载 remark-lint 主插件
+      remarkLintMain,
+      // 然后配置具体的 lint 规则
+      remarkLintFinalNewline,
+      [remarkLintListItemIndent, "one"],
+      [remarkLintOrderedListMarkerStyle, "."],
+      remarkLintNoLiteralUrls,
+      remarkLintNoDuplicateDefinitions,
+      remarkLintNoUndefinedReferences,
+      remarkLintNoUnusedDefinitions,
+      // 最后添加验证插件
+      lintVerificationPlugin,
     ],
   },
   i18n: {

@@ -943,6 +943,7 @@ const Card3d: React.FC<Props> = ({
                           zIndex: 0,
                           backgroundColor: "transparent", // Made transparent
                           opacity: 0, // Always hidden
+                          borderRadius: "2px",
                         }}
                       />{" "}
                       {/* Heading Text with hover effect */}
@@ -1000,6 +1001,7 @@ const Card3d: React.FC<Props> = ({
                             transformOrigin: "left center",
                             scaleX: 0,
                             zIndex: 1,
+                            borderRadius: "2px",
                           }}
                           animate={{
                             scaleX: isHoverVariant ? 1 : 0,

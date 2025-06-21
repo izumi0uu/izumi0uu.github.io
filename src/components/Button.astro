@@ -1,0 +1,138 @@
+---
+import { cva } from "class-variance-authority";
+
+import type { HTMLAttributes } from "astro/types";
+import type { VariantProps } from "class-variance-authority";
+
+const buttonVariants = cva(
+  "inline-flex cursor-pointer items-center justify-center rounded-md text-sm font-medium whitespace-nowrap transition-colors disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        outline:
+          "border border-outline bg-surface text-content hover:bg-surface-container hover:text-primary",
+        solid:
+          "bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container",
+        default:
+          "bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container",
+        destructive:
+          "bg-error text-on-error hover:bg-error-container hover:text-on-error-container",
+        secondary:
+          "bg-secondary text-on-secondary hover:bg-secondary-container hover:text-on-secondary-container",
+        ghost: "text-content hover:bg-surface-container hover:text-primary",
+        link: "text-link underline-offset-4 hover:text-link-hover hover:underline",
+        success: "bg-success text-on-success hover:bg-success/90",
+        warning: "bg-warning text-on-warning hover:bg-warning/90",
+        info: "bg-info text-on-info hover:bg-info/90",
+        "primary-container":
+          "bg-primary-container text-on-primary-container hover:bg-primary-container/80",
+        "secondary-container":
+          "bg-secondary-container text-on-secondary-container hover:bg-secondary-container/80",
+        "success-container":
+          "bg-success-container text-on-success-container hover:bg-success-container/80",
+        "error-container": "bg-error-container text-on-error-container hover:bg-error-container/80",
+        "warning-container":
+          "bg-warning-container text-on-warning-container hover:bg-warning-container/80",
+        "info-container": "bg-info-container text-on-info-container hover:bg-info-container/80",
+        brutal:
+          "rounded-sm border-2 border-outline bg-primary px-8 py-4 text-on-primary shadow-[4px_4px_0_0_var(--color-outline)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none",
+        "brutal-normal":
+          "rounded-sm border-2 border-outline bg-surface px-8 py-4 text-content shadow-[4px_4px_0_0_var(--color-outline)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none",
+      },
+      colors: {
+        primary: "button-primary",
+        default: "button-default",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-8 px-3 text-xs",
+        md: "h-10 px-4 py-2",
+        lg: "h-11 px-8",
+        icon: "h-10 w-10",
+      },
+      disabled: {
+        true: "pointer-events-none cursor-not-allowed opacity-50",
+      },
+    },
+    compoundVariants: [
+      {
+        variant: "outline",
+        colors: "primary",
+        class:
+          "button-outline-primary border-primary text-primary hover:bg-primary hover:text-on-primary",
+      },
+      { variant: "outline", colors: "default", class: "button-outline-default" },
+      {
+        variant: "solid",
+        colors: "primary",
+        class: "button-solid-primary bg-primary text-on-primary",
+      },
+      { variant: "solid", colors: "default", class: "button-solid-default" },
+    ],
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
+
+export interface Props extends HTMLAttributes<"button">, VariantProps<typeof buttonVariants> {
+  /**
+   * 按钮类型
+   */
+  type?: "button" | "submit" | "reset";
+  /**
+   * 是否禁用按钮
+   */
+  disabled?: boolean;
+  /**
+   * 按钮变体样式
+   */
+  variant?:
+    | "outline"
+    | "solid"
+    | "default"
+    | "destructive"
+    | "secondary"
+    | "ghost"
+    | "link"
+    | "success"
+    | "warning"
+    | "info"
+    | "primary-container"
+    | "secondary-container"
+    | "success-container"
+    | "error-container"
+    | "warning-container"
+    | "info-container"
+    | "brutal"
+    | "brutal-normal";
+  /**
+   * 按钮尺寸
+   */
+  size?: "default" | "sm" | "md" | "lg" | "icon";
+}
+
+const {
+  class: className,
+  variant = "default",
+  colors = "default",
+  size = "default",
+  disabled = false,
+  type = "button",
+  ...props
+} = Astro.props;
+---
+
+<button
+  {...props}
+  type={type}
+  disabled={disabled}
+  class={buttonVariants({ variant, colors, size, disabled, className })}
+>
+  <slot name="before-icon" />
+  <span class="inline-block">
+    <slot />
+  </span>
+  <slot name="after-icon" />
+</button>

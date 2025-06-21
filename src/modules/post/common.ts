@@ -13,7 +13,7 @@ export const getPostsWithReadingTimeFromPosts = async (
 ): Promise<Post[]> => {
   const readingTimePromises = posts.map(async (post) => {
     // TODO: FIX:receive plugin data here
-    const { remarkPluginFrontmatter } = await render(post);
+    const { remarkPluginFrontmatter, ...rest } = await render(post);
     const { readingTime } = remarkPluginFrontmatter;
     return { readingTime };
   });
@@ -36,6 +36,5 @@ export const getPostsWithReadingTimeFromPosts = async (
  */
 export const getAllPostsWithReadingTime = async (): Promise<Post[]> => {
   const posts = await getPostsWithReadingTimeFromPosts(await getAllPosts());
-  console.log(`获取到 ${posts.length} 篇文章`);
   return posts;
 };
