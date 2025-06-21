@@ -18,7 +18,6 @@ const metadata = getPageMetadata("404");
       <!-- 背景光晕效果 -->
       <div class="absolute inset-0 rounded-full bg-primary/20 blur-3xl scale-150"></div>
 
-      <!-- 404图片 - 使用CSS滤镜适应主题 -->
       <Image
         src={_404}
         alt="404 Not Found"
@@ -26,9 +25,7 @@ const metadata = getPageMetadata("404");
         class={cn(
           "relative z-10 w-full h-auto object-contain",
           "max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl",
-          "drop-shadow-2xl",
-          // 主题适配滤镜
-          "theme-adaptive-image"
+          "drop-shadow-2xl"
         )}
       />
     </div>
@@ -45,27 +42,3 @@ const metadata = getPageMetadata("404");
     </div>
   </div>
 </Centered>
-
-<style>
-  /* 透明PNG图片主题适配 */
-  .theme-adaptive-image {
-  }
-
-  :root .theme-adaptive-image {
-    filter: brightness(1) contrast(1.1) saturate(1.2);
-  }
-
-  :root[data-theme*="dark"] .theme-adaptive-image,
-  :root.dark .theme-adaptive-image {
-    filter: brightness(0.9) contrast(1.2) saturate(1.1) hue-rotate(10deg);
-  }
-
-  /* 酒红主题特殊处理 */
-  :root[data-theme*="wine"] .theme-adaptive-image {
-    filter: brightness(1.1) contrast(1.1) saturate(1.3) hue-rotate(-10deg);
-  }
-
-  :root[data-theme*="wine"][data-theme*="dark"] .theme-adaptive-image {
-    filter: brightness(0.8) contrast(1.3) saturate(1.2) hue-rotate(-15deg);
-  }
-</style>
