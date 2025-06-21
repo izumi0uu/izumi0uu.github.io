@@ -135,6 +135,8 @@ const Card3d: React.FC<Props> = ({
     }
   };
 
+  const primaryColor = "var(--color-primary)";
+  const finalScale = screenScale || 1;
   const borderColor = primaryColor || "var(--color-primary)";
 
   const cubeSliceVariants = {
