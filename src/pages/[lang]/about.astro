@@ -1,0 +1,17 @@
+---
+import Centered from "@/layouts/Centered.astro";
+import { getPageMetadata } from "@/utils/content/metadata";
+import { SUPPORTED_LOCALES } from "@/config/i18n";
+
+const metadata = getPageMetadata("about");
+
+export async function getStaticPaths() {
+  return SUPPORTED_LOCALES.map((lang) => ({
+    params: { lang },
+  }));
+}
+---
+
+<Centered {metadata}>
+  <h1>About</h1>
+</Centered>
