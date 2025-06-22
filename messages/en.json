@@ -45,6 +45,11 @@
       "links": {
         "title": "Links",
         "link_title": "Link"
+      },
+      "project": {
+        "title": "Project",
+        "description": "Projects I have built over the past years.",
+        "project_title": "Project"
       }
     }
   },

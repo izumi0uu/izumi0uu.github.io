@@ -65,19 +65,12 @@ const PAGE_METADATA = {
   "lists/blog/categories/category": {
     getTitle: () => m["pages.lists.blog.categories.category_title"](),
   },
-  "lists/projects": {
-    getTitle: () => m["pages.lists.projects.title"](),
-    getDescription: () => m["pages.lists.projects.description"](),
-  },
-  // src/pages/projects/[project]/[...page].astro
-  "lists/projects/project": {
-    getTitle: () => m["pages.lists.projects.project_title"](),
+  "lists/project": {
+    getTitle: () => m["pages.lists.project.title"](),
+    getDescription: () => m["pages.lists.project.description"](),
   },
   "lists/experience": {
     getTitle: () => m["pages.lists.experience.title"](),
-  },
-  "lists/experience/experience": {
-    getTitle: () => m["pages.lists.experience.experience_title"](),
   },
   "lists/links": {
     getTitle: () => m["pages.lists.links.title"](),
@@ -93,7 +86,7 @@ const PAGE_METADATA = {
 
 const OG_IMAGE_PREFIXES = {
   OG_BLOG: "blog",
-  OG_PROJECTS: "projects",
+  OG_PROJECT: "project",
   OG_PAGES: "pages",
   OG_LISTS: "lists",
   OG_EXPERIENCE: "experience",

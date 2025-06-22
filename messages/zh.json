@@ -45,6 +45,11 @@
       "links": {
         "title": "链接",
         "link_title": "链接"
+      },
+      "project": {
+        "title": "项目",
+        "description": "我过去几年构建的项目。",
+        "project_title": "项目"
       }
     }
   },
