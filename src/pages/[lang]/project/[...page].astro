@@ -1,0 +1,58 @@
+---
+import { getAllProjects } from "@/modules/project/common";
+import List from "@/layouts/List.astro";
+import ProjectList from "@/components/app/project/ProjectList.astro";
+import { CONFIG_CLIENT } from "@/config/client";
+import { getPageMetadata } from "@/utils/content/metadata";
+import { pickPaginationPropsFromPage } from "@/utils/content/pagination";
+import { SUPPORTED_LOCALES } from "@/config/i18n";
+
+import type { Project } from "@/types/project";
+import type { GetStaticPathsOptions } from "astro";
+
+// [page].astro and getStaticPaths because of pagination
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const allProjects: Project[] = await getAllProjects();
+  const pageSize = CONFIG_CLIENT.PAGE_SIZE_POST_CARD;
+
+  const paths = [];
+
+  // 为每种语言创建分页路由
+  for (const lang of SUPPORTED_LOCALES) {
+    // 创建该语言的分页路径
+    const paginatedPaths = paginate(allProjects, {
+      pageSize,
+      params: { lang },
+    });
+
+    // 添加额外的第一页路由 (例如 /zh/blog/1/)
+    paginatedPaths.push({
+      params: { lang, page: "1" },
+      props: paginatedPaths[0].props,
+    });
+
+    // 添加到总路径数组
+    paths.push(...paginatedPaths);
+  }
+
+  return paths;
+}
+
+// page from pagination
+const { page } = Astro.props;
+const { data: projects } = page;
+
+const paginationProps = pickPaginationPropsFromPage(page);
+
+// get current language
+const { lang } = Astro.params;
+
+// get page metadata
+const metadata = getPageMetadata("lists/blog");
+
+const layoutProps = { metadata, paginationProps };
+---
+
+<List {...layoutProps}>
+  <ProjectList projects={projects} lang={lang} />
+</List>
