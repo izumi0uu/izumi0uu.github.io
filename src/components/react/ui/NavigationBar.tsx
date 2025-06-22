@@ -29,7 +29,7 @@ const NavigationBar = React.memo(() => {
     return {
       blog: m["components.navigation_menu.blog_link"](),
       explore: m["components.navigation_menu.explore_link"](),
-      projects: m["components.navigation_menu.projects_link"](),
+      project: m["components.navigation_menu.project_link"](),
       experience: m["components.navigation_menu.experience_link"](),
       links: m["components.navigation_menu.links_link"](),
     };
@@ -40,7 +40,7 @@ const NavigationBar = React.memo(() => {
     const links = [
       { route: ROUTES.BLOG, text: localizedTexts.blog, key: "blog" },
       { route: ROUTES.EXPLORE, text: localizedTexts.explore, key: "explore" },
-      { route: ROUTES.PROJECTS, text: localizedTexts.projects, key: "projects" },
+      { route: ROUTES.PROJECT, text: localizedTexts.project, key: "project" },
       { route: ROUTES.EXPERIENCE, text: localizedTexts.experience, key: "experience" },
       { route: ROUTES.LINKS, text: localizedTexts.links, key: "links" },
     ];

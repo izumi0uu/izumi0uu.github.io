@@ -61,7 +61,8 @@
       "projects_link": "Project",
       "experience_link": "Experience",
       "links_link": "Links",
-      "explore_link": "Explore"
+      "explore_link": "Explore",
+      "project_link": "Project"
     },
     "theme_switcher": {
       "label": "Switch Theme",
