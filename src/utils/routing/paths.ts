@@ -5,11 +5,11 @@ import { DEFAULT_LOCALE } from "@/config/i18n";
 
 /*-------------------------------- utils ------------------------------*/
 
-const removeLeadingSlash = (path: string) => path.replace(/^\/+/g, "");
+const removeLeadingSlash = (path: string) => path?.replace(/^\/+/g, "");
 
-const removeTrailingSlash = (path: string) => path.replace(/\/+$/g, "");
+const removeTrailingSlash = (path: string) => path?.replace(/\/+$/g, "");
 
-const removeLeadingAndTrailingSlashes = (path: string) => path.replace(/^\/+|\/+$/g, "");
+const removeLeadingAndTrailingSlashes = (path: string) => path?.replace(/^\/+|\/+$/g, "");
 
 /**
  * 将路径与当前语言标签结合
