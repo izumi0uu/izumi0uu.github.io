@@ -9,7 +9,6 @@ import { Logo } from "@/components/react/ui/Logo";
 import { SearchBox } from "@/components/react/ui/SearchBox";
 import {
   MobileNavIcon,
-  MobileNavigationBar,
   MobileNavMenu,
   MobileNavMenuItem,
 } from "@/components/react/ui/MobileNavigationBar";
@@ -85,28 +84,66 @@ const NavigationBar = React.memo(() => {
   }, [localizedTexts]);
 
   return (
-    <div className="container flex h-14 max-w-screen-2xl items-center px-8">
-      <div className="flex gap-6 md:gap-10">
-        <div className="flex items-center gap-2">
-          <Logo />
-          <span className="hidden text-2xl font-black tracking-tighter text-content uppercase sm:inline-block">
-            {CONFIG_CLIENT.AUTHOR_NAME}
-          </span>
+    <>
+      {/* 桌面端导航栏 */}
+      <div className="container flex h-14 max-w-screen-2xl items-center px-8">
+        <div className="flex gap-6 md:gap-10">
+          <div className="flex items-center gap-2">
+            <Logo />
+            <span className="hidden text-2xl font-black tracking-tighter text-content uppercase sm:inline-block">
+              {CONFIG_CLIENT.AUTHOR_NAME}
+            </span>
+          </div>
+          <nav className="hidden gap-4 lg:flex">{navLinks}</nav>
         </div>
-        <nav className="hidden gap-4 lg:flex">{navLinks}</nav>
-      </div>
-      <div className="flex flex-1 items-center justify-between md:justify-end">
-        <SearchBox />
-        <ModeToggleButton />
-        <ThemePopoverList />
-        <I18nToggleButton className="mt-1 ml-2" />
-        <MobileNavigationBar position="top">
-          <MobileNavIcon isActive={isMenuOpen} onClick={toggleMenu} />
-        </MobileNavigationBar>
+        <div className="flex flex-1 items-center justify-between md:justify-end">
+          <div className="hidden md:block">
+            <SearchBox />
+          </div>
+          <div className="hidden items-center gap-2 md:flex">
+            <ModeToggleButton />
+            <ThemePopoverList />
+            <I18nToggleButton className="mt-1 ml-2" />
+          </div>
+          {/* 移动端汉堡菜单按钮 */}
+          <div className="block md:hidden">
+            <MobileNavIcon isActive={isMenuOpen} onClick={toggleMenu} />
+          </div>
+        </div>
       </div>
 
-      <MobileNavMenu isOpen={isMenuOpen}>{mobileNavLinks}</MobileNavMenu>
-    </div>
+      {/* 移动端导航菜单 */}
+      <MobileNavMenu isOpen={isMenuOpen}>
+        {/* 移动端搜索框 */}
+        <div className="border-b border-outline/10 px-4 pb-4">
+          <SearchBox />
+        </div>
+
+        {/* 导航链接 */}
+        <div className="space-y-1 py-2">{mobileNavLinks}</div>
+
+        {/* 移动端功能按钮区域 */}
+        <div className="border-t border-outline/10 px-4 py-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-xs font-medium tracking-wide text-on-surface-variant uppercase">
+                Theme
+              </span>
+              <div className="flex items-center gap-2">
+                <ModeToggleButton />
+                <ThemePopoverList />
+              </div>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-xs font-medium tracking-wide text-on-surface-variant uppercase">
+                Language
+              </span>
+              <I18nToggleButton />
+            </div>
+          </div>
+        </div>
+      </MobileNavMenu>
+    </>
   );
 });
 
