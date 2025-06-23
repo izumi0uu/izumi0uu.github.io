@@ -98,7 +98,7 @@ const MobileNavIcon = forwardRef<HTMLButtonElement, MobileNavIconProps>(
 MobileNavIcon.displayName = "MobileNavIcon";
 
 /**
- * 📱 移动端导航栏容器组件
+ * 移动端导航栏容器组件
  */
 interface MobileNavigationBarProps {
   children?: React.ReactNode;
