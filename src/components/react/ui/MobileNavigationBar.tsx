@@ -11,14 +11,7 @@ interface MobileNavIconProps {
 }
 
 /**
- * 🍔 移动端汉堡菜单图标组件
- *
- * 特性：
- * - 完全语义化，使用主题系统的颜色变量
- * - 流畅的旋转动画（关闭→X型）
- * - 支持多种主题变体
- * - 键盘导航友好
- * - 响应式设计
+ * 移动端汉堡菜单图标组件
  */
 const MobileNavIcon = forwardRef<HTMLButtonElement, MobileNavIconProps>(
   ({ className, isActive, style, onClick, variant = "primary", ...rest }) => {
@@ -144,7 +137,7 @@ const MobileNavigationBar: React.FC<MobileNavigationBarProps> = ({
         className
       )}
       role="navigation"
-      aria-label="移动端导航"
+      aria-label="mobile navigation"
     >
       {children}
     </nav>
@@ -152,7 +145,7 @@ const MobileNavigationBar: React.FC<MobileNavigationBarProps> = ({
 };
 
 /**
- * 🧩 移动端导航菜单项组件
+ * 移动端导航菜单项组件
  */
 interface MobileNavMenuItemProps {
   children: React.ReactNode;
@@ -200,7 +193,7 @@ const MobileNavMenuItem: React.FC<MobileNavMenuItemProps> = ({
 };
 
 /**
- * 📋 移动端下拉菜单组件
+ * 移动端下拉菜单组件
  */
 interface MobileNavMenuProps {
   isOpen: boolean;

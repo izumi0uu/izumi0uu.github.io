@@ -35,7 +35,6 @@ const NavigationBar = React.memo(() => {
     };
   }, []);
 
-  // 预先创建导航链接列表以避免重复渲染
   const navLinks = useMemo(() => {
     const links = [
       { route: ROUTES.BLOG, text: localizedTexts.blog, key: "blog" },
