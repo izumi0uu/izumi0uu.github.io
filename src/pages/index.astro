@@ -6,14 +6,12 @@ import { cn } from "@/utils/ui/styles";
 import * as m from "@/paraglide/messages";
 import { getPathWithLocale } from "@/utils/routing/paths";
 
-import { CONFIG_CLIENT } from "@/config/client";
 import { ROUTES } from "@/constants/routes";
 import heroImage from "@/assets/images/hero-default.png";
 
 import Centered from "@/layouts/Centered.astro";
 
 import { FallingText } from "@/components/react/ui/FallingText";
-import { HeroContactLinks } from "@/components/app/home/HeroContactLinks";
 import { HeroBanner } from "@/components/app/home/HeroBanner";
 import { QuickLinksSection } from "@/components/app/home/QuickLinksSection";
 import { FadeUpAnimation } from "@/components/react/ui/FadeUpAnimation";
@@ -32,13 +30,6 @@ const quickLinks = [
   { name: "About", href: getPathWithLocale(ROUTES.ABOUT), icon: "↗" },
   { name: "Contact", href: getPathWithLocale(ROUTES.CONTACT), icon: "↗" },
 ];
-
-const socialLinks = {
-  email: CONFIG_CLIENT.AUTHOR_EMAIL,
-  github: CONFIG_CLIENT.AUTHOR_GITHUB,
-  twitter: CONFIG_CLIENT.AUTHOR_TWITTER,
-  linkedin: CONFIG_CLIENT.AUTHOR_LINKEDIN,
-};
 ---
 
 <Centered {metadata} className="flex-col-layout first:gap-0 gap-8 md:gap-16">
@@ -53,9 +44,8 @@ const socialLinks = {
       aria-label="hero-page-wrapper"
       class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4 min-h-[60vh] items-center"
     >
-      <div id="hero-page-content" class="flex flex-col gap-4">
+      <div id="hero-page-content" class="flex flex-col gap-4 justify-start">
         <HeroBanner blogPath={blogPath} client:only="react" />
-        <HeroContactLinks socialLinks={socialLinks} client:only="react" />
       </div>
       <div
         id="hero-page-image"

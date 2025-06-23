@@ -2,10 +2,19 @@ import React from "react";
 import { RotatingText } from "@/components/react/ui/RotatingText";
 import { SplitText } from "@/components/react/ui/SplitText";
 import { Link } from "@/components/react/ui/Link";
+import { CONFIG_CLIENT } from "@/config/client";
+import { HeroContactLinks } from "./HeroContactLinks";
 
 interface HeroBannerProps {
   blogPath: string;
 }
+
+const socialLinks = {
+  email: CONFIG_CLIENT.AUTHOR_EMAIL,
+  github: CONFIG_CLIENT.AUTHOR_GITHUB,
+  twitter: CONFIG_CLIENT.AUTHOR_TWITTER,
+  linkedin: CONFIG_CLIENT.AUTHOR_LINKEDIN,
+};
 
 const HeroBanner = React.memo(({ blogPath }: HeroBannerProps) => {
   return (
@@ -52,6 +61,9 @@ const HeroBanner = React.memo(({ blogPath }: HeroBannerProps) => {
       <Link href={blogPath} variant="brutal" size="lg" className="justify-center">
         To See My Blogs
       </Link>
+      <div className="mt-2">
+        <HeroContactLinks socialLinks={socialLinks} />
+      </div>
     </div>
   );
 });
