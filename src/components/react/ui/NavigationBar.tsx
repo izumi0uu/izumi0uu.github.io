@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback } from "react";
 import React from "react";
+import { Book, Globe, Folder, Briefcase, Link as LinkIcon, Home as HomeIcon } from "lucide-react";
 
 import { Link } from "@/components/react/ui/Link";
 import { Logo } from "@/components/react/ui/Logo";
@@ -62,16 +63,22 @@ const NavigationBar = React.memo(() => {
 
   const mobileNavLinks = useMemo(() => {
     const links = [
-      { route: ROUTES.HOME, text: localizedTexts.home, key: "home" },
-      { route: ROUTES.BLOG, text: localizedTexts.blog, key: "blog" },
-      { route: ROUTES.EXPLORE, text: localizedTexts.explore, key: "explore" },
-      { route: ROUTES.PROJECT, text: localizedTexts.project, key: "project" },
-      { route: ROUTES.EXPERIENCE, text: localizedTexts.experience, key: "experience" },
-      { route: ROUTES.LINKS, text: localizedTexts.links, key: "links" },
+      { route: ROUTES.HOME, text: localizedTexts.home, key: "home", icon: HomeIcon },
+      { route: ROUTES.BLOG, text: localizedTexts.blog, key: "blog", icon: Book },
+      { route: ROUTES.EXPLORE, text: localizedTexts.explore, key: "explore", icon: Globe },
+      { route: ROUTES.PROJECT, text: localizedTexts.project, key: "project", icon: Folder },
+      {
+        route: ROUTES.EXPERIENCE,
+        text: localizedTexts.experience,
+        key: "experience",
+        icon: Briefcase,
+      },
+      { route: ROUTES.LINKS, text: localizedTexts.links, key: "links", icon: LinkIcon },
     ];
 
-    return links.map(({ route, text, key }) => (
+    return links.map(({ route, text, key, icon: Icon }) => (
       <MobileNavMenuItem key={`mobile-nav-${key}`} href={getPathWithLocale(route)}>
+        <Icon className="h-4 w-4" />
         {text}
       </MobileNavMenuItem>
     ));

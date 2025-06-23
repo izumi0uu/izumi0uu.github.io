@@ -56,7 +56,7 @@ const MobileNavIcon = forwardRef<HTMLButtonElement, MobileNavIconProps>(
         )}
         style={style}
         onClick={onClick}
-        aria-label={isActive ? "关闭菜单" : "打开菜单"}
+        aria-label={isActive ? "close menu" : "open menu"}
         aria-expanded={isActive}
         type="button"
         {...rest}
