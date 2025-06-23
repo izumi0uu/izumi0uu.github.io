@@ -6,7 +6,12 @@ import React from "react";
 import { Link } from "@/components/react/ui/Link";
 import { Logo } from "@/components/react/ui/Logo";
 import { SearchBox } from "@/components/react/ui/SearchBox";
-import { MobileNavIcon, MobileNavigationBar } from "@/components/react/ui/MobileNavigationBar";
+import {
+  MobileNavIcon,
+  MobileNavigationBar,
+  MobileNavMenu,
+  MobileNavMenuItem,
+} from "@/components/react/ui/MobileNavigationBar";
 import { ModeToggleButton } from "@/components/react/ui/ModeToggleButton";
 import { ThemePopoverList } from "@/components/react/ui/ThemePopoverList";
 import { I18nToggleButton } from "@/components/react/ui/I18nToggleButton";
@@ -54,6 +59,22 @@ const NavigationBar = React.memo(() => {
     ));
   }, [localizedTexts]);
 
+  const mobileNavLinks = useMemo(() => {
+    const links = [
+      { route: ROUTES.BLOG, text: localizedTexts.blog, key: "blog" },
+      { route: ROUTES.EXPLORE, text: localizedTexts.explore, key: "explore" },
+      { route: ROUTES.PROJECT, text: localizedTexts.project, key: "project" },
+      { route: ROUTES.EXPERIENCE, text: localizedTexts.experience, key: "experience" },
+      { route: ROUTES.LINKS, text: localizedTexts.links, key: "links" },
+    ];
+
+    return links.map(({ route, text, key }) => (
+      <MobileNavMenuItem key={`mobile-nav-${key}`} href={getPathWithLocale(route)}>
+        {text}
+      </MobileNavMenuItem>
+    ));
+  }, [localizedTexts]);
+
   return (
     <div className="container flex h-14 max-w-screen-2xl items-center px-8">
       <div className="flex gap-6 md:gap-10">
@@ -74,6 +95,8 @@ const NavigationBar = React.memo(() => {
           <MobileNavIcon isActive={isMenuOpen} onClick={toggleMenu} />
         </MobileNavigationBar>
       </div>
+
+      <MobileNavMenu isOpen={isMenuOpen}>{mobileNavLinks}</MobileNavMenu>
     </div>
   );
 });

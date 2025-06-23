@@ -170,7 +170,7 @@ const MobileNavMenuItem: React.FC<MobileNavMenuItemProps> = ({
       onClick={onClick}
       className={cn(
         // 基础样式
-        "flex items-center gap-3 rounded-lg px-4 py-3",
+        "flex flex-grow items-center gap-3 rounded-lg px-4 py-2",
         "transition-all duration-200 ease-out",
         "w-full text-left",
 
@@ -182,6 +182,9 @@ const MobileNavMenuItem: React.FC<MobileNavMenuItemProps> = ({
         isActive
           ? "bg-primary-container font-medium text-on-primary-container"
           : "text-content hover:text-on-surface",
+
+        // 链接特定样式（移除默认链接样式）
+        href && "no-underline",
 
         className
       )}
