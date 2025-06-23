@@ -1,0 +1,22 @@
+---
+import List from "@/layouts/List.astro";
+import { CONFIG_CLIENT } from "@/config/client";
+import { getPageMetadata } from "@/utils/content/metadata";
+import { SUPPORTED_LOCALES } from "@/config/i18n";
+
+export async function getStaticPaths() {
+  return SUPPORTED_LOCALES.map((lang) => ({
+    params: { lang },
+  }));
+}
+
+const { lang } = Astro.params;
+
+const metadata = getPageMetadata("lists/experience");
+// page from pagination
+const { page } = Astro.props;
+
+const layoutProps = { metadata };
+---
+
+<List {...layoutProps} />
