@@ -122,7 +122,7 @@ const MobileNavigationBar: React.FC<MobileNavigationBarProps> = ({
         // 基础定位和布局
         "fixed right-0 left-0 z-50",
         "flex items-center justify-between",
-        "bg-surface-container/95 backdrop-blur-sm",
+        "bg-surface-container",
         "px-4 py-3",
 
         // 响应式显示（仅在移动端显示）
