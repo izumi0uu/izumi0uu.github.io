@@ -89,22 +89,26 @@ const NavigationBar = React.memo(() => {
       <div className="container flex h-14 max-w-screen-2xl items-center px-8">
         <div className="flex gap-6 md:gap-10">
           <div className="flex items-center gap-2">
-            <Logo />
-            <span className="hidden text-2xl font-black tracking-tighter text-content uppercase sm:inline-block">
-              {CONFIG_CLIENT.AUTHOR_NAME}
-            </span>
+            <div className="hidden items-center gap-2 md:flex">
+              <Logo />
+              <span className="hidden text-2xl font-black tracking-tighter text-content uppercase sm:inline-block">
+                {CONFIG_CLIENT.AUTHOR_NAME}
+              </span>
+            </div>
           </div>
           <nav className="hidden gap-4 lg:flex">{navLinks}</nav>
         </div>
-        <div className="flex flex-1 items-center justify-between md:justify-end">
-          <div className="hidden md:block">
+        <div className="flex flex-1 items-center justify-end">
+          {/* 桌面端功能区域 */}
+          <div className="hidden items-center gap-4 md:flex">
             <SearchBox />
+            <div className="flex items-center gap-2">
+              <ModeToggleButton />
+              <ThemePopoverList />
+              <I18nToggleButton className="mt-1 ml-2" />
+            </div>
           </div>
-          <div className="hidden items-center gap-2 md:flex">
-            <ModeToggleButton />
-            <ThemePopoverList />
-            <I18nToggleButton className="mt-1 ml-2" />
-          </div>
+
           {/* 移动端汉堡菜单按钮 */}
           <div className="block md:hidden">
             <MobileNavIcon isActive={isMenuOpen} onClick={toggleMenu} />
@@ -114,8 +118,18 @@ const NavigationBar = React.memo(() => {
 
       {/* 移动端导航菜单 */}
       <MobileNavMenu isOpen={isMenuOpen}>
+        {/* Logo区域 */}
+        <div className="flex items-center justify-center border-b border-outline/10 px-4 py-6">
+          <div className="flex items-center gap-3">
+            <Logo />
+            <span className="text-xl font-black tracking-tight text-content uppercase">
+              {CONFIG_CLIENT.AUTHOR_NAME}
+            </span>
+          </div>
+        </div>
+
         {/* 移动端搜索框 */}
-        <div className="border-b border-outline/10 px-4 pb-4">
+        <div className="border-b border-outline/10 px-4 py-4">
           <SearchBox />
         </div>
 
