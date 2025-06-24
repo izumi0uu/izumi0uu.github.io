@@ -4,6 +4,87 @@ import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils/ui/styles";
 
+// === 公用类型定义 ===
+
+/**
+ * 链接变体枚举类型
+ */
+export type LinkVariant =
+  | "default"
+  | "destructive"
+  | "outline"
+  | "secondary"
+  | "ghost"
+  | "link"
+  | "success"
+  | "warning"
+  | "info"
+  | "primary-container"
+  | "secondary-container"
+  | "success-container"
+  | "error-container"
+  | "warning-container"
+  | "info-container"
+  | "brutal"
+  | "brutal-normal"
+  | "underline"
+  | "markdown"
+  | "base"
+  | "noUnderline"
+  | "heading"
+  | "nav"
+  | "disabled";
+
+/**
+ * 链接尺寸枚举类型
+ */
+export type LinkSize = "default" | "sm" | "lg" | "icon" | "md";
+
+/**
+ * 链接下划线偏移枚举类型
+ */
+export type LinkUnderlineOffset = "default" | "md" | "lg";
+
+/**
+ * 基础链接配置接口
+ */
+export interface BaseLinkProps {
+  /**
+   * 是否在新标签页打开链接
+   * @default false
+   */
+  external?: boolean;
+  /**
+   * 自定义target行为
+   * 如果设置了external=true，此属性会被忽略
+   */
+  target?: string;
+  /**
+   * 自定义rel属性
+   * 如果设置了external=true且没有提供rel，会自动添加"noopener noreferrer"
+   */
+  rel?: string;
+  /**
+   * 链接是否禁用
+   * @default false
+   */
+  disabled?: boolean;
+  /**
+   * 链接变体样式
+   */
+  variant?: LinkVariant;
+  /**
+   * 链接尺寸
+   */
+  size?: LinkSize;
+  /**
+   * 下划线偏移
+   */
+  underlineOffset?: LinkUnderlineOffset;
+}
+
+// === CVA 样式变体定义 ===
+
 export const linkVariants = cva(
   "inline-flex cursor-pointer items-center rounded-md text-sm font-medium whitespace-nowrap transition-colors disabled:opacity-50",
   {
@@ -71,62 +152,42 @@ export const linkVariants = cva(
   }
 );
 
+// === 组件接口定义 ===
+
+/**
+ * Link 组件完整属性接口
+ */
 export interface LinkProps
   extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
-    VariantProps<typeof linkVariants> {
-  /**
-   * 是否在新标签页打开链接
-   * @default false
-   */
-  external?: boolean;
-  /**
-   * 自定义target行为
-   * 如果设置了external=true，此属性会被忽略
-   */
-  target?: string;
-  /**
-   * 自定义rel属性
-   * 如果设置了external=true且没有提供rel，会自动添加"noopener noreferrer"
-   */
-  rel?: string;
-  /**
-   * 链接是否禁用
-   * @default false
-   */
-  disabled?: boolean;
+    VariantProps<typeof linkVariants>,
+    BaseLinkProps {
   /**
    * 子元素
    */
   children?: React.ReactNode;
-  /**
-   * 链接变体样式
-   */
-  variant?:
-    | "default"
-    | "destructive"
-    | "outline"
-    | "secondary"
-    | "ghost"
-    | "link"
-    | "success"
-    | "warning"
-    | "info"
-    | "primary-container"
-    | "secondary-container"
-    | "success-container"
-    | "error-container"
-    | "warning-container"
-    | "info-container"
-    | "brutal"
-    | "brutal-normal"
-    | "underline"
-    | "markdown"
-    | "base"
-    | "noUnderline"
-    | "heading"
-    | "nav"
-    | "disabled";
 }
+
+// === 公用类型别名 ===
+
+/**
+ * 兼容性类型别名 - 为了与 Astro 组件保持一致
+ */
+export type Props = LinkProps;
+
+/**
+ * 只包含基础链接属性的轻量接口（用于扩展）
+ */
+export type BaseLinkConfig = Pick<
+  LinkProps,
+  "href" | "external" | "target" | "rel" | "variant" | "size" | "disabled"
+>;
+
+/**
+ * 链接样式相关的属性接口
+ */
+export type LinkStyleProps = Pick<LinkProps, "variant" | "size" | "underlineOffset" | "className">;
+
+// === 组件实现 ===
 
 // 使用React.memo包装组件以减少不必要的重渲染
 export const Link = React.memo(
@@ -192,3 +253,31 @@ export const Link = React.memo(
 );
 
 Link.displayName = "Link";
+
+// === 公用工具函数 ===
+
+/**
+ * 创建链接配置的工具函数
+ */
+export const createLinkConfig = (config: Partial<BaseLinkConfig>): BaseLinkConfig => {
+  return {
+    variant: "default",
+    size: "default",
+    external: false,
+    disabled: false,
+    ...config,
+  };
+};
+
+/**
+ * 判断是否为外部链接的工具函数
+ */
+export const isExternalLink = (href?: string): boolean => {
+  if (!href) return false;
+  return (
+    href.startsWith("http://") ||
+    href.startsWith("https://") ||
+    href.startsWith("mailto:") ||
+    href.startsWith("tel:")
+  );
+};

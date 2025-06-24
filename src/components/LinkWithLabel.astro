@@ -1,0 +1,23 @@
+---
+import { cn } from "@/utils/ui/styles";
+
+import { Link } from "@/components/react/ui/Link";
+
+import type { Props as LinkProps } from "@/components/react/ui/Link";
+
+export interface Props extends LinkProps {
+  label: string;
+  class?: string;
+}
+
+const { class: className, label, variant = "markdown", target = "_blank", ...props } = Astro.props;
+---
+
+<p class={cn("my-2 flex flex-col xs:flex-row xs:gap-1", className)}>
+  <strong>{label}:</strong>
+  <Link {...props} {variant} {target}>
+    <slot>
+      {props.href}
+    </slot>
+  </Link>
+</p>
