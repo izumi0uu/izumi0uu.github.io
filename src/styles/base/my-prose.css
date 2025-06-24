@@ -2,8 +2,8 @@
 
 /* prose override */
 @layer base {
-  .my-prose:not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-    @apply prose prose-slate max-w-none dark:prose-invert;
+  .my-prose:not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    @apply prose max-w-none prose-slate dark:prose-invert;
 
     /* responsive styling */
     /* all tags */
@@ -14,7 +14,7 @@
     @apply prose-h1:font-bold;
 
     /* a */
-    @apply prose-a:link prose-a:break-words;
+    @apply prose-a:break-words;
 
     /* break-words in <a /> and <code /> prevents overflow and horizontal scroll on <body /> in mdx */
 
@@ -22,7 +22,7 @@
     @apply prose-code:break-words;
 
     /* image */
-    @apply prose-img:rounded-button;
+    @apply prose-img:rounded-lg;
 
     /* my custom components bellow */
 
@@ -30,7 +30,7 @@
     .toc,
     .expressive-code,
     .alert {
-      @apply b-p-my;
+      @apply my-5 md:my-6;
     }
   }
 }
