@@ -1,19 +1,70 @@
 /* Post content, entire Page, entire Project */
 
-/* prose override */
+/* prose override with semantic colors */
 @layer base {
   .my-prose:not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-    @apply prose max-w-none prose-slate dark:prose-invert;
+    @apply prose max-w-none;
 
-    /* responsive styling */
-    /* all tags */
-    @apply md:prose-lg;
+    /* semantic color system integration */
 
-    /* limit just h1 */
+    /* main text colors */
+    --tw-prose-body: var(--color-content);
+    --tw-prose-headings: var(--color-headings);
+    --tw-prose-links: var(--color-link);
+    --tw-prose-bold: var(--color-headings);
+
+    /* secondary text colors */
+    --tw-prose-lead: var(--color-content-secondary);
+    --tw-prose-captions: var(--color-content-secondary);
+
+    /* borders and dividers */
+    --tw-prose-hr: var(--color-outline-variant);
+    --tw-prose-th-borders: var(--color-outline);
+    --tw-prose-td-borders: var(--color-outline-variant);
+
+    /* quotes */
+    --tw-prose-quotes: var(--color-headings);
+    --tw-prose-quote-borders: var(--color-primary);
+
+    /* lists */
+    --tw-prose-counters: var(--color-primary);
+    --tw-prose-bullets: var(--color-primary);
+
+    /* code */
+    --tw-prose-code: var(--color-primary);
+    --tw-prose-pre-code: var(--color-on-surface);
+    --tw-prose-pre-bg: var(--color-surface-container);
+
+    /* dark mode support (using same semantic variables) */
+    --tw-prose-invert-body: var(--color-content);
+    --tw-prose-invert-headings: var(--color-headings);
+    --tw-prose-invert-links: var(--color-link);
+    --tw-prose-invert-bold: var(--color-headings);
+    --tw-prose-invert-lead: var(--color-content-secondary);
+    --tw-prose-invert-captions: var(--color-content-secondary);
+    --tw-prose-invert-hr: var(--color-outline-variant);
+    --tw-prose-invert-quotes: var(--color-headings);
+    --tw-prose-invert-quote-borders: var(--color-primary);
+    --tw-prose-invert-counters: var(--color-primary);
+    --tw-prose-invert-bullets: var(--color-primary);
+    --tw-prose-invert-code: var(--color-primary);
+    --tw-prose-invert-pre-code: var(--color-on-surface);
+    --tw-prose-invert-pre-bg: var(--color-surface-container);
+    --tw-prose-invert-th-borders: var(--color-outline);
+    --tw-prose-invert-td-borders: var(--color-outline-variant);
+
+    /* responsive sizing */
+    @apply md:prose-lg lg:prose-xl;
+
+    /* custom heading styles */
     @apply prose-h1:text-3xl md:prose-h1:text-4xl lg:prose-h1:text-5xl;
     @apply prose-h1:font-bold;
+    @apply prose-h2:text-2xl md:prose-h2:text-3xl;
+    @apply prose-h2:font-bold;
+    @apply prose-h3:text-xl md:prose-h3:text-2xl;
+    @apply prose-h3:font-bold;
 
-    /* a */
+    /* link and code optimization */
     @apply prose-a:break-words;
 
     /* break-words in <a /> and <code /> prevents overflow and horizontal scroll on <body /> in mdx */
@@ -21,16 +72,51 @@
     /* code */
     @apply prose-code:break-words;
 
-    /* image */
-    @apply prose-img:rounded-lg;
+    /* image styling */
+    @apply prose-img:rounded-lg prose-img:shadow-sm;
 
-    /* my custom components bellow */
+    /* table styling */
+    @apply prose-table:border-collapse prose-table:border-spacing-0;
 
-    /* vertical margins */
+    /* blockquote styling */
+    @apply prose-blockquote:border-l-4 prose-blockquote:border-l-primary;
+    @apply prose-blockquote:pl-4 prose-blockquote:italic;
+
+    /* custom components vertical margins */
     .toc,
     .expressive-code,
     .alert {
       @apply my-5 md:my-6;
+    }
+
+    /* special elements with semantic colors */
+
+    /* emphasis */
+    strong {
+      color: var(--color-headings);
+    }
+
+    /* italic */
+    em {
+      color: var(--color-content);
+    }
+
+    /* keyboard keys */
+    kbd {
+      background-color: var(--color-surface-container-high);
+      color: var(--color-on-surface);
+      border: 1px solid var(--color-outline-variant);
+    }
+
+    /* mark text */
+    mark {
+      background-color: var(--color-primary);
+      color: var(--color-on-primary);
+    }
+
+    /* small text */
+    small {
+      color: var(--color-content-secondary);
     }
   }
 }
