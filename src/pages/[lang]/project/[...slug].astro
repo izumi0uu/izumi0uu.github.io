@@ -10,16 +10,23 @@ import { getOpenGraphImagePath } from "@/libs/api/open-graph/image-path";
 
 import type { Metadata } from "@/types/common";
 import type { Project } from "@/types/project";
+import { SUPPORTED_LOCALES } from "@/config/i18n";
 
 const { SITE_URL } = CONFIG_CLIENT;
 
 export async function getStaticPaths() {
-  const sortedProjects: Project[] = await getAllProjects();
+  const projects: Project[] = await getAllProjects();
 
-  const paths = sortedProjects.map((project) => ({
-    params: { slug: project.slug },
-    props: { ...project },
-  }));
+  const paths = [];
+
+  for (const project of projects) {
+    for (const locale of SUPPORTED_LOCALES) {
+      paths.push({
+        params: { slug: project.slug, lang: locale },
+        props: { ...project, routeLocale: locale, project },
+      });
+    }
+  }
 
   return paths;
 }
@@ -36,13 +43,15 @@ const metadata: Metadata = { title, description, image };
 const shareProps = {
   title,
   description,
-  url: `${SITE_URL}${ROUTES.PROJECTS}${slug}`,
+  url: `${SITE_URL}${ROUTES.PROJECT}${slug}`,
 };
 
 const { Content } = await render(Astro.props);
+
+console.log(Content);
 ---
 
 <ProjectLayout {metadata}>
   <Content />
-  <Share {...shareProps} class="mt-4 md:mt-6" />
+  <!-- <Share {...shareProps} class="mt-4 md:mt-6" /> -->
 </ProjectLayout>
