@@ -1,22 +1,24 @@
 ---
 title: Reddit unread comments
 description: Browser extension for easier tracking of new comments on Reddit.
-heroImage: "@/assets/images/project-default.jpg"
+heroImage: "./_images/image.jpg"
 heroAlt: Reddit unread comments browser extension
 publishDate: 2024-05-06
 ---
 
 import { Image } from "astro:assets";
-import Link from "../../../../components/react/ui/Link";
+
+import { Link } from "../../../../components/react/ui/Link.tsx";
 import LinkWithLabel from "../../../../components/LinkWithLabel.astro";
-import { IMAGE_SIZES } from "../../../../constants/image";
-import RedditUnreadCommentsImage from "../../../../content/project/2024/reddit-unread-comments/_images/image.jpg";
+import { IMAGE_SIZES } from "../../../../constants/image.ts";
+
+import image from "./_images/image.jpg";
 
 # Reddit unread comments
 
 <Image
   {...IMAGE_SIZES.RESPONSIVE.POST_HERO}
-  src={RedditUnreadCommentsImage || ProjectDefaultImage}
+  src={image}
   class="shadow-base-300 shadow-lg"
   alt="Reddit unread comments browser extension"
 />

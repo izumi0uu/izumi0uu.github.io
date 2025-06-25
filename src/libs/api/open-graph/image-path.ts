@@ -1,5 +1,6 @@
 import { OG_IMAGE_PREFIXES } from "@/constants/metadata";
 import { ROUTES } from "@/constants/routes";
+import { SUPPORTED_LOCALES } from "@/config/i18n";
 // import { getPages } from "@/libs/api/open-graph/page";
 import { removeLeadingAndTrailingSlashes } from "@/utils/routing/paths";
 
@@ -28,6 +29,7 @@ const getOpenGraphImagePath = (path: string): string => {
 
 /** @description return page prefix and validate it
  * @example /blog/posts/1 -> blog
+ * @example /en/project/test -> project (skip language code)
  * @example "" (homepage) -> pages
  */
 const getPagePrefix = (path: string): OgImagePrefixType => {
@@ -38,7 +40,20 @@ const getPagePrefix = (path: string): OgImagePrefixType => {
     return "pages" as OgImagePrefixType;
   }
 
-  let prefix = trimmedPath.split("/")[0];
+  const pathSegments = trimmedPath.split("/");
+  let prefixIndex = 0;
+
+  // Skip language code if present
+  if (pathSegments.length > 0 && SUPPORTED_LOCALES.includes(pathSegments[0] as any)) {
+    prefixIndex = 1;
+  }
+
+  // If no segments after language code, treat as homepage
+  if (prefixIndex >= pathSegments.length) {
+    return "pages" as OgImagePrefixType;
+  }
+
+  let prefix = pathSegments[prefixIndex];
   prefix = removeLeadingAndTrailingSlashes(prefix);
 
   // Handle special static pages that should use 'pages' prefix
