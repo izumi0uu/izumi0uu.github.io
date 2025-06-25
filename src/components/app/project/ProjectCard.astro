@@ -30,7 +30,7 @@ const { lastAccessDate, isUpdatedDate } = getPublishedOrUpdatedDate({
 });
 ---
 
-<article>
+<article class="transition-all duration-200 box-default">
   <Image
     {...IMAGE_SIZES.RESPONSIVE.PROJECT_CARD}
     src={heroImage}
@@ -44,7 +44,7 @@ const { lastAccessDate, isUpdatedDate } = getPublishedOrUpdatedDate({
       {draft && <sup class="text-sm text-red-500 ml-1">{DRAFT_TEXT}</sup>}
     </Link>
   </h4>
-  {description && <p class="text-sm text-content mb-2">{description}</p>}
+  {description && <p class="text-sm text-content mb-2 truncate">{description}</p>}
 
   <p class="flex items-center gap-1 text-xs text-content">
     <Icon name={isUpdatedDate ? "mdi:edit-outline" : "mdi:access-time"} class="w-4 h-4" />
