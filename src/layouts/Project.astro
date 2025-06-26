@@ -1,5 +1,5 @@
 ---
-import Centered from "@/layouts/Centered.astro";
+import FullWidth from "@/layouts/FullWidth.astro";
 
 import type { BaseProps } from "@/layouts/Base.astro";
 
@@ -10,8 +10,36 @@ const props = Astro.props;
 // same as Page layout (except props) for now
 ---
 
-<Centered {...props}>
-  <article class="my-prose my-prose-project">
-    <slot />
+<FullWidth {...props}>
+  <article class="min-h-screen">
+    <section class="lg:h-screen lg:flex">
+      <!-- 左侧：固定区域 (移动端在上方) -->
+      <aside
+        class="lg:w-1/2 lg:flex lg:flex-col lg:justify-center lg:items-center p-6 lg:p-8 bg-surface-container-low"
+      >
+        <!-- 项目封面 -->
+        <div class="w-full max-w-lg mb-6 lg:mb-8">
+          <slot name="cover" />
+        </div>
+
+        <!-- 项目标题 -->
+        <div class="text-center mb-4 lg:mb-6">
+          <slot name="heading" />
+        </div>
+
+        <!-- 项目描述 -->
+        <div class="text-center lg:max-w-md">
+          <slot name="description" />
+        </div>
+      </aside>
+
+      <!-- 右侧：可滚动内容区域 (移动端在下方) -->
+      <main class="lg:w-1/2 lg:overflow-y-auto bg-surface min-h-screen lg:min-h-auto">
+        <div class="p-6 lg:p-8">
+          <!-- 主要内容区域 -->
+          <slot name="content" />
+        </div>
+      </main>
+    </section>
   </article>
-</Centered>
+</FullWidth>

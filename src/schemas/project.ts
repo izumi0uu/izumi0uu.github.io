@@ -1,6 +1,6 @@
 import { z } from "astro:content";
 
-import { DEFAULTS_PROJECT } from "@/constants/collections";
+import { DEFAULTS_PROJECT, TAGS } from "@/constants/collections";
 
 import type { SchemaContext } from "astro:content";
 
@@ -12,7 +12,8 @@ export const projectSchema = ({ image }: SchemaContext) =>
     description: z.string().default(DESCRIPTION),
     publishDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
-    heroImage: image().default(HERO_IMAGE),
+    heroImage: image(),
     heroAlt: z.string().default(HERO_ALT),
     draft: z.boolean().default(DRAFT),
+    tags: z.array(z.enum(TAGS)).default([]),
   });

@@ -5,6 +5,7 @@ import type { ValueUnion } from "@/types/utils";
 // import type { NAVIGATION_ITEMS } from "@/constants/navigation"; // Temporarily comment out due to linter error
 import type { TW_WIDTHS } from "@/constants/image";
 import type { CATEGORIES } from "@/constants/collections";
+import type { TAGS } from "@/constants/collections";
 
 /**
  * @description type for navigation item
@@ -15,6 +16,11 @@ import type { CATEGORIES } from "@/constants/collections";
  * @description type for category
  */
 type CategoryType = (typeof CATEGORIES)[number];
+
+/**
+ * @description type for tag
+ */
+type TagType = (typeof TAGS)[number];
 
 /**
  * @description type for theme
@@ -78,6 +84,7 @@ export type {
   ChangeThemeCustomEvent,
   Breakpoint,
   // NavigationItem, // Temporarily comment out
+  TagType,
   CategoryType,
   OgImagePrefixType,
 };

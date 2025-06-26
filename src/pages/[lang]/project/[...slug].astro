@@ -1,15 +1,23 @@
 ---
+import { Image } from "astro:assets";
 import { render } from "astro:content";
 
 import { getAllProjects } from "@/modules/project/common";
 import ProjectLayout from "@/layouts/Project.astro";
+import PostMeta from "@/components/app/blog/PostMeta.astro";
+import { Link } from "@/components/react/ui/Link.tsx";
+import LinkWithLabel from "@/components/LinkWithLabel.astro";
 // import Share from "@/components/Share.astro";
 import { ROUTES } from "@/constants/routes";
 import { CONFIG_CLIENT } from "@/config/client";
 import { getOpenGraphImagePath } from "@/libs/api/open-graph/image-path";
+import { IMAGE_SIZES } from "@/constants/image";
+import { DRAFT_TEXT } from "@/constants/data";
+import { setTransitionSlug, TRANSITION_ELEMENT_IDS } from "@/constants/transitions";
 
 import type { Metadata } from "@/types/common";
 import type { Project } from "@/types/project";
+
 import { SUPPORTED_LOCALES } from "@/config/i18n";
 
 const { SITE_URL } = CONFIG_CLIENT;
@@ -35,8 +43,9 @@ const { data } = Astro.props;
 const { pathname } = Astro.url;
 const { slug } = Astro.params;
 
+const { draft, title, publishDate, updatedDate, description, heroImage, heroAlt, tags } = data;
+
 const image = getOpenGraphImagePath(pathname);
-const { title, description } = data;
 
 const metadata: Metadata = { title, description, image };
 
@@ -48,10 +57,111 @@ const shareProps = {
 
 const { Content } = await render(Astro.props);
 
-console.log(Content);
+const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
+
+// 提取主要技术栈
+const mainTechStack = tags.slice(0, 3).join(", ");
 ---
 
 <ProjectLayout {metadata}>
-  <Content />
-  <!-- <Share {...shareProps} class="mt-4 md:mt-6" /> -->
+  <!-- 左侧封面图片 -->
+  <Fragment slot="cover">
+    {
+      heroImage && (
+        <Image
+          {...IMAGE_SIZES.RESPONSIVE.POST_HERO}
+          src={heroImage}
+          alt={heroAlt}
+          fetchpriority="high"
+          loading="eager"
+          itemprop="image"
+          class="w-full h-auto aspect-video object-cover rounded-xl shadow-xl border border-outline-variant"
+          transition:name={getTransitionNameFromElementId({
+            elementId: TRANSITION_ELEMENT_IDS.POST_CARD.HERO_IMAGE,
+          })}
+        />
+      )
+    }
+  </Fragment>
+
+  <!-- 左侧项目标题 -->
+  <Fragment slot="heading">
+    <h1
+      class="text-4xl lg:text-5xl font-bold text-headings mb-4"
+      transition:name={getTransitionNameFromElementId({
+        elementId: TRANSITION_ELEMENT_IDS.POST_CARD.TITLE,
+      })}
+    >
+      {title}
+      {draft && <sup class="text-red-500 ml-1 text-sm">{DRAFT_TEXT}</sup>}
+    </h1>
+
+    <PostMeta
+      publishDate={publishDate}
+      updatedDate={updatedDate}
+      class="justify-center text-sm"
+      transition:name={getTransitionNameFromElementId({
+        elementId: TRANSITION_ELEMENT_IDS.POST_CARD.META,
+      })}
+    />
+  </Fragment>
+
+  <!-- 左侧项目描述 -->
+  <Fragment slot="description">
+    {
+      description && (
+        <p
+          class="text-lg text-content-secondary leading-relaxed"
+          transition:name={getTransitionNameFromElementId({
+            elementId: TRANSITION_ELEMENT_IDS.POST_CARD.DESCRIPTION,
+          })}
+        >
+          {description}
+        </p>
+      )
+    }
+
+    {
+      tags.length > 0 && (
+        <div class="mt-6">
+          <p class="text-sm text-content-secondary mb-3">
+            <span class="font-medium">Tech Stack:</span> {mainTechStack || "Web Development"}
+          </p>
+          <div class="flex flex-wrap gap-1">
+            {tags.map((tag: string) => (
+              <span class="px-2 py-1 bg-surface-container rounded-md text-xs font-medium">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      )
+    }
+  </Fragment>
+
+  <!-- 右侧主要内容 - 直接渲染 MDX -->
+  <Fragment slot="content">
+    <div class="my-prose max-w-none">
+      <Content />
+    </div>
+  </Fragment>
 </ProjectLayout>
+
+<style>
+  /* 自定义滚动条样式 */
+  main::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  main::-webkit-scrollbar-track {
+    @apply bg-surface-container-low;
+  }
+
+  main::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-outline-variant;
+  }
+
+  main::-webkit-scrollbar-thumb:hover {
+    @apply bg-outline;
+  }
+</style>
