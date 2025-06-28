@@ -37,6 +37,14 @@ const TAGS = [
   "browser-extension",
   "indexedDB",
   "radix-ui",
+  "vite",
+  "tanstack/react-query",
+  "supabase",
+  "Material UI",
+  "Styled Components",
+  "React Router DOM",
+  "Recharts",
+  "React Hook Form",
 ] as const;
 
 /** adjust this later */
