@@ -69,11 +69,10 @@ const mainTechStack = tags?.slice(0, 3).join(", ");
     {
       heroImage && (
         <Image
-          {...IMAGE_SIZES.RESPONSIVE.POST_HERO}
+          {...IMAGE_SIZES.REMOTE.PROJECT_HERO}
           src={heroImage}
           alt={heroAlt}
           fetchpriority="high"
-          loading="eager"
           itemprop="image"
           class="w-full h-auto aspect-video object-cover rounded-xl shadow-xl border border-outline-variant"
           transition:name={getTransitionNameFromElementId({
@@ -150,7 +149,7 @@ const mainTechStack = tags?.slice(0, 3).join(", ");
 <style>
   /* 自定义滚动条样式 */
   main::-webkit-scrollbar {
-    @apply w-2;
+    width: 0.5rem;
   }
 
   main::-webkit-scrollbar-track {

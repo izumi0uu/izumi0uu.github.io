@@ -116,11 +116,10 @@ const metadata: Metadata = {
       !noHero && (
         <div class="w-full h-full flex justify-center items-center">
           <Image
-            {...IMAGE_SIZES.RESPONSIVE.POST_HERO}
+            {...IMAGE_SIZES.REMOTE.POST_HERO}
             src={heroImage}
             alt={heroAlt}
             fetchpriority="high"
-            loading={IMAGE_SIZES.RESPONSIVE.POST_HERO.loading}
             itemprop="image"
             class="block max-w-full h-auto aspect-[16/8] object-cover border-outline"
             transition:name={getTransitionNameFromElementId({

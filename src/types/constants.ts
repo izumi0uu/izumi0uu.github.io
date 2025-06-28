@@ -53,11 +53,21 @@ type ResponsiveImageConfig = Required<Pick<LocalImageProps, "widths" | "sizes">>
 };
 
 /**
+ * @description type for individual remote image configuration
+ * Used for images in public directory that require explicit dimensions
+ */
+type RemoteImageConfig = Required<Pick<LocalImageProps, "width" | "height">> & {
+  quality?: "low" | "mid" | "high" | "max" | number;
+  loading?: LocalImageProps["loading"];
+};
+
+/**
  * @description type for image
  */
 type ImageSizes = {
   FIXED: Record<string, FixedImageConfig>;
   RESPONSIVE: Record<string, ResponsiveImageConfig>;
+  REMOTE: Record<string, RemoteImageConfig>;
 };
 
 /**

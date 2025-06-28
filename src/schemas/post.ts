@@ -22,7 +22,7 @@ export const postSchema = ({ image }: SchemaContext) =>
     description: z.string().default(DESCRIPTION),
     // convert img to object
     noHero: z.boolean().default(NO_HERO),
-    heroImage: image().default(HERO_IMAGE),
+    heroImage: image(),
     heroAlt: z.string().default(HERO_ALT),
     toc: z.boolean().default(TOC),
     draft: z.boolean().default(DRAFT),

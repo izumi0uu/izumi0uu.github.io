@@ -183,4 +183,61 @@ export const IMAGE_SIZES = {
       loading: "eager",
     },
   },
+  // TODO: USE 3rd GITPAGES CMS
+  /**
+   * @description REMOTE configurations for images in public directory
+   * These require explicit width/height to prevent CLS (Cumulative Layout Shift)
+   * Use when images are stored in public/ folder and accessed via absolute URLs
+   */
+  REMOTE: {
+    POST_CARD: {
+      width: TW_SCREENS.SM,
+      height: TW_SCREENS.HEIGHTS.SM,
+      quality: 75,
+      loading: "lazy",
+    },
+    POST_CARD_SMALL: {
+      width: TW_SCREENS.XXS,
+      height: TW_SCREENS.HEIGHTS.XXS,
+      quality: 75,
+      loading: "lazy",
+    },
+    PROJECT_CARD: {
+      width: TW_SCREENS.SM,
+      height: TW_SCREENS.HEIGHTS.SM,
+      quality: 75,
+      loading: "lazy",
+    },
+    POST_HERO: {
+      width: TW_SCREENS.LG,
+      height: TW_SCREENS.HEIGHTS.MD, // 16:8 aspect ratio for blog posts
+      quality: 80,
+      loading: "eager",
+    },
+    PROJECT_HERO: {
+      width: TW_SCREENS.LG,
+      height: TW_SCREENS.HEIGHTS.LG,
+      quality: 80,
+      loading: "eager",
+    },
+    HERO_BANNER: {
+      width: TW_SCREENS.MD,
+      height: TW_SCREENS.HEIGHTS.MD,
+      quality: 80,
+      loading: "eager",
+    },
+    /** @description For MDX content images that are remote */
+    MDX_CONTENT: {
+      width: TW_SCREENS.MD,
+      height: TW_SCREENS.HEIGHTS.MD,
+      quality: 75,
+      loading: "lazy",
+    },
+    MDX_CONTENT_LG: {
+      width: TW_SCREENS.LG,
+      height: TW_SCREENS.HEIGHTS.LG,
+      quality: 75,
+      loading: "lazy",
+    },
+  },
 } as const satisfies ImageSizes;
