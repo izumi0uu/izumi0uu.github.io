@@ -20,7 +20,9 @@ const TAGS = [
   "astro",
   "node.js",
   "javascript",
+  "typescript",
   "css",
+  "tailwindcss",
   "ethereum",
   "solidity",
   "solana",
@@ -32,6 +34,9 @@ const TAGS = [
   "web-design",
   "remark-lint",
   "plugins",
+  "browser-extension",
+  "indexedDB",
+  "radix-ui",
 ] as const;
 
 /** adjust this later */
