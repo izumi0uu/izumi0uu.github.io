@@ -18,31 +18,200 @@ tags:
   ]
 ---
 
-## Overview
+## 概述
 
-The Wild Oasis 是一个功能完整的酒店管理系统，为酒店工作人员提供全方位的运营管理解决方案。项目采用现代 React 生态系统构建，实现了从客房管理到客户服务的完整业务流程。
+The Wild Oasis 是为现代酒店设计的综合内部管理解决方案。它将直观的用户界面与强大的业务功能相结合，涵盖从客房管理到财务分析的完整酒店运营流程，为酒店工作人员提供高效的工作工具。
 
-## Tech Stack
+## 目标
 
-### 前端框架层
+- 创建直观高效的酒店内部管理体验
+- 实现实时的客房状态和预订信息同步
+- 通过数据可视化提供业务洞察和决策支持
+- 构建可扩展的现代化酒店管理架构
+- 简化复杂的酒店业务流程，提升运营效率
 
-React 17/18 - 采用最新函数式组件和 Hooks 架构
-Vite - 极速开发构建工具，提供毫秒级热更新体验
+## 技术栈
+
+### 前端架构
+
+- **React 17/18** - 基于函数式组件和 Hooks 的现代化 UI
+- **Vite** - 极速开发构建工具，毫秒级热更新
+- **Material-UI** - 企业级组件库，确保界面专业性和一致性
+- **Styled Components** - CSS-in-JS 架构，实现主题化和组件级样式隔离
+- **React Router Dom** - 单页应用路由管理
 
 ### 状态管理与数据层
 
-@tanstack/react-query - 强大的服务端状态管理，实现智能缓存和同步
-@supabase/supabase-js - PostgreSQL 数据库 + 实时订阅 + 身份验证一体化解决方案
+- **@tanstack/react-query** - 强大的服务端状态管理，智能缓存和实时同步
+- **React Hook Form** - 高性能表单处理和验证框架
+- **React Context** - 全局状态管理（主题、用户认证）
 
-### UI/UX 体验层
+### 后端与数据库
 
-Material-UI (@mui/material) - 企业级组件库，确保界面专业性
-Styled Components - CSS-in-JS 架构，实现主题化和组件级样式隔离
-React Icons - 丰富的图标资源库
+- **Supabase** - PostgreSQL 数据库 + 实时订阅 + 身份验证一体化平台
+- **Row Level Security** - 数据库级别的安全访问控制
+- **实时订阅** - WebSocket 连接实现数据实时更新
 
-### 业务功能层
+### UI/UX 增强
 
-React Router Dom - 单页应用路由管理
-React Hook Form - 高性能表单处理和验证
-Date-fns - 轻量级日期处理库，处理预订时间逻辑
-Recharts - 数据可视化，展示酒店运营分析
+- **React Icons** - 丰富的图标资源库
+- **React Hot Toast** - 优雅的消息提示系统
+- **React Error Boundary** - 优雅的错误处理和恢复
+- **Date-fns** - 轻量级日期处理，支持多时区
+
+### 数据可视化
+
+- **Recharts** - 基于 D3 的响应式图表库
+- **自定义仪表板** - 入住率、收入趋势、客户满意度分析
+
+### 开发工具与质量保证
+
+- **ESLint** - 代码质量检查和最佳实践强制
+- **Vite Plugin ESLint** - 开发时实时代码检查
+- **TypeScript Types** - 类型定义支持，提升开发体验
+
+## 功能特性
+
+### 核心业务管理
+
+- **客房管理** - 房间状态实时监控、价格动态调整、维护记录管理
+- **预订系统** - 在线预订处理、客户信息管理、预订状态跟踪
+- **入住退房** - 一键式办理入住/退房、费用计算、发票生成
+- **客户档案** - 完整的客户历史记录、偏好设置、VIP 管理
+- **财务管理** - 收入统计、支付处理、费用分析
+
+### 实时协作功能
+
+- **实时状态更新** - 房间状态、预订信息在所有终端实时同步
+- **多用户协作** - 前台、清洁、维护团队协同工作
+- **活动日志** - 完整的操作记录和审计追踪
+- **通知系统** - 重要事件的即时提醒和通知
+
+### 分析与洞察
+
+- **运营仪表板** - 入住率、收入、客户满意度等关键指标
+- **数据可视化** - 收入趋势图、客房利用率分析、季节性统计
+- **今日活动** - 当日入住、退房、维护任务概览
+- **自定义报告** - 多维度数据分析和导出功能
+
+### 用户体验优化
+
+- **暗黑模式** - 自适应主题切换，适应不同工作环境
+- **响应式设计** - 完美适配桌面、平板、手机设备
+- **快捷操作** - 一键完成常用业务流程
+- **表单验证** - 智能的数据验证和错误提示
+
+## 实现细节
+
+### 架构设计模式
+
+项目采用模块化的 **Feature-Based Architecture**，每个业务模块独立管理其状态、API 和 UI 组件。
+
+```javascript
+// 模块化架构示例 - 客房管理
+// features/cabins/
+├── useCabins.js          // 数据获取 Hook
+├── useCreateCabin.js     // 创建操作 Hook
+├── useUpdateCabin.js     // 更新操作 Hook
+├── useDeleteCabin.js     // 删除操作 Hook
+├── CabinTable.jsx        // 表格组件
+├── CabinRow.jsx          // 行组件
+├── CreateCabinForm.jsx   // 表单组件
+└── AddCabin.jsx          // 容器组件
+```
+
+### 实时数据同步机制
+
+基于 Supabase 的实时订阅功能，实现多用户间的数据一致性：
+
+```javascript
+// 实时数据订阅示例
+const { data: bookings } = useQuery({
+  queryKey: ["bookings"],
+  queryFn: getBookings,
+  // 启用实时同步
+  refetchInterval: false,
+  // Supabase 实时订阅在后台处理数据更新
+});
+
+// 自动失效和重新获取
+queryClient.invalidateQueries(["bookings"]);
+```
+
+### 智能缓存策略
+
+使用 React Query 的多层缓存机制：
+
+```javascript
+// 智能缓存配置
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5分钟数据新鲜度
+      cacheTime: 10 * 60 * 1000, // 10分钟缓存保持
+      refetchOnWindowFocus: false, // 避免频繁刷新
+      retry: (failureCount, error) => {
+        // 智能重试策略
+        return failureCount < 3 && error.status !== 404;
+      },
+    },
+  },
+});
+```
+
+### 表单验证与用户体验
+
+结合 React Hook Form 和自定义验证规则：
+
+```javascript
+// 智能表单验证
+const {
+  register,
+  handleSubmit,
+  formState: { errors },
+} = useForm({
+  defaultValues: {
+    maxCapacity: "",
+    regularPrice: "",
+    discount: 0,
+  },
+});
+
+// 自定义验证规则
+const validateDiscount = (value, { regularPrice }) => {
+  const discount = Number(value);
+  const price = Number(regularPrice);
+
+  if (discount > price) {
+    return "折扣不能超过房间价格";
+  }
+  return true;
+};
+```
+
+### 安全实现策略
+
+- **Supabase Row Level Security** - 数据库级别的访问控制
+- **JWT 身份验证** - 安全的用户会话管理
+- **角色权限管理** - 基于用户角色的功能访问控制
+- **数据验证** - 前端和后端双重数据验证
+- **API 安全** - 防止 SQL 注入和 XSS 攻击
+
+## 心得
+
+### 技术洞察
+
+**实时状态管理的复杂性挑战**
+在酒店环境中，房间状态变化频繁，多用户同时操作时的数据一致性是关键挑战。通过 Supabase 的实时订阅结合 React Query 的智能缓存，实现了接近实时的数据同步，同时避免了过度的网络请求。
+
+**表单复杂度与用户体验平衡**
+酒店预订涉及大量复杂的业务规则（时间冲突、价格计算、客户等级等）。使用 React Hook Form 的控制器模式和自定义验证，在保证数据准确性的同时，提供了流畅的用户交互体验。
+
+**组件复用性与业务特异性**
+酒店业务具有很强的领域特色，在设计通用 UI 组件时需要平衡复用性和业务特异性。采用了"组合优于继承"的设计模式，通过小粒度组件组合实现复杂功能。
+
+## 链接
+
+**在线演示：** [https://the-wild-oasis-demo.netlify.app](https://the-wild-oasis-demo.netlify.app)
+
+**GitHub 仓库：** [https://github.com/izumi0uu/the-wild-oasis](https://github.com/izumi0uu/the-wild-oasis)
