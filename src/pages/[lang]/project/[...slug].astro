@@ -123,9 +123,6 @@ const mainTechStack = tags?.slice(0, 3).join(", ");
     {
       tags?.length > 0 && (
         <div class="mt-6">
-          <p class="text-sm text-content-secondary mb-3">
-            <span class="font-medium">Tech Stack:</span> {mainTechStack || "Web Development"}
-          </p>
           <div class="flex flex-wrap gap-1">
             {tags?.map((tag: string) => (
               <span class="px-2 py-1 bg-surface-container rounded-md text-xs font-medium">
@@ -145,22 +142,3 @@ const mainTechStack = tags?.slice(0, 3).join(", ");
     </div>
   </Fragment>
 </ProjectLayout>
-
-<style>
-  /* 自定义滚动条样式 */
-  main::-webkit-scrollbar {
-    width: 0.5rem;
-  }
-
-  main::-webkit-scrollbar-track {
-    @apply bg-surface-container-low;
-  }
-
-  main::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-outline-variant;
-  }
-
-  main::-webkit-scrollbar-thumb:hover {
-    @apply bg-outline;
-  }
-</style>
