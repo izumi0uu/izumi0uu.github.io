@@ -5,6 +5,7 @@ import { Image } from "astro:assets";
 import { getPublishedOrUpdatedDate } from "@/modules/common";
 
 import { Link } from "@/components/react/ui/Link.tsx";
+import Skeleton from "@/components/Skeleton.astro";
 
 import { DRAFT_TEXT } from "@/constants/data";
 import { IMAGE_SIZES } from "@/constants/image";
@@ -31,12 +32,16 @@ const { lastAccessDate, isUpdatedDate } = getPublishedOrUpdatedDate({
 ---
 
 <article class="transition-all duration-200 box-default">
-  <Image
-    {...IMAGE_SIZES.REMOTE.PROJECT_CARD}
-    src={heroImage}
-    alt={heroAlt}
-    class="aspect-video object-cover rounded-t-box shadow shadow-base-300 mb-2"
-  />
+  <div class="relative">
+    <Skeleton className="aspect-video rounded-t-box shadow shadow-base-300 mb-2" />
+    <Image
+      {...IMAGE_SIZES.REMOTE.PROJECT_CARD}
+      src={heroImage}
+      alt={heroAlt}
+      class="aspect-video object-cover rounded-t-box shadow shadow-base-300 mb-2 absolute inset-0"
+      loading="lazy"
+    />
+  </div>
 
   <h4 class="b-h4 break-words line-clamp-2 mb-0">
     <Link href={getPathWithLocale(`${ROUTES.PROJECT}${slug}`)} variant="heading">

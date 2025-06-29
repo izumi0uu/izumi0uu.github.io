@@ -26,6 +26,7 @@ import { getOpenGraphImagePath } from "@/libs/api/open-graph/image-path";
 
 import type { Metadata } from "@/types/common";
 import type { Post } from "@/types/post";
+import Skeleton from "@/components/Skeleton.astro";
 
 const { SITE_URL } = CONFIG_CLIENT;
 
@@ -115,6 +116,7 @@ const metadata: Metadata = {
     {
       !noHero && (
         <div class="w-full h-full flex justify-center items-center">
+          <Skeleton className="aspect-video rounded-t-box shadow shadow-base-300 mb-2" />
           <Image
             {...IMAGE_SIZES.REMOTE.POST_HERO}
             src={heroImage}

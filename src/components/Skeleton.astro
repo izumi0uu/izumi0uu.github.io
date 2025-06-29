@@ -1,0 +1,7 @@
+---
+import { cn } from "@/utils/ui/styles";
+
+const { className, ...props } = Astro.props;
+---
+
+<div class={cn("bg-muted animate-pulse rounded-md", className)} {...props}></div>

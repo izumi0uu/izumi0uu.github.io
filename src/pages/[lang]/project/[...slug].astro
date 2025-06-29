@@ -19,6 +19,7 @@ import type { Metadata } from "@/types/common";
 import type { Project } from "@/types/project";
 
 import { SUPPORTED_LOCALES } from "@/config/i18n";
+import Skeleton from "@/components/Skeleton.astro";
 
 const { SITE_URL } = CONFIG_CLIENT;
 
@@ -66,6 +67,7 @@ const mainTechStack = tags?.slice(0, 3).join(", ");
 <ProjectLayout {metadata}>
   <!-- 左侧封面图片 -->
   <Fragment slot="cover">
+    <Skeleton className="aspect-video rounded-t-box shadow shadow-base-300 mb-2" />
     {
       heroImage && (
         <Image
