@@ -8,207 +8,147 @@ tags:
   [
     "react",
     "vite",
-    "tanstack/react-query",
+    "react-query",
     "supabase",
-    "Material UI",
-    "Styled Components",
-    "React Router DOM",
-    "Recharts",
-    "React Hook Form",
+    "material-ui",
+    "styled-components",
+    "react-router",
+    "web-development",
+    "full-stack",
   ]
 ---
 
-## 概述
+## 项目概述
 
-The Wild Oasis 是为现代酒店设计的综合内部管理解决方案。它将直观的用户界面与强大的业务功能相结合，涵盖从客房管理到财务分析的完整酒店运营流程，为酒店工作人员提供高效的工作工具。
-
-## 目标
-
-- 创建直观高效的酒店内部管理体验
-- 实现实时的客房状态和预订信息同步
-- 通过数据可视化提供业务洞察和决策支持
-- 构建可扩展的现代化酒店管理架构
-- 简化复杂的酒店业务流程，提升运营效率
+The Wild Oasis 是一个现代化的酒店/度假村管理系统，专门为管理小木屋式住宿而设计。这是一个内部管理工具，供酒店工作人员使用，用于管理预订、客房、客人信息和系统设置。
 
 ## 技术栈
 
-### 前端架构
+项目采用现代化的前端技术栈：
 
-- **React 17/18** - 基于函数式组件和 Hooks 的现代化 UI
-- **Vite** - 极速开发构建工具，毫秒级热更新
-- **Material-UI** - 企业级组件库，确保界面专业性和一致性
-- **Styled Components** - CSS-in-JS 架构，实现主题化和组件级样式隔离
-- **React Router Dom** - 单页应用路由管理
+- **前端框架**: React 18 配合 Vite 构建工具
+- **后端服务**: Supabase (Backend-as-a-Service)
+- **状态管理**: React Query 用于服务器状态管理，React Context 用于客户端状态
+- **样式方案**: Styled Components
+- **路由**: React Router v6
+- **表单处理**: React Hook Form
+- **UI组件**: 自定义设计系统 [2]
 
-### 状态管理与数据层
+## 核心功能模块
 
-- **@tanstack/react-query** - 强大的服务端状态管理，智能缓存和实时同步
-- **React Hook Form** - 高性能表单处理和验证框架
-- **React Context** - 全局状态管理（主题、用户认证）
+### 1. 仪表板 (Dashboard)
 
-### 后端与数据库
+![Dashboard](./_images/dashboard.png)
 
-- **Supabase** - PostgreSQL 数据库 + 实时订阅 + 身份验证一体化平台
-- **Row Level Security** - 数据库级别的安全访问控制
-- **实时订阅** - WebSocket 连接实现数据实时更新
+应用的中心枢纽，提供业务分析和概览功能：
 
-### UI/UX 增强
+- 实时统计数据（预订量、销售额、入住率、占用率）
+- 销售趋势图表
+- 住宿时长分析
+- 今日活动概览（入住/退房）
 
-- **React Icons** - 丰富的图标资源库
-- **React Hot Toast** - 优雅的消息提示系统
-- **React Error Boundary** - 优雅的错误处理和恢复
-- **Date-fns** - 轻量级日期处理，支持多时区
+### 2. 预订管理 (Booking Management)
 
-### 数据可视化
+![Booking Management](./_images/booking-management.png)
 
-- **Recharts** - 基于 D3 的响应式图表库
-- **自定义仪表板** - 入住率、收入趋势、客户满意度分析
+![Booking Management Add](./_images/booking-management-add.png)
 
-### 开发工具与质量保证
+完整的预订生命周期管理：
 
-- **ESLint** - 代码质量检查和最佳实践强制
-- **Vite Plugin ESLint** - 开发时实时代码检查
-- **TypeScript Types** - 类型定义支持，提升开发体验
+- 预订列表查看，支持筛选和分页
+- 预订详情查看
+- 入住/退房流程
+- 预订状态更新
+- 客人信息关联
 
-## 功能特性
+### 3. 小木屋管理 (Cabin Management)
 
-### 核心业务管理
+![Cabin Management](./_images/cabin-management.png)
 
-- **客房管理** - 房间状态实时监控、价格动态调整、维护记录管理
-- **预订系统** - 在线预订处理、客户信息管理、预订状态跟踪
-- **入住退房** - 一键式办理入住/退房、费用计算、发票生成
-- **客户档案** - 完整的客户历史记录、偏好设置、VIP 管理
-- **财务管理** - 收入统计、支付处理、费用分析
+![Cabin Management Add](./_images/cabin-management-add.png)
 
-### 实时协作功能
+住宿单元的完整CRUD操作：
 
-- **实时状态更新** - 房间状态、预订信息在所有终端实时同步
-- **多用户协作** - 前台、清洁、维护团队协同工作
-- **活动日志** - 完整的操作记录和审计追踪
-- **通知系统** - 重要事件的即时提醒和通知
+- 小木屋信息展示（名称、容量、价格、描述）
+- 图片上传和管理
+- 价格和折扣设置
+- 复制和删除功能
 
-### 分析与洞察
+### 4. 用户管理
 
-- **运营仪表板** - 入住率、收入、客户满意度等关键指标
-- **数据可视化** - 收入趋势图、客房利用率分析、季节性统计
-- **今日活动** - 当日入住、退房、维护任务概览
-- **自定义报告** - 多维度数据分析和导出功能
+员工账户管理功能：
 
-### 用户体验优化
+- 新用户注册
+- 用户认证和授权
+- 权限控制
 
-- **暗黑模式** - 自适应主题切换，适应不同工作环境
-- **响应式设计** - 完美适配桌面、平板、手机设备
-- **快捷操作** - 一键完成常用业务流程
-- **表单验证** - 智能的数据验证和错误提示
+### 5. 系统设置
 
-## 实现细节
+应用配置管理：
 
-### 架构设计模式
+- 主题切换（深色/浅色模式）
+- 系统参数配置
 
-项目采用模块化的 **Feature-Based Architecture**，每个业务模块独立管理其状态、API 和 UI 组件。
+## 架构设计亮点
 
-```javascript
-// 模块化架构示例 - 客房管理
-// features/cabins/
-├── useCabins.js          // 数据获取 Hook
-├── useCreateCabin.js     // 创建操作 Hook
-├── useUpdateCabin.js     // 更新操作 Hook
-├── useDeleteCabin.js     // 删除操作 Hook
-├── CabinTable.jsx        // 表格组件
-├── CabinRow.jsx          // 行组件
-├── CreateCabinForm.jsx   // 表单组件
-└── AddCabin.jsx          // 容器组件
-```
+### 1. 模块化架构
 
-### 实时数据同步机制
+项目采用功能模块化的架构设计，每个业务领域都有独立的模块结构：
 
-基于 Supabase 的实时订阅功能，实现多用户间的数据一致性：
+- `features/` - 按业务功能组织的特性模块
+- `pages/` - 页面组件作为功能组合的入口
+- `ui/` - 可复用的UI组件库
+- `services/` - API服务层抽象
 
-```javascript
-// 实时数据订阅示例
-const { data: bookings } = useQuery({
-  queryKey: ["bookings"],
-  queryFn: getBookings,
-  // 启用实时同步
-  refetchInterval: false,
-  // Supabase 实时订阅在后台处理数据更新
-});
+### 2. 多层状态管理
 
-// 自动失效和重新获取
-queryClient.invalidateQueries(["bookings"]);
-```
+采用分层的状态管理策略：
 
-### 智能缓存策略
+- React Query 处理服务器状态
+- Context API 管理全局客户端状态
+- URL参数管理筛选和分页状态
+- 本地存储处理用户偏好设置
 
-使用 React Query 的多层缓存机制：
+### 3. 路由保护机制
 
-```javascript
-// 智能缓存配置
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 5 * 60 * 1000, // 5分钟数据新鲜度
-      cacheTime: 10 * 60 * 1000, // 10分钟缓存保持
-      refetchOnWindowFocus: false, // 避免频繁刷新
-      retry: (failureCount, error) => {
-        // 智能重试策略
-        return failureCount < 3 && error.status !== 404;
-      },
-    },
-  },
-});
-```
+实现了两级路由结构，区分公开路由和受保护路由：
 
-### 表单验证与用户体验
+- 受保护路由需要用户认证
+- 统一的应用布局包装
+- 自动重定向到登录页面
 
-结合 React Hook Form 和自定义验证规则：
+## 数据层设计
 
-```javascript
-// 智能表单验证
-const {
-  register,
-  handleSubmit,
-  formState: { errors },
-} = useForm({
-  defaultValues: {
-    maxCapacity: "",
-    regularPrice: "",
-    discount: 0,
-  },
-});
+### Supabase 集成
 
-// 自定义验证规则
-const validateDiscount = (value, { regularPrice }) => {
-  const discount = Number(value);
-  const price = Number(regularPrice);
+项目深度集成 Supabase 作为后端解决方案：
 
-  if (discount > price) {
-    return "折扣不能超过房间价格";
-  }
-  return true;
-};
-```
+- PostgreSQL 数据库用于存储业务数据
+- 实时认证和用户管理
+- 文件存储服务用于图片上传
+- 行级安全策略保护数据
 
-### 安全实现策略
+### API 服务层
 
-- **Supabase Row Level Security** - 数据库级别的访问控制
-- **JWT 身份验证** - 安全的用户会话管理
-- **角色权限管理** - 基于用户角色的功能访问控制
-- **数据验证** - 前端和后端双重数据验证
-- **API 安全** - 防止 SQL 注入和 XSS 攻击
+每个业务实体都有专门的API服务模块：
 
-## 心得
+- 统一的错误处理机制
+- 支持复杂查询和关联查询
+- 原子操作保证数据一致性
 
-### 技术洞察
+## 用户体验特色
 
-**实时状态管理的复杂性挑战**
-在酒店环境中，房间状态变化频繁，多用户同时操作时的数据一致性是关键挑战。通过 Supabase 的实时订阅结合 React Query 的智能缓存，实现了接近实时的数据同步，同时避免了过度的网络请求。
+### 1. 响应式设计
 
-**表单复杂度与用户体验平衡**
-酒店预订涉及大量复杂的业务规则（时间冲突、价格计算、客户等级等）。使用 React Hook Form 的控制器模式和自定义验证，在保证数据准确性的同时，提供了流畅的用户交互体验。
+全面适配不同设备屏幕尺寸，提供一致的用户体验。
 
-**组件复用性与业务特异性**
-酒店业务具有很强的领域特色，在设计通用 UI 组件时需要平衡复用性和业务特异性。采用了"组合优于继承"的设计模式，通过小粒度组件组合实现复杂功能。
+### 2. 深色模式支持
+
+内置主题切换功能，支持浅色和深色模式，提升用户使用舒适度。
+
+### 3. 实时数据更新
+
+利用 React Query 的缓存机制，提供实时的数据同步和乐观更新。
 
 ## 链接
 
