@@ -1,7 +1,31 @@
 ---
 import { cn } from "@/utils/ui/styles";
 
-const { className, ...props } = Astro.props;
+interface Props {
+  className?: string;
+  variant?: "default" | "bars";
+  [key: string]: any;
+}
+
+const { className, variant = "default", ...props } = Astro.props as Props;
+
+// 检查是否传入了自定义圆角样式
+const hasCustomRadius = className?.includes("rounded-");
+const baseClasses = hasCustomRadius
+  ? "bg-surface-variant/50 animate-pulse skeleton-shimmer"
+  : "bg-surface-variant/50 animate-pulse skeleton-shimmer rounded-md";
 ---
 
-<div class={cn("bg-muted animate-pulse rounded-md", className)} {...props}></div>
+{
+  variant === "bars" ? (
+    <div class="box-loading">
+      <div class="loading-bars">
+        <div class="loading-bar" />
+        <div class="loading-bar" />
+        <div class="loading-bar" />
+      </div>
+    </div>
+  ) : (
+    <div class={cn(baseClasses, className)} {...props} />
+  )
+}
