@@ -29,7 +29,7 @@ const TAGS = [
 
   // === 前端框架/库 ===
   "react",
-  "next-js",
+  "next.js",
   "astro",
   "vue",
   "svelte",
@@ -130,7 +130,8 @@ const TAGS = [
 
   // === 桌面应用 ===
   "javafx",
-  "swing",
+  "java-swing",
+  "java-awt",
   "tauri",
   "electron",
 
