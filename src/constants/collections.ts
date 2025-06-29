@@ -101,6 +101,8 @@ const TAGS = [
   "vitest",
   "playwright",
   "storybook",
+  "cms",
+  "strapi",
 
   // === Web APIs/浏览器 ===
   "web-api",
