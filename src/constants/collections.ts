@@ -56,6 +56,9 @@ const TAGS = [
   "shadcn-ui",
   "material-ui",
   "chakra-ui",
+  "gasp",
+  "framer-motion",
+  "paraglide-js",
 
   // === 构建工具 ===
   "vite",
