@@ -67,22 +67,25 @@ const mainTechStack = tags?.slice(0, 3).join(", ");
 <ProjectLayout {metadata}>
   <!-- 左侧封面图片 -->
   <Fragment slot="cover">
-    <Skeleton className="aspect-video rounded-t-box shadow shadow-base-300 mb-2" />
-    {
-      heroImage && (
-        <Image
-          {...IMAGE_SIZES.REMOTE.PROJECT_HERO}
-          src={heroImage}
-          alt={heroAlt}
-          fetchpriority="high"
-          itemprop="image"
-          class="w-full h-auto aspect-video object-cover rounded-xl shadow-xl border border-outline-variant"
-          transition:name={getTransitionNameFromElementId({
-            elementId: TRANSITION_ELEMENT_IDS.POST_CARD.HERO_IMAGE,
-          })}
-        />
-      )
-    }
+    <div class="relative">
+      <Skeleton className="aspect-video rounded-xl shadow-xl border border-outline-variant" />
+      {
+        heroImage && (
+          <Image
+            {...IMAGE_SIZES.REMOTE.PROJECT_HERO}
+            src={heroImage}
+            alt={heroAlt}
+            fetchpriority="high"
+            itemprop="image"
+            class="w-full h-auto aspect-video object-cover rounded-xl shadow-xl border border-outline-variant absolute inset-0 bg-surface"
+            loading="eager"
+            transition:name={getTransitionNameFromElementId({
+              elementId: TRANSITION_ELEMENT_IDS.POST_CARD.HERO_IMAGE,
+            })}
+          />
+        )
+      }
+    </div>
   </Fragment>
 
   <!-- 左侧项目标题 -->

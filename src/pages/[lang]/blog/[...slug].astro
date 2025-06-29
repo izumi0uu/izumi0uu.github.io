@@ -116,18 +116,21 @@ const metadata: Metadata = {
     {
       !noHero && (
         <div class="w-full h-full flex justify-center items-center">
-          <Skeleton className="aspect-video rounded-t-box shadow shadow-base-300 mb-2" />
-          <Image
-            {...IMAGE_SIZES.REMOTE.POST_HERO}
-            src={heroImage}
-            alt={heroAlt}
-            fetchpriority="high"
-            itemprop="image"
-            class="block max-w-full h-auto aspect-[16/8] object-cover border-outline"
-            transition:name={getTransitionNameFromElementId({
-              elementId: TRANSITION_ELEMENT_IDS.POST_CARD.HERO_IMAGE,
-            })}
-          />
+          <div class="relative w-full">
+            <Skeleton className="aspect-[16/8] border-outline" />
+            <Image
+              {...IMAGE_SIZES.REMOTE.POST_HERO}
+              src={heroImage}
+              alt={heroAlt}
+              fetchpriority="high"
+              itemprop="image"
+              class="block max-w-full h-auto aspect-[16/8] object-cover border-outline absolute inset-0 bg-surface"
+              loading="eager"
+              transition:name={getTransitionNameFromElementId({
+                elementId: TRANSITION_ELEMENT_IDS.POST_CARD.HERO_IMAGE,
+              })}
+            />
+          </div>
         </div>
       )
     }

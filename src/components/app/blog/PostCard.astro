@@ -65,17 +65,20 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
   {
     !noHero && (
       <div class="hidden sm:block md:basis-1/3 md:shrink-0">
-        <Skeleton className="aspect-video rounded-t-box shadow shadow-base-300 mb-2" />
-        <Image
-          {...IMAGE_SIZES.REMOTE.POST_CARD}
-          src={heroImage}
-          alt={heroAlt}
-          itemprop="image"
-          class="w-full max-h-[168px] h-[168px] xs:h-[250px] md:h-[168px] md:max-w-[298px] object-cover rounded-box shadow shadow-base-300"
-          transition:name={getTransitionNameFromElementId({
-            elementId: TRANSITION_ELEMENT_IDS.POST_CARD.HERO_IMAGE,
-          })}
-        />
+        <div class="relative">
+          <Skeleton className="aspect-video rounded-box shadow shadow-base-300" />
+          <Image
+            {...IMAGE_SIZES.REMOTE.POST_CARD}
+            src={heroImage}
+            alt={heroAlt}
+            itemprop="image"
+            class="w-full max-h-[168px] h-[168px] xs:h-[250px] md:h-[168px] md:max-w-[298px] object-cover rounded-box shadow shadow-base-300 absolute inset-0 bg-surface"
+            loading="lazy"
+            transition:name={getTransitionNameFromElementId({
+              elementId: TRANSITION_ELEMENT_IDS.POST_CARD.HERO_IMAGE,
+            })}
+          />
+        </div>
       </div>
     )
   }
