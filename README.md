@@ -58,6 +58,7 @@ TODO(FIX): 1.字体加载在路由切换/首次加载会切换fallback三次
 #### 应用层 (Application Layer)
 
 - **BaseHead.astro**: 统一管理字体加载顺序
+
   ```astro
   <FontLoader />
   <!-- 1. 本地字体优先 -->
@@ -128,3 +129,5 @@ code, pre, kbd, .font-code → JetBrains Mono
 
 **base layer (zh-only/en-only)**：确保字体正确加载和应用
 **fine layer (font-\* 系列)**：为开发者提供更多语义化和丰富的工具
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/izumi0uu/izumi0uu.github.io)
