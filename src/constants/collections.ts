@@ -119,6 +119,8 @@ const TAGS = [
   "smart-contracts",
   "defi",
   "nft",
+  "foundry",
+  "ethers.js",
 
   // === 移动端 ===
   "react-native",
