@@ -89,7 +89,7 @@ const NavigationBar = React.memo(() => {
       <div className="container flex h-14 max-w-screen-2xl items-center px-8">
         <div className="flex gap-6 md:gap-10">
           <div className="flex items-center gap-2">
-            <div className="hidden items-center gap-2 md:flex">
+            <div className="flex items-center gap-2">
               <Logo />
               <span className="hidden text-2xl font-black tracking-tighter text-content uppercase sm:inline-block">
                 {CONFIG_CLIENT.AUTHOR_NAME}
@@ -118,16 +118,6 @@ const NavigationBar = React.memo(() => {
 
       {/* 移动端导航菜单 */}
       <MobileNavMenu isOpen={isMenuOpen}>
-        {/* Logo区域 */}
-        <div className="flex items-center justify-center border-b border-outline/10 px-4 py-6">
-          <div className="flex items-center gap-3">
-            <Logo />
-            <span className="text-xl font-black tracking-tight text-content uppercase">
-              {CONFIG_CLIENT.AUTHOR_NAME}
-            </span>
-          </div>
-        </div>
-
         {/* 移动端搜索框 */}
         <div className="border-b border-outline/10 px-4 py-4">
           <SearchBox />
