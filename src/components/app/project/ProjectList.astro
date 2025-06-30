@@ -12,6 +12,6 @@ export interface Props {
 const { projects, lang } = Astro.props;
 ---
 
-<div class="grid sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-8">
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-8">
   {projects.map((project) => <ProjectCard project={project} />)}
 </div>
