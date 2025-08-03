@@ -85,8 +85,8 @@ const NavigationBar = React.memo(() => {
 
   return (
     <>
-      {/* 桌面端导航栏 */}
-      <div className="container flex h-14 max-w-screen-2xl items-center px-8">
+      {/* desktop navigation bar */}
+      <div className="container flex h-14 w-full items-center px-8">
         <div className="flex gap-6 md:gap-10">
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-2">
@@ -99,7 +99,7 @@ const NavigationBar = React.memo(() => {
           <nav className="hidden gap-4 lg:flex">{navLinks}</nav>
         </div>
         <div className="flex flex-1 items-center justify-end">
-          {/* 桌面端功能区域 */}
+          {/* desktop function area */}
           <div className="hidden items-center gap-4 md:flex">
             <SearchBox />
             <div className="flex items-center gap-2">
@@ -109,24 +109,24 @@ const NavigationBar = React.memo(() => {
             </div>
           </div>
 
-          {/* 移动端汉堡菜单按钮 */}
+          {/* mobile hamburger menu button */}
           <div className="block md:hidden">
             <MobileNavIcon isActive={isMenuOpen} onClick={toggleMenu} />
           </div>
         </div>
       </div>
 
-      {/* 移动端导航菜单 */}
+      {/* mobile navigation menu */}
       <MobileNavMenu isOpen={isMenuOpen}>
-        {/* 移动端搜索框 */}
+        {/* mobile search box */}
         <div className="border-b border-outline/10 px-4 py-4">
           <SearchBox />
         </div>
 
-        {/* 导航链接 */}
+        {/* navigation links */}
         <div className="space-y-1 py-2">{mobileNavLinks}</div>
 
-        {/* 移动端功能按钮区域 */}
+        {/* mobile function button area */}
         <div className="border-t border-outline/10 px-4 py-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col items-center gap-2">
