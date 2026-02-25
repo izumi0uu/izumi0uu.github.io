@@ -30,13 +30,10 @@ const { title, description, author } = metadata;
     <section class="flex-grow flex flex-col">
       <slot />
       
-      <!-- 分页区域 -->
       {paginationProps && (
         <div class="flex flex-col items-center gap-4 mt-12 w-full">
-          <!-- 分页信息 -->
           <PaginationInfo {...paginationProps} className="order-2 md:order-1" />
           
-          <!-- 分页导航 -->
           <div class="order-1 md:order-2">
             <Pagination {...paginationProps} />
           </div>

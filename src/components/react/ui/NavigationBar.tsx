@@ -86,7 +86,7 @@ const NavigationBar = React.memo(() => {
   return (
     <>
       {/* desktop navigation bar */}
-      <div className="container flex h-14 w-full items-center px-8">
+      <div className="flex h-14 w-full items-center px-8">
         <div className="flex gap-6 md:gap-10">
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-2">
