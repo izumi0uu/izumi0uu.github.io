@@ -14,12 +14,7 @@ const COLLECTIONS = {
   PROJECT: "project",
 } as const;
 
-/**
- * 统一的标签体系 - 按技术分类组织
- * 命名规范: 全小写，连字符分隔，保持简洁一致
- */
 const TAGS = [
-  // === 编程语言 ===
   "javascript",
   "typescript",
   "python",
@@ -27,7 +22,6 @@ const TAGS = [
   "rust",
   "go",
 
-  // === 前端框架/库 ===
   "react",
   "next.js",
   "astro",
@@ -35,7 +29,6 @@ const TAGS = [
   "svelte",
   "solid-js",
 
-  // === 状态管理 ===
   "redux",
   "redux-toolkit",
   "zustand",
@@ -43,11 +36,9 @@ const TAGS = [
   "react-query",
   "swr",
 
-  // === 路由 ===
   "react-router",
   "next-router",
 
-  // === 样式/UI ===
   "css",
   "tailwindcss",
   "styled-components",
@@ -60,7 +51,6 @@ const TAGS = [
   "framer-motion",
   "paraglide-js",
 
-  // === 构建工具 ===
   "vite",
   "webpack",
   "rollup",
@@ -68,7 +58,6 @@ const TAGS = [
   "esbuild",
   "turbopack",
 
-  // === 后端/运行时 ===
   "node-js",
   "deno",
   "bun",
@@ -76,7 +65,6 @@ const TAGS = [
   "fastify",
   "nestjs",
 
-  // === 数据库 ===
   "postgresql",
   "mysql",
   "mongodb",
@@ -85,7 +73,6 @@ const TAGS = [
   "prisma",
   "drizzle",
 
-  // === 云服务/平台 ===
   "vercel",
   "netlify",
   "cloudflare",
@@ -93,7 +80,6 @@ const TAGS = [
   "firebase",
   "aws",
 
-  // === 开发工具 ===
   "docker",
   "kubernetes",
   "github-actions",
@@ -104,7 +90,6 @@ const TAGS = [
   "cms",
   "strapi",
 
-  // === Web APIs/浏览器 ===
   "web-api",
   "browser-extension",
   "service-worker",
@@ -112,39 +97,36 @@ const TAGS = [
   "geolocation-api",
   "web-components",
 
-  // === 区块链/Web3 ===
   "blockchain",
   "ethereum",
   "solidity",
   "solana",
   "web3",
+  "slippage",
+  "MEV",
   "smart-contracts",
   "defi",
   "nft",
   "foundry",
   "ethers.js",
 
-  // === 移动端 ===
   "react-native",
   "expo",
   "tauri",
   "electron",
 
-  // === 桌面应用 ===
   "javafx",
   "java-swing",
   "java-awt",
   "tauri",
   "electron",
 
-  // === 构建/包管理 ===
   "npm",
   "yarn",
   "pnpm",
   "maven",
   "gradle",
 
-  // === 概念/方法论 ===
   "web-development",
   "full-stack",
   "frontend",
@@ -154,7 +136,6 @@ const TAGS = [
   "serverless",
   "jamstack",
 
-  // === 内容/工具 ===
   "markdown",
   "mdx",
   "cms",
@@ -165,7 +146,6 @@ const TAGS = [
   "tips",
   "showcase",
 
-  // === Astro 生态 ===
   "astro-content",
   "astro-plugins",
   "astro-integrations",
