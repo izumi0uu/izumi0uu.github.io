@@ -105,6 +105,8 @@ const TAGS = [
   "slippage",
   "MEV",
   "smart-contracts",
+  "pumpfun",
+  "instruction",
   "defi",
   "nft",
   "foundry",
