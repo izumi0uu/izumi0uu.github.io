@@ -1,0 +1,142 @@
+---
+title: What is discriminator in Solana Anchor Framework
+description: This article will introduce you to the concept of what is discriminator in Solana Anchor Framework.
+publishDate: 2026-03-03
+heroAlt: "What is discriminator in Solana Anchor Framework"
+heroImage: "./_images/image.png"
+tags:
+  - web3
+  - blockchain
+  - tutorial
+  - solana
+  - anchor
+category: tutorials
+draft: false
+---
+
+## What is discriminator(鉴别器)?
+
+在Solana语境里, 尤其是Anchor框架里, discriminator是一个非常重要的概念。指的是「用来区分指令或账户类型的8字节」
+
+Ref: [Anchor IDL Documentation](https://github.com/solana-foundation/anchor/blob/master/docs/content/docs/basics/idl.mdx)
+
+Anchor 为程序中的每个指令和账户类型分配一个唯一的 8 字节discriminator。这些discriminator用作标识符, 用于区分不同的指令或账户类型。
+
+这样程序在反序列化账户数据或解析指令数据时, 可以先看前 8 字节, 确定类型是否符合预期, 如果不符合就报错。
+
+discriminator是通过将前缀与指令或账户名称组合后进行 Sha256 哈希，然后取前 8 字节生成的。从 Anchor v0.30 开始, 这些discriminator会被包含在 IDL 文件中。
+
+### Instructions discriminator
+
+Instructions discriminator由程序用于确定调用时要执行的具体指令。
+
+当调用 Anchor 程序指令时, discriminator会作为指令数据的前 8 字节自动包含在内。这是 Anchor 客户端自动完成的。
+
+取字符串 `"global:<instruction_name>"` 做 Sha256, 然后取哈希前 8 个字节作为 discriminator。
+
+例如, 对于一个名为 "increment" 的instruction:
+
+```rust
+"instructions":{
+  "name": "increment",
+  "discriminator": [175, 175, 109, 31, 13, 152, 155, 237],
+}
+```
+
+Instructions discriminator是前缀 global 加上instruction名称的 Sha256 哈希的前 8 字节。
+(global: 表示"全局指令空间"，所有程序的指令都在这个空间)
+
+所以discriminator是:
+
+```rust
+sha256("global:increment")
+```
+
+十六进制输出：
+
+```rust
+af af 6d 1f 0d 98 9b ed d4 6a 95 07 32 81 ad c2 1b b5 e0 e1 d7 73 b2 fb bd 7a b5 04 cd d4 aa 30
+```
+
+前 8 字节用作instructions discriminator:
+
+```rust
+af = 175
+af = 175
+6d = 109
+1f = 31
+0d = 13
+98 = 152
+9b = 155
+ed = 237
+```
+
+### Accounts discriminator
+
+账户鉴别器用于在反序列化链上数据时识别具体的账户类型，并在账户创建时设置。
+
+```rust
+"accounts": [
+  {
+    "name": "NewAccount",
+    "discriminator": [176, 95, 4, 118, 91, 177, 125, 232]
+  }
+]
+```
+
+账户的鉴别器是前缀 account 加上账户名称的 Sha256 哈希的前 8 字节。
+
+所以discriminator是:
+
+```rust
+sha256("account:NewAccount")
+```
+
+十六进制输出：
+
+```rust
+b0 5f 04 76 5b b1 7d e8 a1 93 57 2a d3 5e b1 ae e5 f0 69 e2 09 7e 5c d2 64 56 55 2a cb 4a e9 57
+```
+
+前 8 字节用作账户鉴别器：
+
+```rust
+b0 = 176
+5f = 95
+04 = 4
+76 = 118
+5b = 91
+b1 = 177
+7d = 125
+e8 = 232
+```
+
+## What is the purpose of discriminator?
+
+- Solana 的程序本身要自己做“函数分发”(不像 EVM 有内置 selector)，所以需要一个固定长度的标识来路由到具体函数, discriminator 就是起这个作用的“函数选择器”。
+
+- 对账户来说，不同指令可能接受多个不同结构的账户，如果只看长度或 owner, 可能会被“传错类型但字节布局又刚好兼容”的账户欺骗。前 8 字节的 discriminator 让程序可以明确检查账户类型，避免安全问题。这个思路在官方文档里也叫避免 "type cosplay"(类型伪装)。
+
+## Why doesn't Solana have built-in discriminator restrictions to improve developer experience?
+
+Solana 核心协议故意不内置 discriminator, 保持极简设计和高性能优先, 把类型安全/便利性交给框架(如 Anchor)实现。
+
+| 方面     | Solana 原生                           | 为什么不内置 discriminator                                                             |
+| -------- | ------------------------------------- | -------------------------------------------------------------------------------------- |
+| 账户数据 | 纯字节数组，无结构、无 headers​       | 性能:零开销, 反序列化由程序手动(Rust borsh), 避免框架强制 8 字节 overhead              |
+| 指令路由 | 程序 entrypoint 自己解析 ​            | 灵活:支持任意协议(不只 Anchor), 无内置 selector(如 EVM 的 4 字节)                      |
+| 类型安全 | 无，靠程序验证(如检查 owner/lamports) | 最小协议:Solana 只管账户存储/并行执行，应用层自由(类似 Linux kernel 不管用户 app 格式) |
+
+### 核心理念:Solana 是高性能 VM, 不是全栈框架。内置 discriminator 会：
+
+- 强制所有程序浪费 8 字节空间（SPL Token 等原生程序不用）
+- 降低并行性（额外校验开销）
+- 限制创新（必须用官方哈希算法）
+
+### 为什么 Anchor 自己做？
+
+框架职责: Anchor 像 React(前端框架), Solana 像浏览器 VM。框架提供 DX(类型安全、IDL)，协议保持通用。
+
+生态事实标准: 90%+ 程序用 Anchor, discriminator 已成惯例(甚至有 discriminator registry RFP)
+
+可选: 原生 Rust 程序零开销, Anchor 加 discriminator 只在 Anchor 账户用。

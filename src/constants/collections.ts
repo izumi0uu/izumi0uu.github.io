@@ -107,6 +107,7 @@ const TAGS = [
   "smart-contracts",
   "pumpfun",
   "instruction",
+  "anchor",
   "defi",
   "nft",
   "foundry",
