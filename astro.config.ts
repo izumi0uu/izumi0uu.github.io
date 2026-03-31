@@ -27,6 +27,7 @@ import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
 // 导入验证插件
 import lintVerificationPlugin from "./plugins/lint-verification-plugin.mjs";
+import remarkReadingTime from "./plugins/remark-reading-time.mjs";
 
 // 直接导入具体的 remark-lint 规则
 import remarkLintMain from "remark-lint";
@@ -117,6 +118,8 @@ export default defineConfig({
       remarkLintNoUnusedDefinitions,
       // 最后添加验证插件
       lintVerificationPlugin,
+      // 计算阅读时长，注入到 remarkPluginFrontmatter.readingTime
+      remarkReadingTime,
     ],
   },
   i18n: {

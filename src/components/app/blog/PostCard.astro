@@ -140,10 +140,12 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
     {/* reading time and read more link */}
     <div class="flex items-center xs:items-end justify-between">
       <div class="flex items-center gap-4">
+        {readingTime && (
         <span class="inline-flex items-center gap-2 text-sm text-captions">
           <Icon name="mdi:book-open-blank-variant-outline" class="w-4 h-4" />
           <span class="text-nowrap">{`${Math.round(readingTime)} minutes`}</span>
         </span>
+        )}
         <!-- <TagList tags={tags.slice(0, 2)} size="sm" variant="text" class="hidden xs:inline-flex" /> -->
       </div>
 
