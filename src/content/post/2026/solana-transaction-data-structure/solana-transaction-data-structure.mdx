@@ -1,0 +1,422 @@
+---
+title: 深入理解 Solana 交易数据结构：从 RPC 原始数据到链上索引器
+description: 通过构建一个真实的 DEX 交易解析器，逐层拆解 Solana 交易的完整数据结构——Transaction 存"意图"，Meta 存"结果"，AccountKeys 是连接一切的桥梁。
+publishDate: 2026-04-03
+heroAlt: "Solana Transaction Data Structure"
+heroImage: "./_images/image.png"
+tags:
+  - web3
+  - blockchain
+  - tutorial
+  - solana
+  - anchor
+category: tutorials
+draft: false
+---
+
+## TL;DR
+
+Solana 交易的数据结构可以用一句话概括：
+
+> **Transaction 存"意图"（要做什么），Meta 存"结果"（做了之后发生了什么），AccountKeys 是连接一切的共享地址簿。**
+
+如果你曾经在 Solscan 上看到整齐的树形指令展示，然后打开 RPC 返回的 JSON 数据一脸懵——别担心，它们是同一份数据的两种表达。本文将从构建一个真实的 DEX 交易解析器出发，逐层拆解每个字段的含义和关系。
+
+---
+
+## 从一个真实场景出发
+
+假设你正在构建一个 Solana DEX 交易索引器，目标是实时监听区块并解析每笔 swap 交易的代币、金额、方向和用户地址。你会调用 `getBlock` RPC 方法获取整个区块的数据，然后面对一个庞大的 JSON 结构。
+
+这个结构长什么样？让我们从最外层开始。
+
+---
+
+## 第一层：Block — 区块
+
+```
+GetBlockResult
+│
+├── BlockHeight    ← 区块高度
+├── BlockTime      ← 区块时间戳（Unix 秒）
+│
+└── Transactions[] ← 这个区块里的所有交易
+```
+
+一个 Solana 区块包含数百到上千笔交易。你需要遍历 `Transactions` 数组来处理每一笔。
+
+在 Go 里，这对应的代码是：
+
+```go
+blockInfo, err := client.GetBlockWithOpts(ctx, slot, &rpc.GetBlockOpts{
+    Commitment:                     rpc.CommitmentConfirmed,
+    TransactionDetails:             rpc.TransactionDetailsFull,
+    MaxSupportedTransactionVersion: &rpc.MaxSupportedTransactionVersion0,
+})
+
+for txIdx := range blockInfo.Transactions {
+    txWithMeta := &blockInfo.Transactions[txIdx]
+    // ...
+}
+```
+
+---
+
+## 第二层：TransactionWithMeta — 一笔交易
+
+这是最关键的一层。每笔交易由两个**平级**的部分组成：
+
+```
+TransactionWithMeta
+│
+├── Transaction  ← "要做什么"：签名 + 指令
+│
+└── Meta         ← "做了之后发生了什么"：CPI 结果 + 日志 + 余额变化
+```
+
+这个"平级"关系是理解 Solana 交易结构的关键——**Transaction 和 Meta 不是父子关系，而是同级的两个视角**。
+
+|          | Transaction              | Meta                       |
+| -------- | ------------------------ | -------------------------- |
+| **角色** | 用户的意图               | Runtime 的执行结果         |
+| **包含** | 签名、指令列表、账户列表 | CPI 调用链、日志、余额快照 |
+| **类比** | SQL 语句                 | 执行计划 + 查询结果        |
+
+---
+
+## 第三层：Transaction — 用户的意图
+
+```
+Transaction
+│
+├── Signatures[]          ← [0] 就是交易哈希（tx hash）
+│
+└── Message
+    │
+    ├── AccountKeys[]     ← 公钥地址簿（核心！所有索引都指向这里）
+    │
+    └── Instructions[]    ← 顶层指令
+```
+
+### AccountKeys — 共享地址簿
+
+这是整个交易结构中**最重要的设计**。
+
+Solana 为了节省空间，不会在每条指令里直接写公钥（每个 32 bytes），而是把所有用到的公钥集中存在一个数组里，指令里只存**索引号**（2 bytes）。
+
+```
+AccountKeys = [用户钱包, WSOL账户, DEX Authority, Pool地址, SPL Token Program, ...]
+               [0]        [1]        [2]           [3]       [4]
+```
+
+### Instructions — 顶层指令
+
+每条指令只有三个字段，全都用索引：
+
+```
+CompiledInstruction
+├── ProgramIDIndex   ← 数字 → accountKeys[这个数字] = 被调用的程序
+├── Accounts[]       ← 数字数组 → accountKeys[每个数字] = 传入的账户
+└── Data[]           ← 字节数组 → [8B discriminator] + [参数]
+```
+
+举个例子，一条 `PumpFun.Buy` 指令在原始数据里可能长这样：
+
+```json
+{
+  "programIdIndex": 8,
+  "accounts": [0, 3, 5, 6, 7, 9, 4, 11, 12, 13, 14, 15],
+  "data": "66063d12..."
+}
+```
+
+- `programIdIndex: 8` → `accountKeys[8]` = `6EF8rrecthR5Dk...`（PumpFun 程序地址）
+- `accounts[0]` → `accountKeys[0]` = 用户钱包
+- `accounts[1]` → `accountKeys[3]` = bonding curve 地址
+
+**在你的代码里，这就是 DEX 识别发生的地方：**
+
+```go
+for i, ix := range parsedTx.Message.Instructions {
+    program := accountKeys[ix.ProgramIDIndex].String()
+
+    switch program {
+    case constants.ProgramStrPumpFun:
+        s.handlePumpFunBondingCurve(ctx, txHash, meta, accountKeys, i)
+    case constants.ProgramStrRaydiumV4AMM:
+        s.handleDexSwap(ctx, txHash, meta, accountKeys, i, "RaydiumV4")
+    // ...
+    }
+}
+```
+
+---
+
+## 第四层：Meta — 执行结果
+
+这是数据量最大、也最有价值的部分。
+
+```
+Meta
+│
+├── Err                      ← 非 nil = 交易失败
+├── Fee                      ← 手续费（lamports）
+│
+├── LoadedAddresses          ← V0 交易的 ALT 额外地址
+│   ├── Writable[]
+│   └── ReadOnly[]
+│
+├── InnerInstructions[]      ← CPI 调用链（程序之间的相互调用）
+│
+├── LogMessages[]            ← 所有程序日志
+│
+├── PreBalances[]            ← 交易前 SOL 余额
+├── PostBalances[]           ← 交易后 SOL 余额
+│
+├── PreTokenBalances[]       ← 交易前 SPL Token 余额
+└── PostTokenBalances[]      ← 交易后 SPL Token 余额
+```
+
+### LoadedAddresses — ALT 地址
+
+V0 交易（VersionedTransaction）引入了 Address Lookup Table（ALT），交易可以引用链上的地址表来避免在 Message 里重复存储常见地址。
+
+**你必须把 ALT 地址拼接到 AccountKeys 后面，否则 InnerInstructions 里的索引会越界：**
+
+```go
+accountKeys := parsedTx.Message.AccountKeys                          // [0..N]
+accountKeys = append(accountKeys, meta.LoadedAddresses.Writable...)  // [N+1..M]
+accountKeys = append(accountKeys, meta.LoadedAddresses.ReadOnly...)  // [M+1..K]
+```
+
+拼接后，**所有**的 `ProgramIDIndex` 和 `Accounts[]`——无论是顶层指令还是内部指令——都引用这个合并后的数组。
+
+### InnerInstructions — CPI 调用链
+
+当一个程序调用另一个程序（Cross-Program Invocation），产生的子指令记录在这里。
+
+```
+InnerInstructions[]
+└── InnerInstruction
+    ├── Index              ← 对应顶层 Instructions 的第几条
+    └── Instructions[]     ← 该顶层指令产生的所有 CPI 子指令
+```
+
+关键设计：**InnerInstructions 和顶层 Instructions 是分开存储的**，靠 `Index` 字段关联。这和 Solscan 上看到的树形展示不同——Solscan 做了合并渲染。
+
+在构建 DEX 索引器时，InnerInstructions 是提取代币转账的核心数据源：
+
+```go
+func extractTokenTransfers(accountKeys solana.PublicKeySlice,
+    innerIx *rpc.InnerInstruction) []*TokenTransfer {
+
+    for _, ix := range innerIx.Instructions {
+        program := accountKeys[ix.ProgramIDIndex].String()
+
+        // 只关注 SPL Token 的 Transfer 指令
+        if program != constants.ProgramStrToken {
+            continue
+        }
+
+        switch ix.Data[0] {
+        case 3: // Transfer
+            transfers = append(transfers, &TokenTransfer{
+                From:   accountKeys[ix.Accounts[0]],
+                To:     accountKeys[ix.Accounts[1]],
+                Amount: binary.LittleEndian.Uint64(ix.Data[1:9]),
+            })
+        }
+    }
+}
+```
+
+### LogMessages — 程序日志
+
+所有程序的日志按执行顺序排列在一个扁平数组里：
+
+```
+"Program 6EF8r... invoke [1]"        ← PumpFun 开始执行（depth=1）
+"Program log: Instruction: Buy"      ← 程序自定义日志
+"Program TokenkegQ... invoke [2]"    ← CPI 进入 SPL Token（depth=2）
+"Program TokenkegQ... success"       ← SPL Token 执行完毕
+"Program data: vdt/005O5mpO..."      ← ⭐ Anchor Event（base64 编码）
+"Program 6EF8r... success"           ← PumpFun 执行完毕
+```
+
+Anchor 框架的程序会通过 `emit!` 或 `emit_cpi!` 在日志里写入以 `"Program data: "` 为前缀的 base64 编码事件数据。这是提取 DEX 交易事件的关键入口：
+
+```go
+const logPrefixProgramData = "Program data: "
+
+func extractAnchorEvents(logs []string) [][]byte {
+    var events [][]byte
+    seen := make(map[string]struct{}) // 去重：emit_cpi! 会写两条
+    for _, log := range logs {
+        if !strings.HasPrefix(log, logPrefixProgramData) {
+            continue
+        }
+        encoded := log[len(logPrefixProgramData):]
+        if _, dup := seen[encoded]; dup {
+            continue
+        }
+        seen[encoded] = struct{}{}
+        data, _ := base64.StdEncoding.DecodeString(encoded)
+        events = append(events, data)
+    }
+    return events
+}
+```
+
+> 如果你对 Anchor Event 的底层实现感兴趣，可以阅读 [Anchor Event 与 Self‑CPI：Solana 事件机制的深层设计](/zh/blog/2026/anchor-event-self-cpi-in-solana)。
+
+### Pre/PostTokenBalances — 代币余额快照
+
+```
+TokenBalance {
+    AccountIndex    ← accountKeys[此值] = token 账户地址
+    Mint            ← 代币合约地址
+    Owner           ← 持有者（通常是用户钱包）
+    UiTokenAmount   ← 余额（含 decimals 信息）
+}
+```
+
+这是建立 **token account → mint address** 映射的关键数据源。因为 InnerInstructions 里的 Transfer 指令只告诉你"从哪个 token account 转了多少"，但不会告诉你"这个 token account 持有的是哪种代币"：
+
+```go
+func buildMintMap(meta *rpc.TransactionMeta,
+    accountKeys solana.PublicKeySlice) map[string]string {
+
+    mintMap := make(map[string]string)
+    for _, bal := range meta.PreTokenBalances {
+        account := accountKeys[bal.AccountIndex].String()
+        mintMap[account] = bal.Mint.String()
+    }
+    // PostTokenBalances 补充临时账户（如交易中创建的 WSOL 账户）
+    for _, bal := range meta.PostTokenBalances {
+        account := accountKeys[bal.AccountIndex].String()
+        if _, exists := mintMap[account]; !exists {
+            mintMap[account] = bal.Mint.String()
+        }
+    }
+    return mintMap
+}
+```
+
+---
+
+## Solscan 显示 vs 原始数据
+
+这是很多人困惑的根源。以一笔 Raydium V4 swap 交易为例：
+
+| Solscan 显示                     | 原始数据存储位置                                  |
+| -------------------------------- | ------------------------------------------------- |
+| 1 ComputeBudget.setLimit         | `Transaction.Message.Instructions[0]`             |
+| 2 SystemProgram.createAccount    | `Transaction.Message.Instructions[1]`             |
+| 3 SystemProgram.transfer         | `Transaction.Message.Instructions[2]`             |
+| 4 TokenProgram.initializeAccount | `Transaction.Message.Instructions[3]`             |
+| **5 RaydiumV4.swap**             | `Transaction.Message.Instructions[4]`             |
+| └── 5.1 Token.transfer           | `Meta.InnerInstructions[index=4].Instructions[0]` |
+| └── 5.2 Token.transfer           | `Meta.InnerInstructions[index=4].Instructions[1]` |
+| 6 TokenProgram.closeAccount      | `Transaction.Message.Instructions[5]`             |
+
+Solscan 做了三件事让数据更可读：
+
+1. **把 InnerInstructions 嵌套到父指令下面**（显示为 5.1、5.2）
+2. **把索引号翻译成了程序名称**（`TokenkegQ...` → `Token Program`）
+3. **把 instruction data 解码成了人类可读的参数**
+
+原始数据里，Instructions 和 InnerInstructions 是**两个独立的数组**，靠 `InnerInstruction.Index` 关联。
+
+---
+
+## 实战：两种 DEX 解析策略
+
+构建索引器时，不同的 DEX 程序需要不同的解析策略。核心区别在于**是否有 Anchor Event**。
+
+### 策略一：Event 解析（PumpFun、PumpSwap、Raydium CLMM）
+
+Anchor 框架的程序会 emit 结构化事件，事件数据包含了你需要的一切：
+
+```go
+func handlePumpFunBondingCurve(meta *rpc.TransactionMeta) {
+    events := extractAnchorEvents(meta.LogMessages)
+    for _, eventData := range events {
+        tradeEvent, err := bonding_curve.ParseEvent_TradeEvent(eventData)
+        if err != nil {
+            continue
+        }
+        // tradeEvent 直接包含：
+        // - Mint（代币地址）
+        // - SolAmount / TokenAmount（精确金额）
+        // - IsBuy（方向）
+        // - User（用户地址）
+        // - Fee（手续费）
+        // - VirtualSolReserves / VirtualTokenReserves（池子储备）
+    }
+}
+```
+
+### 策略二：Transfer 反推（Raydium V4、Orca Whirlpool 早期版本）
+
+非 Anchor 程序没有结构化事件，只能从 InnerInstructions 的 SPL Token 转账反推：
+
+```go
+func handleDexSwap(meta *rpc.TransactionMeta, accountKeys solana.PublicKeySlice) {
+    // 1. 找到 CPI 子指令
+    innerIxs := findInnerInstructions(meta, ixIndex)
+
+    // 2. 提取 Token Transfer
+    transfers := extractTokenTransfers(accountKeys, innerIxs)
+
+    // 3. 建立 token account → mint 映射
+    mintMap := buildMintMap(meta, accountKeys)
+
+    // 4. 用 transfer 信息推断 swap 的方向和金额
+    //    （需要额外逻辑判断哪个是 in，哪个是 out）
+}
+```
+
+|            | Event 解析                      | Transfer 反推   |
+| ---------- | ------------------------------- | --------------- |
+| 精确度     | ✅ 直接给出金额、方向、fee      | ⚠️ 需要推断     |
+| 信息量     | ✅ 包含 reserves、fee breakdown | ❌ 只有转账金额 |
+| 适用范围   | 仅 Anchor 程序                  | 所有程序        |
+| 实现复杂度 | 低                              | 高              |
+
+---
+
+## 完整结构速查
+
+```
+GetBlockResult
+├── Transactions[]
+│   └── TransactionWithMeta
+│       ├── Transaction
+│       │   ├── Signatures[]            → tx hash
+│       │   └── Message
+│       │       ├── AccountKeys[]       → 公钥地址簿（静态部分）
+│       │       └── Instructions[]      → 顶层指令（索引引用 AccountKeys）
+│       │           ├── ProgramIDIndex  → 程序地址
+│       │           ├── Accounts[]      → 账户地址列表
+│       │           └── Data[]          → discriminator + 参数
+│       │
+│       └── Meta
+│           ├── Err                     → 交易成败
+│           ├── Fee                     → 手续费
+│           ├── LoadedAddresses         → ALT 地址（拼接到 AccountKeys）
+│           ├── InnerInstructions[]     → CPI 子指令（索引共享 AccountKeys）
+│           ├── LogMessages[]           → 程序日志 + Anchor Event
+│           ├── Pre/PostBalances[]      → SOL 余额快照
+│           └── Pre/PostTokenBalances[] → SPL Token 余额快照
+```
+
+**一切的核心是 AccountKeys 这个共享地址簿**——顶层指令、内部指令、余额快照，全都通过索引引用它。理解了这一点，Solana 交易结构就不再混乱。
+
+---
+
+## 参考资料
+
+- [Solana RPC JSON Structures](https://solana.com/docs/rpc/json-structures)
+- [Solana Transaction Format](https://solana.com/docs/core/transactions)
+- [Anchor Events Documentation](https://www.anchor-lang.com/docs/features/events)
+- [gagliardetto/solana-go SDK](https://github.com/gagliardetto/solana-go)
