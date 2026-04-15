@@ -8,6 +8,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/react/ui/Pagination";
+import * as m from "@/paraglide/messages";
 
 import type { PaginationProps } from "@/types/common";
 
@@ -98,7 +99,11 @@ const shouldShowPagination = hasMoreThanOnePage() || showIfOnePage;
         <!-- 上一页按钮 -->
         {prevUrl && (
           <PaginationItem>
-            <PaginationPrevious href={prevUrl} />
+            <PaginationPrevious
+              href={prevUrl}
+              label={m["components.pagination.previous"]()}
+              ariaLabel={m["components.pagination.previous"]()}
+            />
           </PaginationItem>
         )}
 
@@ -111,7 +116,7 @@ const shouldShowPagination = hasMoreThanOnePage() || showIfOnePage;
               </PaginationLink>
             </PaginationItem>
             <PaginationItem>
-              <PaginationEllipsis />
+              <PaginationEllipsis srLabel={m["components.pagination.more_pages"]()} />
             </PaginationItem>
           </>
         )}
@@ -129,7 +134,7 @@ const shouldShowPagination = hasMoreThanOnePage() || showIfOnePage;
         {showLastEllipsis && (
           <>
             <PaginationItem>
-              <PaginationEllipsis />
+              <PaginationEllipsis srLabel={m["components.pagination.more_pages"]()} />
             </PaginationItem>
             <PaginationItem>
               <PaginationLink href={getPageUrl(lastPage)} isActive={currentPage === lastPage}>
@@ -142,7 +147,11 @@ const shouldShowPagination = hasMoreThanOnePage() || showIfOnePage;
         <!-- 下一页按钮 -->
         {nextUrl && (
           <PaginationItem>
-            <PaginationNext href={nextUrl} />
+            <PaginationNext
+              href={nextUrl}
+              label={m["components.pagination.next"]()}
+              ariaLabel={m["components.pagination.next"]()}
+            />
           </PaginationItem>
         )}
       </PaginationContent>

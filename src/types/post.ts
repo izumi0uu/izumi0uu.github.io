@@ -1,4 +1,5 @@
 import { ROUTES } from "@/constants/routes";
+import type { LocaleValues } from "@/types/config";
 import type { CollectionEntry } from "astro:content";
 
 type PostCollection = CollectionEntry<"post">;
@@ -9,7 +10,9 @@ type PostCollection = CollectionEntry<"post">;
  */
 type Post = PostCollection & {
   readingTime: number;
-  slug: PostCollection["id"];
+  locale: LocaleValues;
+  slug: string;
+  translationKey: string;
 };
 
 interface PostsByTime {

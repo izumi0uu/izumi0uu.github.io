@@ -3,49 +3,70 @@ import footerImage from "@/assets/images/footer-default.png";
 import { Logo } from "@/components/react/ui/Logo";
 import { Link } from "@/components/react/ui/Link";
 import { CONFIG_CLIENT } from "@/config/client";
+import { DEFAULT_LOCALE } from "@/config/i18n";
 import { ROUTES } from "@/constants/routes";
+import { getPathWithLocale } from "@/utils/routing/paths";
 import * as m from "@/paraglide/messages";
-import { Github, Linkedin, Mail, Globe, FileText, User, Briefcase, Rss } from "lucide-react";
+import { Github, Linkedin, Mail, Globe, FileText, User, Briefcase, Home } from "lucide-react";
 
-const { SITE_URL, AUTHOR_LINKEDIN, AUTHOR_GITHUB, AUTHOR_EMAIL, REPO_URL, AUTHOR_NAME } =
-  CONFIG_CLIENT;
+import type { LocaleValues } from "@/types/config";
 
-// 基础计算
+export interface FooterProps {
+  currentLocale?: LocaleValues;
+}
+
+const { currentLocale = DEFAULT_LOCALE } = Astro.props as FooterProps;
+
+const { SITE_URL, AUTHOR_LINKEDIN, AUTHOR_GITHUB, AUTHOR_EMAIL, AUTHOR_NAME } = CONFIG_CLIENT;
+
 const domain = SITE_URL.replace(/^https?:\/\//, "");
-const commitInfo = {
-  time: new Date().toISOString(),
-  fullHash: "latest",
-  message: "Latest commit",
-};
-const commitUrl = `${REPO_URL}/commit/${commitInfo.fullHash}`;
-const shortDateStr = new Date(commitInfo.time).toLocaleDateString();
-const trimmedMessage = commitInfo.message.substring(0, 15);
 const currentYear = new Date().getFullYear();
+const homeHref = getPathWithLocale(currentLocale, ROUTES.HOME);
 
-// 导航链接配置
 const footerNavigation = {
   resources: [
-    { name: m["components.footer.links.blog"](), href: ROUTES.BLOG, icon: FileText },
-    { name: m["components.footer.links.projects"](), href: ROUTES.PROJECT, icon: Briefcase },
-    { name: m["components.footer.links.about"](), href: ROUTES.ABOUT, icon: User },
+    {
+      name: m["components.footer.links.blog"](),
+      href: getPathWithLocale(currentLocale, ROUTES.BLOG),
+      icon: FileText,
+    },
+    {
+      name: m["components.footer.links.projects"](),
+      href: getPathWithLocale(currentLocale, ROUTES.PROJECT),
+      icon: Briefcase,
+    },
+    {
+      name: m["components.navigation_menu.experience_link"](),
+      href: getPathWithLocale(currentLocale, ROUTES.EXPERIENCE),
+      icon: Globe,
+    },
+    {
+      name: m["components.footer.links.about"](),
+      href: getPathWithLocale(currentLocale, ROUTES.ABOUT),
+      icon: User,
+    },
   ],
   quickInfo: [
-    { name: m["components.footer.links.contact"](), href: ROUTES.CONTACT, icon: Mail },
-    { name: m["components.footer.links.rss_feed"](), href: ROUTES.API.FEED_RSS, icon: Rss },
-    { name: m["components.footer.links.sitemap"](), href: "/sitemap.xml", icon: Globe },
+    {
+      name: m["common.home"](),
+      href: homeHref,
+      icon: Home,
+    },
+    {
+      name: m["components.footer.links.sitemap"](),
+      href: ROUTES.STATIC.SITEMAP,
+      icon: Globe,
+    },
   ],
   social: [
     { name: m["components.footer.links.github"](), href: AUTHOR_GITHUB, icon: Github },
     { name: m["components.footer.links.linkedin"](), href: AUTHOR_LINKEDIN, icon: Linkedin },
-    { name: m["components.footer.links.email"](), href: AUTHOR_EMAIL, icon: Mail },
+    { name: m["components.footer.links.email"](), href: `mailto:${AUTHOR_EMAIL}`, icon: Mail },
   ],
 };
 
-// 本地化文本
 const localizedTexts = {
-  backToTop: m["components.footer.back_to_top"](),
   brandDescription: m["components.footer.brand_description"](),
-  latestCommit: m["components.footer.latest_commit"](),
   resources: m["components.footer.sections.resources"](),
   quickInfo: m["components.footer.sections.quick_info"](),
   social: m["components.footer.sections.social"](),
@@ -69,32 +90,15 @@ const localizedTexts = {
       {/* Brand Section */}
       <section class="md:col-span-5 lg:col-span-4" aria-labelledby="brand-heading">
         <div id="footer-brand" class="space-y-4">
-          {/* Brand Logo and Name */}
-          <a href="/" class="inline-flex items-center gap-3">
-            <Logo />
+          <div class="inline-flex items-center gap-3">
+            <Logo href={homeHref} />
             <span class="text-xl font-bold tracking-tight">{AUTHOR_NAME}</span>
-          </a>
+          </div>
 
           {/* Brand Description */}
           <p class="max-w-md text-sm leading-relaxed text-content">
             {localizedTexts.brandDescription}
           </p>
-
-          {/* Latest Commit Info */}
-          <div class="flex items-center gap-2 text-xs text-content">
-            <Github className="h-4 w-4" />
-            <span class="font-medium">{localizedTexts.latestCommit}:</span>
-            <Link
-              href={commitUrl}
-              target="_blank"
-              rel="noopener"
-              variant="outline"
-              title={`${shortDateStr} - ${commitInfo.message}`}
-              className="px-2"
-            >
-              {trimmedMessage}
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -187,7 +191,7 @@ const localizedTexts = {
             aria-labelledby="footer-image"
             class="flex items-start justify-center lg:justify-start"
           >
-            <img src={footerImage.src} alt="Footer Image" class="h-16 w-16 object-cover" />
+            <img src={footerImage.src} alt="" class="h-16 w-16 object-cover" />
           </section>
         </div>
       </nav>

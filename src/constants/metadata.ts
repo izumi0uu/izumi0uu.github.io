@@ -5,7 +5,7 @@ import type { Metadata } from "@/types/common";
 
 // can't import getOpenGraphImagePath from image-path.ts here, avoid circular dependency
 
-const { SITE_TITLE, SITE_DESCRIPTION, SITE_URL } = CONFIG_CLIENT;
+const { SITE_TITLE, SITE_DESCRIPTION, SITE_URL, AUTHOR_NAME } = CONFIG_CLIENT;
 
 /** @description Must be url from "public" folder. */
 const defaultOgImage = `${SITE_URL}/images/default/default-open-graph-image.jpg`;
@@ -17,6 +17,7 @@ const DEFAULT_METADATA: Required<Metadata> = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   image: defaultOgImage,
+  author: AUTHOR_NAME,
 } as const;
 
 /**

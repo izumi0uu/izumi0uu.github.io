@@ -167,7 +167,7 @@ export default function CardFlip({
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes scale {
           0% {
             transform: scale(2);

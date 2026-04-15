@@ -47,10 +47,13 @@ PaginationLink.displayName = "PaginationLink";
 
 const PaginationPrevious = React.forwardRef<
   HTMLAnchorElement,
-  React.ComponentPropsWithoutRef<typeof PaginationLink>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof PaginationLink> & {
+    label?: string;
+    ariaLabel?: string;
+  }
+>(({ className, label = "Previous", ariaLabel = "Go to previous page", ...props }, ref) => (
   <PaginationLink
-    aria-label="Go to previous page"
+    aria-label={ariaLabel}
     className={cn(
       "mr-2 flex h-10 w-auto px-4 py-2",
       "border-2 border-outline bg-surface font-bold text-content shadow-[2px_2px_0_0_var(--color-outline)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none",
@@ -59,17 +62,20 @@ const PaginationPrevious = React.forwardRef<
     {...props}
   >
     <ChevronLeft className="mr-2 h-4 w-4" />
-    Previous
+    {label}
   </PaginationLink>
 ));
 PaginationPrevious.displayName = "PaginationPrevious";
 
 const PaginationNext = React.forwardRef<
   HTMLAnchorElement,
-  React.ComponentPropsWithoutRef<typeof PaginationLink>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof PaginationLink> & {
+    label?: string;
+    ariaLabel?: string;
+  }
+>(({ className, label = "Next", ariaLabel = "Go to next page", ...props }, ref) => (
   <PaginationLink
-    aria-label="Go to next page"
+    aria-label={ariaLabel}
     className={cn(
       "ml-2 flex h-10 w-auto px-4 py-2",
       "border-2 border-outline bg-surface font-bold text-content shadow-[2px_2px_0_0_var(--color-outline)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none",
@@ -77,20 +83,24 @@ const PaginationNext = React.forwardRef<
     )}
     {...props}
   >
-    Next
+    {label}
     <ChevronRight className="ml-2 h-4 w-4" />
   </PaginationLink>
 ));
 PaginationNext.displayName = "PaginationNext";
 
-const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<"span">) => (
+const PaginationEllipsis = ({
+  className,
+  srLabel = "More pages",
+  ...props
+}: React.ComponentProps<"span"> & { srLabel?: string }) => (
   <span
     aria-hidden
     className={cn("flex size-9 items-center justify-center text-content-secondary", className)}
     {...props}
   >
     <MoreHorizontal className="size-4" />
-    <span className="sr-only">More pages</span>
+    <span className="sr-only">{srLabel}</span>
   </span>
 );
 PaginationEllipsis.displayName = "PaginationEllipsis";

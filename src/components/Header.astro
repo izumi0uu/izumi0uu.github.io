@@ -2,8 +2,46 @@
 import { NavigationBar } from "@/components/react/ui/NavigationBar";
 import { Separator } from "@/components/react/radix-ui/Separator";
 import { SELECTORS } from "@/constants/dom";
+import { LOCALE_LABELS, LOCAL_STORAGE_KEY, LOCALE_NOTICE_STORAGE_KEY } from "@/config/i18n";
+import { CONFIG_CLIENT } from "@/config/client";
+import { ROUTES } from "@/constants/routes";
+import { getPathWithLocale } from "@/utils/routing/paths";
+import * as m from "@/paraglide/messages";
+
+import type { LocaleSwitchTarget } from "@/types/common";
+import type { LocaleValues } from "@/types/config";
+
+export interface HeaderProps {
+  currentLocale: LocaleValues;
+  localeSwitch?: LocaleSwitchTarget;
+}
+
+const { currentLocale, localeSwitch } = Astro.props as HeaderProps;
 
 const { SCROLL_TO_TOP_ID } = SELECTORS;
+const homeHref = getPathWithLocale(currentLocale, ROUTES.HOME);
+const navLinks = [
+  {
+    key: "blog",
+    href: getPathWithLocale(currentLocale, ROUTES.BLOG),
+    text: m["components.navigation_menu.blog_link"](),
+  },
+  {
+    key: "project",
+    href: getPathWithLocale(currentLocale, ROUTES.PROJECT),
+    text: m["components.navigation_menu.project_link"](),
+  },
+  {
+    key: "experience",
+    href: getPathWithLocale(currentLocale, ROUTES.EXPERIENCE),
+    text: m["components.navigation_menu.experience_link"](),
+  },
+  {
+    key: "about",
+    href: getPathWithLocale(currentLocale, ROUTES.ABOUT),
+    text: m["components.navigation_menu.about_link"](),
+  },
+];
 ---
 
 <!-- TODO: FIX SCROLL TO TOP -->
@@ -11,6 +49,27 @@ const { SCROLL_TO_TOP_ID } = SELECTORS;
   class="flex flex-col gap-2 fixed top-0 right-0 left-0 z-50 backdrop-blur-sm"
   id={SCROLL_TO_TOP_ID}
 >
-  <NavigationBar client:load />
+  <NavigationBar
+    client:load
+    authorName={CONFIG_CLIENT.AUTHOR_NAME}
+    homeHref={homeHref}
+    homeLabel={m["components.navigation_menu.home_link"]()}
+    navLinks={navLinks}
+    themeLabel={m["components.navigation_menu.theme_label"]()}
+    languageLabel={m["components.navigation_menu.language_label"]()}
+    localeSwitch={localeSwitch && {
+      ...localeSwitch,
+      targetLabel: LOCALE_LABELS[localeSwitch.targetLocale],
+      preferredLocaleStorageKey: LOCAL_STORAGE_KEY,
+      noticeStorageKey: LOCALE_NOTICE_STORAGE_KEY,
+      buttonTitle: m["components.locale_switch.switch_to"]({
+        locale: LOCALE_LABELS[localeSwitch.targetLocale],
+      }),
+      missingTranslationTitle: m["components.locale_switch.missing_translation_title"](),
+      missingTranslationDescription: m["components.locale_switch.missing_translation_description"]({
+        locale: LOCALE_LABELS[localeSwitch.targetLocale],
+      }),
+    }}
+  />
   <Separator client:load />
 </header>

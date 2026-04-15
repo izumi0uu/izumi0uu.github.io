@@ -7,31 +7,47 @@ import StagewiseDevToolbar from "@/components/react/dev/StagewiseDevToolbar.tsx"
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import { Toaster } from "@/components/react/radix-ui/Toaster";
+import { LocaleNoticeBridge } from "@/components/react/ui/LocaleNoticeBridge";
 import type { BaseHeadProps } from "@/components/BaseHead.astro";
 import { cn } from "@/utils/ui/styles";
 import { ToTopScroll } from "@/components/react/ui/ToTopScroll";
 import { PageLoadingIndicator } from "@/components/react/ui/PageLoadingIndicator";
+import { DEFAULT_LOCALE, LOCALE_NOTICE_STORAGE_KEY } from "@/config/i18n";
 
-export interface BaseProps extends BaseHeadProps {}
+import type { LocaleAlternate, LocaleSwitchTarget } from "@/types/common";
+import type { LocaleValues } from "@/types/config";
 
-const { metadata } = Astro.props as BaseProps;
+export interface BaseProps extends BaseHeadProps {
+  alternates?: LocaleAlternate[];
+  localeSwitch?: LocaleSwitchTarget;
+  currentLocale?: LocaleValues;
+}
 
-const lang = Astro.currentLocale;
+const {
+  metadata,
+  alternates = [],
+  localeSwitch,
+  currentLocale = DEFAULT_LOCALE,
+  currentPath,
+} = Astro.props as BaseProps;
+
+const lang = currentLocale;
 ---
 
 <!doctype html>
 <html lang={lang}>
   <!-- TODO: LITTLE MEMORY LEAK -->
-  <BaseHead {metadata} />
+  <BaseHead {metadata} alternates={alternates} currentPath={currentPath} />
   <body class={cn("relative flex flex-col min-h-screen min-w-80 bg-base mode-theme-switch")}>
-    <Header />
+    <Header currentLocale={lang} localeSwitch={localeSwitch} />
     <div class="h-14"></div>
     <slot />
-    <Footer />
+    <Footer currentLocale={lang} />
     <!-- {import.meta.env.DEV && <StagewiseDevToolbar client:only="react" />} -->
     <!-- {import.meta.env.DEV && <I18nDevToolbar client:only="react" />} -->
     <!-- {import.meta.env.DEV && <ThemeDevToolbar client:only="react" />} -->
     <Toaster />
+    <LocaleNoticeBridge client:load currentLocale={lang} storageKey={LOCALE_NOTICE_STORAGE_KEY} />
     <ToTopScroll client:only="react" />
     <PageLoadingIndicator client:load />
   </body>

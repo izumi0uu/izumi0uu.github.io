@@ -82,7 +82,7 @@ const i18nSchema = z.object({
   SUPPORTED_LOCALES: z.array(z.enum(localeValues)),
   LOCALE_LABELS: z.record(z.enum(localeValues), z.string()),
   LOCAL_STORAGE_KEY: z.string(),
-  BROWSER_LANG_REDIRECT_DONE_KEY: z.string(),
+  LOCALE_NOTICE_STORAGE_KEY: z.string(),
   PREFIX_DEFAULT_LOCALE: z.boolean(),
 });
 

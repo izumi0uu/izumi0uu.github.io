@@ -3,56 +3,122 @@ import { getAllPostsWithReadingTime } from "@/modules/post/common";
 import List from "@/layouts/List.astro";
 import PostList from "@/components/app/blog/PostList.astro";
 import { CONFIG_CLIENT } from "@/config/client";
+import { ROUTES } from "@/constants/routes";
 import { getPageMetadata } from "@/utils/content/metadata";
 import { pickPaginationPropsFromPage } from "@/utils/content/pagination";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
+import { getPathWithLocale } from "@/utils/routing/paths";
 
+import type { LocaleAlternate, LocaleSwitchTarget, PaginationProps } from "@/types/common";
+import type { LocaleValues } from "@/types/config";
 import type { Post } from "@/types/post";
 import type { GetStaticPathsOptions } from "astro";
 
-// [page].astro and getStaticPaths because of pagination
+function getBlogPagePath(locale: LocaleValues, pageNumber: number) {
+  return pageNumber === 1
+    ? getPathWithLocale(locale, ROUTES.BLOG)
+    : getPathWithLocale(locale, `${ROUTES.BLOG}${pageNumber}/`);
+}
+
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const getStaticBlogPagePath = (locale: LocaleValues, pageNumber: number) =>
+    pageNumber === 1
+      ? getPathWithLocale(locale, ROUTES.BLOG)
+      : getPathWithLocale(locale, `${ROUTES.BLOG}${pageNumber}/`);
   const allPosts: Post[] = await getAllPostsWithReadingTime();
   const pageSize = CONFIG_CLIENT.PAGE_SIZE_POST_CARD;
+  const postsByLocale = Object.fromEntries(
+    SUPPORTED_LOCALES.map((locale) => [locale, allPosts.filter((post) => post.locale === locale)])
+  ) as Record<LocaleValues, Post[]>;
+  const getPageCount = (locale: LocaleValues) => Math.ceil(postsByLocale[locale].length / pageSize);
 
   const paths = [];
 
-  // 为每种语言创建分页路由
   for (const lang of SUPPORTED_LOCALES) {
-    // 创建该语言的分页路径
-    const paginatedPaths = paginate(allPosts, {
+    const localizedPosts = postsByLocale[lang];
+    const targetLocale = SUPPORTED_LOCALES.find((locale) => locale !== lang) ?? lang;
+
+    if (localizedPosts.length === 0) {
+      const alternates = SUPPORTED_LOCALES.map((locale) => ({
+        locale,
+        href: getStaticBlogPagePath(locale, 1),
+      }));
+
+      paths.push({
+        params: { lang },
+        props: {
+          posts: [],
+          alternates,
+          localeSwitch: {
+            currentLocale: lang,
+            targetLocale,
+            href: getStaticBlogPagePath(targetLocale, 1),
+            missingTranslation: false,
+          },
+        },
+      });
+
+      continue;
+    }
+
+    const paginatedPaths = paginate(localizedPosts, {
       pageSize,
       params: { lang },
     });
 
-    // 添加额外的第一页路由 (例如 /zh/blog/1/)
-    paginatedPaths.push({
-      params: { lang, page: "1" },
-      props: paginatedPaths[0].props,
-    });
+    paths.push(
+      ...paginatedPaths.map((path) => {
+        const currentPage = path.props.page.currentPage;
+        const targetPageCount = getPageCount(targetLocale);
+        const hasEquivalentTargetPage = currentPage === 1 || targetPageCount >= currentPage;
+        const alternates = SUPPORTED_LOCALES.filter((locale) => {
+          const localePageCount = getPageCount(locale);
+          return currentPage === 1 || localePageCount >= currentPage;
+        }).map((locale) => ({
+          locale,
+          href: getStaticBlogPagePath(locale, currentPage),
+        }));
 
-    // 添加到总路径数组
-    paths.push(...paginatedPaths);
+        return {
+          params: path.params,
+          props: {
+            posts: path.props.page.data,
+            paginationProps: pickPaginationPropsFromPage(path.props.page),
+            alternates,
+            localeSwitch: {
+              currentLocale: lang,
+              targetLocale,
+              href: hasEquivalentTargetPage
+                ? getStaticBlogPagePath(targetLocale, currentPage)
+                : getStaticBlogPagePath(targetLocale, 1),
+              missingTranslation: false,
+            },
+          },
+        };
+      })
+    );
   }
 
   return paths;
 }
 
-// page from pagination
-const { page } = Astro.props;
-const { data: posts } = page;
+const {
+  posts,
+  paginationProps,
+  alternates,
+  localeSwitch,
+} = Astro.props as {
+  posts: Post[];
+  paginationProps?: PaginationProps;
+  alternates: LocaleAlternate[];
+  localeSwitch: LocaleSwitchTarget;
+};
 
-const paginationProps = pickPaginationPropsFromPage(page);
-
-// get current language
-const { lang } = Astro.params;
-
-// get page metadata
 const metadata = getPageMetadata("lists/blog");
-
-const layoutProps = { metadata, paginationProps };
+const currentLocale = Astro.params.lang as LocaleValues;
+const currentPath = getBlogPagePath(currentLocale, paginationProps?.currentPage ?? 1);
 ---
 
-<List {...layoutProps}>
-  <PostList posts={posts} lang={lang} />
+<List {metadata} {paginationProps} {alternates} {localeSwitch} {currentLocale} currentPath={currentPath}>
+  <PostList posts={posts} />
 </List>

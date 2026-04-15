@@ -1,10 +1,12 @@
 ---
 import List from "@/layouts/List.astro";
-import Experience from "@/components/react/ui/Experience.astro";
-
-import { CONFIG_CLIENT } from "@/config/client";
 import { getPageMetadata } from "@/utils/content/metadata";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
+import { getSupportedAlternates, getLocaleSwitchTarget } from "@/utils/routing/navigation";
+import { getPathWithLocale } from "@/utils/routing/paths";
+import { ROUTES } from "@/constants/routes";
+
+import type { LocaleValues } from "@/types/config";
 
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
@@ -12,13 +14,12 @@ export async function getStaticPaths() {
   }));
 }
 
-const { lang } = Astro.params;
-
+const currentLocale = Astro.params.lang as LocaleValues;
 const metadata = getPageMetadata("lists/experience");
-// page from pagination
-const { page } = Astro.props;
-
-const layoutProps = { metadata };
+const alternates = getSupportedAlternates((locale) => getPathWithLocale(locale, ROUTES.EXPERIENCE));
+const localeSwitch = getLocaleSwitchTarget({ currentLocale, alternates });
+const currentPath = getPathWithLocale(currentLocale, ROUTES.EXPERIENCE);
+const layoutProps = { metadata, alternates, localeSwitch, currentLocale, currentPath };
 ---
 
 <List {...layoutProps} />

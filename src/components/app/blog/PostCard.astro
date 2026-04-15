@@ -16,6 +16,7 @@ import { setTransitionSlug, TRANSITION_ELEMENT_IDS } from "@/constants/transitio
 import { formatDate, formatDateIso } from "@/utils/data/datetime";
 import { cn } from "@/utils/ui/styles";
 import { getPathWithLocale } from "@/utils/routing/paths";
+import * as m from "@/paraglide/messages";
 
 import { Link } from "@/components/react/ui/Link";
 import { BlogAvatar } from "@/components/react/ui/BlogAvatar";
@@ -92,16 +93,10 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
         elementId: TRANSITION_ELEMENT_IDS.POST_CARD.META,
       })}
     >
-      <Link
-        href={`${getPathWithLocale(ROUTES.CATEGORIES)}${category}`}
-        variant="underline"
-        client:idle
-      >
+      <span class="inline-flex items-center gap-2">
         <Icon name={categoryIcon} class="w-4 h-4" />
-        <span class="pb-0.5">
-          {category}
-        </span>
-      </Link>
+        <span class="pb-0.5">{category}</span>
+      </span>
 
       <span class="inline-flex items-center gap-2 text-captions">
         <Icon name={isUpdatedDate ? "mdi:edit-outline" : "mdi:access-time"} class="w-4 h-4" />
@@ -118,7 +113,7 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
         elementId: TRANSITION_ELEMENT_IDS.POST_CARD.TITLE,
       })}
     >
-      <Link href={`${getPathWithLocale(ROUTES.BLOG)}${slug}`} variant="underline" client:idle>
+      <Link href={getPathWithLocale(post.locale, `${ROUTES.BLOG}${slug}`)} variant="underline" client:idle>
         {title}
         {draft && <sup class="text-sm text-red-500 ml-1">{DRAFT_TEXT}</sup>}
       </Link>
@@ -143,14 +138,16 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
         {readingTime && (
         <span class="inline-flex items-center gap-2 text-sm text-captions">
           <Icon name="mdi:book-open-blank-variant-outline" class="w-4 h-4" />
-          <span class="text-nowrap">{`${Math.round(readingTime)} minutes`}</span>
+          <span class="text-nowrap">
+            {m["components.blog.reading_time"]({ minutes: Math.round(readingTime).toString() })}
+          </span>
         </span>
         )}
         <!-- <TagList tags={tags.slice(0, 2)} size="sm" variant="text" class="hidden xs:inline-flex" /> -->
       </div>
 
-      <Link href={`${getPathWithLocale(ROUTES.BLOG)}${slug}`} variant="underline" client:idle>
-        <span class="text-nowrap">Read more</span>
+      <Link href={getPathWithLocale(post.locale, `${ROUTES.BLOG}${slug}`)} variant="underline" client:idle>
+        <span class="text-nowrap">{m["components.blog.read_more"]()}</span>
         <Icon name="mdi:arrow-right" class="w-4 h-4" />
       </Link>
 

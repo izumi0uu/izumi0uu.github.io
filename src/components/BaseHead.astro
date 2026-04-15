@@ -19,19 +19,13 @@ import { ClientRouter } from "astro:transitions";
 // load theme-script component
 import ThemeScript from "@/components/ThemeScript.astro";
 
-// load i18n script component and paraglide runtime
-import I18nScript from "@/components/I18nScript.astro";
-import {
-  locales,
-  localizeHref, // 用于生成本地化 URL
-} from "@/paraglide/runtime"; // 确保路径正确
-
 // load utils
 import { handleMetadataTitle } from "@/utils/content/metadata";
 import { filterUndefined } from "@/utils/data/objects";
+import { DEFAULT_LOCALE } from "@/config/i18n";
 
 // load types
-import type { Metadata } from "@/types/common";
+import type { LocaleAlternate, Metadata } from "@/types/common";
 
 // load routes
 import { ROUTES } from "@/constants/routes";
@@ -47,6 +41,8 @@ const {
 
 export interface BaseHeadProps {
   metadata: Metadata;
+  alternates?: LocaleAlternate[];
+  currentPath?: string;
 }
 
 /**
@@ -60,17 +56,19 @@ export interface BaseHeadProps {
  *    </body>
  *  </html>
  */
-const { metadata } = Astro.props as BaseHeadProps;
+const { metadata, alternates = [], currentPath } = Astro.props as BaseHeadProps;
 
 /**
  * @description site: SITE_URL var + '/', SITE_URL changed by environment
  *  url: current page url, per page
  */
 const { url } = Astro;
-const { host, pathname, search } = url; // host - izumi0uu.com
+const { pathname, search } = url;
+const resolvedPath = currentPath ?? `${pathname}${search}`;
 
 // replace host - all deployments point to single canonical deployment url
-const canonicalUrl = new URL(`${pathname}${search}`, SITE_URL_CANONICAL);
+const canonicalUrl = new URL(resolvedPath, SITE_URL_CANONICAL);
+const defaultAlternate = alternates.find((alternate) => alternate.locale === DEFAULT_LOCALE);
 
 const handledMetadata = handleMetadataTitle(metadata);
 
@@ -80,7 +78,7 @@ const mergedMetadata: Required<Metadata> = { ...DEFAULT_METADATA, ...filteredMet
 const { title, description, image } = mergedMetadata;
 
 // convert to absolute url
-const ogImageUrl = new URL(image, url);
+const ogImageUrl = new URL(image, SITE_URL_CANONICAL);
 ---
 
 <head>
@@ -113,33 +111,19 @@ const ogImageUrl = new URL(image, url);
   <meta name="description" content={description} />
   <meta name="author" content={AUTHOR_NAME} />
 
-  {/* Feeds - RSS and JSON Feed links */}
-  <link
-    rel="alternate"
-    type="application/rss+xml"
-    title={`${title} RSS feed`}
-    href={`${ROUTES.API.FEED_RSS}`}
-  />
-  <link
-    rel="alternate"
-    type="application/json"
-    title={`${title} JSON feed`}
-    href={`${ROUTES.API.FEED_JSON}`}
-  />
-
   {/* Sitemap */}
   <link rel="sitemap" type="application/xml" title="Sitemap" href={`${ROUTES.STATIC.SITEMAP}`} />
 
   {/* Open Graph / Facebook */}
   <meta property="og:type" content="website" />
-  <meta property="og:url" content={url} />
+  <meta property="og:url" content={canonicalUrl} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={ogImageUrl} />
 
   {/* Twitter */}
   <meta property="twitter:card" content="summary" />
-  <meta property="twitter:url" content={url} />
+  <meta property="twitter:url" content={canonicalUrl} />
   <meta property="twitter:title" content={title} />
   <meta property="twitter:description" content={description} />
   <meta property="twitter:image" content={ogImageUrl} />
@@ -164,23 +148,27 @@ const ogImageUrl = new URL(image, url);
 
   {/* seo for muti-lang */}
   {
-    locales.map((locale) => (
+    alternates.map((alternate) => (
       <link
         rel="alternate"
-        hreflang={locale}
-        href={localizeHref(Astro.url.href, {
-          locale: locale,
-        })}
+        hreflang={alternate.locale}
+        href={new URL(alternate.href, SITE_URL_CANONICAL)}
       />
     ))
+  }
+  {
+    defaultAlternate && (
+      <link
+        rel="alternate"
+        hreflang="x-default"
+        href={new URL(defaultAlternate.href, SITE_URL_CANONICAL)}
+      />
+    )
   }
 
   {/* Theme */}
   {/* MUST be inside <head /> to avoid white flash, IMPORTANT */}
   <ThemeScript />
-
-  {/* i18n */}
-  <I18nScript />
 
   {/* turn on the feature of view transitions in Astro */}
   {/* DISABLED FOR NOW, LEAD TO MEMORY LEAK WITH GSAP */}

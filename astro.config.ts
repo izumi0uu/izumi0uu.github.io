@@ -127,6 +127,7 @@ export default defineConfig({
     locales: SUPPORTED_LOCALES,
     routing: {
       prefixDefaultLocale: PREFIX_DEFAULT_LOCALE,
+      redirectToDefaultLocale: false,
     },
   },
   vite: {
@@ -174,7 +175,6 @@ export default defineConfig({
         // Configure locale detection strategy for SSG mode
         strategy: [
           "url", // Primary: URL-based detection (essential for SSG)
-          "localStorage", // User preference storage
           "baseLocale", // Fallback to default locale
         ],
         // Disable AsyncLocalStorage for static builds

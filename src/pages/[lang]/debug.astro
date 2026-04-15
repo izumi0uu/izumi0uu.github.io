@@ -1,8 +1,13 @@
 ---
 import { SUPPORTED_LOCALES } from "@/config/i18n";
 import DebugLayout from "@/layouts/DebugLayout.astro";
+import * as m from "@/paraglide/messages";
 
 export async function getStaticPaths() {
+  if (import.meta.env.PROD) {
+    return [];
+  }
+
   return SUPPORTED_LOCALES.map((lang) => ({
     params: { lang },
   }));
@@ -10,6 +15,6 @@ export async function getStaticPaths() {
 ---
 
 <DebugLayout>
-  <h1>This is the Debug Page</h1>
-  <a href="/en/debug">Click to navigate to Debug Page</a>
+  <h1>{m["pages.home.title"]()} Debug</h1>
+  <a href="/en/debug">{m["common.home"]()}</a>
 </DebugLayout>

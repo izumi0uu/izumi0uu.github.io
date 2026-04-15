@@ -4,16 +4,26 @@
   "pages": {
     "404": {
       "title": "404",
-      "description": "Page not found"
+      "description": "Page not found",
+      "go_back": "Go Back"
     },
     "home": {
       "title": "Home",
       "description": "Welcome to my space!",
-      "falling_text": "I got a lot of ideas and I want to share them with you. Hope you like them."
+      "falling_text": "I got a lot of ideas and I want to share them with you. Hope you like them.",
+      "quick_links_title": "Quick Links",
+      "hero_greeting": "Hey. I'm Izumi0uu.",
+      "hero_role_prefix": "I'm a",
+      "hero_role_frontend": "Frontend Developer!",
+      "hero_role_web": "Web Developer!",
+      "hero_role_web3": "Web3 Enthusiast!",
+      "hero_description": "Happy to see you here! In this place, you can find some interesting ideas and projects. Enjoy your time!",
+      "hero_cta": "See My Blog"
     },
     "about": {
       "title": "About Me",
-      "description": "Learn more about me and this website."
+      "description": "Learn more about me and this website.",
+      "heading": "About"
     },
     "lists": {
       "title": "Lists",
@@ -62,7 +72,14 @@
       "experience_link": "Experience",
       "links_link": "Links",
       "explore_link": "Explore",
-      "project_link": "Project"
+      "project_link": "Project",
+      "theme_label": "Theme",
+      "language_label": "Language"
+    },
+    "locale_switch": {
+      "switch_to": "Switch to {locale}",
+      "missing_translation_title": "Translation unavailable",
+      "missing_translation_description": "This content is not available in {locale} yet. You have been redirected to the homepage."
     },
     "theme_switcher": {
       "label": "Switch Theme",
@@ -134,6 +151,25 @@
       },
       "tips_placeholder": "Type a command or search..."
     },
+    "blog": {
+      "read_more": "Read more",
+      "more_posts": "More Posts",
+      "reading_time": "{minutes} min read"
+    },
+    "project": {
+      "more": "More"
+    },
+    "pagination": {
+      "showing_items": "Showing items {start}-{end} of {total} items",
+      "page_of": "Page {current} of {last} pages",
+      "previous": "Previous",
+      "next": "Next",
+      "more_pages": "More pages"
+    },
+    "lists": {
+      "empty_posts": "No posts are available in this language yet.",
+      "empty_projects": "No projects are available in this language yet."
+    },
     "mode_switcher": {
       "label": "Switch Mode",
       "light_mode": "Light",
@@ -145,6 +181,7 @@
     "error": "An error occurred",
     "retry": "Retry",
     "back": "Back",
+    "home": "Home",
     "next": "Next",
     "previous": "Previous"
   }

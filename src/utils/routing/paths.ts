@@ -1,7 +1,7 @@
 import { type FilterParams, type FilterType } from "@/types/post";
 import { VALID_FILTER_KEYS, FILTER_CONFIG } from "@/types/post";
-import { getLocale } from "@/paraglide/runtime";
-import { DEFAULT_LOCALE } from "@/config/i18n";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/i18n";
+import type { LocaleValues } from "@/types/config";
 
 /*-------------------------------- utils ------------------------------*/
 
@@ -16,29 +16,30 @@ const removeLeadingAndTrailingSlashes = (path: string) => path?.replace(/^\/+|\/
  * @param path 目标路径，例如 "/blog/"
  * @returns 带有语言标签的路径，例如 "/zh/blog/"
  */
-const getPathWithLocale = (path: string): string => {
-  try {
-    // 获取当前语言
-    const locale = getLocale();
+const getPathWithLocale = (locale: LocaleValues, path: string = "/"): string => {
+  const normalizedLocale = SUPPORTED_LOCALES.includes(locale) ? locale : DEFAULT_LOCALE;
+  const cleanPath = removeLeadingAndTrailingSlashes(path);
 
-    // 确保路径格式正确
-    let cleanPath = path;
-    if (!cleanPath.startsWith("/")) cleanPath = `/${cleanPath}`;
+  if (!cleanPath) return `/${normalizedLocale}/`;
 
-    // 移除可能存在的多余斜杠
-    cleanPath = removeLeadingSlash(cleanPath);
+  return `/${normalizedLocale}/${cleanPath}`;
+};
+const stripLocaleFromPathname = (pathname: string): string => {
+  const cleanPath = removeLeadingAndTrailingSlashes(pathname);
 
-    // 构建最终路径
-    return `/${locale}/${cleanPath}`;
-  } catch (error) {
-    console.error("Error in getPathWithLocale:", error);
-    // 如果无法获取当前语言，使用默认语言
-    const cleanPath = removeLeadingSlash(path);
-    return `/${DEFAULT_LOCALE}/${cleanPath}`;
+  if (!cleanPath) return "";
+
+  const [maybeLocale, ...segments] = cleanPath.split("/");
+
+  if (SUPPORTED_LOCALES.includes(maybeLocale as LocaleValues)) {
+    return segments.join("/");
   }
+
+  return cleanPath;
 };
 
-/*----------------------------- for Explore filter ---------------------------*/
+const replaceLocaleInPathname = (pathname: string, locale: LocaleValues): string =>
+  getPathWithLocale(locale, stripLocaleFromPathname(pathname));
 
 const getPathnameFromFilterParams = (filterParams: FilterParams): string | undefined => {
   const { filterType, filterSlug } = filterParams;
@@ -58,4 +59,6 @@ export {
   removeLeadingAndTrailingSlashes,
   getPathnameFromFilterParams,
   getPathWithLocale,
+  stripLocaleFromPathname,
+  replaceLocaleInPathname,
 };

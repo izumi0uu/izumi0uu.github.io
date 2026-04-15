@@ -1,4 +1,4 @@
-import { getAllEntries, idToSlug } from "@/modules/common";
+import { getAllEntries, toLocalizedEntry } from "@/modules/common";
 import { COLLECTIONS } from "@/constants/collections";
 
 import type { Project } from "@/types/project";
@@ -10,4 +10,4 @@ import type { Project } from "@/types/project";
  * My custom type with slug, etc.
  */
 export const getAllProjects = (): Promise<Project[]> =>
-  getAllEntries(COLLECTIONS.PROJECT).then((entries) => entries.map(idToSlug));
+  getAllEntries(COLLECTIONS.PROJECT).then((entries) => entries.map(toLocalizedEntry));

@@ -1,5 +1,6 @@
 ---
 import type { PaginationProps } from "@/types/common";
+import * as m from "@/paraglide/messages";
 
 export interface Props extends PaginationProps {
   className?: string;
@@ -13,13 +14,16 @@ const endItem = end + 1;
 
 <div class={`text-sm text-content-secondary flex items-center gap-4 ${className}`}>
   <span>
-    Showing items <strong class="text-content">{startItem}</strong>-<strong class="text-content"
-      >{endItem}</strong
-    > of <strong class="text-content">{total}</strong> items
+    {m["components.pagination.showing_items"]({
+      start: startItem.toString(),
+      end: endItem.toString(),
+      total: total.toString(),
+    })}
   </span>
   <span class="text-xs">
-    Page <strong class="text-content">{currentPage}</strong> of <strong class="text-content"
-      >{lastPage}</strong
-    > pages
+    {m["components.pagination.page_of"]({
+      current: currentPage.toString(),
+      last: lastPage.toString(),
+    })}
   </span>
 </div>

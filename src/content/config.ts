@@ -18,9 +18,10 @@ type GenerateIdFn = Parameters<typeof glob>[0]["generateId"];
  * e.g filepath: 2024/test-post copy 4.mdx -> slug: 2024-test-post-copy-4
  */
 const generateId: GenerateIdFn = ({ entry }: { entry: string }) => {
+  const [locale, ...restSegments] = entry.split("/");
   const slug = entry
     .split("/")
-    .slice(0, 2)
+    .slice(1, 3)
     .join("/")
     // 移除 .mdx 后缀
     .replace(/\.mdx$/, "")
@@ -33,7 +34,7 @@ const generateId: GenerateIdFn = ({ entry }: { entry: string }) => {
     // 移除开头和结尾的连字符
     .replace(/^-+|-+$/g, "");
 
-  return slug;
+  return `${locale}/${slug}`;
 };
 
 export const postCollection = defineCollection({

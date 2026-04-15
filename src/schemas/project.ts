@@ -8,6 +8,7 @@ const { DRAFT, HERO_IMAGE, HERO_ALT, TITLE, DESCRIPTION } = DEFAULTS_PROJECT;
 
 export const projectSchema = ({ image }: SchemaContext) =>
   z.object({
+    translationKey: z.string().min(1),
     title: z.string().default(TITLE),
     description: z.string().default(DESCRIPTION),
     publishDate: z.coerce.date(),

@@ -83,6 +83,14 @@ export interface BaseLinkProps {
   underlineOffset?: LinkUnderlineOffset;
 }
 
+type LinkOwnProps = BaseLinkProps &
+  VariantProps<typeof linkVariants> & {
+    /**
+     * 子元素
+     */
+    children?: React.ReactNode;
+  };
+
 // === CVA 样式变体定义 ===
 
 export const linkVariants = cva(
@@ -157,15 +165,11 @@ export const linkVariants = cva(
 /**
  * Link 组件完整属性接口
  */
-export interface LinkProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
-    VariantProps<typeof linkVariants>,
-    BaseLinkProps {
-  /**
-   * 子元素
-   */
-  children?: React.ReactNode;
-}
+export type LinkProps = Omit<
+  React.AnchorHTMLAttributes<HTMLAnchorElement>,
+  keyof LinkOwnProps
+> &
+  LinkOwnProps;
 
 // === 公用类型别名 ===
 

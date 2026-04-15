@@ -16,6 +16,7 @@ const { DRAFT, NO_HERO, HERO_IMAGE, HERO_ALT, TOC, CATEGORY, TITLE, DESCRIPTION 
 // schema and collection are separate
 export const postSchema = ({ image }: SchemaContext) =>
   z.object({
+    translationKey: z.string().min(1),
     publishDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     title: z.string().default(TITLE),

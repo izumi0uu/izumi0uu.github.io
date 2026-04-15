@@ -1,0 +1,171 @@
+---
+import { render } from "astro:content";
+import { Image } from "astro:assets";
+
+import { getAllProjects } from "@/modules/project/common";
+import { getYearSlugRouteParams } from "@/modules/common";
+import ProjectLayout from "@/layouts/Project.astro";
+import PostMeta from "@/components/app/blog/PostMeta.astro";
+import Skeleton from "@/components/Skeleton.astro";
+import { ROUTES } from "@/constants/routes";
+import { getOpenGraphImagePath } from "@/libs/api/open-graph/image-path";
+import { IMAGE_SIZES } from "@/constants/image";
+import { DRAFT_TEXT } from "@/constants/data";
+import { setTransitionSlug, TRANSITION_ELEMENT_IDS } from "@/constants/transitions";
+import { getLocaleSwitchTarget } from "@/utils/routing/navigation";
+import { getPathWithLocale } from "@/utils/routing/paths";
+
+import type { Metadata } from "@/types/common";
+import type { LocaleValues } from "@/types/config";
+import type { Project, ProjectCollection } from "@/types/project";
+
+function getProjectPath(locale: LocaleValues, slug: string) {
+  return getPathWithLocale(locale, `${ROUTES.PROJECT}${slug}`);
+}
+
+export async function getStaticPaths() {
+  const getStaticProjectPath = (locale: LocaleValues, slug: string) =>
+    getPathWithLocale(locale, `${ROUTES.PROJECT}${slug}`);
+  const projects: Project[] = await getAllProjects();
+  const projectsByTranslationKey = projects.reduce((map, project) => {
+    const siblings = map.get(project.translationKey) ?? [];
+    siblings.push(project);
+    map.set(project.translationKey, siblings);
+    return map;
+  }, new Map<string, Project[]>());
+
+  return projects.map((project) => {
+    const alternates = (projectsByTranslationKey.get(project.translationKey) ?? [project]).map(
+      (sibling) => ({
+        locale: sibling.locale,
+        href: getStaticProjectPath(sibling.locale, sibling.slug),
+      })
+    );
+    const localeSwitch = getLocaleSwitchTarget({
+      currentLocale: project.locale,
+      alternates,
+      fallbackFactory: (locale) => getPathWithLocale(locale, ROUTES.HOME),
+    });
+    const routeParams = getYearSlugRouteParams(project.slug, project.id);
+
+    return {
+      params: {
+        lang: project.locale,
+        ...routeParams,
+      },
+      props: { project, alternates, localeSwitch },
+    };
+  });
+}
+
+const {
+  project,
+  alternates,
+  localeSwitch,
+} = Astro.props as {
+  project: Project;
+  alternates: { locale: LocaleValues; href: string }[];
+  localeSwitch: {
+    currentLocale: LocaleValues;
+    targetLocale: LocaleValues;
+    href: string;
+    missingTranslation: boolean;
+  };
+};
+
+const { data, slug } = project;
+const { draft, title, publishDate, updatedDate, description, heroImage, heroAlt, tags } = data;
+const currentPath = getProjectPath(project.locale, slug);
+const image = getOpenGraphImagePath(currentPath);
+
+const metadata: Metadata = { title, description, image };
+const { Content } = await render(project as ProjectCollection);
+
+const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
+---
+
+<ProjectLayout
+  {metadata}
+  {alternates}
+  {localeSwitch}
+  currentLocale={project.locale}
+  currentPath={currentPath}
+>
+  <Fragment slot="cover">
+    <div class="relative">
+      <Skeleton className="aspect-video rounded-xl shadow-xl border border-outline-variant" />
+      {
+        heroImage && (
+          <Image
+            {...IMAGE_SIZES.REMOTE.PROJECT_HERO}
+            src={heroImage}
+            alt={heroAlt}
+            fetchpriority="high"
+            itemprop="image"
+            class="w-full h-auto aspect-video object-cover rounded-xl shadow-xl border border-outline-variant absolute inset-0 bg-surface"
+            loading="eager"
+            transition:name={getTransitionNameFromElementId({
+              elementId: TRANSITION_ELEMENT_IDS.POST_CARD.HERO_IMAGE,
+            })}
+          />
+        )
+      }
+    </div>
+  </Fragment>
+
+  <Fragment slot="heading">
+    <h1
+      class="text-4xl lg:text-5xl font-bold text-headings mb-4"
+      transition:name={getTransitionNameFromElementId({
+        elementId: TRANSITION_ELEMENT_IDS.POST_CARD.TITLE,
+      })}
+    >
+      {title}
+      {draft && <sup class="text-red-500 ml-1 text-sm">{DRAFT_TEXT}</sup>}
+    </h1>
+
+    <PostMeta
+      publishDate={publishDate}
+      updatedDate={updatedDate}
+      class="justify-center text-sm"
+      transition:name={getTransitionNameFromElementId({
+        elementId: TRANSITION_ELEMENT_IDS.POST_CARD.META,
+      })}
+    />
+  </Fragment>
+
+  <Fragment slot="description">
+    {
+      description && (
+        <p
+          class="text-lg text-content-secondary leading-relaxed"
+          transition:name={getTransitionNameFromElementId({
+            elementId: TRANSITION_ELEMENT_IDS.POST_CARD.DESCRIPTION,
+          })}
+        >
+          {description}
+        </p>
+      )
+    }
+
+    {
+      tags?.length > 0 && (
+        <div class="mt-6">
+          <div class="flex flex-wrap gap-1">
+            {tags?.map((tag: string) => (
+              <span class="px-2 py-1 bg-surface-container rounded-md text-xs font-medium">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      )
+    }
+  </Fragment>
+
+  <Fragment slot="content">
+    <div class="my-prose max-w-none">
+      <Content />
+    </div>
+  </Fragment>
+</ProjectLayout>

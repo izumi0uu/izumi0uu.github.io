@@ -2,16 +2,26 @@
 import Centered from "@/layouts/Centered.astro";
 import { getPageMetadata } from "@/utils/content/metadata";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
+import { getSupportedAlternates, getLocaleSwitchTarget } from "@/utils/routing/navigation";
+import { getPathWithLocale } from "@/utils/routing/paths";
+import { ROUTES } from "@/constants/routes";
+import * as m from "@/paraglide/messages";
 
-const metadata = getPageMetadata("about");
+import type { LocaleValues } from "@/types/config";
 
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
     params: { lang },
   }));
 }
+
+const currentLocale = Astro.params.lang as LocaleValues;
+const metadata = getPageMetadata("about");
+const alternates = getSupportedAlternates((locale) => getPathWithLocale(locale, ROUTES.ABOUT));
+const localeSwitch = getLocaleSwitchTarget({ currentLocale, alternates });
+const currentPath = getPathWithLocale(currentLocale, ROUTES.ABOUT);
 ---
 
-<Centered {metadata}>
-  <h1>About</h1>
+<Centered {metadata} {alternates} {localeSwitch} {currentLocale} currentPath={currentPath}>
+  <h1>{m["pages.about.heading"]()}</h1>
 </Centered>

@@ -4,16 +4,26 @@
   "pages": {
     "404": {
       "title": "404",
-      "description": "页面未找到"
+      "description": "页面未找到",
+      "go_back": "返回上一页"
     },
     "home": {
       "title": "首页",
       "description": "欢迎来到我的空间!",
-      "falling_text": "我 有 很 多 想 法 和 你 分 享 。希 望 你 喜 欢 。"
+      "falling_text": "我 有 很 多 想 法 和 你 分 享 。希 望 你 喜 欢 。",
+      "quick_links_title": "快速入口",
+      "hero_greeting": "你好，我是 Izumi0uu。",
+      "hero_role_prefix": "我是一名",
+      "hero_role_frontend": "前端开发者！",
+      "hero_role_web": "Web 开发者！",
+      "hero_role_web3": "Web3 爱好者！",
+      "hero_description": "很高兴在这里见到你！这里记录了我觉得有意思的想法和项目，希望你逛得开心。",
+      "hero_cta": "去看我的博客"
     },
     "about": {
       "title": "关于我",
-      "description": "了解更多关于我的故事。"
+      "description": "了解更多关于我的故事。",
+      "heading": "关于我"
     },
     "lists": {
       "title": "列表",
@@ -62,7 +72,14 @@
       "experience_link": "经历",
       "links_link": "链接",
       "explore_link": "探索",
-      "project_link": "项目"
+      "project_link": "项目",
+      "theme_label": "主题",
+      "language_label": "语言"
+    },
+    "locale_switch": {
+      "switch_to": "切换到 {locale}",
+      "missing_translation_title": "当前语言暂未提供",
+      "missing_translation_description": "这篇内容暂时没有 {locale} 版本，已为你跳转到首页。"
     },
     "theme_switcher": {
       "label": "切换主题",
@@ -143,6 +160,25 @@
         "Decode": "Decode"
       }
     },
+    "blog": {
+      "read_more": "继续阅读",
+      "more_posts": "更多文章",
+      "reading_time": "阅读约 {minutes} 分钟"
+    },
+    "project": {
+      "more": "更多"
+    },
+    "pagination": {
+      "showing_items": "显示第 {start}-{end} 项，共 {total} 项",
+      "page_of": "第 {current} / {last} 页",
+      "previous": "上一页",
+      "next": "下一页",
+      "more_pages": "更多页"
+    },
+    "lists": {
+      "empty_posts": "当前语言下还没有文章。",
+      "empty_projects": "当前语言下还没有项目。"
+    },
     "mode_switcher": {
       "label": "切换模式",
       "light_mode": "亮色",
@@ -154,6 +190,7 @@
     "error": "发生错误",
     "retry": "重试",
     "back": "返回",
+    "home": "首页",
     "next": "下一页",
     "previous": "上一页"
   }

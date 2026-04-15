@@ -1,12 +1,14 @@
 import { Link } from "./Link";
 import logo from "@/assets/images/logo.png";
-import { ROUTES } from "@/constants/routes";
-import { getPathWithLocale } from "@/utils/routing/paths";
 
-const Logo = () => {
+interface LogoProps {
+  href: string;
+}
+
+const Logo = ({ href }: LogoProps) => {
   return (
     <Link
-      href={getPathWithLocale(ROUTES.HOME)}
+      href={href}
       variant="brutal-normal"
       size="md"
       className="inline-flex shrink-0 items-center justify-center p-2"

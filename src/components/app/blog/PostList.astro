@@ -1,17 +1,16 @@
 ---
 import PostCard from "@/components/app/blog/PostCard.astro";
+import * as m from "@/paraglide/messages";
 
 import type { Post } from "@/types/post";
-import type { LocaleValues } from "@/types/config";
 
 export interface Props {
   posts: Post[];
-  lang: LocaleValues;
 }
 
-const { posts, lang } = Astro.props;
+const { posts } = Astro.props;
 ---
 
 <div class="flex-col-layout-center gap-2">
-  {posts.map((post) => <PostCard post={post} />)}
+  {posts.length > 0 ? posts.map((post) => <PostCard post={post} />) : <p>{m["components.lists.empty_posts"]()}</p>}
 </div>

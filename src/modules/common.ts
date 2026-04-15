@@ -1,8 +1,10 @@
 import { getCollection } from "astro:content";
 
+import { SUPPORTED_LOCALES } from "@/config/i18n";
 import { isProd } from "@/utils/system/environment";
 import { isPreviewMode } from "@/utils/system/preview";
 
+import type { LocaleValues } from "@/types/config";
 import type { CollectionEntry, CollectionKey } from "astro:content";
 
 /*-------------------------------- all entries ------------------------------*/
@@ -55,6 +57,11 @@ interface EntryDatesResult {
   isUpdatedDate: boolean;
 }
 
+interface YearSlugRouteParams {
+  year: string;
+  slug: string;
+}
+
 const getPublishedOrUpdatedDate = ({ publishDate, updatedDate }: EntryDates): EntryDatesResult => {
   const result = {
     lastAccessDate: updatedDate ?? publishDate,
@@ -67,18 +74,63 @@ const getPublishedOrUpdatedDate = ({ publishDate, updatedDate }: EntryDates): En
 /*------------------------- for content layer -----------------------*/
 
 /**
- * 将ID转换为slug
- * @param item 包含id属性的对象
- * @returns 添加了slug属性的对象
+ * 从带 locale 前缀的内容 ID 中提取 locale。
+ * 例如: en/2026/my-post -> en
  */
-const idToSlug = <T extends { id: string }>(item: T): T & { slug: string } => {
-  // 移除.mdx后缀并进行其他清理
-  const cleanSlug = item.id.replace(/\.mdx$/, "");
+const getEntryLocaleFromId = (id: string): LocaleValues => {
+  const [locale] = id.split("/");
+
+  if (SUPPORTED_LOCALES.includes(locale as LocaleValues)) {
+    return locale as LocaleValues;
+  }
+
+  throw new Error(`Unknown locale prefix in content id: ${id}`);
+};
+
+/**
+ * 从带 locale 前缀的内容 ID 中提取 slug。
+ * 例如: en/2026/my-post -> 2026/my-post
+ */
+const getEntrySlugFromId = (id: string): string => {
+  const [, ...slugSegments] = id.split("/");
+  return slugSegments.join("/").replace(/\.mdx$/, "");
+};
+
+/**
+ * 将内容 slug 规范化为固定的年份/slug 两段路由参数。
+ * 如果未来内容层改成更深层级，这里会在构建期直接报错，避免静默产出错误页面。
+ */
+const getYearSlugRouteParams = (slug: string, entryId?: string): YearSlugRouteParams => {
+  const segments = slug.split("/").filter(Boolean);
+
+  if (segments.length !== 2) {
+    const identifier = entryId ? ` for content entry "${entryId}"` : "";
+    throw new Error(
+      `Expected a year/slug content path${identifier}, but received "${slug}".`
+    );
+  }
+
+  const [year, slugSegment] = segments;
 
   return {
-    ...item,
-    slug: cleanSlug,
+    year,
+    slug: slugSegment,
   };
+};
+
+/**
+ * 将内容条目扩展为 locale-aware 结构。
+ * @param item 包含id属性的对象
+ * @returns 添加了 locale、slug、translationKey 属性的对象
+ */
+const toLocalizedEntry = <T extends { id: string; data: { translationKey: string } }>(
+  item: T
+): T & { locale: LocaleValues; slug: string; translationKey: string } => {
+  return Object.assign(item, {
+    locale: getEntryLocaleFromId(item.id),
+    slug: getEntrySlugFromId(item.id),
+    translationKey: item.data.translationKey,
+  });
 };
 
 export {
@@ -86,7 +138,11 @@ export {
   getEntryLastDate,
   sortEntriesByDateDesc,
   getPublishedOrUpdatedDate,
-  idToSlug,
+  getEntryLocaleFromId,
+  getEntrySlugFromId,
+  getYearSlugRouteParams,
+  toLocalizedEntry,
   type EntryDates,
   type EntryDatesResult,
+  type YearSlugRouteParams,
 };

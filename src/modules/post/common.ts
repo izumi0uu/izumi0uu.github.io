@@ -1,6 +1,6 @@
 import { render } from "astro:content";
 
-import { getAllEntries, idToSlug } from "@/modules/common";
+import { getAllEntries, toLocalizedEntry } from "@/modules/common";
 import { COLLECTIONS } from "@/constants/collections";
 
 import type { Post, PostCollection } from "@/types/post";
@@ -20,10 +20,9 @@ export const getPostsWithReadingTimeFromPosts = async (
 
   // other frontmatter props are in post.data...
   // readingTimes is in post.readingTimes
-  const postsWithReadingTimeAndSlug = posts.map((post, index) => ({
-    ...idToSlug(post),
-    ...readingTimes[index],
-  }));
+  const postsWithReadingTimeAndSlug = posts.map((post, index) =>
+    Object.assign(toLocalizedEntry(post), readingTimes[index])
+  );
 
   return postsWithReadingTimeAndSlug;
 };

@@ -1,82 +1,46 @@
 ---
-import { Image } from "astro:assets";
+import { DEFAULT_LOCALE, LOCAL_STORAGE_KEY, SUPPORTED_LOCALES } from "@/config/i18n";
 
-import { getPageMetadata } from "@/utils/content/metadata";
-import { cn } from "@/utils/ui/styles";
-import * as m from "@/paraglide/messages";
-import { getPathWithLocale } from "@/utils/routing/paths";
-
-import { ROUTES } from "@/constants/routes";
-import heroImage from "@/assets/images/hero-default.png";
-
-import Centered from "@/layouts/Centered.astro";
-
-import { FallingText } from "@/components/react/ui/FallingText";
-import { HeroBanner } from "@/components/app/home/HeroBanner";
-import { QuickLinksSection } from "@/components/app/home/QuickLinksSection";
-import { FadeUpAnimation } from "@/components/react/ui/FadeUpAnimation";
-import { GlassCard } from "@/components/react/ui/GlassCard";
-import { ScrollArea } from "@/components/react/radix-ui/Scroll";
-
-// 获取页面metadata（使用空字符串作为首页的key）
-const metadata = getPageMetadata("");
-
-const blogPath = getPathWithLocale(ROUTES.BLOG);
-
-const quickLinks = [
-  { name: "Blog", href: getPathWithLocale(ROUTES.BLOG), icon: "↗" },
-  { name: "Explore", href: getPathWithLocale(ROUTES.EXPLORE), icon: "↗" },
-  { name: "Project", href: getPathWithLocale(ROUTES.PROJECT), icon: "↗" },
-  { name: "About", href: getPathWithLocale(ROUTES.ABOUT), icon: "↗" },
-  { name: "Contact", href: getPathWithLocale(ROUTES.CONTACT), icon: "↗" },
-];
+const defaultHref = `/${DEFAULT_LOCALE}/`;
 ---
 
-<Centered {metadata} className="flex-col-layout first:gap-0 gap-8 md:gap-16">
-  <!-- Hero Page Section -->
-  <section
-    id="hero-page-section"
-    aria-label="hero-page-section"
-    class="flex-col-layout mode-theme-switch bg-surface-container rounded-sm"
-  >
-    <div
-      id="hero-page-wrapper"
-      aria-label="hero-page-wrapper"
-      class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4 min-h-[60vh] items-center"
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0;url=${defaultHref}`} />
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <a href={defaultHref}>Redirecting to {defaultHref}</a>
+
+    <script
+      is:inline
+      define:vars={{
+        defaultHref,
+        storageKey: LOCAL_STORAGE_KEY,
+        supportedLocales: SUPPORTED_LOCALES,
+      }}
     >
-      <div id="hero-page-content" class="flex flex-col gap-4 justify-start">
-        <HeroBanner blogPath={blogPath} client:only="react" />
-      </div>
-      <div
-        id="hero-page-image"
-        aria-label="hero-page-image"
-        class="hidden lg:flex items-center justify-center w-full h-full max-w-md max-h-[500px] mx-auto"
-      >
-        <Image
-          src={heroImage}
-          alt="Hero page illustration"
-          width={400}
-          height={500}
-          class="w-full h-auto object-contain rounded-lg shadow-lg"
-          loading="eager"
-          decoding="async"
-        />
-      </div>
-    </div>
-  </section>
+      const search = window.location.search ?? "";
+      const hash = window.location.hash ?? "";
 
-  <!-- Quick Links Section -->
-  <section id="quick-links" aria-label="quick-links" class="flex-col-layout mode-theme-switch">
-    <FadeUpAnimation title="Quick Links" client:visible>
-      <QuickLinksSection links={quickLinks} client:only="react" />
-    </FadeUpAnimation>
-  </section>
+      let targetHref = defaultHref;
 
-  <!-- Projects Section -->
-  <section
-    id="projects-preview"
-    aria-label="projects-preview"
-    class={cn("flex-col-layout mode-theme-switch bg-surface-container")}
-  >
-  </section>
-</Centered>
+      try {
+        const preferredLocale = localStorage.getItem(storageKey);
+
+        if (preferredLocale && supportedLocales.includes(preferredLocale)) {
+          targetHref = `/${preferredLocale}/`;
+        } else if (preferredLocale) {
+          localStorage.removeItem(storageKey);
+        }
+      } catch (error) {
+        console.warn("Unable to resolve preferred locale:", error);
+      }
+
+      window.location.replace(`${targetHref}${search}${hash}`);
+    </script>
+  </body>
+</html>

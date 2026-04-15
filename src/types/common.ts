@@ -1,4 +1,5 @@
 import type { COLLECTIONS } from "@/constants/collections";
+import type { LocaleValues } from "@/types/config";
 
 import type { Page } from "astro";
 import type { Image } from "astro:assets";
@@ -24,6 +25,26 @@ interface PaginationProps
     "url" | "currentPage" | "lastPage" | "start" | "end" | "total"
   > {}
 
+interface LocaleAlternate {
+  locale: LocaleValues;
+  href: string;
+}
+
+interface LocaleSwitchTarget {
+  currentLocale: LocaleValues;
+  targetLocale: LocaleValues;
+  href: string;
+  missingTranslation: boolean;
+}
+
 type AstroImageProps = ComponentProps<typeof Image>;
 
-export type { CollectionType, AnyCollection, Metadata, PaginationProps, AstroImageProps };
+export type {
+  CollectionType,
+  AnyCollection,
+  Metadata,
+  PaginationProps,
+  AstroImageProps,
+  LocaleAlternate,
+  LocaleSwitchTarget,
+};
