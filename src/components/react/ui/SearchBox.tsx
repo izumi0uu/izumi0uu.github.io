@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { ComponentType } from "react";
-import { Search, Sword, Swords, ShieldHalf } from "lucide-react";
+import { Book, FileText, Folder, Search } from "lucide-react";
 import { Button } from "@/components/react/radix-ui/Button";
 import {
   Command,
@@ -15,11 +15,14 @@ import {
 } from "@/components/react/radix-ui/Command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/react/radix-ui/Popover";
 
-type SearchSectionIcon = "tech" | "experience" | "project";
+type SearchSectionIcon = "blog" | "project" | "page";
 
 interface SearchOption {
   value: string;
   label: string;
+  href: string;
+  detail?: string;
+  keywords?: readonly string[];
 }
 
 interface SearchSection {
@@ -36,9 +39,9 @@ interface SearchBoxProps {
 }
 
 const iconMap = {
-  tech: Swords,
-  experience: Sword,
-  project: ShieldHalf,
+  blog: Book,
+  project: Folder,
+  page: FileText,
 } satisfies Record<SearchSectionIcon, ComponentType<{ className?: string }>>;
 
 const SearchBox = ({ placeholder, tipsPlaceholder, noResults, sections }: SearchBoxProps) => {
@@ -46,9 +49,13 @@ const SearchBox = ({ placeholder, tipsPlaceholder, noResults, sections }: Search
   const [value, setValue] = useState<string>("");
   const allOptions = sections.flatMap((section) => section.items);
 
-  const handleSelect = (currentValue: string) => {
-    setValue(currentValue === value ? "" : currentValue);
+  const handleSelect = (item: SearchOption) => {
+    setValue(item.value);
     setOpen(false);
+
+    if (typeof window !== "undefined" && window.location.pathname !== item.href) {
+      window.location.assign(item.href);
+    }
   };
 
   const getSelectedLabel = () => allOptions.find((option) => option.value === value)?.label;
@@ -83,9 +90,19 @@ const SearchBox = ({ placeholder, tipsPlaceholder, noResults, sections }: Search
                   {index > 0 && <CommandSeparator />}
                   <CommandGroup heading={section.heading}>
                     {section.items.map((item) => (
-                      <CommandItem key={item.value} value={item.value} onSelect={handleSelect}>
+                      <CommandItem
+                        key={item.value}
+                        value={item.label}
+                        keywords={item.keywords ? [...item.keywords] : undefined}
+                        onSelect={() => handleSelect(item)}
+                      >
                         <Icon className="mr-2 size-4" />
-                        <span>{item.label}</span>
+                        <div className="flex min-w-0 flex-col">
+                          <span>{item.label}</span>
+                          {item.detail && (
+                            <span className="text-xs text-on-surface-variant/80">{item.detail}</span>
+                          )}
+                        </div>
                       </CommandItem>
                     ))}
                   </CommandGroup>

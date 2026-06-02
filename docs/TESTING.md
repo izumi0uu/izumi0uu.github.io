@@ -44,6 +44,9 @@
 - `tests/e2e/locale-routing.spec.ts`
   - 根路径会尊重本地保存的首选语言并直接落到 `/zh/`
   - About 页面语言切换会命中对应的 locale 前缀静态路由
+- `tests/e2e/search.spec.ts`
+  - 搜索弹层会筛出真实文章结果
+  - 选择搜索结果后会跳转到对应的博客详情页
 
 ## Notes
 

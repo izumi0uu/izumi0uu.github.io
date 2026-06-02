@@ -53,6 +53,13 @@
 ## P1
 
 ### P1-01 让站内搜索真正可用
+- 状态：已完成（2026-06-02）
+- 完成说明：导航栏搜索已接入真实文章、项目和站点页面数据，用户可以直接筛选并跳转到对应内容；桌面端与移动端继续共用同一套 `SearchBox` 数据源和交互。
+- 完成证据：
+  - `src/components/Header.astro`
+  - `src/components/react/ui/SearchBox.tsx`
+  - `tests/e2e/search.spec.ts`
+  - 本地验证：`npm run lint`、`npm run check-types`、`npm run test:smoke`、`npm run test:e2e` 成功
 - 类型：Feature
 - 用户故事：作为访问者，我希望导航栏里的搜索框能真正搜索或跳转，而不是只展示一个选择器外壳。
 - 当前问题：搜索框已接入导航栏，但当前只维护本地选中状态，没有执行搜索、过滤、跳转或结果页联动。

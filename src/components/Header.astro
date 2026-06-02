@@ -5,6 +5,8 @@ import { SELECTORS } from "@/constants/dom";
 import { LOCALE_LABELS, LOCAL_STORAGE_KEY, LOCALE_NOTICE_STORAGE_KEY } from "@/config/i18n";
 import { CONFIG_CLIENT } from "@/config/client";
 import { ROUTES } from "@/constants/routes";
+import { getAllPostsWithReadingTime } from "@/modules/post/common";
+import { getAllProjects } from "@/modules/project/common";
 import { getPathWithLocale } from "@/utils/routing/paths";
 import * as m from "@/paraglide/messages";
 
@@ -17,6 +19,7 @@ export interface HeaderProps {
 }
 
 const { currentLocale, localeSwitch } = Astro.props as HeaderProps;
+const [posts, projects] = await Promise.all([getAllPostsWithReadingTime(), getAllProjects()]);
 
 const { SCROLL_TO_TOP_ID } = SELECTORS;
 const homeHref = getPathWithLocale(currentLocale, ROUTES.HOME);
@@ -43,45 +46,110 @@ const navLinks = [
   },
 ];
 
+const pageItems = [
+  {
+    value: `page:${currentLocale}:home`,
+    label: m["components.navigation_menu.home_link"](),
+    href: getPathWithLocale(currentLocale, ROUTES.HOME),
+  },
+  {
+    value: `page:${currentLocale}:blog`,
+    label: m["components.navigation_menu.blog_link"](),
+    href: getPathWithLocale(currentLocale, ROUTES.BLOG),
+  },
+  {
+    value: `page:${currentLocale}:project`,
+    label: m["components.navigation_menu.project_link"](),
+    href: getPathWithLocale(currentLocale, ROUTES.PROJECT),
+  },
+  {
+    value: `page:${currentLocale}:experience`,
+    label: m["components.navigation_menu.experience_link"](),
+    href: getPathWithLocale(currentLocale, ROUTES.EXPERIENCE),
+  },
+  {
+    value: `page:${currentLocale}:about`,
+    label: m["components.navigation_menu.about_link"](),
+    href: getPathWithLocale(currentLocale, ROUTES.ABOUT),
+  },
+].map((item) => ({
+  ...item,
+  detail: item.href,
+  keywords: [item.label, item.href, currentLocale],
+}));
+
+const postItems = posts
+  .slice()
+  .sort((left, right) => Number(right.locale === currentLocale) - Number(left.locale === currentLocale))
+  .map((post) => {
+    const href = getPathWithLocale(post.locale, `${ROUTES.BLOG}${post.slug}`);
+    const tags = post.data.tags ?? [];
+    const category = post.data.category ? [post.data.category] : [];
+
+    return {
+      value: `post:${post.locale}:${post.slug}`,
+      label: post.data.title,
+      href,
+      detail: `${LOCALE_LABELS[post.locale]} · ${href}`,
+      keywords: [
+        post.data.title,
+        post.data.description ?? "",
+        post.slug,
+        post.translationKey,
+        LOCALE_LABELS[post.locale],
+        ...tags,
+        ...category,
+      ],
+    };
+  });
+
+const projectItems = projects
+  .slice()
+  .sort(
+    (left, right) => Number(right.locale === currentLocale) - Number(left.locale === currentLocale)
+  )
+  .map((project) => {
+    const href = getPathWithLocale(project.locale, `${ROUTES.PROJECT}${project.slug}`);
+    const tags = project.data.tags ?? [];
+
+    return {
+      value: `project:${project.locale}:${project.slug}`,
+      label: project.data.title,
+      href,
+      detail: `${LOCALE_LABELS[project.locale]} · ${href}`,
+      keywords: [
+        project.data.title,
+        project.data.description ?? "",
+        project.slug,
+        project.translationKey,
+        LOCALE_LABELS[project.locale],
+        ...tags,
+      ],
+    };
+  });
+
 const searchBox = {
   placeholder: m["components.search_box.placeholder"](),
   tipsPlaceholder: m["components.search_box.tips_placeholder"](),
   noResults: m["components.search_box.no_results"](),
   sections: [
     {
-      heading: m["components.search_box.tech_options.title"](),
-      icon: "tech",
-      items: [
-        { value: "nextjs", label: m["components.search_box.tech_options.nextjs"]() },
-        { value: "react", label: m["components.search_box.tech_options.react"]() },
-        { value: "astro", label: m["components.search_box.tech_options.astro"]() },
-        { value: "web3", label: m["components.search_box.tech_options.web3"]() },
-        { value: "typescript", label: m["components.search_box.tech_options.typescript"]() },
-        { value: "javascript", label: m["components.search_box.tech_options.javascript"]() },
-      ],
+      heading: m["components.navigation_menu.blog_link"](),
+      icon: "blog",
+      items: postItems,
     },
     {
-      heading: m["components.search_box.experience_options.title"](),
-      icon: "experience",
-      items: [
-        { value: "hackathon", label: m["components.search_box.experience_options.hackathon"]() },
-        {
-          value: "open_source",
-          label: m["components.search_box.experience_options.open_source"](),
-        },
-        {
-          value: "telegram_bot",
-          label: m["components.search_box.experience_options.telegram_bot"](),
-        },
-      ],
-    },
-    {
-      heading: m["components.search_box.project_options.title"](),
+      heading: m["components.navigation_menu.project_link"](),
       icon: "project",
-      items: [{ value: "decode", label: m["components.search_box.project_options.Decode"]() }],
+      items: projectItems,
+    },
+    {
+      heading: m["components.navigation_menu.links_link"](),
+      icon: "page",
+      items: pageItems,
     },
   ],
-} as const;
+};
 
 const themeSwitcher = {
   label: m["components.theme_switcher.label"](),
