@@ -1,7 +1,10 @@
 ---
 import Centered from "@/layouts/Centered.astro";
+import { Link } from "@/components/react/ui/Link";
+import { CONFIG_CLIENT } from "@/config/client";
 import { getPageMetadata } from "@/utils/content/metadata";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
+import { getAboutPageContent, getProfileMetrics } from "@/modules/profile/content";
 import { getSupportedAlternates, getLocaleSwitchTarget } from "@/utils/routing/navigation";
 import { getPathWithLocale } from "@/utils/routing/paths";
 import { ROUTES } from "@/constants/routes";
@@ -17,11 +20,154 @@ export async function getStaticPaths() {
 
 const currentLocale = Astro.params.lang as LocaleValues;
 const metadata = getPageMetadata("about");
+const pageContent = getAboutPageContent(currentLocale);
+const metrics = await getProfileMetrics();
 const alternates = getSupportedAlternates((locale) => getPathWithLocale(locale, ROUTES.ABOUT));
 const localeSwitch = getLocaleSwitchTarget({ currentLocale, alternates });
 const currentPath = getPathWithLocale(currentLocale, ROUTES.ABOUT);
+const links = [
+  {
+    label: pageContent.linkLabels.blog,
+    href: getPathWithLocale(currentLocale, ROUTES.BLOG),
+  },
+  {
+    label: pageContent.linkLabels.projects,
+    href: getPathWithLocale(currentLocale, ROUTES.PROJECT),
+  },
+  {
+    label: pageContent.linkLabels.experience,
+    href: getPathWithLocale(currentLocale, ROUTES.EXPERIENCE),
+  },
+  {
+    label: pageContent.linkLabels.github,
+    href: CONFIG_CLIENT.AUTHOR_GITHUB,
+    external: true,
+  },
+  {
+    label: pageContent.linkLabels.linkedin,
+    href: CONFIG_CLIENT.AUTHOR_LINKEDIN,
+    external: true,
+  },
+  {
+    label: pageContent.linkLabels.email,
+    href: `mailto:${CONFIG_CLIENT.AUTHOR_EMAIL}`,
+    target: "_self",
+  },
+];
+const metricCards = [
+  {
+    key: "project-count",
+    value: metrics.projectCount,
+    label: pageContent.metricLabels.projectCount,
+    description: pageContent.metricDescriptions.projectCount,
+  },
+  {
+    key: "post-count",
+    value: metrics.postCount,
+    label: pageContent.metricLabels.postCount,
+    description: pageContent.metricDescriptions.postCount,
+  },
+  {
+    key: "archive-years",
+    value: metrics.archiveYears,
+    label: pageContent.metricLabels.archiveYears,
+    description: pageContent.metricDescriptions.archiveYears,
+  },
+  {
+    key: "locale-count",
+    value: metrics.localeCount,
+    label: pageContent.metricLabels.localeCount,
+    description: pageContent.metricDescriptions.localeCount,
+  },
+];
+const surfaceCardClass =
+  "rounded-sm border-2 border-outline bg-surface p-5 shadow-[4px_4px_0_0_var(--color-outline)]";
+const pillClass =
+  "rounded-full border border-outline/70 bg-surface-container px-3 py-1 text-xs font-medium text-content";
 ---
 
 <Centered {metadata} {alternates} {localeSwitch} {currentLocale} currentPath={currentPath}>
-  <h1>{m["pages.about.heading"]()}</h1>
+  <section class="mx-auto flex w-full max-w-5xl flex-col gap-5">
+    <p class="text-sm font-medium uppercase tracking-[0.22em] text-captions">
+      {pageContent.eyebrow}
+    </p>
+    <h1 class="text-4xl font-bold text-headings md:text-5xl">{m["pages.about.heading"]()}</h1>
+    {
+      pageContent.intro.map((paragraph) => (
+        <p class="max-w-4xl text-lg leading-8 text-content">{paragraph}</p>
+      ))
+    }
+  </section>
+
+  <section
+    data-testid="about-metrics"
+    class="mx-auto mt-8 grid w-full max-w-5xl grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4"
+  >
+    {
+      metricCards.map((card) => (
+        <article class={surfaceCardClass}>
+          <p class="text-sm font-medium uppercase tracking-[0.16em] text-captions">{card.label}</p>
+          <p
+            data-testid={`about-${card.key}`}
+            class="mt-3 text-3xl font-semibold text-headings md:text-4xl"
+          >
+            {card.value}
+          </p>
+          <p class="mt-3 text-sm leading-7 text-content">{card.description}</p>
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="mx-auto mt-12 flex w-full max-w-5xl flex-col gap-6">
+    <div class="space-y-2">
+      <h2 class="text-2xl font-semibold text-headings">{pageContent.focusTitle}</h2>
+      <p class="text-base leading-7 text-content">{metadata.description}</p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-5 xl:grid-cols-3">
+      {
+        pageContent.focusAreas.map((section) => (
+          <article class={surfaceCardClass}>
+            <h3 class="text-xl font-semibold text-headings">{section.title}</h3>
+            <p class="mt-3 text-sm leading-7 text-content">{section.description}</p>
+
+            <div class="mt-4 flex flex-wrap gap-2">
+              {section.chips.map((chip) => (
+                <span class={pillClass}>{chip}</span>
+              ))}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto mt-12 grid w-full max-w-5xl grid-cols-1 gap-5 xl:grid-cols-[1.2fr_0.8fr]">
+    <article class={surfaceCardClass}>
+      <h2 class="text-2xl font-semibold text-headings">{pageContent.principlesTitle}</h2>
+      <ul class="mt-4 space-y-3 text-sm leading-7 text-content">
+        {pageContent.principles.map((principle) => <li>{principle}</li>)}
+      </ul>
+    </article>
+
+    <article class={surfaceCardClass}>
+      <h2 class="text-2xl font-semibold text-headings">{pageContent.linksTitle}</h2>
+      <div class="mt-4 flex flex-wrap gap-3">
+        {
+          links.map((link) => (
+            <Link
+              href={link.href}
+              variant="outline"
+              size="sm"
+              external={link.external}
+              target={link.target}
+            >
+              {link.label}
+            </Link>
+          ))
+        }
+      </div>
+    </article>
+  </section>
 </Centered>

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Sword, Swords, ShieldHalf } from "lucide-react";
+import type { ComponentType } from "react";
+import { Book, FileText, Folder, Search } from "lucide-react";
 import { Button } from "@/components/react/radix-ui/Button";
 import {
   Command,
@@ -14,46 +15,50 @@ import {
 } from "@/components/react/radix-ui/Command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/react/radix-ui/Popover";
 
-import * as m from "@/paraglide/messages";
+type SearchSectionIcon = "blog" | "project" | "page";
 
-const techOptions = [
-  { value: "nextjs", label: m["components.search_box.tech_options.nextjs"] },
-  { value: "react", label: m["components.search_box.tech_options.react"] },
-  { value: "astro", label: m["components.search_box.tech_options.astro"] },
-  { value: "web3", label: m["components.search_box.tech_options.web3"] },
-  { value: "typescript", label: m["components.search_box.tech_options.typescript"] },
-  { value: "javascript", label: m["components.search_box.tech_options.javascript"] },
-];
+interface SearchOption {
+  value: string;
+  label: string;
+  href: string;
+  detail?: string;
+  keywords?: readonly string[];
+}
 
-const experienceOptions = [
-  { value: "hackathon", label: m["components.search_box.experience_options.hackathon"] },
-  { value: "open_source", label: m["components.search_box.experience_options.open_source"] },
-  { value: "telegram_bot", label: m["components.search_box.experience_options.telegram_bot"] },
-];
+interface SearchSection {
+  heading: string;
+  icon: SearchSectionIcon;
+  items: readonly SearchOption[];
+}
 
-const projectOptions = [
-  { value: "decode", label: m["components.search_box.project_options.Decode"] },
-];
+interface SearchBoxProps {
+  placeholder: string;
+  tipsPlaceholder: string;
+  noResults: string;
+  sections: readonly SearchSection[];
+}
 
-const allOptions = [...techOptions, ...experienceOptions, ...projectOptions];
+const iconMap = {
+  blog: Book,
+  project: Folder,
+  page: FileText,
+} satisfies Record<SearchSectionIcon, ComponentType<{ className?: string }>>;
 
-const SearchBox = () => {
+const SearchBox = ({ placeholder, tipsPlaceholder, noResults, sections }: SearchBoxProps) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<string>("");
+  const allOptions = sections.flatMap((section) => section.items);
 
-  // 确保只在客户端渲染
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  const handleSelect = (currentValue: string) => {
-    setValue(currentValue === value ? "" : currentValue);
+  const handleSelect = (item: SearchOption) => {
+    setValue(item.value);
     setOpen(false);
+
+    if (typeof window !== "undefined" && window.location.pathname !== item.href) {
+      window.location.assign(item.href);
+    }
   };
 
-  const getSelectedLabel = () => {
-    return allOptions.find((option) => option.value === value)?.label();
-  };
+  const getSelectedLabel = () => allOptions.find((option) => option.value === value)?.label;
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -65,7 +70,7 @@ const SearchBox = () => {
           aria-expanded={open}
           className="group w-[200px] justify-between"
         >
-          {value ? getSelectedLabel() : m["components.search_box.placeholder"]()}
+          {value ? getSelectedLabel() : placeholder}
 
           <div className="ml-2 transition-transform duration-200 ease-in-out group-hover:scale-125">
             <Search className="h-4 w-4 shrink-0 opacity-100" />
@@ -74,39 +79,36 @@ const SearchBox = () => {
       </PopoverTrigger>
       <PopoverContent className="w-[300px] border-0 p-0 shadow-none">
         <Command>
-          <CommandInput placeholder={m["components.search_box.tips_placeholder"]()} />
+          <CommandInput placeholder={tipsPlaceholder} />
           <CommandList>
-            <CommandEmpty>{m["components.search_box.no_results"]()}</CommandEmpty>
-            <CommandGroup heading={m["components.search_box.tech_options.title"]()}>
-              {techOptions.map((tech) => (
-                <CommandItem key={tech.value} value={tech.value} onSelect={handleSelect}>
-                  <Swords className="mr-2 size-4" />
-                  <span>{tech.label()}</span>
-                </CommandItem>
-              ))}
-            </CommandGroup>
-            <CommandSeparator />
-            <CommandGroup heading={m["components.search_box.experience_options.title"]()}>
-              {experienceOptions.map((experience) => (
-                <CommandItem
-                  key={experience.value}
-                  value={experience.value}
-                  onSelect={handleSelect}
-                >
-                  <Sword className="mr-2 size-4" />
-                  <span>{experience.label()}</span>
-                </CommandItem>
-              ))}
-            </CommandGroup>
-            <CommandSeparator />
-            <CommandGroup heading={m["components.search_box.project_options.title"]()}>
-              {projectOptions.map((project) => (
-                <CommandItem key={project.value} value={project.value} onSelect={handleSelect}>
-                  <ShieldHalf className="mr-2 size-4" />
-                  <span>{project.label()}</span>
-                </CommandItem>
-              ))}
-            </CommandGroup>
+            <CommandEmpty>{noResults}</CommandEmpty>
+            {sections.map((section, index) => {
+              const Icon = iconMap[section.icon];
+
+              return (
+                <div key={section.heading}>
+                  {index > 0 && <CommandSeparator />}
+                  <CommandGroup heading={section.heading}>
+                    {section.items.map((item) => (
+                      <CommandItem
+                        key={item.value}
+                        value={item.label}
+                        keywords={item.keywords ? [...item.keywords] : undefined}
+                        onSelect={() => handleSelect(item)}
+                      >
+                        <Icon className="mr-2 size-4" />
+                        <div className="flex min-w-0 flex-col">
+                          <span>{item.label}</span>
+                          {item.detail && (
+                            <span className="text-xs text-on-surface-variant/80">{item.detail}</span>
+                          )}
+                        </div>
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </div>
+              );
+            })}
           </CommandList>
         </Command>
       </PopoverContent>
@@ -115,3 +117,4 @@ const SearchBox = () => {
 };
 
 export { SearchBox };
+export type { SearchBoxProps, SearchSection, SearchOption, SearchSectionIcon };

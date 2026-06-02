@@ -1,18 +1,22 @@
 import { CATEGORIES } from "@/constants/collections";
 import { ROUTES } from "@/constants/routes";
+import { getPathWithLocale } from "@/utils/routing/paths";
 
+import type { LocaleValues } from "@/types/config";
 import type { CategoryType } from "@/types/constants";
 import type { Filter, FilterLink, PostCollection } from "@/types/post";
 
-export const getAllCategories = (posts: PostCollection[]): string[] =>
+type PostWithCategory = Pick<PostCollection, "data">;
+
+export const getAllCategories = (posts: readonly PostWithCategory[]): string[] =>
   posts.map((post) => post.data.category).filter(Boolean) as string[];
 
-export const getUniqueCategories = (posts: PostCollection[]): string[] => {
+export const getUniqueCategories = (posts: readonly PostWithCategory[]): string[] => {
   const uniqueCategories = [...new Set([...getAllCategories(posts)])];
   return uniqueCategories;
 };
 
-export const getSortedUniqueCategoriesWithCount = (posts: PostCollection[]): Filter[] => {
+export const getSortedUniqueCategoriesWithCount = (posts: readonly PostWithCategory[]): Filter[] => {
   const categories = getAllCategories(posts);
   if (!(categories.length > 0)) return [];
 
@@ -23,28 +27,24 @@ export const getSortedUniqueCategoriesWithCount = (posts: PostCollection[]): Fil
     return { text: category, count };
   });
 
-  const sortedCategoriesWithCount = categoriesWithCount.slice().sort((a, b) => b.count - a.count);
+  const sortedCategoriesWithCount = categoriesWithCount
+    .slice()
+    .sort((a, b) => b.count - a.count || a.text.localeCompare(b.text));
   return sortedCategoriesWithCount;
 };
 
-export const getCategoryLinks = (posts: PostCollection[], pathname?: string): FilterLink[] => {
+export const getCategoryLinks = (
+  locale: LocaleValues,
+  posts: readonly PostWithCategory[]
+): FilterLink[] => {
   const filterItems = getSortedUniqueCategoriesWithCount(posts);
 
-  const itemLinks = filterItems.map((item) => {
-    const { text, count } = item;
-
-    const originalHref = `${ROUTES.EXPLORE_CATEGORIES}${text}`;
-    const textWithCount = `${text} ${count}`;
-
-    const isActive = originalHref === pathname;
-    const href = !isActive ? originalHref : ROUTES.EXPLORE;
-
-    const link = { href, text, count, textWithCount, isActive };
-
-    return link;
-  });
-
-  return itemLinks;
+  return filterItems.map(({ text, count }) => ({
+    href: getPathWithLocale(locale, `${ROUTES.EXPLORE_CATEGORIES}${text}`),
+    text,
+    count,
+    textWithCount: `${text} ${count}`,
+  }));
 };
 
 const defaultCategory = CATEGORIES[0];

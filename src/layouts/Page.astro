@@ -26,9 +26,7 @@ const { title, description, class: className, articleClass } = content;
 // available in Layouts
 const { pathname } = Astro.url;
 
-// og image for metadata, only call in layouts
-const path = `/pages${pathname}`;
-const image = getOpenGraphImagePath(path);
+const image = getOpenGraphImagePath(`/pages${pathname}`);
 
 const metadata = { title, description, image };
 ---

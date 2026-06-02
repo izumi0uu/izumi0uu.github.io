@@ -1,0 +1,118 @@
+---
+import List from "@/layouts/List.astro";
+import BlogSectionNav from "@/components/app/blog/BlogSectionNav.astro";
+import PostList from "@/components/app/blog/PostList.astro";
+import { CONFIG_CLIENT } from "@/config/client";
+import { SUPPORTED_LOCALES } from "@/config/i18n";
+import { getPageMetadata } from "@/utils/content/metadata";
+import { pickPaginationPropsFromPage } from "@/utils/content/pagination";
+import { getAllPostsWithReadingTime } from "@/modules/post/common";
+import { getBlogCategoryPagePath } from "@/modules/post/routes";
+import { getUniqueCategories } from "@/modules/post/category";
+import * as m from "@/paraglide/messages";
+
+import type { GetStaticPathsOptions } from "astro";
+import type { LocaleAlternate, LocaleSwitchTarget, PaginationProps } from "@/types/common";
+import type { LocaleValues } from "@/types/config";
+import type { Post } from "@/types/post";
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const allPosts = await getAllPostsWithReadingTime();
+  const allCategories = getUniqueCategories(allPosts);
+  const pageSize = CONFIG_CLIENT.PAGE_SIZE_POST_CARD;
+  const paths = [];
+
+  for (const category of allCategories) {
+    for (const lang of SUPPORTED_LOCALES) {
+      const localizedPosts = allPosts.filter(
+        (post) => post.locale === lang && post.data.category === category
+      );
+      const targetLocale = SUPPORTED_LOCALES.find((locale) => locale !== lang) ?? lang;
+
+      if (localizedPosts.length === 0) {
+        paths.push({
+          params: { lang, category },
+          props: {
+            category,
+            posts: [],
+            alternates: SUPPORTED_LOCALES.map((locale) => ({
+              locale,
+              href: getBlogCategoryPagePath(locale, category),
+            })),
+            localeSwitch: {
+              currentLocale: lang,
+              targetLocale,
+              href: getBlogCategoryPagePath(targetLocale, category),
+              missingTranslation: false,
+            },
+          },
+        });
+
+        continue;
+      }
+
+      const paginatedPaths = paginate(localizedPosts, {
+        pageSize,
+        params: { lang, category },
+      });
+
+      paths.push(
+        ...paginatedPaths.map((path) => {
+          const currentPage = path.props.page.currentPage;
+
+          return {
+            params: path.params,
+            props: {
+              category,
+              posts: path.props.page.data,
+              paginationProps: pickPaginationPropsFromPage(path.props.page),
+              alternates: SUPPORTED_LOCALES.map((locale) => ({
+                locale,
+                href: getBlogCategoryPagePath(locale, category, currentPage),
+              })),
+              localeSwitch: {
+                currentLocale: lang,
+                targetLocale,
+                href: getBlogCategoryPagePath(targetLocale, category, currentPage),
+                missingTranslation: false,
+              },
+            },
+          };
+        })
+      );
+    }
+  }
+
+  return paths;
+}
+
+const {
+  category,
+  posts,
+  paginationProps,
+  alternates,
+  localeSwitch,
+} = Astro.props as {
+  category: string;
+  posts: Post[];
+  paginationProps?: PaginationProps;
+  alternates: LocaleAlternate[];
+  localeSwitch: LocaleSwitchTarget;
+};
+
+const currentLocale = Astro.params.lang as LocaleValues;
+const metadata = {
+  ...getPageMetadata("lists/blog/categories/category"),
+  title: `${m["pages.lists.blog.categories.category_title"]()}: ${category}`,
+};
+const currentPath = getBlogCategoryPagePath(
+  currentLocale,
+  category,
+  paginationProps?.currentPage ?? 1
+);
+---
+
+<List {metadata} {paginationProps} {alternates} {localeSwitch} {currentLocale} currentPath={currentPath}>
+  <BlogSectionNav currentLocale={currentLocale} activeKey="categories" />
+  <PostList posts={posts} />
+</List>

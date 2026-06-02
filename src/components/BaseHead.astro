@@ -1,7 +1,6 @@
 ---
 // load fonts and font utils
 import FontLoader from "@/components/fonts/FontLoader.astro";
-import GoogleFontsLoader from "@/components/fonts/GoogleFontsLoader.astro";
 import FontUtils from "@/components/fonts/FontUtils.astro";
 
 // load styles
@@ -12,9 +11,6 @@ import { DEFAULT_METADATA } from "@/constants/metadata";
 
 // load config
 import { CONFIG_CLIENT } from "@/config/client";
-
-// load transitions
-import { ClientRouter } from "astro:transitions";
 
 // load theme-script component
 import ThemeScript from "@/components/ThemeScript.astro";
@@ -113,6 +109,13 @@ const ogImageUrl = new URL(image, SITE_URL_CANONICAL);
 
   {/* Sitemap */}
   <link rel="sitemap" type="application/xml" title="Sitemap" href={`${ROUTES.STATIC.SITEMAP}`} />
+  <link
+    rel="alternate"
+    type="application/feed+json"
+    title="JSON Feed"
+    href={ROUTES.API.FEED_JSON}
+  />
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed" href={ROUTES.API.FEED_RSS} />
 
   {/* Open Graph / Facebook */}
   <meta property="og:type" content="website" />
@@ -170,17 +173,13 @@ const ogImageUrl = new URL(image, SITE_URL_CANONICAL);
   {/* MUST be inside <head /> to avoid white flash, IMPORTANT */}
   <ThemeScript />
 
-  {/* turn on the feature of view transitions in Astro */}
-  {/* DISABLED FOR NOW, LEAD TO MEMORY LEAK WITH GSAP */}
-  <!-- <ClientRouter fallback="none" /> -->
+  {/* Keep browser-native same-origin view transitions, but leave Astro's ClientRouter */}
+  {/* disabled until every global script is safe under transition-time re-execution. */}
 
-  {/* Load local fonts (Inter + JetBrains Mono) */}
+  {/* Load local Latin and code fonts on the critical path */}
   <FontLoader />
 
-  {/* Load Chinese fonts (Noto Sans SC) */}
-  <GoogleFontsLoader />
-
-  {/* Load font utility classes */}
+  {/* Load font utility classes and stable system CJK fallbacks */}
   <FontUtils />
 
   {/* 启用视图过渡动画 */}

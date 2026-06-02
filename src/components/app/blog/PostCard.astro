@@ -51,6 +51,7 @@ const { lastAccessDate, isUpdatedDate } = getPublishedOrUpdatedDate({
 });
 
 const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
+const categoryHref = getPathWithLocale(post.locale, `${ROUTES.EXPLORE_CATEGORIES}${category}`);
 ---
 
 <article
@@ -95,7 +96,9 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
     >
       <span class="inline-flex items-center gap-2">
         <Icon name={categoryIcon} class="w-4 h-4" />
-        <span class="pb-0.5">{category}</span>
+        <a href={categoryHref} class="pb-0.5 hover:text-primary">
+          {category}
+        </a>
       </span>
 
       <span class="inline-flex items-center gap-2 text-captions">

@@ -1,0 +1,32 @@
+---
+import type { FilterLink } from "@/types/post";
+
+export interface Props {
+  links: FilterLink[];
+  emptyText: string;
+}
+
+const { links, emptyText } = Astro.props as Props;
+---
+
+{
+  links.length > 0 ? (
+    <ul class="flex flex-wrap gap-3">
+      {links.map(({ href, text, count }) => (
+        <li>
+          <a
+            href={href}
+            class="inline-flex items-center gap-2 rounded-full border border-outline/70 bg-surface px-4 py-2 text-sm text-content transition-colors hover:border-outline hover:text-primary"
+          >
+            <span>{text}</span>
+            <span class="rounded-full bg-surface-container px-2 py-0.5 text-xs text-captions">
+              {count}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="text-content">{emptyText}</p>
+  )
+}

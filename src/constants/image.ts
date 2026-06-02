@@ -183,11 +183,10 @@ export const IMAGE_SIZES = {
       loading: "eager",
     },
   },
-  // TODO: USE 3rd GITPAGES CMS
   /**
-   * @description REMOTE configurations for images in public directory
-   * These require explicit width/height to prevent CLS (Cumulative Layout Shift)
-   * Use when images are stored in public/ folder and accessed via absolute URLs
+   * @description REMOTE configurations for absolute image URLs.
+   * These presets stay generic for future remote assets, but the current site content still ships
+   * from the repository-local MDX collections under src/content.
    */
   REMOTE: {
     POST_CARD: {

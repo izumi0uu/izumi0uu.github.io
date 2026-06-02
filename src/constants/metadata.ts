@@ -3,12 +3,12 @@ import * as m from "@/paraglide/messages";
 
 import type { Metadata } from "@/types/common";
 
-// can't import getOpenGraphImagePath from image-path.ts here, avoid circular dependency
+import { ROUTES } from "@/constants/routes";
 
 const { SITE_TITLE, SITE_DESCRIPTION, SITE_URL, AUTHOR_NAME } = CONFIG_CLIENT;
 
 /** @description Must be url from "public" folder. */
-const defaultOgImage = `${SITE_URL}/images/default/default-open-graph-image.jpg`;
+const defaultOgImage = `${SITE_URL}${ROUTES.STATIC.DEFAULT_OG_IMAGE}`;
 
 const titleSeparator = "-";
 
@@ -21,7 +21,7 @@ const DEFAULT_METADATA: Required<Metadata> = {
 } as const;
 
 /**
- * @description used for ogImage api route and metadata for all pages that aren't defined in markdown frontmatter.
+ * @description used for metadata for all pages that aren't defined in markdown frontmatter.
  * Add it here for every new page.
  * Values are functions that return localized strings using ParaglideJS.
  */
@@ -72,6 +72,7 @@ const PAGE_METADATA = {
   },
   "lists/experience": {
     getTitle: () => m["pages.lists.experience.title"](),
+    getDescription: () => m["pages.lists.experience.description"](),
   },
   "lists/links": {
     getTitle: () => m["pages.lists.links.title"](),

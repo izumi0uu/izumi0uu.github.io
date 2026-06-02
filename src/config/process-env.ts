@@ -1,5 +1,6 @@
 import { envField } from "astro/config";
 import dotenv from "dotenv";
+import { existsSync, readFileSync } from "node:fs";
 
 import { nodeEnvValues, processEnvSchema } from "../schemas/config";
 import { prettyPrintObject } from "../utils/system/log";
@@ -23,8 +24,45 @@ if (!NODE_ENV || !nodeEnvValues.includes(NODE_ENV as (typeof nodeEnvValues)[numb
 }
 
 const envFileName = `.env.${NODE_ENV}`;
-// use dotenv to load the .env file, add the variables to process.env
-dotenv.config({ path: envFileName });
+const defaultProductionSiteUrl = "https://izumi0uu.com";
+
+const parseEnvFile = (filePath: string): Record<string, string> =>
+  existsSync(filePath) ? dotenv.parse(readFileSync(filePath)) : {};
+
+const envFilesToLoad = [".env", envFileName].filter(
+  (filePath, index, files) => files.indexOf(filePath) === index
+);
+
+const loadedEnvFiles = envFilesToLoad.filter((filePath) => existsSync(filePath));
+const parsedEnvFiles = loadedEnvFiles.reduce<Record<string, string>>(
+  (mergedEnv, filePath) => ({
+    ...mergedEnv,
+    ...parseEnvFile(filePath),
+  }),
+  {}
+);
+
+if (NODE_ENV === "production" && !existsSync(envFileName)) {
+  console.warn(
+    `[env] Missing ${envFileName}. Falling back to built-in public defaults for production build metadata.`
+  );
+}
+
+const resolvedEnvValues = {
+  PREVIEW_MODE: process.env.PREVIEW_MODE ?? parsedEnvFiles.PREVIEW_MODE ?? "false",
+  SITE_URL:
+    process.env.SITE_URL ??
+    parsedEnvFiles.SITE_URL ??
+    (NODE_ENV === "production" ? defaultProductionSiteUrl : undefined),
+  PLAUSIBLE_SCRIPT_URL: process.env.PLAUSIBLE_SCRIPT_URL ?? parsedEnvFiles.PLAUSIBLE_SCRIPT_URL,
+  PLAUSIBLE_DOMAIN: process.env.PLAUSIBLE_DOMAIN ?? parsedEnvFiles.PLAUSIBLE_DOMAIN,
+};
+
+for (const [key, value] of Object.entries(resolvedEnvValues)) {
+  if (value !== undefined) {
+    process.env[key] = value;
+  }
+}
 
 /*------------------ validate processEnvData -----------------*/
 // from `process.env` extract the project required environment variables
@@ -40,6 +78,7 @@ const processEnvData: ProcessEnvType = {
   PLAUSIBLE_DOMAIN: process.env.PLAUSIBLE_DOMAIN,
 };
 prettyPrintObject(processEnvData, "received PROCESS_ENV");
+prettyPrintObject({ loadedEnvFiles, envFileName }, "resolved env files");
 
 const PROCESS_ENV = validateData(processEnvData, processEnvSchema);
 

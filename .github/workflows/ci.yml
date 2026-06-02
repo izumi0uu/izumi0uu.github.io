@@ -1,0 +1,15 @@
+name: Pull request quality gate
+
+on:
+  pull_request:
+    branches:
+      - "main"
+  workflow_dispatch:
+
+jobs:
+  quality-gates:
+    uses: ./.github/workflows/test-gates.yml
+    permissions:
+      contents: read
+    with:
+      run_e2e: false

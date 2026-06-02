@@ -107,6 +107,7 @@ const postMetaProps = {
   publishDate,
   readingTime,
   updatedDate,
+  locale: post.locale,
 };
 
 const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
@@ -114,6 +115,7 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
 const metadata: Metadata = {
   title,
   description,
+  image: !noHero && heroImage ? heroImage : undefined,
 };
 const currentPath = getPostPath(post.locale, slug);
 ---
@@ -185,9 +187,12 @@ const currentPath = getPostPath(post.locale, slug);
         tags.length > 0 && (
           <div class="flex flex-wrap gap-2">
             {tags.map((tag) => (
-              <span class="px-3 py-1 text-sm bg-primary-container text-on-primary-container rounded-full">
+              <a
+                href={getPathWithLocale(post.locale, `${ROUTES.EXPLORE_TAGS}${tag}`)}
+                class="rounded-full bg-primary-container px-3 py-1 text-sm text-on-primary-container transition-opacity hover:opacity-85"
+              >
                 {tag}
-              </span>
+              </a>
             ))}
           </div>
         )

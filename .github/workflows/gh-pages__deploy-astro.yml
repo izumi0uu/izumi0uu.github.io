@@ -28,8 +28,16 @@ env:
   PLAUSIBLE_DOMAIN: "izumi0uu.github.io"
 
 jobs:
+  release-gates:
+    uses: ./.github/workflows/test-gates.yml
+    permissions:
+      contents: read
+    with:
+      run_e2e: true
+
   # build with astro action, unusable for monorepo
   build-astro:
+    needs: release-gates
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git

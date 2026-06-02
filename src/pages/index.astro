@@ -9,12 +9,10 @@ const defaultHref = `/${DEFAULT_LOCALE}/`;
   <head>
     <meta charset="utf-8" />
     <meta name="robots" content="noindex" />
-    <meta http-equiv="refresh" content={`0;url=${defaultHref}`} />
     <title>Redirecting...</title>
-  </head>
-  <body>
-    <a href={defaultHref}>Redirecting to {defaultHref}</a>
-
+    <noscript>
+      <meta http-equiv="refresh" content={`0;url=${defaultHref}`} />
+    </noscript>
     <script
       is:inline
       define:vars={{
@@ -42,5 +40,10 @@ const defaultHref = `/${DEFAULT_LOCALE}/`;
 
       window.location.replace(`${targetHref}${search}${hash}`);
     </script>
+  </head>
+  <body>
+    <noscript>
+      <a href={defaultHref}>Redirecting to {defaultHref}</a>
+    </noscript>
   </body>
 </html>

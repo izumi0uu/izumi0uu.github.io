@@ -76,7 +76,7 @@ const {
 const { data, slug } = project;
 const { draft, title, publishDate, updatedDate, description, heroImage, heroAlt, tags } = data;
 const currentPath = getProjectPath(project.locale, slug);
-const image = getOpenGraphImagePath(currentPath);
+const image = heroImage ?? getOpenGraphImagePath(currentPath);
 
 const metadata: Metadata = { title, description, image };
 const { Content } = await render(project as ProjectCollection);

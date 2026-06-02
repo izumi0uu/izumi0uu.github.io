@@ -1,0 +1,77 @@
+name: Shared test gates
+
+on:
+  workflow_call:
+    inputs:
+      run_e2e:
+        description: Run the release e2e gate in addition to the PR-quality gate.
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+env:
+  SITE_URL: "https://izumi0uu.github.io"
+  PLAUSIBLE_SCRIPT_URL: "https://plausible.arm1.izumi0uu.com/js/script.js"
+  PLAUSIBLE_DOMAIN: "izumi0uu.github.io"
+
+jobs:
+  quality-gate:
+    name: PR quality gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.11.1"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint source files
+        run: npm run lint
+
+      - name: Check TypeScript
+        run: npm run check-types
+
+      - name: Verify production build
+        run: npm run build
+
+      - name: Run smoke contracts
+        run: npm run test:smoke
+
+  release-e2e:
+    name: Release e2e gate
+    if: ${{ inputs.run_e2e }}
+    needs: quality-gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.11.1"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browser dependencies
+        run: npx playwright install --with-deps chromium
+
+      - name: Run e2e regression suite
+        run: npm run test:e2e

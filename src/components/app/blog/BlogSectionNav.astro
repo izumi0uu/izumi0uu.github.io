@@ -1,0 +1,57 @@
+---
+import { ROUTES } from "@/constants/routes";
+import { getPathWithLocale } from "@/utils/routing/paths";
+import * as m from "@/paraglide/messages";
+
+import type { LocaleValues } from "@/types/config";
+
+type ActiveKey = "blog" | "explore" | "tags" | "categories";
+
+export interface Props {
+  currentLocale: LocaleValues;
+  activeKey: ActiveKey;
+}
+
+const { currentLocale, activeKey } = Astro.props as Props;
+
+const links = [
+  {
+    key: "blog",
+    href: getPathWithLocale(currentLocale, ROUTES.BLOG),
+    label: m["components.navigation_menu.blog_link"](),
+  },
+  {
+    key: "explore",
+    href: getPathWithLocale(currentLocale, ROUTES.EXPLORE),
+    label: m["components.navigation_menu.explore_link"](),
+  },
+  {
+    key: "tags",
+    href: getPathWithLocale(currentLocale, ROUTES.EXPLORE_TAGS),
+    label: m["pages.lists.blog.tags.title"](),
+  },
+  {
+    key: "categories",
+    href: getPathWithLocale(currentLocale, ROUTES.EXPLORE_CATEGORIES),
+    label: m["pages.lists.blog.categories.title"](),
+  },
+] as const;
+---
+
+<nav aria-label="Blog sections" class="mb-8 flex flex-wrap gap-3">
+  {
+    links.map((link) => (
+      <a
+        href={link.href}
+        class:list={[
+          "inline-flex items-center rounded-full border px-4 py-2 text-sm transition-colors",
+          link.key === activeKey
+            ? "border-outline bg-primary text-on-primary"
+            : "border-outline/60 bg-surface-container text-content hover:border-outline hover:text-primary",
+        ]}
+      >
+        {link.label}
+      </a>
+    ))
+  }
+</nav>

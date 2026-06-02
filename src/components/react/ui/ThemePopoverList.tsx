@@ -10,8 +10,6 @@ import {
 } from "@/components/react/radix-ui/DropdownMenu";
 import { Palette } from "lucide-react";
 
-import * as m from "@/paraglide/messages";
-
 import type { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
 import type { ChangeThemeCustomEvent } from "@/types/constants";
 
@@ -30,6 +28,9 @@ type Checked = DropdownMenuCheckboxItemProps["checked"];
 
 interface ThemePopoverListProps {
   className?: string;
+  label: string;
+  cancelLabel: string;
+  themeLabels: Record<string, string>;
 }
 
 /**
@@ -37,17 +38,15 @@ interface ThemePopoverListProps {
  * @param themePrefix - 主题前缀（如 "default", "wine"）
  * @returns 翻译后的主题显示名称
  */
-const getThemeDisplayName = (themePrefix: string): string => {
-  const themeMap: Record<string, () => string> = {
-    default: () => m["components.theme_switcher.themes.default"](),
-    wine: () => m["components.theme_switcher.themes.wine"](),
-  };
+const getThemeDisplayName = (themePrefix: string, themeLabels: Record<string, string>): string =>
+  themeLabels[themePrefix] ?? themePrefix.charAt(0).toUpperCase() + themePrefix.slice(1);
 
-  // 如果找到对应的翻译，使用翻译；否则返回首字母大写的原始前缀
-  return themeMap[themePrefix]?.() ?? themePrefix.charAt(0).toUpperCase() + themePrefix.slice(1);
-};
-
-const ThemePopoverList: React.FC<ThemePopoverListProps> = ({ className }) => {
+const ThemePopoverList: React.FC<ThemePopoverListProps> = ({
+  className,
+  label,
+  cancelLabel,
+  themeLabels,
+}) => {
   const [currentThemePrefix, setCurrentThemePrefix] = useState<string>("");
   const [availableThemes, setAvailableThemes] = useState<string[]>([]);
 
@@ -110,11 +109,11 @@ const ThemePopoverList: React.FC<ThemePopoverListProps> = ({ className }) => {
           <div className="transition-transform duration-200 ease-in-out group-hover:scale-125">
             <Palette className="h-4 w-4 shrink-0 opacity-100" />
           </div>
-          <span className="sr-only">{m["components.theme_switcher.label"]()}</span>
+          <span className="sr-only">{label}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>{m["components.theme_switcher.label"]()}</DropdownMenuLabel>
+        <DropdownMenuLabel>{label}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {availableThemes.map((themePrefix) => (
           <DropdownMenuCheckboxItem
@@ -122,12 +121,12 @@ const ThemePopoverList: React.FC<ThemePopoverListProps> = ({ className }) => {
             checked={currentThemePrefix === themePrefix}
             onCheckedChange={() => handleThemeChange(themePrefix)}
           >
-            {getThemeDisplayName(themePrefix)}
+            {getThemeDisplayName(themePrefix, themeLabels)}
           </DropdownMenuCheckboxItem>
         ))}
         <DropdownMenuSeparator />
         <DropdownMenuCheckboxItem onCheckedChange={() => handleThemeChange("cancel")}>
-          {m["components.theme_switcher.cancel"]()}
+          {cancelLabel}
         </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -135,3 +134,4 @@ const ThemePopoverList: React.FC<ThemePopoverListProps> = ({ className }) => {
 };
 
 export { ThemePopoverList };
+export type { ThemePopoverListProps };

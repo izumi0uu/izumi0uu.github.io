@@ -36,7 +36,6 @@ const lang = currentLocale;
 
 <!doctype html>
 <html lang={lang}>
-  <!-- TODO: LITTLE MEMORY LEAK -->
   <BaseHead {metadata} alternates={alternates} currentPath={currentPath} />
   <body class={cn("relative flex flex-col min-h-screen min-w-80 bg-base mode-theme-switch")}>
     <Header currentLocale={lang} localeSwitch={localeSwitch} />

@@ -24,7 +24,15 @@ env:
   PLAUSIBLE_DOMAIN: "izumi0uu.github.io"
 
 jobs:
+  release-gates:
+    uses: ./.github/workflows/test-gates.yml
+    permissions:
+      contents: read
+    with:
+      run_e2e: true
+
   build-manual:
+    needs: release-gates
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -35,19 +43,19 @@ jobs:
       - name: Print commit id, message and tag
         run: |
           git show -s --format='%h %s'
-          echo "github.ref -> {{ github.ref }}"
+          echo "github.ref -> ${{ github.ref }}"
 
-      - name: Set up Node.js and Yarn
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "23.11.0"
-          registry-url: "https://registry.yarnpkg.com"
+          node-version: "20.11.1"
+          cache: npm
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Build izumi0uu.github.io
-        run: yarn build
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

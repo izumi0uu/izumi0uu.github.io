@@ -1,12 +1,23 @@
 ---
-import List from "@/layouts/List.astro";
+import { Link } from "@/components/react/ui/Link";
+import Experience from "@/layouts/Experience.astro";
+import { CONFIG_CLIENT } from "@/config/client";
 import { getPageMetadata } from "@/utils/content/metadata";
 import { SUPPORTED_LOCALES } from "@/config/i18n";
+import {
+  getExperiencePageContent,
+  getExperienceProjectGroups,
+  getProfileMetrics,
+  getRecentWritingHighlights,
+} from "@/modules/profile/content";
 import { getSupportedAlternates, getLocaleSwitchTarget } from "@/utils/routing/navigation";
 import { getPathWithLocale } from "@/utils/routing/paths";
 import { ROUTES } from "@/constants/routes";
+import * as m from "@/paraglide/messages";
 
 import type { LocaleValues } from "@/types/config";
+import type { Post } from "@/types/post";
+import type { Project } from "@/types/project";
 
 export async function getStaticPaths() {
   return SUPPORTED_LOCALES.map((lang) => ({
@@ -16,10 +27,187 @@ export async function getStaticPaths() {
 
 const currentLocale = Astro.params.lang as LocaleValues;
 const metadata = getPageMetadata("lists/experience");
+const pageContent = getExperiencePageContent(currentLocale);
+const [metrics, projectGroups, recentPosts] = await Promise.all([
+  getProfileMetrics(),
+  getExperienceProjectGroups(),
+  getRecentWritingHighlights(),
+]);
 const alternates = getSupportedAlternates((locale) => getPathWithLocale(locale, ROUTES.EXPERIENCE));
 const localeSwitch = getLocaleSwitchTarget({ currentLocale, alternates });
 const currentPath = getPathWithLocale(currentLocale, ROUTES.EXPERIENCE);
 const layoutProps = { metadata, alternates, localeSwitch, currentLocale, currentPath };
+const quickLinks = [
+  {
+    label: pageContent.quickLinks.github,
+    href: CONFIG_CLIENT.AUTHOR_GITHUB,
+    external: true,
+  },
+  {
+    label: pageContent.quickLinks.repo,
+    href: CONFIG_CLIENT.REPO_URL,
+    external: true,
+  },
+  {
+    label: pageContent.quickLinks.contact,
+    href: `mailto:${CONFIG_CLIENT.AUTHOR_EMAIL}`,
+    target: "_self",
+  },
+];
+const summaryCards = [
+  {
+    label: pageContent.summaryLabels.projectCount,
+    value: metrics.projectCount,
+  },
+  {
+    label: pageContent.summaryLabels.postCount,
+    value: metrics.postCount,
+  },
+  {
+    label: pageContent.summaryLabels.archiveYears,
+    value: metrics.archiveYears,
+  },
+];
+const cardClass =
+  "rounded-sm border-2 border-outline bg-surface p-5 shadow-[4px_4px_0_0_var(--color-outline)]";
+const mutedCardClass = "rounded-sm border border-outline/70 bg-surface-container p-4";
+
+const getProjectHref = (project: Project) =>
+  getPathWithLocale(project.locale, `${ROUTES.PROJECT}${project.slug}`);
+
+const getPostHref = (post: Post) => getPathWithLocale(post.locale, `${ROUTES.BLOG}${post.slug}`);
 ---
 
-<List {...layoutProps} />
+<Experience {...layoutProps}>
+  <Fragment slot="hero-text">
+    <div class="space-y-5">
+      <p class="text-sm font-medium uppercase tracking-[0.22em] text-captions">
+        {pageContent.eyebrow}
+      </p>
+      <h1 class="text-4xl font-bold text-headings md:text-5xl">
+        {m["pages.lists.experience.experience_title"]()}
+      </h1>
+      <p class="text-lg leading-8 text-content">{pageContent.intro}</p>
+      <p class="text-base leading-7 text-content">{pageContent.summary}</p>
+    </div>
+
+    <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+      {
+        summaryCards.map((card) => (
+          <article class={cardClass}>
+            <p class="text-sm font-medium uppercase tracking-[0.16em] text-captions">
+              {card.label}
+            </p>
+            <p class="mt-3 text-3xl font-semibold text-headings">{card.value}</p>
+          </article>
+        ))
+      }
+    </div>
+  </Fragment>
+
+  <Fragment slot="content">
+    <p>{pageContent.sourceNote}</p>
+  </Fragment>
+
+  <Fragment slot="after-content">
+    <section aria-labelledby="experience-quick-links" class="space-y-4">
+      <h2 id="experience-quick-links" class="text-2xl font-semibold text-headings">
+        {pageContent.quickLinksTitle}
+      </h2>
+      <div class="flex flex-wrap gap-3">
+        {
+          quickLinks.map((link) => (
+            <Link
+              href={link.href}
+              variant="outline"
+              size="sm"
+              external={link.external}
+              target={link.target}
+            >
+              {link.label}
+            </Link>
+          ))
+        }
+      </div>
+    </section>
+  </Fragment>
+
+  <Fragment slot="more-posts">
+    <section aria-labelledby="experience-timeline-heading" class="space-y-6">
+      <div class="space-y-2">
+        <h2 id="experience-timeline-heading" class="text-3xl font-semibold text-headings">
+          {pageContent.timelineTitle}
+        </h2>
+        <p class="max-w-3xl text-base leading-7 text-content">{pageContent.timelineDescription}</p>
+      </div>
+
+      <div data-testid="experience-timeline" class="space-y-5">
+        {
+          projectGroups.map((group) => (
+            <article class={cardClass}>
+              <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                <div>
+                  <p class="text-sm font-medium uppercase tracking-[0.22em] text-captions">
+                    {group.year}
+                  </p>
+                  <p class="mt-2 text-sm text-content">
+                    {group.projects.length} {pageContent.yearProjectCountLabel}
+                  </p>
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                  <span class="text-sm font-medium text-captions">{pageContent.stackLabel}</span>
+                  {group.tags.map((tag) => (
+                    <span class="rounded-full border border-outline/70 bg-surface-container px-3 py-1 text-xs font-medium text-content">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div class="mt-5 grid grid-cols-1 gap-4 xl:grid-cols-2">
+                {group.projects.map((project) => (
+                  <article class={mutedCardClass}>
+                    <h3 class="text-xl font-semibold text-headings">
+                      <Link href={getProjectHref(project)} variant="heading">
+                        {project.data.title}
+                      </Link>
+                    </h3>
+                    <p class="mt-3 text-sm leading-7 text-content">{project.data.description}</p>
+                  </article>
+                ))}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section aria-labelledby="experience-writing-heading" class="mt-12 space-y-5">
+      <div class="space-y-2">
+        <h2 id="experience-writing-heading" class="text-3xl font-semibold text-headings">
+          {pageContent.writingTitle}
+        </h2>
+        <p class="max-w-3xl text-base leading-7 text-content">{pageContent.writingDescription}</p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 xl:grid-cols-3">
+        {
+          recentPosts.map((post) => (
+            <article class={mutedCardClass}>
+              <p class="text-sm font-medium uppercase tracking-[0.16em] text-captions">
+                {post.data.publishDate.getFullYear()}
+              </p>
+              <h3 class="mt-3 text-xl font-semibold text-headings">
+                <Link href={getPostHref(post)} variant="heading">
+                  {post.data.title}
+                </Link>
+              </h3>
+              <p class="mt-3 text-sm leading-7 text-content">{post.data.description}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </Fragment>
+</Experience>
