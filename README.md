@@ -12,6 +12,11 @@
 - Run `npm run test` for the full gate, `npm run test:smoke` for repo-level contracts, and `npm run test:e2e` for browser coverage.
 - See [docs/TESTING.md](/Users/idah/projects/izumi0uu.github.io/docs/TESTING.md) for the current layout and notes.
 
+## linting
+
+- Run `npm run lint` to lint `Astro`, `TS/TSX`, and `MDX` source files from `src/`.
+- Generated output under `src/paraglide` is ignored so the lint baseline stays focused on maintained source code.
+
 ## file organization - utils, constants, utils
 
 Maintain Domain-Based Organization: Continue organizing files by domain across all three directories.

@@ -11,6 +11,13 @@
 ## P0
 
 ### P0-01 恢复生产构建可用性
+- 状态：已完成（2026-06-01）
+- 完成说明：生产构建现在在缺少 `.env.production` 时仍会回退到内建 canonical 站点配置，仓库默认状态可直接构建。
+- 完成证据：
+  - `src/config/process-env.ts`
+  - `.env.production.example`
+  - `README.md`
+  - 本地验证：`npm run build` 成功
 - 类型：Bug
 - 用户故事：作为站点维护者，我希望在干净环境中执行 `npm run build` 能成功，这样我才能稳定地产出可部署的静态站点。
 - 当前问题：生产构建依赖 `SITE_URL` 等环境变量，但仓库当前只有 `.env.development`，没有对应的生产环境配置或兜底方案。
@@ -25,6 +32,12 @@
   - 本地验证：`npm run build` 失败，错误为 `SITE_URL: Required`
 
 ### P0-02 修复静态部署输出目录错配
+- 状态：已完成（2026-06-01）
+- 完成说明：部署脚本已经对齐 Astro 静态产物目录，发布目标从错误的 `build/` 切回 `dist/`。
+- 完成证据：
+  - `package.json`
+  - `README.md`
+  - 本地验证：`deploy` 指向 `gh-pages -d dist`
 - 类型：Bug
 - 用户故事：作为站点维护者，我希望部署脚本发布的是实际构建产物目录，这样发布流程不会因为目录错误而失败。
 - 当前问题：部署脚本发布 `build/`，但 Astro 当前产物目录是 `dist/`。
@@ -97,6 +110,13 @@
   - `src/utils/routing/navigation.ts:18-29`
 
 ### P1-05 恢复 lint 工具链可执行状态
+- 状态：已完成（2026-06-02）
+- 完成说明：仓库已补齐 `ESLint` flat config，并覆盖 `Astro`、`TS/TSX`、`MDX` 源文件；生成目录 `src/paraglide` 被排除在人工 lint 基线之外。
+- 完成证据：
+  - `package.json`
+  - `eslint.config.mjs`
+  - `README.md`
+  - 本地验证：`npm run lint`、`npm run check-types`、`npm run test:smoke` 成功
 - 类型：Engineering Bug
 - 用户故事：作为维护者，我希望 `npm run lint` 能运行，这样我才能在提交前发现基础代码问题。
 - 当前问题：脚本已定义，但仓库当前没有可用的 `eslint` 可执行依赖。
@@ -122,6 +142,14 @@
   - `src/content/config.ts:40-62`
 
 ### P1-07 建立统一测试 SDK 与命令入口
+- 状态：已完成（2026-06-01）
+- 完成说明：仓库已统一到 `Vitest + Playwright`，并补齐 `test`、`test:smoke`、`test:e2e` 入口、配置和测试目录约定。
+- 完成证据：
+  - `package.json`
+  - `vitest.config.ts`
+  - `playwright.config.ts`
+  - `docs/TESTING.md`
+  - 本地验证：`npm run test` 成功
 - 类型：Engineering Feature
 - 用户故事：作为维护者，我希望项目有统一的测试 SDK、测试目录约定和命令入口，这样后续修 bug 与做功能时都能把验证沉淀为可重复执行的自动化测试。
 - 当前问题：仓库当前只有 `build`、`lint`、`check-types` 等工程命令，没有系统化测试依赖、测试脚本或目录规范。
@@ -135,6 +163,13 @@
   - 当前依赖列表中没有现成的系统化测试运行器配置
 
 ### P1-08 为 P0 构建与部署契约补齐 smoke test / spec
+- 状态：已完成（2026-06-01）
+- 完成说明：`P0` 的环境变量回退、部署目录和 sitemap 域名契约已经写入 smoke spec，并纳入统一测试入口。
+- 完成证据：
+  - `tests/smoke/build-contract.test.ts`
+  - `tests/scripts/build-default-production.mjs`
+  - `docs/TESTING.md`
+  - 本地验证：`npm run test:smoke` 成功
 - 类型：Engineering Feature
 - 用户故事：作为维护者，我希望 `P0` 的构建和部署规则被写成 spec 并自动验证，这样以后改环境配置、部署脚本或站点域名时不会静默回归。
 - 当前问题：虽然 `P0` 已修复，但当前仍主要依赖人工验证，没有自动化回归保障。
