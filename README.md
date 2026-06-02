@@ -11,6 +11,7 @@
 - Unified test entrypoints now live on `Vitest + Playwright`.
 - Run `npm run test` for the full gate, `npm run test:smoke` for repo-level contracts, and `npm run test:e2e` for browser coverage.
 - See [docs/TESTING.md](/Users/idah/projects/izumi0uu.github.io/docs/TESTING.md) for the current layout and notes.
+- GitHub Actions now runs a pull request quality gate (`lint` / `check-types` / `build` / `test:smoke`) and requires `test:e2e` before both GitHub Pages deploy workflows.
 
 ## linting
 

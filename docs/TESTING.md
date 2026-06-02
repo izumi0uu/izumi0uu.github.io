@@ -24,6 +24,15 @@
 - `tests/e2e`
   - 维护用户可见的真实浏览器路径。
 
+## CI gates
+
+- Pull request gate:
+  - `.github/workflows/ci.yml` 调用共享的 `.github/workflows/test-gates.yml`
+  - 默认执行 `lint`、`check-types`、`build`、`test:smoke`
+- Release gate:
+  - GitHub Pages 自动发布流和手动发布流都会先调用共享的 `test-gates` workflow
+  - 发布前额外执行 Playwright Chromium 依赖安装和 `test:e2e`
+
 ## Current coverage
 
 - `tests/smoke/build-contract.test.ts`
@@ -50,6 +59,9 @@
 - `tests/smoke/content-platform-contract.test.ts`
   - 当前内容来源必须继续明确为 `src/content/post` 和 `src/content/project` 下的本地 MDX 集合
   - 未使用的 CMS 抽象和误导性迁移 TODO 不能静默回流到仓库
+- `tests/smoke/ci-gate-contract.test.ts`
+  - 共享 GitHub Actions workflow 必须继续执行 `lint`、`check-types`、`build`、`test:smoke`
+  - 两条发布工作流在构建和部署前都必须经过 `test:e2e` 门禁
 - `tests/smoke/locale-contract.test.ts`
   - `/en/` 和 `/zh/` 首页都会在静态 HTML 中输出对应 locale 的 header 文案
   - 根路径重定向页会先读取 `user-preferred-lang`，默认 locale 只保留为 `noscript` fallback

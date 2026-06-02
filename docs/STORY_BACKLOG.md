@@ -341,6 +341,16 @@
 
 ### P2-05 将测试接入 CI / 发布前门禁
 
+- 状态：已完成（2026-06-02）
+- 完成说明：新增共享 GitHub Actions `test-gates` workflow，将 `lint`、`check-types`、`build`、`test:smoke` 固定为 PR 质量门禁；GitHub Pages 的自动发布与手动发布流程都在构建前追加 `test:e2e` 作为发布门禁，避免测试与部署各跑各的。
+- 完成证据：
+  - `.github/workflows/test-gates.yml`
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/gh-pages__deploy-astro.yml`
+  - `.github/workflows/gh-pages__deploy-manual.yml`
+  - `tests/smoke/ci-gate-contract.test.ts`
+  - `docs/TESTING.md`
+  - 本地验证：`npm run lint`、`npm run check-types`、`npm run test:smoke`、`npm run test:e2e` 成功
 - 类型：Engineering Feature
 - 用户故事：作为维护者，我希望统一测试命令能接入 CI 或发布前门禁，这样回归不会只在本地被发现。
 - 当前问题：即使后续补了测试 SDK，如果没有门禁，测试仍可能长期不执行。
