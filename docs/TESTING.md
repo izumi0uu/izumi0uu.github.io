@@ -47,6 +47,9 @@
   - `ThemeScript` 必须对全局监听器做幂等去重，避免 Astro 视图切换下的脚本重复执行累积监听器
   - `SplitText` 必须继续通过 `gsap.context(...).revert()` 和 `astro:before-swap` 绑定 GSAP 清理生命周期
   - `ClientRouter` 保持禁用时，跨文档 `view-transition` meta 和调查文档结论不能被悄悄移除
+- `tests/smoke/content-platform-contract.test.ts`
+  - 当前内容来源必须继续明确为 `src/content/post` 和 `src/content/project` 下的本地 MDX 集合
+  - 未使用的 CMS 抽象和误导性迁移 TODO 不能静默回流到仓库
 - `tests/smoke/locale-contract.test.ts`
   - `/en/` 和 `/zh/` 首页都会在静态 HTML 中输出对应 locale 的 header 文案
   - 根路径重定向页会先读取 `user-preferred-lang`，默认 locale 只保留为 `noscript` fallback

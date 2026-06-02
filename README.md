@@ -22,6 +22,12 @@
 - Open Graph metadata now resolves to a real static fallback image at `/images/default/default-open-graph-image.webp`.
 - Feed endpoints are generated at `/api/feed.json` and `/api/feed.xml`.
 
+## content source
+
+- The current source of truth is local MDX content under `src/content/post` and `src/content/project`.
+- Astro content collections in `src/content/config.ts` load that content at build time; there is no active runtime CMS in the production path.
+- See [docs/CONTENT_SOURCE_OF_TRUTH.md](/Users/idah/projects/izumi0uu.github.io/docs/CONTENT_SOURCE_OF_TRUTH.md) for the current platform decision and change policy.
+
 ## file organization - utils, constants, utils
 
 Maintain Domain-Based Organization: Continue organizing files by domain across all three directories.

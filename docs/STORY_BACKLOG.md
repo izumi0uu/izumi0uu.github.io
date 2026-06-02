@@ -318,6 +318,15 @@
 
 ### P2-04 清理未完成的内容平台与 CMS 技术债
 
+- 状态：已完成（2026-06-02）
+- 完成说明：当前内容来源已明确收敛为仓库内 `src/content` 下的本地 MDX 集合，文档也补齐为单一事实来源；未使用的 `Strapi` 抽象和误导性的 “第三方 GitPages CMS / glob 待迁移” 注释已清理，避免仓库继续表现成多套半成品内容方案并存。
+- 完成证据：
+  - `docs/CONTENT_SOURCE_OF_TRUTH.md`
+  - `README.md`
+  - `src/content/config.ts`
+  - `src/constants/image.ts`
+  - `tests/smoke/content-platform-contract.test.ts`
+  - 本地验证：`npm run lint`、`npm run check-types`、`npm run test:smoke`、`npm run test:e2e` 成功
 - 类型：Tech Debt
 - 用户故事：作为维护者，我希望仓库里未完成的内容平台方向是清晰的，这样后续不会在多个半成品方案之间来回切换。
 - 当前问题：仓库同时存在未完成的 CMS 方向、空的 open-graph 页面文件、以及内容加载层的待迁移注释。
@@ -328,7 +337,6 @@
 - 仓库证据：
   - `src/constants/image.ts:186`
   - `src/libs/api/cms/strapi.ts:1-45`
-  - `src/libs/api/open-graph/page.ts`
   - `src/content/config.ts:10`
 
 ### P2-05 将测试接入 CI / 发布前门禁
