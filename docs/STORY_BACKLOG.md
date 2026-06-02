@@ -294,6 +294,15 @@
 
 ### P2-03 排查 GSAP / View Transition 的内存泄漏问题
 
+- 状态：已完成（2026-06-02）
+- 完成说明：将“GSAP 内存泄漏”从模糊注释收敛为可复现结论：真正确认的泄漏入口来自 `ThemeScript` 在 Astro 视图切换下的内联脚本重复执行与全局监听器累积，而首页 `SplitText` 的 GSAP 生命周期已经通过 `gsap.context(...).revert()` 和 `astro:before-swap` 做了局部清理；当前保留浏览器原生跨文档转场，但继续禁用 Astro `ClientRouter`。
+- 完成证据：
+  - `src/components/ThemeScript.astro`
+  - `src/components/BaseHead.astro`
+  - `src/components/react/ui/SplitText.tsx`
+  - `docs/GSAP_VIEW_TRANSITION_INVESTIGATION.md`
+  - `tests/smoke/view-transition-contract.test.ts`
+  - 本地验证：`npm run lint`、`npm run check-types`、`npm run test:smoke`、`npm run test:e2e` 成功
 - 类型：Tech Debt / Bug
 - 用户故事：作为维护者，我希望页面转场与动画能力可以安全启用，而不是因为内存泄漏长期被关闭。
 - 当前问题：`ClientRouter` 被明确注释为会导致 GSAP 相关内存泄漏，基础布局里也保留了 `LITTLE MEMORY LEAK` 注释。
@@ -304,7 +313,8 @@
 - 仓库证据：
   - `src/components/BaseHead.astro:173-175`
   - `src/layouts/Base.astro:39`
-  - `src/utils/animation/cleanup.ts`
+  - `src/components/ThemeScript.astro`
+  - `src/components/react/ui/SplitText.tsx`
 
 ### P2-04 清理未完成的内容平台与 CMS 技术债
 

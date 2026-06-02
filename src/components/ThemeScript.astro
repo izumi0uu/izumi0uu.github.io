@@ -24,15 +24,37 @@ const defaultThemes = getDefaultThemes();
 >
   const { MODES, THEMES, THEME_CONFIG } = themeConstants;
   const { DATA_ATTRIBUTE, CHANGE_EVENT, LOCAL_STORAGE_KEY } = THEME_CONFIG;
+  const RUNTIME_KEY = "__IZUMI_THEME_SCRIPT_RUNTIME__";
 
-  const listeners = {
-    timeoutId: null,
-  };
+  // ClientRouter can re-run inline scripts on revisits, so global listeners must be idempotent.
+  const existingRuntime = window[RUNTIME_KEY] ?? {};
+  const darkModePreference =
+    existingRuntime.darkModePreference ?? window.matchMedia("(prefers-color-scheme: dark)");
+
+  if (existingRuntime.onAfterSwap) {
+    document.removeEventListener("astro:after-swap", existingRuntime.onAfterSwap);
+  }
+
+  if (existingRuntime.onThemeChange) {
+    document.removeEventListener(CHANGE_EVENT, existingRuntime.onThemeChange);
+  }
+
+  if (existingRuntime.onModePreferenceChange) {
+    darkModePreference.removeEventListener("change", existingRuntime.onModePreferenceChange);
+  }
+
+  const listeners = (window[RUNTIME_KEY] = {
+    timeoutId: existingRuntime.timeoutId ?? null,
+    darkModePreference,
+    onAfterSwap: null,
+    onThemeChange: null,
+    onModePreferenceChange: null,
+  });
 
   /**
    * @description used for event listener: is user prefer dark mode?
    */
-  const darkModePreference = window.matchMedia("(prefers-color-scheme: dark)");
+  const darkModePreferenceQuery = listeners.darkModePreference;
 
   /**
    * @description
@@ -88,7 +110,7 @@ const defaultThemes = getDefaultThemes();
     let browserMode;
 
     switch (true) {
-      case darkModePreference.matches:
+      case darkModePreferenceQuery.matches:
         browserMode = MODES.dark;
         break;
       case lightModePreference.matches:
@@ -233,15 +255,17 @@ const defaultThemes = getDefaultThemes();
 
   // View Transitions hook to restore theme, the astro:after-swap event fires after the new page content has been swapped in
   // allows Astro sites to maintain the benefits of multi-page applications (like better SEO and initial load performance) while also providing smooth transitions between pages that are typically associated with SPAs.
-  document.addEventListener("astro:after-swap", () => setTheme(getTheme()));
+  listeners.onAfterSwap = () => setTheme(getTheme());
+  document.addEventListener("astro:after-swap", listeners.onAfterSwap);
 
   // listen for theme-change custom event, fired in src/components/ThemeToggle.astro
-  document.addEventListener(CHANGE_EVENT, (event) => {
+  listeners.onThemeChange = (event) => {
     setTheme(event.detail.theme);
-  });
+  };
+  document.addEventListener(CHANGE_EVENT, listeners.onThemeChange);
 
   // listen for prefers-color-scheme change
-  darkModePreference.addEventListener("change", (event) => {
+  listeners.onModePreferenceChange = (event) => {
     const newMode = event.matches ? MODES.dark : MODES.light;
     const newTheme = getThemeFromMode(newMode);
 
@@ -251,5 +275,6 @@ const defaultThemes = getDefaultThemes();
     const themeChangeEvent = new CustomEvent(CHANGE_EVENT, payload);
 
     document.dispatchEvent(themeChangeEvent);
-  });
+  };
+  darkModePreferenceQuery.addEventListener("change", listeners.onModePreferenceChange);
 </script>

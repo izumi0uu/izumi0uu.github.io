@@ -12,9 +12,6 @@ import { DEFAULT_METADATA } from "@/constants/metadata";
 // load config
 import { CONFIG_CLIENT } from "@/config/client";
 
-// load transitions
-import { ClientRouter } from "astro:transitions";
-
 // load theme-script component
 import ThemeScript from "@/components/ThemeScript.astro";
 
@@ -176,9 +173,8 @@ const ogImageUrl = new URL(image, SITE_URL_CANONICAL);
   {/* MUST be inside <head /> to avoid white flash, IMPORTANT */}
   <ThemeScript />
 
-  {/* turn on the feature of view transitions in Astro */}
-  {/* DISABLED FOR NOW, LEAD TO MEMORY LEAK WITH GSAP */}
-  <!-- <ClientRouter fallback="none" /> -->
+  {/* Keep browser-native same-origin view transitions, but leave Astro's ClientRouter */}
+  {/* disabled until every global script is safe under transition-time re-execution. */}
 
   {/* Load local Latin and code fonts on the critical path */}
   <FontLoader />

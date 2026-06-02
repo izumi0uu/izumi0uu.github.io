@@ -43,6 +43,10 @@
 - `tests/smoke/scrollarea-contract.test.ts`
   - `ScrollArea` 组件继续使用语义化主题 token，而不是退回硬编码黑白滚动条样式
   - `/[lang]/scroll-area/` demo 会同时保留垂直与水平溢出的验证场景
+- `tests/smoke/view-transition-contract.test.ts`
+  - `ThemeScript` 必须对全局监听器做幂等去重，避免 Astro 视图切换下的脚本重复执行累积监听器
+  - `SplitText` 必须继续通过 `gsap.context(...).revert()` 和 `astro:before-swap` 绑定 GSAP 清理生命周期
+  - `ClientRouter` 保持禁用时，跨文档 `view-transition` meta 和调查文档结论不能被悄悄移除
 - `tests/smoke/locale-contract.test.ts`
   - `/en/` 和 `/zh/` 首页都会在静态 HTML 中输出对应 locale 的 header 文案
   - 根路径重定向页会先读取 `user-preferred-lang`，默认 locale 只保留为 `noscript` fallback
