@@ -1,7 +1,6 @@
 ---
 import { NavigationBar } from "@/components/react/ui/NavigationBar";
 import { Separator } from "@/components/react/radix-ui/Separator";
-import { SELECTORS } from "@/constants/dom";
 import { LOCALE_LABELS, LOCAL_STORAGE_KEY, LOCALE_NOTICE_STORAGE_KEY } from "@/config/i18n";
 import { CONFIG_CLIENT } from "@/config/client";
 import { ROUTES } from "@/constants/routes";
@@ -21,7 +20,6 @@ export interface HeaderProps {
 const { currentLocale, localeSwitch } = Astro.props as HeaderProps;
 const [posts, projects] = await Promise.all([getAllPostsWithReadingTime(), getAllProjects()]);
 
-const { SCROLL_TO_TOP_ID } = SELECTORS;
 const homeHref = getPathWithLocale(currentLocale, ROUTES.HOME);
 const navLinks = [
   {
@@ -161,11 +159,7 @@ const themeSwitcher = {
 } as const;
 ---
 
-<!-- TODO: FIX SCROLL TO TOP -->
-<header
-  class="flex flex-col gap-2 fixed top-0 right-0 left-0 z-50 backdrop-blur-sm"
-  id={SCROLL_TO_TOP_ID}
->
+<header class="flex flex-col gap-2 fixed top-0 right-0 left-0 z-50 backdrop-blur-sm">
   <NavigationBar
     client:load
     authorName={CONFIG_CLIENT.AUTHOR_NAME}

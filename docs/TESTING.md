@@ -52,6 +52,10 @@
 - `tests/smoke/scrollarea-contract.test.ts`
   - `ScrollArea` 组件继续使用语义化主题 token，而不是退回硬编码黑白滚动条样式
   - `/[lang]/scroll-area/` demo 会同时保留垂直与水平溢出的验证场景
+- `tests/smoke/to-top-scroll-contract.test.ts`
+  - `Base` 布局必须继续挂载全局 `ToTopScroll` 浮动按钮
+  - 按钮逻辑必须继续基于 `window.scrollY` / `scrollHeight` 计算可见性，并直接滚回 `window.top = 0`
+  - 不能退回到依赖固定 header 锚点或失效的 `IntersectionObserver` 哨兵方案
 - `tests/smoke/view-transition-contract.test.ts`
   - `ThemeScript` 必须对全局监听器做幂等去重，避免 Astro 视图切换下的脚本重复执行累积监听器
   - `SplitText` 必须继续通过 `gsap.context(...).revert()` 和 `astro:before-swap` 绑定 GSAP 清理生命周期
@@ -84,6 +88,10 @@
 - `tests/e2e/scroll-area.spec.ts`
   - `/en/scroll-area/` 会渲染可见的垂直和水平滚动 thumb
   - 浏览器测试会直接驱动 viewport 滚动，确认两个方向都存在真实 overflow
+- `tests/e2e/to-top-scroll.spec.ts`
+  - `/en/about/` 在顶部默认隐藏浮动按钮，中段滚动后会显示
+  - 点击按钮后页面会真实回到顶部，而不是只命中一个固定 header
+  - 接近页面底部时按钮会再次隐藏，避免遮挡 footer 区域
 
 ## Notes
 
