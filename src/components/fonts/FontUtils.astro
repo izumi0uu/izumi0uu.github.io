@@ -9,12 +9,14 @@
 <style is:global>
   /* ===== Language-specific font classes ===== */
 
-  /* Pure Chinese elements (FontLoader already binds .font-zh) */
+  /* Prefer stable system CJK fonts to avoid late network font swaps. */
   .zh-only {
-    font-family: "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+    font-family:
+      "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC",
+      "Source Han Sans SC", ui-sans-serif, system-ui, sans-serif;
   }
 
-  /* Pure English elements (FontLoader already binds .font-en) */
+  /* Pure English elements (FontLoader provides the Inter face). */
   .en-only {
     font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
     font-variation-settings: "opsz" auto;
@@ -51,9 +53,9 @@
 </style>
 
 <!--
-usage guide:
-- .font-zh / .zh-only: Pure Chinese elements
-- .en-only: Pure English elements (FontLoader already binds .font-en)
+Usage guide:
+- .zh-only: Prefer stable system CJK fonts
+- .en-only: Pure English elements (FontLoader already binds the Inter face)
 - .font-mixed / .font-sans: Mixed Chinese and English (default)
 - .font-mono: Monospace font (FontLoader binds code, pre, kbd, .font-code)
 - .font-inter-optimized: Inter advanced features

@@ -38,16 +38,14 @@ Consider Colocating Related Files: For very tightly coupled features, consider k
 
 ## font management
 
-TODO(FIX): 1.字体加载在路由切换/首次加载会切换fallback三次
-
-字体管理系统采用分层架构，确保最佳的性能和用户体验：
+字体链路现在优先保证稳定性，避免首屏和路由切换时发生多次 fallback 抖动：
 
 ### 🏗️ 字体系统架构
 
 #### 基础层 (Foundation Layer)
 
 - **foundation.css**: 定义字体系统的 CSS 变量和设计令牌
-  - `--font-family-sans`: 混合中英文字体栈 (Inter + Noto Sans SC)
+  - `--font-family-sans`: 混合中英文字体栈 (Inter + 系统 CJK 回退)
   - `--font-family-mono`: 等宽字体栈 (JetBrains Mono)
   - 为整个系统提供统一的字体变量
 
@@ -60,19 +58,14 @@ TODO(FIX): 1.字体加载在路由切换/首次加载会切换fallback三次
    - 使用 `astro-font` 优化本地字体加载
    - 加载 Inter Variable Font (400-900 权重) + JetBrains Mono (400, 700)
    - `preload: true` 确保关键字体优先加载
-   - `display: swap` 防止字体加载阻塞渲染
+   - `display: fallback` 缩短晚到字体替换窗口，降低路由切换时的抖动
    - 绑定选择器：`.font-en`、`.en-only`、`code`、`pre`、`kbd`
 
-2. **GoogleFontsLoader.astro** (中文字体)
-
-   - 从 Google Fonts 加载 Noto Sans SC (400, 500, 700)
-   - 使用 `preconnect` 优化连接性能
-   - 专门处理中文字符显示
-
-3. **FontUtils.astro** (工具层)
+2. **FontUtils.astro** (工具层)
    - 提供语言特定的字体类：`.zh-only`、`.en-only`、`.font-mixed`
    - 扩展语义化字体类：`.font-sans`、`.font-mono`
    - 高级优化类：`.font-inter-optimized`、`.font-mono-optimized`
+   - 中文优先走系统 CJK 字体栈，不再依赖 Google Fonts 的关键路径加载
 
 #### 应用层 (Application Layer)
 
@@ -80,23 +73,21 @@ TODO(FIX): 1.字体加载在路由切换/首次加载会切换fallback三次
 
   ```astro
   <FontLoader />
-  <!-- 1. 本地字体优先 -->
-  <GoogleFontsLoader />
-  <!-- 2. 中文字体补充 -->
+  <!-- 1. 本地 Latin / Mono 字体优先 -->
   <FontUtils />
-  <!-- 3. 工具类扩展 -->
+  <!-- 2. 工具类扩展 + 系统 CJK 回退 -->
   ```
 
 ### 🔄 运行机制与协调作用
 
 #### 字体加载策略
 
-1. **渐进式加载**: 本地字体 → 网络字体 → 工具类增强
-2. **回退机制**: 每个字体都配置了合适的 fallback 字体栈
+1. **关键路径只保留本地字体**: Inter 和 JetBrains Mono 走本地 `woff2`
+2. **中文使用系统字体回退**: 减少远端字体晚到后再次替换字形
 3. **性能优化**:
    - 本地字体使用 `preload` 优先加载
-   - Google Fonts 使用 `preconnect` 预连接
-   - 所有字体使用 `display: swap` 避免 FOIT
+   - `display: fallback` 缩短可见 swap 窗口
+   - 去掉 Google Fonts 的关键路径请求，减少 CLS 风险
 
 #### 字体绑定与选择器
 
@@ -106,7 +97,7 @@ TODO(FIX): 1.字体加载在路由切换/首次加载会切换fallback三次
 code, pre, kbd, .font-code → JetBrains Mono
 
 /* 手动绑定 (FontUtils) */
-.zh-only → Noto Sans SC
+.zh-only → system CJK stack
 .font-mixed, .font-sans → CSS变量字体栈
 .font-mono → 等宽字体栈;
 ```
@@ -114,7 +105,7 @@ code, pre, kbd, .font-code → JetBrains Mono
 #### 多语言字体协调
 
 - **英文内容**: 使用 Inter 获得最佳排版效果
-- **中文内容**: 使用 Noto Sans SC 确保可读性
+- **中文内容**: 优先使用系统自带的 CJK 字体，降低远端字体替换抖动
 - **混合内容**: 通过 CSS 变量实现智能字体栈回退
 - **代码内容**: 统一使用 JetBrains Mono
 

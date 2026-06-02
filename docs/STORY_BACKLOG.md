@@ -249,6 +249,16 @@
 
 ### P2-01 优化字体加载中的 fallback 抖动
 
+- 状态：已完成（2026-06-02）
+- 完成说明：字体关键路径已收敛为本地 `Inter + JetBrains Mono`，中文正文改用系统 CJK 回退栈，不再在首屏和路由切换时额外拉取 Google Fonts；同时将 `font-display` 调整为 `fallback`，缩短可见替换窗口。
+- 完成证据：
+  - `src/components/BaseHead.astro`
+  - `src/components/fonts/FontLoader.astro`
+  - `src/components/fonts/FontUtils.astro`
+  - `src/styles/theme/foundation.css`
+  - `tests/smoke/font-contract.test.ts`
+  - `README.md`
+  - 本地验证：`npm run lint`、`npm run check-types`、`npm run test:smoke`、`npm run test:e2e` 成功
 - 类型：UX Bug
 - 用户故事：作为访客，我希望首次加载和路由切换时字体过渡稳定，不出现明显的多次 fallback 跳变。
 - 当前问题：README 记录字体会在首次加载和路由切换时切换 fallback 三次，当前头部仍在并行组合本地字体、Google Fonts 和工具类层。
@@ -260,7 +270,7 @@
   - `README.md:20-22`
   - `src/components/BaseHead.astro:177-184`
   - `src/components/fonts/FontLoader.astro:9-63`
-  - `src/components/fonts/GoogleFontsLoader.astro:9-18`
+  - `src/styles/theme/foundation.css:257-259`
 
 ### P2-02 修复自定义 ScrollArea 滚动条
 

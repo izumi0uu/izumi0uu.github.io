@@ -34,6 +34,9 @@
   - 默认 Open Graph 图来自真实静态资源
   - `feed.json` / `feed.xml` 产物存在
   - 页面 metadata 不再指向缺失的 `/api/open-graph/*`
+- `tests/smoke/font-contract.test.ts`
+  - 构建产物不再引用 `Google Fonts`
+  - sans / mono 字体链路保持“本地字体 + 系统回退”的稳定顺序
 - `tests/smoke/profile-pages.test.ts`
   - `About` 页面在 `en` / `zh` 构建产物里都包含真实介绍文案，而不是只有标题
   - `Experience` 页面会输出真实项目时间线与本地化摘要
