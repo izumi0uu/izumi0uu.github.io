@@ -1,5 +1,17 @@
 # izumi0uu's blog
 
+## production build env
+
+- `npm run build` now supports the repository default state even when `.env.production` is absent.
+- For explicit production overrides, copy `.env.production.example` to `.env.production`.
+- Public production metadata falls back to the built-in canonical site URL when no production file is present.
+
+## testing
+
+- Unified test entrypoints now live on `Vitest + Playwright`.
+- Run `npm run test` for the full gate, `npm run test:smoke` for repo-level contracts, and `npm run test:e2e` for browser coverage.
+- See [docs/TESTING.md](/Users/idah/projects/izumi0uu.github.io/docs/TESTING.md) for the current layout and notes.
+
 ## file organization - utils, constants, utils
 
 Maintain Domain-Based Organization: Continue organizing files by domain across all three directories.
