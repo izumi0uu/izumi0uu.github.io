@@ -6,6 +6,9 @@
 
 - `npm run test`
   - 先执行一次受控生产构建，再顺序运行 smoke 和 e2e。
+- `npm run verify:pre-commit`
+  - 供 Git `pre-commit` hook 调用，顺序执行 `lint`、`check-types`、`test:smoke`。
+  - `test:smoke` 会再次走受控生产构建，所以这条门禁已经覆盖 build 契约，不额外拉入 Playwright 发布级耗时。
 - `npm run test:smoke`
   - 执行受控生产构建，然后运行 `Vitest` 的仓库契约检查。
 - `npm run test:e2e`
@@ -52,6 +55,10 @@
 - `tests/smoke/scrollarea-contract.test.ts`
   - `ScrollArea` 组件继续使用语义化主题 token，而不是退回硬编码黑白滚动条样式
   - `/[lang]/scroll-area/` demo 会同时保留垂直与水平溢出的验证场景
+- `tests/smoke/to-top-scroll-contract.test.ts`
+  - `Base` 布局必须继续挂载全局 `ToTopScroll` 浮动按钮
+  - 按钮逻辑必须继续基于 `window.scrollY` / `scrollHeight` 计算可见性，并直接滚回 `window.top = 0`
+  - 不能退回到依赖固定 header 锚点或失效的 `IntersectionObserver` 哨兵方案
 - `tests/smoke/view-transition-contract.test.ts`
   - `ThemeScript` 必须对全局监听器做幂等去重，避免 Astro 视图切换下的脚本重复执行累积监听器
   - `SplitText` 必须继续通过 `gsap.context(...).revert()` 和 `astro:before-swap` 绑定 GSAP 清理生命周期
@@ -84,8 +91,13 @@
 - `tests/e2e/scroll-area.spec.ts`
   - `/en/scroll-area/` 会渲染可见的垂直和水平滚动 thumb
   - 浏览器测试会直接驱动 viewport 滚动，确认两个方向都存在真实 overflow
+- `tests/e2e/to-top-scroll.spec.ts`
+  - `/en/about/` 在顶部默认隐藏浮动按钮，中段滚动后会显示
+  - 点击按钮后页面会真实回到顶部，而不是只命中一个固定 header
+  - 接近页面底部时按钮会再次隐藏，避免遮挡 footer 区域
 
 ## Notes
 
+- `npm install` / `npm ci` 会通过 `prepare` 自动把 Git hooks 指向仓库内的 `.githooks/`，本地 commit 默认会先经过 `verify:pre-commit`。
 - `test` 和 `test:e2e` 会先执行 `playwright install chromium`，首次运行会有浏览器下载时间，后续通常会复用本地缓存。
 - `Playwright` 当前默认使用单 worker 串行执行，避免 `astro preview` 在本地并发测试下出现不稳定超时。

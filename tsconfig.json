@@ -29,6 +29,6 @@
       "@/scripts/*": ["scripts/*"]
     }
   },
-  "include": [".astro/types.d.ts", "**/*.ts", "**/*.tsx", "**/*.astro"],
+  "include": [".astro/**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.astro"],
   "exclude": ["dist", "node_modules", "docs"]
 }
