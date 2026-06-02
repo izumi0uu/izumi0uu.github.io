@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
+
+printf '%s\n' 'Running pre-commit gate: lint, typecheck, and smoke/build checks.'
+npm run verify:pre-commit

@@ -6,6 +6,7 @@
     "dev": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide && astro dev",
     "build": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide && astro build",
     "preview": "astro preview",
+    "prepare": "node ./scripts/setup-git-hooks.mjs",
     "test": "npm run test:build && npm run test:smoke:run && npm run test:e2e:setup && npm run test:e2e:run",
     "test:build": "node ./tests/scripts/build-default-production.mjs",
     "test:smoke": "npm run test:build && npm run test:smoke:run",
@@ -20,7 +21,8 @@
     "sync": "astro sync",
     "lint": "eslint \"src/**/*.{js,ts,tsx,astro,mdx}\" --ignore-pattern \"src/paraglide/**\"",
     "format": "prettier --write .",
-    "check-types": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide && astro sync && tsc --noEmit --pretty"
+    "check-types": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide && astro sync && tsc --noEmit --pretty",
+    "verify:pre-commit": "npm run lint && npm run check-types && npm run test:smoke"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.5",
