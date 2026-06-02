@@ -1,0 +1,110 @@
+---
+import Centered from "@/layouts/Centered.astro";
+import { ScrollArea } from "@/components/react/radix-ui/ScrollArea";
+import { SUPPORTED_LOCALES } from "@/config/i18n";
+import { getSupportedAlternates, getLocaleSwitchTarget } from "@/utils/routing/navigation";
+import { getPathWithLocale } from "@/utils/routing/paths";
+
+import type { LocaleValues } from "@/types/config";
+
+export async function getStaticPaths() {
+  return SUPPORTED_LOCALES.map((lang) => ({
+    params: { lang },
+  }));
+}
+
+const currentLocale = Astro.params.lang as LocaleValues;
+const metadata =
+  currentLocale === "zh"
+    ? {
+        title: "Scroll Area Demo",
+        description: "用于验证垂直与水平滚动条样式和交互的演示页。",
+      }
+    : {
+        title: "Scroll Area Demo",
+        description: "A demo page for validating vertical and horizontal scrollbars.",
+      };
+const alternates = getSupportedAlternates((locale) => getPathWithLocale(locale, "/scroll-area/"));
+const localeSwitch = getLocaleSwitchTarget({ currentLocale, alternates });
+const currentPath = getPathWithLocale(currentLocale, "/scroll-area/");
+const verticalItems = Array.from({ length: 24 }, (_, index) => index + 1);
+const horizontalItems = Array.from({ length: 10 }, (_, index) => index + 1);
+---
+
+<Centered {metadata} {alternates} {localeSwitch} {currentLocale} currentPath={currentPath}>
+  <section class="mx-auto flex w-full max-w-5xl flex-col gap-5">
+    <p class="text-sm font-medium uppercase tracking-[0.22em] text-captions">Component Demo</p>
+    <h1 class="text-4xl font-bold text-headings md:text-5xl">Scroll Area</h1>
+    <p class="max-w-3xl text-base leading-7 text-content">{metadata.description}</p>
+  </section>
+
+  <section class="mx-auto mt-10 grid w-full max-w-5xl grid-cols-1 gap-8 xl:grid-cols-2">
+    <article class="space-y-4">
+      <div class="space-y-2">
+        <h2 class="text-2xl font-semibold text-headings">Vertical</h2>
+        <p class="text-sm leading-7 text-content">
+          Long content should keep a visible scrollbar, stable thumb contrast, and smooth wheel
+          scrolling.
+        </p>
+      </div>
+
+      <ScrollArea
+        client:load
+        type="always"
+        data-testid="scrollarea-vertical"
+        className="h-80 w-full shadow-[4px_4px_0_0_var(--color-outline)]"
+        viewportClassName="h-full"
+      >
+        <div class="space-y-3 p-4">
+          {
+            verticalItems.map((item) => (
+              <article class="rounded-sm border border-outline/60 bg-surface-container p-4">
+                <p class="text-sm font-medium uppercase tracking-[0.16em] text-captions">
+                  Section {item}
+                </p>
+                <p class="mt-2 text-sm leading-7 text-content">
+                  Scroll item {item} keeps enough height to verify vertical overflow, thumb
+                  visibility, and theme-driven colors.
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </ScrollArea>
+    </article>
+
+    <article class="space-y-4">
+      <div class="space-y-2">
+        <h2 class="text-2xl font-semibold text-headings">Horizontal</h2>
+        <p class="text-sm leading-7 text-content">
+          Wide content should expose a horizontal thumb without collapsing card spacing or hiding
+          the track.
+        </p>
+      </div>
+
+      <ScrollArea
+        client:load
+        type="always"
+        data-testid="scrollarea-horizontal"
+        className="w-full shadow-[4px_4px_0_0_var(--color-outline)]"
+        viewportClassName="w-full"
+      >
+        <div class="flex w-max gap-4 p-4">
+          {
+            horizontalItems.map((item) => (
+              <article class="w-72 shrink-0 rounded-sm border border-outline/60 bg-surface-container p-5">
+                <p class="text-sm font-medium uppercase tracking-[0.16em] text-captions">
+                  Card {item}
+                </p>
+                <p class="mt-3 text-sm leading-7 text-content">
+                  This card is intentionally wide so the viewport overflows horizontally and keeps
+                  the scrollbar active.
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </ScrollArea>
+    </article>
+  </section>
+</Centered>

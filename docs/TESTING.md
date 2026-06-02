@@ -40,6 +40,9 @@
 - `tests/smoke/profile-pages.test.ts`
   - `About` 页面在 `en` / `zh` 构建产物里都包含真实介绍文案，而不是只有标题
   - `Experience` 页面会输出真实项目时间线与本地化摘要
+- `tests/smoke/scrollarea-contract.test.ts`
+  - `ScrollArea` 组件继续使用语义化主题 token，而不是退回硬编码黑白滚动条样式
+  - `/[lang]/scroll-area/` demo 会同时保留垂直与水平溢出的验证场景
 - `tests/smoke/locale-contract.test.ts`
   - `/en/` 和 `/zh/` 首页都会在静态 HTML 中输出对应 locale 的 header 文案
   - 根路径重定向页会先读取 `user-preferred-lang`，默认 locale 只保留为 `noscript` fallback
@@ -59,6 +62,9 @@
 - `tests/e2e/blog-explore.spec.ts`
   - Explore 页面会跳转到真实 tag archive
   - 文章详情页的 category 和 tag 链接会落到对应过滤视图
+- `tests/e2e/scroll-area.spec.ts`
+  - `/en/scroll-area/` 会渲染可见的垂直和水平滚动 thumb
+  - 浏览器测试会直接驱动 viewport 滚动，确认两个方向都存在真实 overflow
 
 ## Notes
 

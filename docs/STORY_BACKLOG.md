@@ -274,6 +274,14 @@
 
 ### P2-02 修复自定义 ScrollArea 滚动条
 
+- 状态：已完成（2026-06-02）
+- 完成说明：收敛为单一的 Radix `ScrollArea` 实现，去掉未使用的重复包装组件；滚动条样式改为语义化主题 token，同时补了一个公开 demo 页验证垂直和水平滚动行为。
+- 完成证据：
+  - `src/components/react/radix-ui/ScrollArea.tsx`
+  - `src/pages/[lang]/scroll-area.astro`
+  - `tests/smoke/scrollarea-contract.test.ts`
+  - `tests/e2e/scroll-area.spec.ts`
+  - 本地验证：`npm run lint`、`npm run check-types`、`npm run test:smoke`、`npm run test:e2e` 成功
 - 类型：Bug
 - 用户故事：作为用户，我希望自定义滚动区域的滚动条样式和交互稳定可用。
 - 当前问题：组件内直接标记了 `TODO: FIX SCROLL BAR`。
