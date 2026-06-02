@@ -3,6 +3,7 @@
 基于 2026-06-01 的仓库审查结果整理。
 
 说明：
+
 - 本文档只基于当前仓库代码、现有页面、脚本配置和本地命令验证结果。
 - `P0` 表示发布阻塞或主流程不可用。
 - `P1` 表示重要的用户可见缺口或高价值工程问题。
@@ -11,6 +12,7 @@
 ## P0
 
 ### P0-01 恢复生产构建可用性
+
 - 状态：已完成（2026-06-01）
 - 完成说明：生产构建现在在缺少 `.env.production` 时仍会回退到内建 canonical 站点配置，仓库默认状态可直接构建。
 - 完成证据：
@@ -32,6 +34,7 @@
   - 本地验证：`npm run build` 失败，错误为 `SITE_URL: Required`
 
 ### P0-02 修复静态部署输出目录错配
+
 - 状态：已完成（2026-06-01）
 - 完成说明：部署脚本已经对齐 Astro 静态产物目录，发布目标从错误的 `build/` 切回 `dist/`。
 - 完成证据：
@@ -53,6 +56,7 @@
 ## P1
 
 ### P1-01 让站内搜索真正可用
+
 - 状态：已完成（2026-06-02）
 - 完成说明：导航栏搜索已接入真实文章、项目和站点页面数据，用户可以直接筛选并跳转到对应内容；桌面端与移动端继续共用同一套 `SearchBox` 数据源和交互。
 - 完成证据：
@@ -72,6 +76,7 @@
   - `src/components/react/ui/SearchBox.tsx:40-114`
 
 ### P1-02 实现 Blog Explore / Tags / Categories 页面
+
 - 状态：已完成（2026-06-02）
 - 完成说明：博客浏览体系已补齐 `Explore`、`Tags`、`Categories` 及对应的 tag/category 归档页；博客列表、文章详情和 taxonomy 页面之间已有真实导航闭环。
 - 完成证据：
@@ -98,6 +103,7 @@
   - `src/pages/` 当前仅有 blog 列表页与详情页，没有上述页面
 
 ### P1-03 补齐 Open Graph 与 Feed 能力，或移除失效引用
+
 - 状态：已完成（2026-06-02）
 - 完成说明：页面 metadata 已切换到真实存在的静态 Open Graph 资源，并补齐 `feed.json` / `feed.xml` 构建产物与 feed discoverability 链接。
 - 完成证据：
@@ -124,6 +130,7 @@
   - `src/pages/` 下没有 `api` 路由
 
 ### P1-04 修复语言切换闪烁与 SSG 兼容问题
+
 - 状态：已完成（2026-06-02）
 - 完成说明：根路径重定向改为先解析首选语言再跳转，默认语言只保留为 `noscript` fallback；header 的客户端组件不再直接依赖 Paraglide runtime，locale 前缀页的静态 HTML 与 hydration 文案已对齐。
 - 完成证据：
@@ -148,6 +155,7 @@
   - `src/utils/routing/navigation.ts:18-29`
 
 ### P1-05 恢复 lint 工具链可执行状态
+
 - 状态：已完成（2026-06-02）
 - 完成说明：仓库已补齐 `ESLint` flat config，并覆盖 `Astro`、`TS/TSX`、`MDX` 源文件；生成目录 `src/paraglide` 被排除在人工 lint 基线之外。
 - 完成证据：
@@ -167,6 +175,16 @@
   - 本地验证：`npm run lint` 失败，错误为 `eslint: command not found`
 
 ### P1-06 补齐 About / Experience 页面真实内容
+
+- 状态：已完成（2026-06-02）
+- 完成说明：`About` 页面已补齐真实的开发者画像、工作方式、站点定位和可访问入口；`Experience` 页面已改为基于真实项目与最近文章生成的公开时间线，不再依赖空白列表占位。
+- 完成证据：
+  - `src/modules/profile/content.ts`
+  - `src/pages/[lang]/about.astro`
+  - `src/pages/[lang]/experience.astro`
+  - `tests/smoke/profile-pages.test.ts`
+  - `tests/e2e/about-experience.spec.ts`
+  - 本地验证：`npm run lint`、`npm run check-types`、`npm run test:smoke`、`npm run test:e2e` 成功
 - 类型：Feature
 - 用户故事：作为访客，我希望 About 和 Experience 页面展示真实内容，而不是空白或占位页。
 - 当前问题：About 页面目前仅渲染标题；Experience 页面只渲染空 `List` 布局，没有内容源或卡片数据。
@@ -180,6 +198,7 @@
   - `src/content/config.ts:40-62`
 
 ### P1-07 建立统一测试 SDK 与命令入口
+
 - 状态：已完成（2026-06-01）
 - 完成说明：仓库已统一到 `Vitest + Playwright`，并补齐 `test`、`test:smoke`、`test:e2e` 入口、配置和测试目录约定。
 - 完成证据：
@@ -201,6 +220,7 @@
   - 当前依赖列表中没有现成的系统化测试运行器配置
 
 ### P1-08 为 P0 构建与部署契约补齐 smoke test / spec
+
 - 状态：已完成（2026-06-01）
 - 完成说明：`P0` 的环境变量回退、部署目录和 sitemap 域名契约已经写入 smoke spec，并纳入统一测试入口。
 - 完成证据：
@@ -228,6 +248,7 @@
 ## P2
 
 ### P2-01 优化字体加载中的 fallback 抖动
+
 - 类型：UX Bug
 - 用户故事：作为访客，我希望首次加载和路由切换时字体过渡稳定，不出现明显的多次 fallback 跳变。
 - 当前问题：README 记录字体会在首次加载和路由切换时切换 fallback 三次，当前头部仍在并行组合本地字体、Google Fonts 和工具类层。
@@ -242,6 +263,7 @@
   - `src/components/fonts/GoogleFontsLoader.astro:9-18`
 
 ### P2-02 修复自定义 ScrollArea 滚动条
+
 - 类型：Bug
 - 用户故事：作为用户，我希望自定义滚动区域的滚动条样式和交互稳定可用。
 - 当前问题：组件内直接标记了 `TODO: FIX SCROLL BAR`。
@@ -253,6 +275,7 @@
   - `src/components/react/radix-ui/ScrollArea.tsx:8`
 
 ### P2-03 排查 GSAP / View Transition 的内存泄漏问题
+
 - 类型：Tech Debt / Bug
 - 用户故事：作为维护者，我希望页面转场与动画能力可以安全启用，而不是因为内存泄漏长期被关闭。
 - 当前问题：`ClientRouter` 被明确注释为会导致 GSAP 相关内存泄漏，基础布局里也保留了 `LITTLE MEMORY LEAK` 注释。
@@ -266,6 +289,7 @@
   - `src/utils/animation/cleanup.ts`
 
 ### P2-04 清理未完成的内容平台与 CMS 技术债
+
 - 类型：Tech Debt
 - 用户故事：作为维护者，我希望仓库里未完成的内容平台方向是清晰的，这样后续不会在多个半成品方案之间来回切换。
 - 当前问题：仓库同时存在未完成的 CMS 方向、空的 open-graph 页面文件、以及内容加载层的待迁移注释。
@@ -280,6 +304,7 @@
   - `src/content/config.ts:10`
 
 ### P2-05 将测试接入 CI / 发布前门禁
+
 - 类型：Engineering Feature
 - 用户故事：作为维护者，我希望统一测试命令能接入 CI 或发布前门禁，这样回归不会只在本地被发现。
 - 当前问题：即使后续补了测试 SDK，如果没有门禁，测试仍可能长期不执行。

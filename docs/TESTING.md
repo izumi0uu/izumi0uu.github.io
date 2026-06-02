@@ -34,6 +34,9 @@
   - 默认 Open Graph 图来自真实静态资源
   - `feed.json` / `feed.xml` 产物存在
   - 页面 metadata 不再指向缺失的 `/api/open-graph/*`
+- `tests/smoke/profile-pages.test.ts`
+  - `About` 页面在 `en` / `zh` 构建产物里都包含真实介绍文案，而不是只有标题
+  - `Experience` 页面会输出真实项目时间线与本地化摘要
 - `tests/smoke/locale-contract.test.ts`
   - `/en/` 和 `/zh/` 首页都会在静态 HTML 中输出对应 locale 的 header 文案
   - 根路径重定向页会先读取 `user-preferred-lang`，默认 locale 只保留为 `noscript` fallback
@@ -47,6 +50,9 @@
 - `tests/e2e/search.spec.ts`
   - 搜索弹层会筛出真实文章结果
   - 选择搜索结果后会跳转到对应的博客详情页
+- `tests/e2e/about-experience.spec.ts`
+  - About 页会展示真实的 profile metrics，并能跳转到 Experience
+  - Experience 页会链接到真实项目详情，而不是空壳时间线
 - `tests/e2e/blog-explore.spec.ts`
   - Explore 页面会跳转到真实 tag archive
   - 文章详情页的 category 和 tag 链接会落到对应过滤视图

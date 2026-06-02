@@ -22,7 +22,7 @@
     },
     "about": {
       "title": "About Me",
-      "description": "Learn more about me and this website.",
+      "description": "Developer profile, working style, and what this site is for.",
       "heading": "About"
     },
     "lists": {
@@ -50,6 +50,7 @@
       },
       "experience": {
         "title": "Experience",
+        "description": "A project-based timeline of public work, writing, and technical focus.",
         "experience_title": "Experience"
       },
       "links": {

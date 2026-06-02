@@ -72,6 +72,7 @@ const PAGE_METADATA = {
   },
   "lists/experience": {
     getTitle: () => m["pages.lists.experience.title"](),
+    getDescription: () => m["pages.lists.experience.description"](),
   },
   "lists/links": {
     getTitle: () => m["pages.lists.links.title"](),

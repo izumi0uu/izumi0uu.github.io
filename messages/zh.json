@@ -22,7 +22,7 @@
     },
     "about": {
       "title": "关于我",
-      "description": "了解更多关于我的故事。",
+      "description": "开发者画像、工作方式，以及这个站点为什么存在。",
       "heading": "关于我"
     },
     "lists": {
@@ -50,6 +50,7 @@
       },
       "experience": {
         "title": "经历",
+        "description": "项目、文章与技术重心组成的公开时间线。",
         "experience_title": "经历"
       },
       "links": {
