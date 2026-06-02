@@ -20,7 +20,7 @@
     "sync": "astro sync",
     "lint": "eslint \"src/**/*.{js,ts,tsx,astro,mdx}\" --ignore-pattern \"src/paraglide/**\"",
     "format": "prettier --write .",
-    "check-types": "tsc --noEmit --pretty"
+    "check-types": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide && astro sync && tsc --noEmit --pretty"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.5",
