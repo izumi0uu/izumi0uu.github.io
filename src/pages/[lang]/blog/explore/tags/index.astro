@@ -1,0 +1,57 @@
+---
+import List from "@/layouts/List.astro";
+import BlogSectionNav from "@/components/app/blog/BlogSectionNav.astro";
+import FilterLinkList from "@/components/app/blog/FilterLinkList.astro";
+import { SUPPORTED_LOCALES } from "@/config/i18n";
+import { getPageMetadata } from "@/utils/content/metadata";
+import { getAllPostsWithReadingTime } from "@/modules/post/common";
+import { getTagLinks } from "@/modules/post/tag";
+import { getBlogTagIndexPath } from "@/modules/post/routes";
+import * as m from "@/paraglide/messages";
+
+import type { LocaleAlternate, LocaleSwitchTarget } from "@/types/common";
+import type { LocaleValues } from "@/types/config";
+import type { FilterLink } from "@/types/post";
+
+export async function getStaticPaths() {
+  const allPosts = await getAllPostsWithReadingTime();
+
+  return SUPPORTED_LOCALES.map((lang) => {
+    const localizedPosts = allPosts.filter((post) => post.locale === lang);
+    const targetLocale = SUPPORTED_LOCALES.find((locale) => locale !== lang) ?? lang;
+    const alternates = SUPPORTED_LOCALES.map((locale) => ({
+      locale,
+      href: getBlogTagIndexPath(locale),
+    }));
+
+    return {
+      params: { lang },
+      props: {
+        tagLinks: getTagLinks(lang, localizedPosts),
+        alternates,
+        localeSwitch: {
+          currentLocale: lang,
+          targetLocale,
+          href: getBlogTagIndexPath(targetLocale),
+          missingTranslation: false,
+        },
+      },
+    };
+  });
+}
+
+const { tagLinks, alternates, localeSwitch } = Astro.props as {
+  tagLinks: FilterLink[];
+  alternates: LocaleAlternate[];
+  localeSwitch: LocaleSwitchTarget;
+};
+
+const currentLocale = Astro.params.lang as LocaleValues;
+const metadata = getPageMetadata("lists/blog/tags");
+const currentPath = getBlogTagIndexPath(currentLocale);
+---
+
+<List {metadata} {alternates} {localeSwitch} {currentLocale} currentPath={currentPath}>
+  <BlogSectionNav currentLocale={currentLocale} activeKey="tags" />
+  <FilterLinkList links={tagLinks} emptyText={m["components.lists.empty_posts"]()} />
+</List>

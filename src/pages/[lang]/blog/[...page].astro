@@ -1,6 +1,7 @@
 ---
 import { getAllPostsWithReadingTime } from "@/modules/post/common";
 import List from "@/layouts/List.astro";
+import BlogSectionNav from "@/components/app/blog/BlogSectionNav.astro";
 import PostList from "@/components/app/blog/PostList.astro";
 import { CONFIG_CLIENT } from "@/config/client";
 import { ROUTES } from "@/constants/routes";
@@ -120,5 +121,6 @@ const currentPath = getBlogPagePath(currentLocale, paginationProps?.currentPage 
 ---
 
 <List {metadata} {paginationProps} {alternates} {localeSwitch} {currentLocale} currentPath={currentPath}>
+  <BlogSectionNav currentLocale={currentLocale} activeKey="blog" />
   <PostList posts={posts} />
 </List>

@@ -1,0 +1,87 @@
+---
+import List from "@/layouts/List.astro";
+import BlogSectionNav from "@/components/app/blog/BlogSectionNav.astro";
+import FilterLinkList from "@/components/app/blog/FilterLinkList.astro";
+import PostList from "@/components/app/blog/PostList.astro";
+import { SUPPORTED_LOCALES } from "@/config/i18n";
+import { getPageMetadata } from "@/utils/content/metadata";
+import { getAllPostsWithReadingTime } from "@/modules/post/common";
+import { getCategoryLinks } from "@/modules/post/category";
+import { getTagLinks } from "@/modules/post/tag";
+import { getBlogExplorePath } from "@/modules/post/routes";
+import * as m from "@/paraglide/messages";
+
+import type { LocaleAlternate, LocaleSwitchTarget } from "@/types/common";
+import type { LocaleValues } from "@/types/config";
+import type { FilterLink, Post } from "@/types/post";
+
+export async function getStaticPaths() {
+  const allPosts = await getAllPostsWithReadingTime();
+
+  return SUPPORTED_LOCALES.map((lang) => {
+    const localizedPosts = allPosts.filter((post) => post.locale === lang);
+    const targetLocale = SUPPORTED_LOCALES.find((locale) => locale !== lang) ?? lang;
+    const alternates = SUPPORTED_LOCALES.map((locale) => ({
+      locale,
+      href: getBlogExplorePath(locale),
+    }));
+
+    return {
+      params: { lang },
+      props: {
+        posts: localizedPosts,
+        tagLinks: getTagLinks(lang, localizedPosts),
+        categoryLinks: getCategoryLinks(lang, localizedPosts),
+        alternates,
+        localeSwitch: {
+          currentLocale: lang,
+          targetLocale,
+          href: getBlogExplorePath(targetLocale),
+          missingTranslation: false,
+        },
+      },
+    };
+  });
+}
+
+const {
+  posts,
+  tagLinks,
+  categoryLinks,
+  alternates,
+  localeSwitch,
+} = Astro.props as {
+  posts: Post[];
+  tagLinks: FilterLink[];
+  categoryLinks: FilterLink[];
+  alternates: LocaleAlternate[];
+  localeSwitch: LocaleSwitchTarget;
+};
+
+const currentLocale = Astro.params.lang as LocaleValues;
+const metadata = getPageMetadata("lists/blog/explore");
+const currentPath = getBlogExplorePath(currentLocale);
+const previewPosts = posts.slice(0, 3);
+const emptyText = m["components.lists.empty_posts"]();
+---
+
+<List {metadata} {alternates} {localeSwitch} {currentLocale} currentPath={currentPath}>
+  <BlogSectionNav currentLocale={currentLocale} activeKey="explore" />
+
+  <div class="grid gap-8 lg:grid-cols-2">
+    <section class="box-default p-5">
+      <h2 class="mb-4 text-xl font-semibold">{m["pages.lists.blog.tags.title"]()}</h2>
+      <FilterLinkList links={tagLinks} emptyText={emptyText} />
+    </section>
+
+    <section class="box-default p-5">
+      <h2 class="mb-4 text-xl font-semibold">{m["pages.lists.blog.categories.title"]()}</h2>
+      <FilterLinkList links={categoryLinks} emptyText={emptyText} />
+    </section>
+  </div>
+
+  <section class="mt-10">
+    <h2 class="mb-5 text-xl font-semibold">{m["components.navigation_menu.blog_link"]()}</h2>
+    <PostList posts={previewPosts} />
+  </section>
+</List>

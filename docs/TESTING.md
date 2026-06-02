@@ -47,7 +47,11 @@
 - `tests/e2e/search.spec.ts`
   - 搜索弹层会筛出真实文章结果
   - 选择搜索结果后会跳转到对应的博客详情页
+- `tests/e2e/blog-explore.spec.ts`
+  - Explore 页面会跳转到真实 tag archive
+  - 文章详情页的 category 和 tag 链接会落到对应过滤视图
 
 ## Notes
 
 - `test` 和 `test:e2e` 会先执行 `playwright install chromium`，首次运行会有浏览器下载时间，后续通常会复用本地缓存。
+- `Playwright` 当前默认使用单 worker 串行执行，避免 `astro preview` 在本地并发测试下出现不稳定超时。

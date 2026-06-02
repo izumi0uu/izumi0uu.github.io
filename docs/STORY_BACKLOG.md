@@ -72,6 +72,17 @@
   - `src/components/react/ui/SearchBox.tsx:40-114`
 
 ### P1-02 实现 Blog Explore / Tags / Categories 页面
+- 状态：已完成（2026-06-02）
+- 完成说明：博客浏览体系已补齐 `Explore`、`Tags`、`Categories` 及对应的 tag/category 归档页；博客列表、文章详情和 taxonomy 页面之间已有真实导航闭环。
+- 完成证据：
+  - `src/pages/[lang]/blog/explore/index.astro`
+  - `src/pages/[lang]/blog/explore/tags/index.astro`
+  - `src/pages/[lang]/blog/explore/categories/index.astro`
+  - `src/pages/[lang]/blog/explore/tags/[tag]/[...page].astro`
+  - `src/pages/[lang]/blog/explore/categories/[category]/[...page].astro`
+  - `src/components/app/blog/BlogSectionNav.astro`
+  - `tests/e2e/blog-explore.spec.ts`
+  - 本地验证：`npm run lint`、`npm run check-types`、`npm run test:smoke`、`npm run test:e2e` 成功
 - 类型：Feature
 - 用户故事：作为读者，我希望可以按标签、分类或 Explore 页面浏览内容，这样我能更快找到感兴趣的文章。
 - 当前问题：路由常量、metadata 和筛选类型已经准备好，但实际页面路由并不存在。
