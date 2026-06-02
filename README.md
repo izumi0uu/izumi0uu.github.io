@@ -32,12 +32,9 @@ Consider Colocating Related Files: For very tightly coupled features, consider k
 
 ## i18n
 
-TODO(FIX):
-1.paraglideMiddleware 暂时不支持Astro的SSG模式2.不是默认语言的页面在路由跳转会发生默认语言到指定语言的闪烁切换
-
-use ParaglideJS's runtime functions's copy in the client-side script.
-
-partially use the custom functions to handle the session storage and other things.
+- `/` 现在会先读取本地首选语言，再一次性跳转到对应 locale；`/en/` 仅作为 `noscript` fallback，不再抢跑造成默认语言闪烁。
+- Header 里的搜索和主题切换文案由 `.astro` 服务端传入，locale 前缀页面的静态 HTML 与 hydration 文案保持一致。
+- 缺失翻译时，语言切换仍会回退到目标语言首页，并通过 session notice 提示用户当前内容尚未翻译。
 
 ## font management
 

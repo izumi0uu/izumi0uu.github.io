@@ -34,9 +34,16 @@
   - 默认 Open Graph 图来自真实静态资源
   - `feed.json` / `feed.xml` 产物存在
   - 页面 metadata 不再指向缺失的 `/api/open-graph/*`
+- `tests/smoke/locale-contract.test.ts`
+  - `/en/` 和 `/zh/` 首页都会在静态 HTML 中输出对应 locale 的 header 文案
+  - 根路径重定向页会先读取 `user-preferred-lang`，默认 locale 只保留为 `noscript` fallback
+  - 缺失翻译时的 locale fallback 目标保持可预测
 - `tests/e2e/home.spec.ts`
   - `/` 会重定向到 `/en/`
   - `/en/` 会渲染 hero 区块和博客主入口
+- `tests/e2e/locale-routing.spec.ts`
+  - 根路径会尊重本地保存的首选语言并直接落到 `/zh/`
+  - About 页面语言切换会命中对应的 locale 前缀静态路由
 
 ## Notes
 

@@ -106,6 +106,16 @@
   - `src/pages/` 下没有 `api` 路由
 
 ### P1-04 修复语言切换闪烁与 SSG 兼容问题
+- 状态：已完成（2026-06-02）
+- 完成说明：根路径重定向改为先解析首选语言再跳转，默认语言只保留为 `noscript` fallback；header 的客户端组件不再直接依赖 Paraglide runtime，locale 前缀页的静态 HTML 与 hydration 文案已对齐。
+- 完成证据：
+  - `src/pages/index.astro`
+  - `src/components/Header.astro`
+  - `src/components/react/ui/SearchBox.tsx`
+  - `src/components/react/ui/ThemePopoverList.tsx`
+  - `tests/smoke/locale-contract.test.ts`
+  - `tests/e2e/locale-routing.spec.ts`
+  - 本地验证：`npm run lint`、`npm run check-types`、`npm run test:smoke`、`npm run test:e2e` 成功
 - 类型：Bug
 - 用户故事：作为双语用户，我希望语言切换稳定、无闪烁，并且与静态站点模式兼容。
 - 当前问题：README 已明确记录两个已知问题：Paraglide middleware 与 Astro SSG 的兼容性不足，以及从默认语言切到目标语言时发生闪烁。

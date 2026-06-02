@@ -42,6 +42,55 @@ const navLinks = [
     text: m["components.navigation_menu.about_link"](),
   },
 ];
+
+const searchBox = {
+  placeholder: m["components.search_box.placeholder"](),
+  tipsPlaceholder: m["components.search_box.tips_placeholder"](),
+  noResults: m["components.search_box.no_results"](),
+  sections: [
+    {
+      heading: m["components.search_box.tech_options.title"](),
+      icon: "tech",
+      items: [
+        { value: "nextjs", label: m["components.search_box.tech_options.nextjs"]() },
+        { value: "react", label: m["components.search_box.tech_options.react"]() },
+        { value: "astro", label: m["components.search_box.tech_options.astro"]() },
+        { value: "web3", label: m["components.search_box.tech_options.web3"]() },
+        { value: "typescript", label: m["components.search_box.tech_options.typescript"]() },
+        { value: "javascript", label: m["components.search_box.tech_options.javascript"]() },
+      ],
+    },
+    {
+      heading: m["components.search_box.experience_options.title"](),
+      icon: "experience",
+      items: [
+        { value: "hackathon", label: m["components.search_box.experience_options.hackathon"]() },
+        {
+          value: "open_source",
+          label: m["components.search_box.experience_options.open_source"](),
+        },
+        {
+          value: "telegram_bot",
+          label: m["components.search_box.experience_options.telegram_bot"](),
+        },
+      ],
+    },
+    {
+      heading: m["components.search_box.project_options.title"](),
+      icon: "project",
+      items: [{ value: "decode", label: m["components.search_box.project_options.Decode"]() }],
+    },
+  ],
+} as const;
+
+const themeSwitcher = {
+  label: m["components.theme_switcher.label"](),
+  cancelLabel: m["components.theme_switcher.cancel"](),
+  themeLabels: {
+    default: m["components.theme_switcher.themes.default"](),
+    wine: m["components.theme_switcher.themes.wine"](),
+  },
+} as const;
 ---
 
 <!-- TODO: FIX SCROLL TO TOP -->
@@ -57,6 +106,8 @@ const navLinks = [
     navLinks={navLinks}
     themeLabel={m["components.navigation_menu.theme_label"]()}
     languageLabel={m["components.navigation_menu.language_label"]()}
+    {searchBox}
+    {themeSwitcher}
     localeSwitch={localeSwitch && {
       ...localeSwitch,
       targetLabel: LOCALE_LABELS[localeSwitch.targetLocale],

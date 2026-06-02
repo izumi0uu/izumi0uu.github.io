@@ -16,6 +16,8 @@ import { ThemePopoverList } from "@/components/react/ui/ThemePopoverList";
 import { I18nToggleButton } from "@/components/react/ui/I18nToggleButton";
 
 import type { LocaleSwitchTarget } from "@/types/common";
+import type { SearchBoxProps } from "@/components/react/ui/SearchBox";
+import type { ThemePopoverListProps } from "@/components/react/ui/ThemePopoverList";
 
 type NavigationKey = "home" | "blog" | "project" | "experience" | "about";
 
@@ -41,6 +43,8 @@ interface NavigationBarProps {
   navLinks: NavigationLinkItem[];
   themeLabel: string;
   languageLabel: string;
+  searchBox: SearchBoxProps;
+  themeSwitcher: Omit<ThemePopoverListProps, "className">;
   localeSwitch?: LocaleSwitchProps;
 }
 
@@ -60,6 +64,8 @@ const NavigationBar = React.memo(
     navLinks,
     themeLabel,
     languageLabel,
+    searchBox,
+    themeSwitcher,
     localeSwitch,
   }: NavigationBarProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -107,10 +113,10 @@ const NavigationBar = React.memo(
           <div className="flex flex-1 items-center justify-end">
             {/* desktop function area */}
             <div className="hidden items-center gap-4 md:flex">
-              <SearchBox />
+              <SearchBox {...searchBox} />
               <div className="flex items-center gap-2">
                 <ModeToggleButton />
-                <ThemePopoverList />
+                <ThemePopoverList {...themeSwitcher} />
                 {localeSwitch && <I18nToggleButton className="mt-1 ml-2" {...localeSwitch} />}
               </div>
             </div>
@@ -129,7 +135,7 @@ const NavigationBar = React.memo(
         <MobileNavMenu isOpen={isMenuOpen}>
           {/* mobile search box */}
           <div className="border-b border-outline/10 px-4 py-4">
-            <SearchBox />
+            <SearchBox {...searchBox} />
           </div>
 
           {/* navigation links */}
@@ -144,7 +150,7 @@ const NavigationBar = React.memo(
                 </span>
                 <div className="flex items-center gap-2">
                   <ModeToggleButton />
-                  <ThemePopoverList />
+                  <ThemePopoverList {...themeSwitcher} />
                 </div>
               </div>
               <div className="flex flex-col items-center gap-2">
