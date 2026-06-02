@@ -113,6 +113,8 @@ const ogImageUrl = new URL(image, SITE_URL_CANONICAL);
 
   {/* Sitemap */}
   <link rel="sitemap" type="application/xml" title="Sitemap" href={`${ROUTES.STATIC.SITEMAP}`} />
+  <link rel="alternate" type="application/feed+json" title="JSON Feed" href={ROUTES.API.FEED_JSON} />
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed" href={ROUTES.API.FEED_RSS} />
 
   {/* Open Graph / Facebook */}
   <meta property="og:type" content="website" />

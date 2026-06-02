@@ -30,6 +30,10 @@
   - `SITE_URL` 在无环境文件时回退到 `https://izumi0uu.com`
   - `deploy` 脚本发布 `dist`
   - sitemap 和首页产物保持关键契约
+- `tests/smoke/seo-contract.test.ts`
+  - 默认 Open Graph 图来自真实静态资源
+  - `feed.json` / `feed.xml` 产物存在
+  - 页面 metadata 不再指向缺失的 `/api/open-graph/*`
 - `tests/e2e/home.spec.ts`
   - `/` 会重定向到 `/en/`
   - `/en/` 会渲染 hero 区块和博客主入口

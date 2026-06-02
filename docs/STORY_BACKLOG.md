@@ -80,6 +80,16 @@
   - `src/pages/` 当前仅有 blog 列表页与详情页，没有上述页面
 
 ### P1-03 补齐 Open Graph 与 Feed 能力，或移除失效引用
+- 状态：已完成（2026-06-02）
+- 完成说明：页面 metadata 已切换到真实存在的静态 Open Graph 资源，并补齐 `feed.json` / `feed.xml` 构建产物与 feed discoverability 链接。
+- 完成证据：
+  - `src/components/BaseHead.astro`
+  - `src/pages/api/feed.json.ts`
+  - `src/pages/api/feed.xml.ts`
+  - `src/libs/api/open-graph/image-path.ts`
+  - `public/images/default/default-open-graph-image.webp`
+  - `tests/smoke/seo-contract.test.ts`
+  - 本地验证：`npm run lint`、`npm run check-types`、`npm run test:smoke` 成功
 - 类型：Bug / Feature
 - 用户故事：作为站点分享者或搜索引擎消费者，我希望页面引用的 Open Graph 图片和 Feed 地址真实存在，这样分享预览和订阅能力才是可用的。
 - 当前问题：常量中定义了 API 路径，页面元数据也在消费这些地址，但实际没有对应页面路由文件。

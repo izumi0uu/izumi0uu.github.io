@@ -15,12 +15,12 @@ const ROUTES = {
   _500: "/500/",
   STATIC: {
     IMAGES: "/images/",
+    DEFAULT_OG_IMAGE: "/images/default/default-open-graph-image.webp",
     FAVICONS: "/images/favicons/",
     /** generated at build-time only */
     SITEMAP: "/sitemap-index.xml",
   },
   API: {
-    OG_IMAGES: "/api/open-graph/",
     FEED_JSON: "/api/feed.json",
     FEED_RSS: "/api/feed.xml",
   },

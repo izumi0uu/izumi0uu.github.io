@@ -17,6 +17,11 @@
 - Run `npm run lint` to lint `Astro`, `TS/TSX`, and `MDX` source files from `src/`.
 - Generated output under `src/paraglide` is ignored so the lint baseline stays focused on maintained source code.
 
+## seo
+
+- Open Graph metadata now resolves to a real static fallback image at `/images/default/default-open-graph-image.webp`.
+- Feed endpoints are generated at `/api/feed.json` and `/api/feed.xml`.
+
 ## file organization - utils, constants, utils
 
 Maintain Domain-Based Organization: Continue organizing files by domain across all three directories.

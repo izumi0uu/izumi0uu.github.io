@@ -114,6 +114,7 @@ const getTransitionNameFromElementId = setTransitionSlug({ pageSlug: slug });
 const metadata: Metadata = {
   title,
   description,
+  image: !noHero && heroImage ? heroImage : undefined,
 };
 const currentPath = getPostPath(post.locale, slug);
 ---
